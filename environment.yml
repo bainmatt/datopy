@@ -1,0 +1,13 @@
+name: data-tools
+channels:
+  - apple
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip>=19.0
+  - requests
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
