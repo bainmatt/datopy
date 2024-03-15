@@ -1,6 +1,6 @@
 # data-tools
 
-Python tools for data retrieval, display, saving, and Jupyter notebook workflows.
+Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 
 *(Under Development)*
 
