@@ -31,7 +31,7 @@ Inside a notebook, run the following cell to import a module of interest (replac
 import urllib.request
 
 # 2. Set URL of module to import
-script_url = "https://github.com/mattlabcode/data-tools/main/<script>.py"
+script_url = "https://raw.githubusercontent.com/mattlabcode/data-tools/main/<script>.py"
 
 # 3. Download the script
 urllib.request.urlretrieve(script_url, "<script_name>.py")
