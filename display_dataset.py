@@ -22,14 +22,14 @@ class display(object):
     
     Parameters
     ----------
-        object : string containing array-like or dataframe variable
-        *args : list, default=None
-            Additional objects to display alongside `object`.
+    object : string containing array-like or dataframe variable
+    *args : list, default=None
+        Additional objects to display alongside `object`.
 
     Returns
     -------
-        result :
-            HTML respresentation.
+    result :
+        HTML respresentation.
         
     Examples
     --------
@@ -60,8 +60,9 @@ class display(object):
     3  A3  B3
     4  A4  B4
     
-    >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
-    >>> display("A", "x.T", "np.dot(A, x.T)")
+    >>> 
+        A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]]);
+        display("A", "x.T", "np.dot(A, x.T)")
     A
     --- (2, 2) ---
     array([[1, 3],
@@ -94,19 +95,21 @@ class display(object):
             for a in self.args
         )
 
+
+
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """Quickly make a DataFrame.
 
     Parameters
     ----------
-        cols : Iterable[Any]
-            Iterable where items are column names.
-        ind : Iterable[Any]
-            Iterable where items are row names.
+    cols : Iterable[Any]
+        Iterable where items are column names.
+    ind : Iterable[Any]
+        Iterable where items are row names.
 
     Returns
     -------
-        result : DataFrame of shape ( len(ind), len(cols) )
+    result : DataFrame of shape ( len(ind), len(cols) )
         
     Examples
     --------
