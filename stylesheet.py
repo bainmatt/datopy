@@ -6,24 +6,26 @@ import seaborn as sns
 def customize_matplotlib_rcParams():
     """Sets custom matplotlib rcParams to handle default styling for all matplotlib plotting functions and functions built upon matplotlib (e.g., Seaborn). Contrast with: https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
 
-    Args:
+    Parameters
+    ----------
         None
 
-    Returns:
+    Returns
+    -------
         None
         
-    Examples:
-    --------------
+    Examples
+    --------
     # Apply the customizations
-    customize_matplotlib_rcParams()
+    >>> customize_matplotlib_rcParams()
     
     # Create a plot
-    import matplotlib.pyplot as plt
-    plt.plot([1, 2, 3], [4, 5, 6])
-    plt.xlabel('x label')
-    plt.ylabel('y label')
-    plt.title('Title')
-    plt.show()
+    >>> import matplotlib.pyplot as plt
+    >>> plt.plot([1, 2, 3], [4, 5, 6])
+    >>> plt.xlabel('x label')
+    >>> plt.ylabel('y label')
+    >>> plt.title('Title')
+    >>> plt.show()
 
     """
 
