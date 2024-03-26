@@ -1,7 +1,16 @@
-"""
-Adapted from: 
-    VanderPlas, J. (2016). Python data science handbook: Essential tools for working with data. "O'Reilly Media, Inc.".
-Mofied to support NumPy arrays, in addition to Pandas data frames.
+"""    
+Tools for inspecting and visualizing matrix and dataframe operations.
+
+Notes
+-----
+-   Adapted from [1] to support NumPy arrays, in addition to Pandas data
+    frames.
+
+References
+----------
+... [1] VanderPlas, J. (2016). Python data science handbook: Essential tools
+        for working with data. "O'Reilly Media, Inc.".
+
 """
 
 import numpy as np
@@ -9,9 +18,7 @@ import pandas as pd
 from typing import Iterable, Any
 
 class display(object):  
-    """Display HTML representation of multiple objects."""
-    template = """<div style="float: left; padding: 10px;">
-    <p style='font-family:"Courier New", Courier, monospace'>{0}{1}
+    """Display HTML representation of multiple objects.
     
     Parameters
     ----------
@@ -29,17 +36,7 @@ class display(object):
     # Execute module in Google Colab
     >>> run -i {'display_dataset.py'}
     
-    >>> df = make_df("ABC", [1,2,3])
-    >>> display('df')
-    df
-    --- (3, 3) ---
-        A   B   C
-    1  A1  B1  C1
-    2  A2  B2  C2
-    3  A3  B3  C3
-    
-    >>> df1 = make_df('AB', [1, 2])
-    >>> df2 = make_df('AB', [3, 4])
+    >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
     >>> display('df1', 'df2', 'pd.concat([df1, df2])')
     df1
     --- (2, 2) ---
@@ -62,7 +59,30 @@ class display(object):
     2  A2  B2
     3  A3  B3
     4  A4  B4
+    
+    >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
+    >>> display("A", "x.T", "np.dot(A, x.T)")
+    A
+    --- (2, 2) ---
+    array([[1, 3],
+           [2, 4]])
+
+
+    x.T
+    --- (2, 1) ---
+    array([[0],
+           [1]])
+
+
+    np.dot(A, x.T)
+    --- (2, 1) ---
+    array([[3],
+           [4]])
+    
     """
+    
+    template = """<div style="float: left; padding: 10px;">
+    <p style='font-family:"Courier New", Courier, monospace'>{0}{1}"""
     
     def __init__(self, *args):
         self.args = args
@@ -74,7 +94,7 @@ class display(object):
             for a in self.args
         )
 
-def make_df(cols: Iterable[Any], ind: Iterable[Any]):
+def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """Quickly make a DataFrame.
 
     Parameters
@@ -86,7 +106,7 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]):
 
     Returns
     -------
-        result : DataFrame
+        result : DataFrame of shape ( len(ind), len(cols) )
         
     Examples
     --------
