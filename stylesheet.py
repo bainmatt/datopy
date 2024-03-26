@@ -22,9 +22,7 @@ def customize_matplotlib_rcParams():
     # Create a plot
     >>> import matplotlib.pyplot as plt
     >>> plt.plot([1, 2, 3], [4, 5, 6])
-    >>> plt.xlabel('x label')
-    >>> plt.ylabel('y label')
-    >>> plt.title('Title')
+    >>> plt.xlabel('x label'); plt.ylabel('y label'); plt.title('Title')
     >>> plt.show()
 
     """
