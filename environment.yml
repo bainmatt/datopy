@@ -12,3 +12,6 @@ dependencies:
   - seaborn
   - scikit-learn
   - bs4
+
+  - pip:
+    

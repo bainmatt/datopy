@@ -5,6 +5,12 @@ import requests
 from bs4 import BeautifulSoup
 from typing import List
 
+# -----------------
+# --- Wikipedia ---
+# -----------------
+### Get Wiki 
+# (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
+
 # ---------------
 # --- Spotify ---
 # ---------------
@@ -29,19 +35,15 @@ def get_imdb_id(movie_title: str) -> str:
         
     Examples
     --------
-    >>> 
-        movie_title = "the shawshank redemption"
-        tt_id = get_imdb_id(movie_title)
-        if tt_id: print(f"IMDb Identifier (ttID) for '{movie_title}': {tt_id}")
-        else: print(f"No IMDb Identifier found for '{movie_title}'.")
-    IMDb Identifier (ttID) for 'The_Shawshank_Redemption': 0111161
+    >>> movie_title = "the shawshank redemption"
+    >>> tt_id = get_imdb_id(movie_title)
+    >>> tt_id
+    'tt0111161'
 
-    >>> 
-        movie_title = "ths shukshank redumption"
-        tt_id = get_imdb_id(movie_title)
-        if tt_id: print(f"IMDb Identifier (ttID) for '{movie_title}': {tt_id}")
-        else: print(f"No IMDb Identifier found for '{movie_title}'.")
-    No IMDb Identifier found for 'The_Shuwshank_Redumption'.
+    >>> movie_title = "ths shukshank redumption"
+    >>> tt_id = get_imdb_id(movie_title)
+    >>> tt_id
+    "No IMDb Identifier found for 'ths shukshank redumption'"
     
     """
     
@@ -55,21 +57,21 @@ def get_imdb_id(movie_title: str) -> str:
     except requests.exceptions.HTTPError as err:
         print(f"HTTP error occurred: {err}")
         return None
-
+    
     soup = BeautifulSoup(search_response.content, 'html.parser')
     result_links = soup.find_all('a', href=True)
 
     for link in result_links:
+        # Return first link containing ttid
         if '/title/tt' in link['href']:
             imdb_id = link['href'].split('/title/')[1].split('/')[0]
             return imdb_id
 
-    return None
-
-
+    # If no links contain ttid
+    return f"No IMDb Identifier found for '{movie_title}'"
 
 def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
-    """ _summary_
+    r""" _summary_
 
     Parameters
     ----------
@@ -85,18 +87,15 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
         
     Examples
     --------
-    >>> 
-        movie_title = "finding nemo"
-        movie_id = get_imdb_id(movie_title)
-        movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
-        if movie_reviews:
-            for i, review in enumerate(movie_reviews, start=1):
-                print(f"Review {i}:\n{review[:150]} ...\n")
+    >>> movie_title = "finding nemo"
+    >>> movie_id = get_imdb_id(movie_title)
+    >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
+    >>> for i, review in enumerate(movie_reviews, start=1):
+    ...     print(f"Review {i}:\n{review[:100]} ...")
     Review 1:
-    I'll be totally honest and confirm to you that everything what they say about this movie is true. It's a brilliantly animated masterpiece with lots of ...
-
+    I'll be totally honest and confirm to you that everything what they say about this movie is true. It ...
     Review 2:
-    I have enjoyed most of the computer-animated films made so far, ranging from Pixar films like "Toy Story" and "The Incredibles" to DreamWorks films li ...
+    I have enjoyed most of the computer-animated films made so far, ranging from Pixar films like "Toy S ...
     
     """
     
@@ -119,13 +118,12 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
         print(f"Failed to retrieve reviews. Status code: {response.status_code}")
         return None
 
-# -----------------
-# --- Wikipedia ---
-# -----------------
-### Get Wiki
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
 # ---------------
-# --- TESTING ---
+# --- SCRATCH ---
 # ---------------
 class test():
     def __init__(self, x):

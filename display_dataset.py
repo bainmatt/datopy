@@ -34,10 +34,11 @@ class display(object):
     Examples
     --------
     # Execute module in Google Colab
-    >>> run -i {'display_dataset.py'}
+    # run -i {'display_dataset.py'}
     
-    >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
-    >>> display('df1', 'df2', 'pd.concat([df1, df2])')
+    >>> 
+        df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
+        display('df1', 'df2', 'pd.concat([df1, df2])')
     df1
     --- (2, 2) ---
         A   B
@@ -61,7 +62,7 @@ class display(object):
     4  A4  B4
     
     >>> 
-        A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]]);
+        A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
         display("A", "x.T", "np.dot(A, x.T)")
     A
     --- (2, 2) ---
@@ -81,9 +82,6 @@ class display(object):
            [4]])
     
     """
-    
-    template = """<div style="float: left; padding: 10px;">
-    <p style='font-family:"Courier New", Courier, monospace'>{0}{1}"""
     
     def __init__(self, *args):
         self.args = args
@@ -125,8 +123,11 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     A  1A  2A  3A
     B  1B  2B  3B
     C  1C  2C  3C
-    
     """
 
     data = {c: [str(c) + str(i) for i in ind] for c in cols}
     return pd.DataFrame(data, ind)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
