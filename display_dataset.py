@@ -86,7 +86,7 @@ class display(object):
     def __init__(self, *args):
         self.args = args
     
-    def __repr__(self):
+    def __repr__(self):    
         return '\n\n'.join('\n' + '\033[1m' + a + '\033[0m'
             + '\n' + '--- ' + repr(np.shape(eval(a))) + ' ---'
             + '\n' + repr(np.round(eval(a), 2))
