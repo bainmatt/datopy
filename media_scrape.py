@@ -2,8 +2,15 @@
 """
 
 import requests
-from bs4 import BeautifulSoup
+import textwrap
 from typing import List
+import pandas as pd
+
+# import wptools
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+from imdb import Cinemagoer
+from bs4 import BeautifulSoup
 
 # -----------------
 # --- Wikipedia ---
@@ -91,11 +98,13 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
     >>> movie_id = get_imdb_id(movie_title)
     >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
     >>> for i, review in enumerate(movie_reviews, start=1):
-    ...     print(f"Review {i}:\n{review[:100]} ...")
+    ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ... \n");
     Review 1:
-    I'll be totally honest and confirm to you that everything what they say about this movie is true. It ...
+    I'll be totally honest and confirm to you that eve ... 
+    <BLANKLINE>
     Review 2:
-    I have enjoyed most of the computer-animated films made so far, ranging from Pixar films like "Toy S ...
+    I have enjoyed most of the computer-animated films ... 
+    <BLANKLINE>
     
     """
     
@@ -118,6 +127,48 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
         print(f"Failed to retrieve reviews. Status code: {response.status_code}")
         return None
 
+
+# TODO
+def get_film_metadata(title):
+    # Create an IMDb object
+    ia = Cinemagoer()
+
+    # Search for the movie by title
+    movies = ia.search_movie(title)
+
+    if movies:
+        # Get the first movie (assumed to be the correct one)
+        movie = ia.get_movie(movies[0].movieID)
+
+        # Extract movie attributes
+        movie_data = {
+            "Title": movie['title'],
+            "Year": movie['year'],
+            "Genres": ', '.join(movie['genres']),
+            "Plot Outline": movie['plot outline'],
+            "Cast": ', '.join(actor['name'] for actor in movie['cast']),
+            "Directors": ', '.join(director['name'] for director in movie['directors']),
+            "Rating": movie['rating'],
+            "Votes": movie['votes'],
+            "Runtimes": ', '.join(str(runtime) for runtime in movie['runtimes']) + " minutes"
+        }
+
+        # Create a DataFrame
+        df = pd.DataFrame([movie_data])
+
+        # Print DataFrame
+        df
+
+        # Return DataFrame if needed
+        return df
+    else:
+        print("Movie not found.")
+        return None
+
+title = 'Promising Young Woman'
+movie_df = get_film_metadata(title)
+movie_df
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
@@ -132,3 +183,6 @@ class test():
         
     def method(self, y):
         return self.x + y
+
+from display_dataset import make_df
+df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
