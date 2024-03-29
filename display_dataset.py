@@ -87,8 +87,9 @@ class display(object):
     def __init__(self, *args):
         self.args = args
     
+    # TODO movie globs arg to constructor as class instance
     def r(self, globs: dict[str, Any] = globals(), bold: bool = 1):    
-        """Alias for __repr__().
+        """Shorthand for __repr__().
 
         Parameters
         ----------
@@ -147,4 +148,4 @@ if __name__ == "__main__":
     
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    doctest_function(display, globs=globals())
+    # doctest_function(display, globs=globals())

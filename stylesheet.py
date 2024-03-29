@@ -16,10 +16,10 @@ def customize_matplotlib_rcParams():
         
     Examples
     --------
-    # Apply the customizations
+    Apply the customizations:
     >>> customize_matplotlib_rcParams()
     
-    # Create a plot
+    Create a plot:
     >>> import matplotlib.pyplot as plt
     >>> plt.plot([1, 2, 3], [4, 5, 6])
     >>> plt.xlabel('x label'); plt.ylabel('y label'); plt.title('Title')

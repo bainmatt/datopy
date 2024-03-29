@@ -6,23 +6,23 @@ import textwrap
 from typing import List
 import pandas as pd
 
-# import wptools
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+import wptools
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
-# import pycurl
-# import wptools
-# page = 'Promising Young Woman'
-# wiki_info = wptools.page(page).get_parse().data['infobox']
-# wiki_info
+from display_dataset import display
 
 # -----------------
 # --- Wikipedia ---
 # -----------------
 ### Get Wiki 
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
+
+# page = 'Promising Young Woman'
+# wiki_info = wptools.page(page).get_parse().data['infobox']
+# wiki_info
 
 # ---------------
 # --- Spotify ---
@@ -111,7 +111,6 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
     Review 2:
     I have enjoyed most of the computer-animated films ... 
     <BLANKLINE>
-    
     """
     
     base_url = f"https://www.imdb.com/title/{movie_id}/reviews"
@@ -132,7 +131,6 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
     else:
         print(f"Failed to retrieve reviews. Status code: {response.status_code}")
         return None
-
 
 # TODO clean up field extraction and add error-handling; example output LIMIT
 def get_film_metadata(movie_title):
@@ -208,15 +206,15 @@ def get_film_metadata(movie_title):
         print(f"{movie_title} not found.")
         return None
 
-title = 'Finding nemo'
-movie_df = get_film_metadata(title)
-movie_df
+# XXX get_film_metadata test code
+# title = 'Finding nemo'
+# movie_df = get_film_metadata(title)
+# display("movie_df").r(globals())
 
-# TODO Note: Run <x> in zsh terminal with wd set to project dir
 if __name__ == "__main__":
     import doctest
     from nb_utils import doctest_function
         
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod()
-    doctest_function(get_film_metadata, globs=globals())
+    # doctest_function(get_film_metadata, globs=globals())
