@@ -16,6 +16,7 @@ References
 import numpy as np
 import pandas as pd
 from typing import Iterable, Any
+# from operator import itemgetter
 
 class display(object):  
     """Display HTML representation of multiple objects.
@@ -35,24 +36,24 @@ class display(object):
     --------
     # Execute module in Google Colab
     # run -i {'display_dataset.py'}
-    
-    >>> 
-        df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
-        display('df1', 'df2', 'pd.concat([df1, df2])')
+
+    >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
+    >>> display('df1', 'df2', 'pd.concat([df1, df2])').r(globals(), bold=0)
+    <BLANKLINE>
     df1
     --- (2, 2) ---
         A   B
     1  A1  B1
     2  A2  B2
-
-
+    <BLANKLINE>
+    <BLANKLINE>
     df2
     --- (2, 2) ---
         A   B
     3  A3  B3
     4  A4  B4
-
-
+    <BLANKLINE>
+    <BLANKLINE>
     pd.concat([df1, df2])
     --- (4, 2) ---
         A   B
@@ -61,21 +62,21 @@ class display(object):
     3  A3  B3
     4  A4  B4
     
-    >>> 
-        A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
-        display("A", "x.T", "np.dot(A, x.T)")
+    >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
+    >>> display("A", "x.T", "np.dot(A, x.T)").r(globals(), bold=0)
+    <BLANKLINE>
     A
     --- (2, 2) ---
     array([[1, 3],
            [2, 4]])
-
-
+    <BLANKLINE>
+    <BLANKLINE>
     x.T
     --- (2, 1) ---
     array([[0],
            [1]])
-
-
+    <BLANKLINE>
+    <BLANKLINE>
     np.dot(A, x.T)
     --- (2, 1) ---
     array([[3],
@@ -86,14 +87,26 @@ class display(object):
     def __init__(self, *args):
         self.args = args
     
-    def __repr__(self):    
-        return '\n\n'.join('\n' + '\033[1m' + a + '\033[0m'
-            + '\n' + '--- ' + repr(np.shape(eval(a))) + ' ---'
-            + '\n' + repr(np.round(eval(a), 2))
-            for a in self.args
+    def r(self, globs: dict[str, Any] = globals(), bold: bool = 1):    
+        """Alias for __repr__().
+
+        Parameters
+        ----------
+        globs : dict[str, Any], default = globals() 
+            _description_
+        bold : bool, default=1
+            _description_
+
+        Returns
+        -------
+        result : _type_
+        """
+        return print('\n\n'.join('\n'
+            + ('\033[1m' + a + '\033[0m' if bold else a)
+            + '\n' + '--- ' + repr(np.shape(eval(a, globs))) + ' ---'
+            + '\n' + repr(np.round(eval(a, globs), 2))
+            for a in self.args)
         )
-
-
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """Quickly make a DataFrame.
@@ -126,8 +139,12 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
 
     data = {c: [str(c) + str(i) for i in ind] for c in cols}
-    return pd.DataFrame(data, ind)
+    return pd.DataFrame(data, ind)    
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod()
+    from nb_utils import doctest_function
+    
+    # Comment out (2) to run all tests in script; (1) to run specific tests
+    # doctest.testmod(verbose=True)
+    doctest_function(display, globs=globals())

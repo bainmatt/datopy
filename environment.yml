@@ -22,9 +22,10 @@ dependencies:
   - seaborn
 # - scikit-learn
   - bs4
+  # - pycurl 
+  # - openssl
 
   - pip:
-      - pycurl==7.45.2
-      - wptools==0.4.17
+      - wptools
       - cinemagoer
       - spotipy

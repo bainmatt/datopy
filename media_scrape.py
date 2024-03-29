@@ -12,6 +12,12 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 
+# import pycurl
+# import wptools
+# page = 'Promising Young Woman'
+# wiki_info = wptools.page(page).get_parse().data['infobox']
+# wiki_info
+
 # -----------------
 # --- Wikipedia ---
 # -----------------
@@ -128,13 +134,42 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
         return None
 
 
-# TODO
-def get_film_metadata(title):
+# TODO clean up field extraction and add error-handling; example output LIMIT
+def get_film_metadata(movie_title):
+    """_summary_
+
+    Parameters
+    ----------
+    movie_title : _type_
+        _description_
+
+    Returns
+    -------
+    {result} : _type_
+        _description_
+        
+    Examples
+    --------
+    >>> title = 'Promising young woman'
+    >>> movie_df = get_film_metadata(title)
+    >>> movie_df
+              Title   imdbID  ...                                               Plot                                           Synopsis
+    0  Finding Nemo  0266543  ...  After his son is captured in the Great Barrier...  Two clownfish, Marlin (Albert Brooks) and his ...
+    <BLANKLINE>
+    [1 rows x 15 columns]
+    
+    """
+    
+    # ', '.join(writer['name'] if (movie['writer'] and 
+    #           'name' in writer.keys()) else None
+    #           for writer in movie['writer']),
+    
+    
     # Create an IMDb object
     ia = Cinemagoer()
 
     # Search for the movie by title
-    movies = ia.search_movie(title)
+    movies = ia.search_movie(movie_title)
 
     if movies:
         # Get the first movie (assumed to be the correct one)
@@ -143,46 +178,45 @@ def get_film_metadata(title):
         # Extract movie attributes
         movie_data = {
             "Title": movie['title'],
+            "imdbID": movie['imdbID'],
+            "Type": movie['kind'],
             "Year": movie['year'],
             "Genres": ', '.join(movie['genres']),
-            "Plot Outline": movie['plot outline'],
+            "Countries": ', '.join(movie['countries']),
+            "Runtimes": ', '.join(str(runtime) 
+                                  for runtime in movie['runtimes']) +  "minutes",
+            # "Directors": ', '.join(director['name'] 
+            #                        for director in movie['director']),
+            # "Writers": ', '.join(writer['name'] 
+            #                      if movie['writer']
+            #                      else None
+            #                      for writer in movie['writer']),
+            # "Composers": ', '.join(composer['name'] 
+            #                        for composer in movie['composer']),
             "Cast": ', '.join(actor['name'] for actor in movie['cast']),
-            "Directors": ', '.join(director['name'] for director in movie['directors']),
             "Rating": movie['rating'],
             "Votes": movie['votes'],
-            "Runtimes": ', '.join(str(runtime) for runtime in movie['runtimes']) + " minutes"
+            "Plot Outline": movie['plot outline'],
+            "Plot": movie['plot'][0],
+            "Synopsis": movie['synopsis'][0],
         }
 
         # Create a DataFrame
         df = pd.DataFrame([movie_data])
-
-        # Print DataFrame
-        df
-
-        # Return DataFrame if needed
         return df
     else:
-        print("Movie not found.")
+        print(f"{movie_title} not found.")
         return None
 
-title = 'Promising Young Woman'
+title = 'Finding nemo'
 movie_df = get_film_metadata(title)
 movie_df
 
+# TODO Note: Run <x> in zsh terminal with wd set to project dir
 if __name__ == "__main__":
     import doctest
-    doctest.testmod()
-
-# ---------------
-# --- SCRATCH ---
-# ---------------
-class test():
-    def __init__(self, x):
-        self.x = x
-        return None
+    from nb_utils import doctest_function
         
-    def method(self, y):
-        return self.x + y
-
-from display_dataset import make_df
-df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
+    # Comment out (2) to run all tests in script; (1) to run specific tests
+    # doctest.testmod()
+    doctest_function(get_film_metadata, globs=globals())
