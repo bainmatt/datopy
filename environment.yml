@@ -1,12 +1,12 @@
+# To update {name} environment from existing environment.yml:
+# $ conda env update --file environment.yml --prune
+
 # To create ENV file from loaded dependencies:
 # $ conda env export --from-history > ENV.yml
 # For the most comprehensive listing, with versions:
 # $ conda list -e > ENV.txt
 # Then install by running:
 # $ conda create -n <env-name> --file ENV.txt
-
-# To update {name} environment from existing environment.yml:
-# $ conda env update --file environment.yml --prune
 
 name: data-tools
 channels:
