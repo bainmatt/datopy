@@ -20,6 +20,7 @@ from display_dataset import display
 ### Get Wiki 
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
+# XXX scratch
 # page = 'Promising Young Woman'
 # wiki_info = wptools.page(page).get_parse().data['infobox']
 # wiki_info
@@ -206,7 +207,7 @@ def get_film_metadata(movie_title):
         print(f"{movie_title} not found.")
         return None
 
-# XXX get_film_metadata test code
+# XXX get_film_metadata scratch
 # title = 'Finding nemo'
 # movie_df = get_film_metadata(title)
 # display("movie_df").r(globals())
