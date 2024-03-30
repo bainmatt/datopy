@@ -3,25 +3,23 @@ Tools for visualizing matrix and dataframe operations.
 
 Notes
 -----
--   Adapted from [1] to support NumPy arrays, in addition to Pandas data
-    frames.
+- Adapted from [1] to support NumPy arrays, in addition to Pandas data frames.
 
 References
 ----------
 ... [1] VanderPlas, J. (2016). Python data science handbook: Essential tools
         for working with data. "O'Reilly Media, Inc.".
-
 """
 
 import numpy as np
 import pandas as pd
+
 from typing import Iterable, Any
 import doctest
 from nb_utils import doctest_function
-# from operator import itemgetter
 
 class display(object):  
-    """Display HTML representation of multiple objects.
+    """Display informative HTML representation of multiple objects side-by-side.
     
     Parameters
     ----------
@@ -31,14 +29,14 @@ class display(object):
 
     Returns
     -------
-    result :
-        HTML respresentation.
+    result
+        Printout of formal object string representation.
         
     Examples
     --------
     Data frame example:
     >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
-    >>> display('df1', 'df2', 'pd.concat([df1, df2])').r(globals(), bold=0)
+    >>> display('df1', 'df2', 'pd.concat([df1, df2])').r(globals(), bold=False)
     <BLANKLINE>
     df1
     --- (2, 2) ---
@@ -64,7 +62,7 @@ class display(object):
     
     Matrix example:
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
-    >>> display("A", "x.T", "np.dot(A, x.T)").r(globals(), bold=0)
+    >>> display("A", "x.T", "np.dot(A, x.T)").r(globals(), bold=False)
     <BLANKLINE>
     A
     --- (2, 2) ---
@@ -88,26 +86,26 @@ class display(object):
     def __init__(self, *args):
         self.args = args
     
-    # TODO move globs arg to constructor as class instance
+    # TODO move `globs` arg to constructor as class instance and 
+    # use __repr__ to execute upon construction
     def r(self, globs: dict[str, Any] = globals(), bold: bool = True):    
-        """Shorthand for __repr__().
+        """Shorthand for `__repr__()`.
 
         Parameters
         ----------
-        globs : dict[str, Any], default = globals() 
-            _description_
-        bold : bool, default = True
-            _description_
-
-        Returns
-        -------
-        result : _type_
+        globs : dict[str, Any], default=globals() 
+            Global namespace, giving eval() access for nonlocals passed by name.
+        bold : bool, default=True
+            Option to disable string styling for testing purposes.
         """
-        return print('\n\n'.join('\n'
-            + ('\033[1m' + arg + '\033[0m' if bold else arg)
-            + '\n' + '--- ' + repr(np.shape(eval(arg, globs))) + ' ---'
-            + '\n' + repr(np.round(eval(arg, globs), 2))
-            for arg in self.args)
+        
+        return print('\n\n'.join(
+            '\n'
+            + ('\033[1m' + arg + '\033[0m' if bold else arg)            # name
+            + '\n' + '--- ' + repr(np.shape(eval(arg, globs))) + ' ---' # shape
+            + '\n' + repr(np.round(eval(arg, globs), 2))                # value
+            for arg in self.args
+            )
         )
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:

@@ -1,4 +1,5 @@
-""" _summary_
+""" 
+Tools for organized, efficient scraping of metadata for movies and movie reviews (via IMDb), music albums (via Spotify), and general topics (via Wikipedia).
 """
 
 import requests
@@ -21,9 +22,9 @@ from display_dataset import display
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
 # XXX wiki scratch
-page = 'Canada'
-wiki_info = wptools.page(page).get_parse().data['infobox']
-wiki_info['Gini']
+# page = 'Canada'
+# wiki_info = wptools.page(page).get_parse().data['infobox']
+# wiki_info['Gini']
 
 # ---------------
 # --- Spotify ---
@@ -35,17 +36,17 @@ wiki_info['Gini']
 # ------------
 ### Get IMdB
 def get_imdb_id(movie_title: str) -> str:
-    """ _summary_
+    """Retrieves the unique IMDb identifier associated with a film or tv show.
 
     Parameters
     ----------
     movie_title : str
-        _description_
+        Title of film or tv show (sensitive to spelling but not case).
 
     Returns
     -------
-    imdb_id : _type_
-        _description_
+    imdb_id : str
+        The unique IMDb tt identifier associated with the show.
         
     Examples
     --------
@@ -57,7 +58,7 @@ def get_imdb_id(movie_title: str) -> str:
     >>> movie_title = "ths shukshank redumption"
     >>> tt_id = get_imdb_id(movie_title)
     >>> tt_id
-    "No IMDb Identifier found for 'ths shukshank redumption'"
+    "No IMDb Identifier found for 'ths shukshank redumption'."
     
     """
     
@@ -82,7 +83,7 @@ def get_imdb_id(movie_title: str) -> str:
             return imdb_id
 
     # If no links contain ttid
-    return f"No IMDb Identifier found for '{movie_title}'"
+    return f"No IMDb Identifier found for '{movie_title}'."
 
 def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
     r""" _summary_
@@ -90,13 +91,13 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
     Parameters
     ----------
     movie_id : str
-        _description_
+        The unique IMDb tt identifier supplied by `get_imdb_id`.
     num_reviews : int, default=5
-        _description_
+        Number of reviews to retrieve.
 
     Returns
     -------
-    reviews : _type_
+    reviews : List[str]
         _description_
         
     Examples
@@ -134,29 +135,38 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
         return None
 
 # TODO clean up field extraction and add error-handling; example output LIMIT
-def get_film_metadata(movie_title):
-    """_summary_
+def get_film_metadata(movie_title: str) -> pd.DataFrame:
+    r"""_summary_
 
     Parameters
     ----------
-    movie_title : _type_
-        _description_
+    movie_title : str
+        Title of film or tv show (sensitive to spelling but not case).
 
     Returns
     -------
-    {result} : _type_
+    film_df : pd.DataFrame
         _description_
         
     Examples
     --------
-    >>> title = 'Promising young woman'
-    >>> movie_df = get_film_metadata(title)
-    >>> movie_df
-              Title   imdbID  ...                                               Plot                                           Synopsis
-    0  Finding Nemo  0266543  ...  After his son is captured in the Great Barrier...  Two clownfish, Marlin (Albert Brooks) and his ...
-    <BLANKLINE>
-    [1 rows x 15 columns]
-    
+    >>> title = 'Donnie darko'
+    >>> film_df = get_film_metadata(title)
+    >>> film_df.T[0]
+    Title                                                Donnie Darko
+    imdbID                                                    0246578
+    Type                                                        movie
+    Year                                                         2001
+    Genres                           Drama, Mystery, Sci-Fi, Thriller
+    Countries                                           United States
+    Runtimes                                               113minutes
+    Cast            Jake Gyllenhaal, Holmes Osborne, Maggie Gyllen...
+    Rating                                                        8.0
+    Votes                                                      847457
+    Plot Outline    Donnie Darko doesn't get along too well with h...
+    Plot            After narrowly escaping a bizarre accident, a ...
+    Synopsis        Donnie Darko (Jake Gyllenhall) is a troubled t...
+    Name: 0, dtype: object
     """
     
     # ', '.join(writer['name'] if (movie['writer'] and 
@@ -201,8 +211,8 @@ def get_film_metadata(movie_title):
         }
 
         # Create a DataFrame
-        df = pd.DataFrame([movie_data])
-        return df
+        film_df = pd.DataFrame([movie_data])
+        return film_df
     else:
         print(f"{movie_title} not found.")
         return None
@@ -217,5 +227,5 @@ if __name__ == "__main__":
     from nb_utils import doctest_function
         
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod()
+    doctest.testmod(verbose=True)
     # doctest_function(get_film_metadata, globs=globals())
