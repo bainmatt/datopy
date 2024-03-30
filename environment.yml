@@ -1,4 +1,8 @@
-# To update {name} environment from existing environment.yml:
+# --- Environment management guidelines ---
+# To create & activate environment {name} from this file:
+# (1) $ conda env create -f environment.yml
+# (2) $ conda activate {name}
+# To update dependencies in environment {name} from this file:
 # $ conda env update --file environment.yml --prune
 
 # To create ENV file from loaded dependencies:
@@ -7,6 +11,10 @@
 # $ conda list -e > ENV.txt
 # Then install by running:
 # $ conda create -n <env-name> --file ENV.txt
+
+# Remember to periodically update conda and brew:
+# $ conda update -n base -c conda-forge conda
+# $ brew update
 
 name: data-tools
 channels:
@@ -20,12 +28,13 @@ dependencies:
   - pandas
   - matplotlib
   - seaborn
-# - scikit-learn
   - bs4
-  # - pycurl 
-  # - openssl
+  - openssl   # ensures pycurl and wptools are installed correctly
+  - pycurl 
+  # - ipython
+  # - scikit-learn
 
   - pip:
-      - wptools
-      - cinemagoer
-      - spotipy
+    - wptools
+    - cinemagoer
+    - spotipy

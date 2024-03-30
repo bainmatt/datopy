@@ -1,5 +1,7 @@
 import os
 import doctest
+# import subprocess
+import importlib
 import requests
 import urllib.request
 from typing import Dict, List
@@ -62,6 +64,11 @@ def git_module_loader(modules: Dict[str, List[str]],
                                                    filename=filename)
                         if run_tests:
                             print('Running tests:\n')
+                            module_name = module.split('.')[0]
+                            mod = importlib.import_module(module_name)
+                            doctest.testmod(mod, verbose=True)
+                            
+                            # TODO remove this fix
                             # Magic command for Jupyter notebook use only
                             # %run -i {module}
                     else:
@@ -90,12 +97,13 @@ def doctest_function(object: callable, globs: dict[str, Any]) -> None:
         results = runner.run(test)
     print('-------------------------------------------------------')
     print(results)
-    
+
 def main():
     import doctest
+    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod()
-    doctest_function(git_module_loader, globs=globals())
+    doctest.testmod(verbose=True)
+    # doctest_function(git_module_loader, globs=globals())
 
 if __name__ == "__main__":
     main()

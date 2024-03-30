@@ -20,10 +20,10 @@ from display_dataset import display
 ### Get Wiki 
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
-# XXX scratch
-# page = 'Promising Young Woman'
+# XXX wiki scratch
+# page = 'Canada'
 # wiki_info = wptools.page(page).get_parse().data['infobox']
-# wiki_info
+# wiki_info['Gini']
 
 # ---------------
 # --- Spotify ---
@@ -217,5 +217,5 @@ if __name__ == "__main__":
     from nb_utils import doctest_function
         
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod()
+    doctest.testmod()
     # doctest_function(get_film_metadata, globs=globals())
