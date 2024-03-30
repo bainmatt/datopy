@@ -87,7 +87,7 @@ class display(object):
     def __init__(self, *args):
         self.args = args
     
-    # TODO movie globs arg to constructor as class instance
+    # TODO move globs arg to constructor as class instance
     def r(self, globs: dict[str, Any] = globals(), bold: bool = 1):    
         """Shorthand for __repr__().
 
@@ -142,10 +142,13 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     data = {c: [str(c) + str(i) for i in ind] for c in cols}
     return pd.DataFrame(data, ind)    
 
-if __name__ == "__main__":
+def main():
     import doctest
     from nb_utils import doctest_function
     
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    # doctest_function(display, globs=globals())
+    doctest_function(display, globs=globals())
+
+if __name__ == "__main__":
+    main()
