@@ -21,9 +21,9 @@ from display_dataset import display
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
 # XXX wiki scratch
-# page = 'Canada'
-# wiki_info = wptools.page(page).get_parse().data['infobox']
-# wiki_info['Gini']
+page = 'Canada'
+wiki_info = wptools.page(page).get_parse().data['infobox']
+wiki_info['Gini']
 
 # ---------------
 # --- Spotify ---
