@@ -15,8 +15,8 @@ from typing import Any
 
 def git_module_loader(modules: Dict[str, List[str]], 
                       save_dir: str = f"{os.path.dirname(os.path.abspath(__file__))}",
-                      run_tests: bool = 0, 
-                      run_download: bool = 0) -> None:
+                      run_tests: bool = False, 
+                      run_download: bool = False) -> None:
     """Securely download collections of modules directly from their Git repo and store in current directory.
 
     Parameters
@@ -24,9 +24,9 @@ def git_module_loader(modules: Dict[str, List[str]],
     modules : Dict[str, List[str]]
         Keys are relative branch paths '{git-user}/{repo-name}/{branch-name}'.
         Values are lists of module filenames relative to their parent branch.
-    run_tests : bool, default = 0
+    run_tests : bool, default = False
         Whether or not to run doctests for successful downloads.
-    run_download : bool, default = 0
+    run_download : bool, default = False
         Additional safeguard to ensure no modules are accidentally downloaded.
 
     Examples
@@ -54,29 +54,33 @@ def git_module_loader(modules: Dict[str, List[str]],
             exists = requests.head(
                 module_url, allow_redirects=0).status_code == 200
             
-            if exists: 
-                filename = os.path.join(save_dir, os.path.basename(module))
-                if not(os.path.isfile(filename)):
-                    if run_download:
-                        print(f"Downloading {repo}/{module}")
-                        os.makedirs(save_dir, exist_ok=1)
-                        urllib.request.urlretrieve(url=module_url, 
-                                                   filename=filename)
-                        if run_tests:
-                            print('Running tests:\n')
-                            module_name = module.split('.')[0]
-                            mod = importlib.import_module(module_name)
-                            doctest.testmod(mod, verbose=True)
-                            
-                            # TODO remove this fix
-                            # Magic command for Jupyter notebook use only
-                            # %run -i {module}
-                    else:
-                        print("Skipping download.")
-                else:
-                    print(f"Module {repo}/{module} already downloaded.")
-            else: 
-                print(f"Module {repo}/{module} does not exist.")
+            if not exists:
+                print(f"Module {repo}/{module} does not exist.")    
+                continue
+        
+            filename = os.path.join(save_dir, os.path.basename(module))
+            if os.path.isfile(filename):
+                print(f"Module {repo}/{module} already downloaded.")
+                continue
+            
+            if not run_download:
+                print("Skipping download.")
+                continue
+            
+            print(f"Downloading {repo}/{module}")
+            os.makedirs(save_dir, exist_ok=1)
+            urllib.request.urlretrieve(url=module_url, 
+                                        filename=filename)
+            
+            if run_tests:
+                print('Running tests:\n')
+                module_name = module.split('.')[0]
+                mod = importlib.import_module(module_name)
+                doctest.testmod(mod, verbose=True)
+                
+                # TODO remove this fix
+                # Magic command for Jupyter notebook use only
+                # %run -i {module}
 
 ### Efficient testing
 

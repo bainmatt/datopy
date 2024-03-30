@@ -1,5 +1,5 @@
 """    
-Tools for inspecting and visualizing matrix and dataframe operations.
+Tools for visualizing matrix and dataframe operations.
 
 Notes
 -----
@@ -16,6 +16,8 @@ References
 import numpy as np
 import pandas as pd
 from typing import Iterable, Any
+import doctest
+from nb_utils import doctest_function
 # from operator import itemgetter
 
 class display(object):  
@@ -34,9 +36,7 @@ class display(object):
         
     Examples
     --------
-    # Execute module in Google Colab
-    # run -i {'display_dataset.py'}
-
+    Data frame example:
     >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
     >>> display('df1', 'df2', 'pd.concat([df1, df2])').r(globals(), bold=0)
     <BLANKLINE>
@@ -62,6 +62,7 @@ class display(object):
     3  A3  B3
     4  A4  B4
     
+    Matrix example:
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
     >>> display("A", "x.T", "np.dot(A, x.T)").r(globals(), bold=0)
     <BLANKLINE>
@@ -88,14 +89,14 @@ class display(object):
         self.args = args
     
     # TODO move globs arg to constructor as class instance
-    def r(self, globs: dict[str, Any] = globals(), bold: bool = 1):    
+    def r(self, globs: dict[str, Any] = globals(), bold: bool = True):    
         """Shorthand for __repr__().
 
         Parameters
         ----------
         globs : dict[str, Any], default = globals() 
             _description_
-        bold : bool, default=1
+        bold : bool, default = True
             _description_
 
         Returns
@@ -103,10 +104,10 @@ class display(object):
         result : _type_
         """
         return print('\n\n'.join('\n'
-            + ('\033[1m' + a + '\033[0m' if bold else a)
-            + '\n' + '--- ' + repr(np.shape(eval(a, globs))) + ' ---'
-            + '\n' + repr(np.round(eval(a, globs), 2))
-            for a in self.args)
+            + ('\033[1m' + arg + '\033[0m' if bold else arg)
+            + '\n' + '--- ' + repr(np.shape(eval(arg, globs))) + ' ---'
+            + '\n' + repr(np.round(eval(arg, globs), 2))
+            for arg in self.args)
         )
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
@@ -143,9 +144,6 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     return pd.DataFrame(data, ind)    
 
 def main():
-    import doctest
-    from nb_utils import doctest_function
-    
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
     doctest_function(display, globs=globals())
