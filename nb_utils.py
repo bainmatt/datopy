@@ -1,6 +1,9 @@
+"""
+Tools for data I/O (systematically and securely saving figures and Colaboratory runtime files, manually downloading modules) and other data workflows.
+"""
+
 import os
 import doctest
-# import subprocess
 import importlib
 import requests
 import urllib.request
@@ -17,32 +20,30 @@ def git_module_loader(modules: Dict[str, List[str]],
                       save_dir: str = f"{os.path.dirname(os.path.abspath(__file__))}",
                       run_tests: bool = False, 
                       run_download: bool = False) -> None:
-    """Securely download collections of modules directly from their Git repo and store in current directory.
+    """Securely downloads collections of modules directly from their Git repo and stores in the current directory.
 
     Parameters
     ----------
     modules : Dict[str, List[str]]
         Keys are relative branch paths '{git-user}/{repo-name}/{branch-name}'.
         Values are lists of module filenames relative to their parent branch.
-    run_tests : bool, default = False
+        
+    run_tests : bool, default=False
         Whether or not to run doctests for successful downloads.
-    run_download : bool, default = False
+        
+    run_download : bool, default=False
         Additional safeguard to ensure no modules are accidentally downloaded.
 
     Examples
     --------
-    Negative example 1:
     >>> modules = {'gitusername/repo/branch': ['module1.py', 'module2.py']}
-    >>> git_module_loader(modules, run_tests=1, run_download=1)
+    >>> git_module_loader(modules, run_tests=True, run_download=True)
     Module gitusername/repo/branch/module1.py does not exist.
     Module gitusername/repo/branch/module2.py does not exist.
         
-    Negative example 2:
-    >>> modules = {
-    ...     "HIPS/autograd/master":
-    ...         ['autograd/tracer.py', 'autograd/util.py']
-    ... }
-    >>> git_module_loader(modules, run_tests=0, run_download=0)
+    >>> modules = {"HIPS/autograd/master": 
+    ...     ['autograd/tracer.py', 'autograd/util.py']}
+    >>> git_module_loader(modules, run_tests=False, run_download=False)
     Skipping download.
     Skipping download.
     
@@ -52,7 +53,7 @@ def git_module_loader(modules: Dict[str, List[str]],
         for module in modules[repo]:
             module_url = f"https://raw.githubusercontent.com/{repo}/{module}"
             exists = requests.head(
-                module_url, allow_redirects=0).status_code == 200
+                module_url, allow_redirects=False).status_code == 200
             
             if not exists:
                 print(f"Module {repo}/{module} does not exist.")    
@@ -67,20 +68,15 @@ def git_module_loader(modules: Dict[str, List[str]],
                 print("Skipping download.")
                 continue
             
-            print(f"Downloading {repo}/{module}")
-            os.makedirs(save_dir, exist_ok=1)
-            urllib.request.urlretrieve(url=module_url, 
-                                        filename=filename)
+            print(f"Downloading {repo}/{module}.")
+            os.makedirs(save_dir, exist_ok=True)
+            urllib.request.urlretrieve(url=module_url, filename=filename)
             
             if run_tests:
                 print('Running tests:\n')
                 module_name = module.split('.')[0]
                 mod = importlib.import_module(module_name)
                 doctest.testmod(mod, verbose=True)
-                
-                # TODO remove this fix
-                # Magic command for Jupyter notebook use only
-                # %run -i {module}
 
 ### Efficient testing
 
@@ -95,8 +91,8 @@ def doctest_function(object: callable, globs: dict[str, Any]) -> None:
         Global variables from module of interest.
     """
     print('-------------------------------------------------------')
-    finder = doctest.DocTestFinder(verbose=1, recurse=False)
-    runner = doctest.DocTestRunner(verbose=1)
+    finder = doctest.DocTestFinder(verbose=True, recurse=False)
+    runner = doctest.DocTestRunner(verbose=True)
     for test in finder.find(obj=object, globs=globs):
         results = runner.run(test)
     print('-------------------------------------------------------')
