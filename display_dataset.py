@@ -13,19 +13,20 @@ References
 
 import numpy as np
 import pandas as pd
-
 from typing import Iterable, Any
 import doctest
 from nb_utils import doctest_function
 
 class display(object):  
-    """Display informative HTML representation of multiple objects side-by-side.
+    """
+    Display informative HTML representation of multiple objects side-by-side.
     
     Parameters
     ----------
-    object : string containing array-like or dataframe variable
+    object : str
+        String containing array-like or dataframe variable.
     *args : list, default=None
-        Additional objects to display alongside `object`.
+        Additional objects to display alongside the supplied `object`.
 
     Returns
     -------
@@ -89,12 +90,13 @@ class display(object):
     # TODO move `globs` arg to constructor as class instance and 
     # use __repr__ to execute upon construction
     def r(self, globs: dict[str, Any] = globals(), bold: bool = True):    
-        """Shorthand for `__repr__()`.
+        """
+        Shorthand for `__repr__()`.
 
         Parameters
         ----------
         globs : dict[str, Any], default=globals() 
-            Global namespace, giving eval() access for nonlocals passed by name.
+            Global namespace, for access to eval() for nonlocals passed by name.
         bold : bool, default=True
             Option to disable string styling for testing purposes.
         """
@@ -108,15 +110,17 @@ class display(object):
             )
         )
 
+
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
-    """Quickly make a DataFrame.
+    """
+    Quickly make a DataFrame.
 
     Parameters
     ----------
     cols : Iterable[Any]
-        Iterable where items are column names.
+        Iterable with items representing column names.
     ind : Iterable[Any]
-        Iterable where items are row names.
+        Iterable with items representing row names.
 
     Returns
     -------
@@ -141,10 +145,12 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     data = {c: [str(c) + str(i) for i in ind] for c in cols}
     return pd.DataFrame(data, ind)    
 
+
 def main():
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
     doctest_function(display, globs=globals())
+    return None
 
 if __name__ == "__main__":
     main()

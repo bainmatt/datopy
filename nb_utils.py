@@ -20,7 +20,8 @@ def git_module_loader(modules: Dict[str, List[str]],
                       save_dir: str = f"{os.path.dirname(os.path.abspath(__file__))}",
                       run_tests: bool = False, 
                       run_download: bool = False) -> None:
-    """Securely downloads collections of modules directly from their Git repo and stores in the current directory.
+    """
+    Securely downloads collections of modules directly from their Git repo and stores in the current directory.
 
     Parameters
     ----------
@@ -46,7 +47,6 @@ def git_module_loader(modules: Dict[str, List[str]],
     >>> git_module_loader(modules, run_tests=False, run_download=False)
     Skipping download.
     Skipping download.
-    
     """
 
     for repo in modules:
@@ -78,10 +78,12 @@ def git_module_loader(modules: Dict[str, List[str]],
                 mod = importlib.import_module(module_name)
                 doctest.testmod(mod, verbose=True)
 
+
 ### Efficient testing
 
 def doctest_function(object: callable, globs: dict[str, Any]) -> None:
-    """Convenience wrapper to run doctests for a specific function or class.
+    """
+    Convenience wrapper to run doctests for a specific function or class.
 
     Parameters
     ----------
@@ -97,6 +99,7 @@ def doctest_function(object: callable, globs: dict[str, Any]) -> None:
         results = runner.run(test)
     print('-------------------------------------------------------')
     print(results)
+
 
 def main():
     import doctest
