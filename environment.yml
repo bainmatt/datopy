@@ -29,12 +29,14 @@ dependencies:
   - matplotlib
   - seaborn
   - bs4
-  - openssl   # ensures pycurl and wptools are installed correctly
+  - pydantic      # python data validation
+  - openssl       # ensures pycurl and wptools are installed correctly
   - pycurl 
   # - ipython
   # - scikit-learn
 
   - pip:
+    - jsonschema  # json data validation
     - wptools
     - cinemagoer
     - spotipy
