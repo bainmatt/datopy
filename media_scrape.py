@@ -5,9 +5,11 @@ Tools for organized, efficient scraping of metadata for movies and movie reviews
 import re
 import requests
 import doctest
+import textwrap
 import pprint
 import json
 import pandas as pd
+
 from typing import List
 from datetime import datetime
 from jsonschema import validate
@@ -33,32 +35,6 @@ from display_dataset import display
 # movies = ia.search_movie('Crouching tiger hidden dragon')
 # example_imdb_object = ia.get_movie(movies[0].movieID)
 # example_wiki_object = wptools.page("Canada").get_parse().data['infobox']
-
-# def get_schema(obj):
-#     schema = {}
-#     for field, value in obj.items():
-#         if not(isinstance(value, (list, dict))):
-#             schema[field] = (type(value))
-#             continue
-#         else:
-#             schema[field] = {}
-            
-#             for index, subfield in enumerate(value): 
-#                 schema[field][index] = type(subfield)
-#                 if not(isinstance(subfield, (list, dict, imdb.Person.Person))):
-#                     continue
-#                 else:
-#                     schema[field][index] = {}
-                    
-#                 for tertiary_field, tertiary_value in subfield.items():
-#                     schema[field][index][tertiary_field] = type(tertiary_field)
-                    
-#     return schema
-
-# movie_schema = get_schema(example_imdb_object)
-# wiki_schema = get_schema(example_wiki_object)
-# pprint.pp(movie_schema)
-# pprint.pp(wiki_schema)
 
 # XXX Data validation tests
 # NOTE Opt for manually defined schemas for retrieved data. Data
@@ -137,16 +113,6 @@ MovieProcessor().retrieve([4,5,6])
 MovieProcessor().process([4,5,6])
 # -----------------------------------------------------------------------------
 
-# TODO discard this
-# @dataclass
-# class Movie:
-#     name: str
-#     age: int
-    
-# valid_processed_movie = Movie(name='mark', age=21)
-# invalid_processed_movie = Movie(name=21, age=21)
-# pd.DataFrame(pd.json_normalize(asdict(valid_processed_movie)))
-# pd.DataFrame(pd.json_normalize(asdict(invalid_processed_movie)))
 
 # -----------------
 # --- Wikipedia ---
@@ -171,15 +137,7 @@ regex_pattern = re.compile("\[\[(.*?)\]\]")
 matches = regex_pattern.findall(wiki_parse)
 pages = [match.split('|')[0].strip() for match in matches]
 target_pages = pages[4:-3]
-pprint.pp(target_pages)
-
-# Test 
-# TODO skip broken links (e.g., Dennis the Menace (1987))
-# wiki_info = []
-# for index, page in enumerate(target_pages):
-#     print(page)
-#     wiki_info.append(wptools.page(page).get_parse().data['infobox'])
-# pprint.pp(wiki_info)
+# pprint.pp(target_pages)
 
 # ---------------
 # --- Spotify ---
