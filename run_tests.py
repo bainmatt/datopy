@@ -7,7 +7,7 @@ Runs doctests for all specified modules as a unittest suite.
 # (option 2) execute script in terminal (`python <script_name>.py`) with wd=repo
 # To execute selection and share declarations with global namespace: shift+enter
 """
- 
+
 if __name__ == "__main__":
     import doctest
     import unittest

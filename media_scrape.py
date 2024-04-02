@@ -1,5 +1,5 @@
 """ 
-Tools for organized, efficient scraping of metadata for movies and movie reviews (via IMDb), music albums (via Spotify), and general topics (via Wikipedia).
+Data models and retrieval/processing tools for scraping metadata for movies and movie reviews (via IMDb), music albums (via Spotify), and related topics (via Wikipedia).
 """
 
 import re
@@ -25,127 +25,6 @@ from bs4 import BeautifulSoup
 
 from display_dataset import display
 
-# -------------------------------
-# --- Data validation schemas ---
-# -------------------------------
-
-# XXX Automatic data dictionary generation
-ia = Cinemagoer()
-movies = ia.search_movie('castlevania')
-example_imdb_object = ia.get_movie(movies[0].movieID)
-example_wiki_object = wptools.page("Canada").get_parse().data['infobox']
-
-def _list_to_dict(obj: list) -> dict:
-    return {(key + 1): value for key, value in enumerate(obj)}
-
-def _iterable_to_schema(obj, special_types: tuple) -> dict:
-    if isinstance(obj, special_types):
-        return {key: _iterable_to_schema(value, special_types) 
-                for key, value in obj.items()}
-    elif isinstance(obj, list):
-        return {key: _iterable_to_schema(value, special_types) 
-                for key, value in _list_to_dict(obj).items()}
-    elif isinstance(obj, (str, type)):
-        return type(obj)
-    else:
-        return type(obj)
-    
-obj = example_wiki_object
-obj = example_imdb_object
-special_types = (
-    dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
-)
-schema = _iterable_to_schema(obj, special_types)
-pprint.pp(schema, depth=3)
-
-# TODO generate pydantic data model from schema 
-# (+ use JSON as intermediary & save a few examples per resource to file)
-# TODO write corresponding tests for schema generator
-
-
-# XXX Data validation tests
-# NOTE Opt for manually defined schemas for retrieved data. Data
-# is messy and unpredictable and every automated attempt will either screw up 
-# edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
-# masquerading as an iterable).
-
-
-# XXX Raw data
-MOVIE_SCHEMA = {
-    "type" : "object",
-    "properties" : {
-        "price" : {"type" : "number"},
-        "name" : {"type" : "string"},
-    },
-}
-
-# -----------------------------------------------------------------------------
-# TODO load a few test json objects
-valid_raw_movie = {"name" : "Eggs", "price" : 34.99}
-invalid_raw_movie = {"name" : 1, "price" : 34.99}
-
-validate(instance=valid_raw_movie, schema=MOVIE_SCHEMA)
-# validate(instance=invalid_raw_movie, schema=MOVIE_SCHEMA)
-# -----------------------------------------------------------------------------
-
-# XXX Processed data
-class Movie(BaseModel):
-    id: int
-    name: str = 'John Doe'
-    signup_ts: datetime | None
-    tastes: dict[str, PositiveInt]
-
-# -----------------------------------------------------------------------------
-valid_processed_movie = {
-    'id': 1, 'tastes': dict(a=3), 
-    'signup_ts': datetime(1990, 4, 1)
-} 
-invalid_processed_movie = {
-    'id': 'not an int', 'tastes': {'hek'},
-    'signup_ts': datetime(1990, 4, 1)
-}  
-valid_processed_movie_instance = Movie(**valid_processed_movie)  
-# invalid_processed_movie_instance = Movie(**invalid_processed_movie)  
-pd.DataFrame(pd.json_normalize(dict(valid_processed_movie_instance)))
-# pd.DataFrame(pd.json_normalize(dict(invalid_processed_movie_instance)))
-
-try:
-    Movie(**valid_processed_movie)  
-except ValidationError as e:
-    pprint.pp(e.errors())
-# try:
-#     Movie(**invalid_processed_movie)  
-# except ValidationError as e:
-#     pprint.pp(e.errors())
-
-
-
-# XXX tests
-pprint.pp(pd.json_normalize(schema).T, compact=False)
-# Movie(**schema)  
-# -----------------------------------------------------------------------------
-
-# XXX BaseProcessor
-class BaseProcessor:
-    def __init__(self, **args):
-        self.args = args
-        
-    def retrieve(self, x: list):
-        return sum(x)
-
-    def process(self):
-        raise NotImplementedError
-
-# XXX Subclass Processor
-class MovieProcessor(BaseProcessor):
-    def process(self, y: list):
-        return sum(y)*5
-
-# -----------------------------------------------------------------------------
-MovieProcessor().retrieve([4,5,6])
-MovieProcessor().process([4,5,6])
-# -----------------------------------------------------------------------------
-
 
 # -----------------
 # --- Wikipedia ---
@@ -159,18 +38,6 @@ MovieProcessor().process([4,5,6])
 # pprint.pp(wiki_info)
 # wiki_info['currency']
 
-
-### Get lists
-# TODO wrap in function (take first and last entry (relative indices non-0'ed))
-# Find listing_page here: https://en.wikipedia.org/wiki/List_of_lists_of_lists
-listing_page = "List of legendary creatures from China"
-wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']
-
-regex_pattern = re.compile("\[\[(.*?)\]\]")
-matches = regex_pattern.findall(wiki_parse)
-pages = [match.split('|')[0].strip() for match in matches]
-target_pages = pages[4:-3]
-# pprint.pp(target_pages)
 
 # ---------------
 # --- Spotify ---
