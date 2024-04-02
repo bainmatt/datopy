@@ -11,7 +11,7 @@ Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 1. Clone the repo
 
 ```bash
-$ git clone https://github.com/mattlabcode/data-tools.git
+$ git clone https://github.com/bainmatt/data-tools.git
 $ cd data-tools
 ```
 
@@ -31,7 +31,7 @@ Inside a notebook, run the following cell to import a module of interest (replac
 import urllib.request
 
 # 2. Set URL of module to import
-script_url = "https://raw.githubusercontent.com/mattlabcode/data-tools/main/<script>.py"
+script_url = "https://raw.githubusercontent.com/bainmatt/data-tools/main/<script>.py"
 
 # 3. Download the script
 urllib.request.urlretrieve(script_url, "<script_name>.py")
@@ -64,7 +64,7 @@ Now you can use functions from `<script_name>`:
 
 - [ ] Complete implementation of (1-3) above
 
-See the [open issues](https://github.com/mattlabcode/data-tools/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/bainmatt/data-tools/issues) for a full list of proposed features (and known issues).
 
 ## License
 
@@ -72,5 +72,5 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-Project Link: https://github.com/mattlabcode/data-tools
+Project Link: https://github.com/bainmatt/data-tools
 

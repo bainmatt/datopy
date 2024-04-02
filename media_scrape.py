@@ -31,10 +31,52 @@ from display_dataset import display
 
 # XXX auto-schema generation tests
 # https://domsignal.com/json-schema-generator
-# ia = Cinemagoer()
-# movies = ia.search_movie('Crouching tiger hidden dragon')
-# example_imdb_object = ia.get_movie(movies[0].movieID)
-# example_wiki_object = wptools.page("Canada").get_parse().data['infobox']
+ia = Cinemagoer()
+movies = ia.search_movie('Crouching tiger hidden dragon')
+example_imdb_object = ia.get_movie(movies[0].movieID)
+example_wiki_object = wptools.page("Canada").get_parse().data['infobox']
+
+def _list_to_dict(obj: list) -> dict:
+    return {(key + 1): value for key, value in enumerate(obj)}
+
+def _iterable_to_schema(obj) -> dict:
+    if isinstance(obj, (dict, imdb.Person.Person, imdb.Movie.Movie)):
+        # schema = {
+        #     key: _iterable_to_schema(value) 
+        #     for key, value in dict(obj).items()
+        # }
+        # return {key: type(value).__name__ for key, value in schema.items()}
+        return {key: _iterable_to_schema(value) for key, value in obj.items()}
+
+        # return {key: type(value).__name__ for key, value in dict(obj).items()}
+    elif isinstance(obj, list):
+        # schema = {
+        #     key: _iterable_to_schema(value) 
+        #     for key, value in _list_to_dict(obj).items()
+        # }
+        # return {key: type(value).__name__ for key, value in schema.items}
+        return {key: _iterable_to_schema(value) for key, value in _list_to_dict(obj).items()}
+
+        # return {key: type(value).__name__ for key, value in _list_to_dict(obj).items()}
+    elif isinstance(obj, str):
+        return type(obj)
+    elif isinstance(obj, type):
+        return type(obj)
+    else:
+        return type(obj)
+    
+obj = example_wiki_object
+obj = example_imdb_object
+schema = _iterable_to_schema(obj)
+pprint.pp(schema)
+
+
+# schema_depth_2 = {
+#     key: _iterable_to_schema(obj[key]) 
+#     for key, value in schema_depth_1.items()
+# }
+# dict(obj['cast'][0])
+
 
 # XXX Data validation tests
 # NOTE Opt for manually defined schemas for retrieved data. Data
@@ -359,5 +401,5 @@ if __name__ == "__main__":
     
     ## One-off tests
     title = 'attack on titan'
-    # film_df = get_film_metadata(title)
-    # display("film_df.T[0]").r(globals())
+    film_df = get_film_metadata(title)
+    display("film_df.T[0]").r(globals())
