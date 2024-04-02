@@ -29,53 +29,38 @@ from display_dataset import display
 # --- Data validation schemas ---
 # -------------------------------
 
-# XXX auto-schema generation tests
-# https://domsignal.com/json-schema-generator
+# XXX Automatic data dictionary generation
 ia = Cinemagoer()
-movies = ia.search_movie('Crouching tiger hidden dragon')
+movies = ia.search_movie('castlevania')
 example_imdb_object = ia.get_movie(movies[0].movieID)
 example_wiki_object = wptools.page("Canada").get_parse().data['infobox']
 
 def _list_to_dict(obj: list) -> dict:
     return {(key + 1): value for key, value in enumerate(obj)}
 
-def _iterable_to_schema(obj) -> dict:
-    if isinstance(obj, (dict, imdb.Person.Person, imdb.Movie.Movie)):
-        # schema = {
-        #     key: _iterable_to_schema(value) 
-        #     for key, value in dict(obj).items()
-        # }
-        # return {key: type(value).__name__ for key, value in schema.items()}
-        return {key: _iterable_to_schema(value) for key, value in obj.items()}
-
-        # return {key: type(value).__name__ for key, value in dict(obj).items()}
+def _iterable_to_schema(obj, special_types: tuple) -> dict:
+    if isinstance(obj, special_types):
+        return {key: _iterable_to_schema(value, special_types) 
+                for key, value in obj.items()}
     elif isinstance(obj, list):
-        # schema = {
-        #     key: _iterable_to_schema(value) 
-        #     for key, value in _list_to_dict(obj).items()
-        # }
-        # return {key: type(value).__name__ for key, value in schema.items}
-        return {key: _iterable_to_schema(value) for key, value in _list_to_dict(obj).items()}
-
-        # return {key: type(value).__name__ for key, value in _list_to_dict(obj).items()}
-    elif isinstance(obj, str):
-        return type(obj)
-    elif isinstance(obj, type):
+        return {key: _iterable_to_schema(value, special_types) 
+                for key, value in _list_to_dict(obj).items()}
+    elif isinstance(obj, (str, type)):
         return type(obj)
     else:
         return type(obj)
     
 obj = example_wiki_object
 obj = example_imdb_object
-schema = _iterable_to_schema(obj)
-pprint.pp(schema)
+special_types = (
+    dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
+)
+schema = _iterable_to_schema(obj, special_types)
+pprint.pp(schema, depth=3)
 
-
-# schema_depth_2 = {
-#     key: _iterable_to_schema(obj[key]) 
-#     for key, value in schema_depth_1.items()
-# }
-# dict(obj['cast'][0])
+# TODO generate pydantic data model from schema 
+# (+ use JSON as intermediary & save a few examples per resource to file)
+# TODO write corresponding tests for schema generator
 
 
 # XXX Data validation tests
@@ -132,6 +117,12 @@ except ValidationError as e:
 #     Movie(**invalid_processed_movie)  
 # except ValidationError as e:
 #     pprint.pp(e.errors())
+
+
+
+# XXX tests
+pprint.pp(pd.json_normalize(schema).T, compact=False)
+# Movie(**schema)  
 # -----------------------------------------------------------------------------
 
 # XXX BaseProcessor
