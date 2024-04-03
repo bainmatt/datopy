@@ -1,0 +1,475 @@
+{
+       "localized title": "str",
+       "cast": {
+              "1": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "2": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "3": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "4": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "5": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "6": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "7": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "8": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "9": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "10": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "11": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "12": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "13": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "14": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "15": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "16": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "17": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "18": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "19": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "20": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "21": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "22": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "23": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "24": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "25": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "26": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "27": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "28": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "29": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "30": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "31": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "32": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "33": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "34": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "35": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "36": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "37": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "38": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "39": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "40": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "41": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "42": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "43": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "44": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "45": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              }
+       },
+       "genres": {
+              "1": "str",
+              "2": "str",
+              "3": "str",
+              "4": "str",
+              "5": "str",
+              "6": "str"
+       },
+       "runtimes": {
+              "1": "str"
+       },
+       "countries": {
+              "1": "str"
+       },
+       "country codes": {
+              "1": "str"
+       },
+       "language codes": {
+              "1": "str",
+              "2": "str"
+       },
+       "color info": {
+              "1": "str"
+       },
+       "aspect ratio": "str",
+       "sound mix": {
+              "1": "str"
+       },
+       "certificates": {
+              "1": "str",
+              "2": "str",
+              "3": "str",
+              "4": "str",
+              "5": "str",
+              "6": "str",
+              "7": "str",
+              "8": "str",
+              "9": "str",
+              "10": "str",
+              "11": "str",
+              "12": "str",
+              "13": "str",
+              "14": "str",
+              "15": "str",
+              "16": "str",
+              "17": "str",
+              "18": "str",
+              "19": "str",
+              "20": "str",
+              "21": "str",
+              "22": "str",
+              "23": "str",
+              "24": "str",
+              "25": "str",
+              "26": "str",
+              "27": "str",
+              "28": "str",
+              "29": "str",
+              "30": "str",
+              "31": "str",
+              "32": "str",
+              "33": "str",
+              "34": "str",
+              "35": "str",
+              "36": "str",
+              "37": "str"
+       },
+       "number of seasons": "int",
+       "rating": "float",
+       "votes": "int",
+       "cover url": "str",
+       "imdbID": "str",
+       "videos": {
+              "1": "str",
+              "2": "str"
+       },
+       "plot outline": "str",
+       "languages": {
+              "1": "str",
+              "2": "str"
+       },
+       "title": "str",
+       "year": "int",
+       "kind": "str",
+       "series years": "str",
+       "original title": "str",
+       "akas": {
+              "1": "str",
+              "2": "str",
+              "3": "str",
+              "4": "str",
+              "5": "str"
+       },
+       "seasons": "int",
+       "writer": {
+              "1": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              },
+              "2": {
+                     "name": "str",
+                     "canonical name": "str",
+                     "long imdb name": "str",
+                     "long imdb canonical name": "str"
+              }
+       },
+       "production companies": {
+              "1": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "2": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "3": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "4": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "5": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "6": {
+                     "name": "str",
+                     "long imdb name": "str"
+              }
+       },
+       "distributors": {
+              "1": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "2": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "3": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "4": {
+                     "name": "str",
+                     "long imdb name": "str"
+              }
+       },
+       "other companies": {
+              "1": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "2": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "3": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "4": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "5": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "6": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "7": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "8": {
+                     "name": "str",
+                     "long imdb name": "str"
+              },
+              "9": {
+                     "name": "str",
+                     "long imdb name": "str"
+              }
+       },
+       "plot": {
+              "1": "str",
+              "2": "str"
+       },
+       "canonical title": "str",
+       "long imdb title": "str",
+       "long imdb canonical title": "str",
+       "smart canonical title": "str",
+       "smart long imdb canonical title": "str",
+       "full-size cover url": "str"
+}
