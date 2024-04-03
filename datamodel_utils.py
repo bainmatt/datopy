@@ -1,8 +1,5 @@
 """ 
 Tools for data retrieval and entry, from generating data models to processing raw data and populating missing metadata fields. 
-
-# --- Data model considerations ---
-
 """
 
 import re
@@ -24,7 +21,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 
-import settings
+import _settings
 from display_dataset import display
 
 # ----------------------------------
@@ -43,6 +40,20 @@ def _list_to_dict(obj: list) -> dict:
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
     """
     return {(key + 1): value for key, value in enumerate(obj)}
+
+
+def _serialize_scraped_data(obj) -> dict:
+    """
+    Coerce unique dataclasses from scraped objects into serializable format.
+    """
+    serializable_dict = {}
+    for key, value in obj.items():
+        if isinstance(value, list):
+            serializable_dict[key] = [str(item) for item in value]
+        else:
+            serializable_dict[key] = value        
+    return serializable_dict
+
 
 def iterable_to_schema(obj, special_types: tuple = (dict,)) -> dict:
     """
@@ -81,6 +92,10 @@ def iterable_to_schema(obj, special_types: tuple = (dict,)) -> dict:
 # --- Data validation scheme ---
 # ------------------------------
 
+# --- Data model considerations ---
+# - Fields: descriptions, required entries
+# - Type-specific: num (range), str (regex), cat (options)
+# - List-like container types: uniformity of elements, length, options, order
     
 # TODO generate pydantic data model from schema 
 # (+ use JSON as intermediary & save a few examples per resource to file)
@@ -177,19 +192,41 @@ MovieProcessor().process([4,5,6])
 # --- Topic retrieval ---
 # -----------------------
 
-### Get lists
-# TODO wrap in function (take first and last entry (relative indices non-0'ed))
-# Find listing_page here: https://en.wikipedia.org/wiki/List_of_lists_of_lists
-listing_page = "List of legendary creatures from China"
-wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']
+# TODO take first and last entry (relative indices non-0'ed))
 
-regex_pattern = re.compile("\[\[(.*?)\]\]")
-matches = regex_pattern.findall(wiki_parse)
-pages = [match.split('|')[0].strip() for match in matches]
-target_pages = pages[4:-3]
-# pprint.pp(target_pages)
+def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
+    """
+    _summary_
+    
+    Find listing_page here: https://en.wikipedia.org/wiki/List_of_lists_of_lists
 
+    Parameters
+    ----------
+    listing_page : str
+        _description_
+    verbose : bool, default=True
+        _description_ 
 
+    Returns
+    -------
+    target_pages : List[str]
+        _description_
+    """
+    
+    wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']
+
+    regex_pattern = re.compile("\[\[(.*?)\]\]")
+    matches = regex_pattern.findall(wiki_parse)
+    pages = [match.split('|')[0].strip() for match in matches]
+    target_pages = pages[4:-3]
+    
+    if verbose:
+        pprint.pp(target_pages)
+    
+    return target_pages
+
+# listing_page = "List of legendary creatures from China"
+# retrieve_wiki_topics(listing_page)
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
@@ -198,32 +235,4 @@ if __name__ == "__main__":
         
     ## One-off tests
     # XXX Data dictionary stuff
-    special_types = (
-        dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
-    )
     
-    # Movie
-    # ia = Cinemagoer()
-    # movies = ia.search_movie('castlevania')
-    # my_imdb_obj = ia.get_movie(movies[0].movieID)
-    # schema = iterable_to_schema(my_imdb_obj, special_types)
-    
-    # Album
-    # sp = spotipy.Spotify(
-    #     client_credentials_manager=SpotifyClientCredentials()
-    # )
-    # results = sp.search(
-    #     q=f'artist:{"radiohead"} album:{"kid A"}', type='album'
-    # )
-    # my_spotify_obj = results['albums']['items'][0]
-    # schema = iterable_to_schema(my_spotify_obj, special_types)
-    
-    # Wikipedia
-    # my_wiki_obj = wptools.page("Canada").get_parse().data['infobox']
-    # schema = iterable_to_schema(my_wiki_obj, special_types)
-    
-    # pprint.pp(schema, depth=3)
-    # pprint.pp(pd.json_normalize(schema).T[0], compact=True)
-    
-    # XXX Data model and validation stuff
-    # Movie(**schema)  
