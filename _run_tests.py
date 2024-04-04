@@ -12,7 +12,8 @@ if __name__ == "__main__":
     import doctest
     import unittest
 
-    for module in ('display_dataset', 'nb_utils', 'media_scrape'):
+    for module in ('display_dataset', 'nb_utils', 'media_scrape', 
+                   'datamodel_utils'):
         temp_module = __import__(module)
         test_suite = doctest.DocTestSuite(temp_module)
         unittest.TextTestRunner().run(test_suite)

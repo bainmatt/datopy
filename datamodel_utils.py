@@ -28,7 +28,6 @@ from display_dataset import display
 # --- Data dictionary generation ---
 # ----------------------------------
 
-# XXX Automatic data dictionary generation
 def _list_to_dict(obj: list) -> dict:
     """
     Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys. 
@@ -53,6 +52,83 @@ def _serialize_scraped_data(obj) -> dict:
         else:
             serializable_dict[key] = value        
     return serializable_dict
+
+
+def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:   
+    """
+    Recursively compare two dictionaries and identify missing keys.
+    
+    Parameters
+    ----------
+    dict1 : dict
+        The reference dictionary.
+    dict2 : dict
+        The comparison dictionary to be checked against `dict1`.
+
+    Returns
+    -------
+    result : dict
+        The nested dictionary of fields missing from `dict2` relative `dict1`.
+        
+    Examples
+    --------
+    Setup
+    >>> import copy
+    >>> dict1 = {'a1': 1, 'a2': 'two', 'a3': [3],
+    ...          'b1': {'b11': 1, 'b12': 'two', 'b13': [3]},
+    ...          'c1': {'c11': {'c111': 1, 'c112': 'two', 'c113': [3]}}
+    ... }
+
+    Identical dictionaries
+    >>> dict2 = copy.deepcopy(dict1)
+    >>> _compare_dict_keys(dict1, dict2)
+
+    Missing nesting level 0 key
+    >>> del dict2['a1']
+    >>> _compare_dict_keys(dict1, dict2)
+    {'missing_keys': ['a1']}
+
+    Missing nesting level 1 key
+    >>> dict2 = copy.deepcopy(dict1)
+    >>> del dict2['b1']['b12']
+    >>> _compare_dict_keys(dict1, dict2)
+    {'nested_diff': {'b1': {'missing_keys': ['b12']}}}
+    
+    Missing nesting level 2 key
+    >>> dict2 = copy.deepcopy(dict1)
+    >>> del dict2['c1']['c11']['c113']
+    >>> _compare_dict_keys(dict1, dict2)
+    {'nested_diff': {'c1': {'nested_diff': {'c11': {'missing_keys': ['c113']}}}}}
+    """
+    
+    if isinstance(dict1, dict) and not isinstance(dict2, dict):
+        return 'missing nested dictionary'
+
+    if not (isinstance(dict1, dict) and isinstance(dict2, dict)):
+        return None
+    
+    missing_keys = set(dict1.keys()) - set(dict2.keys())
+    shared_keys = set(dict1.keys()).intersection(set(dict2.keys()))
+    
+    # Initialize difference dictionary
+    diff_dict = {}
+    for key in shared_keys:
+        nested_diff = _compare_dict_keys(dict1[key], dict2[key])
+        # Add any differences to the difference
+        if nested_diff is not None:
+            diff_dict[key] = nested_diff
+    
+    # Return result if no missing keys or no diffs in nested dicts found
+    if missing_keys or diff_dict:
+        result = {}
+        if missing_keys:
+            result['missing_keys'] = list(missing_keys)
+        if diff_dict:
+            result['nested_diff'] = diff_dict
+        return result
+
+    # Return None if no missing keys or differences found
+    return None
 
 
 def iterable_to_schema(obj, special_types: tuple = (dict,)) -> dict:
@@ -96,20 +172,18 @@ def iterable_to_schema(obj, special_types: tuple = (dict,)) -> dict:
 # - Fields: descriptions, required entries
 # - Type-specific: num (range), str (regex), cat (options)
 # - List-like container types: uniformity of elements, length, options, order
-    
-# TODO generate pydantic data model from schema 
-# (+ use JSON as intermediary & save a few examples per resource to file)
-# TODO write corresponding tests for schema generator
 
-
-# XXX Data validation tests
-# NOTE Opt for manually defined schemas for retrieved data. Data
+# NOTE Generally opt for manually defined schemas for retrieved data. Data
 # is messy and unpredictable and every automated attempt will either screw up 
 # edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
 # masquerading as an iterable).
+    
+# TODO implement pydantic datamodel for 3 scraped objects
+# TODO write corresponding tests for schema generator (including json)
 
-
-# XXX Raw data
+# -----------------------------------------------------------------------------
+# XXX (rough JSON validation tests)
+# Raw data schema
 MOVIE_SCHEMA = {
     "type" : "object",
     "properties" : {
@@ -118,23 +192,21 @@ MOVIE_SCHEMA = {
     },
 }
 
-# -----------------------------------------------------------------------------
-# TODO load a few test json objects
 valid_raw_movie = {"name" : "Eggs", "price" : 34.99}
 invalid_raw_movie = {"name" : 1, "price" : 34.99}
 
 validate(instance=valid_raw_movie, schema=MOVIE_SCHEMA)
 # validate(instance=invalid_raw_movie, schema=MOVIE_SCHEMA)
-# -----------------------------------------------------------------------------
 
-# XXX Processed data
+# -----------------------------------------------------------------------------
+# XXX (rough pydantic validation tests)
+# Processed data model
 class Movie(BaseModel):
     id: int
     name: str = 'John Doe'
     signup_ts: datetime | None
     tastes: dict[str, PositiveInt]
 
-# -----------------------------------------------------------------------------
 valid_processed_movie = {
     'id': 1, 'tastes': dict(a=3), 
     'signup_ts': datetime(1990, 4, 1)
@@ -162,7 +234,8 @@ except ValidationError as e:
 # --- Data processing base class ---
 # ----------------------------------
 
-# XXX BaseProcessor
+# TODO implement this
+# BaseProcessor
 class BaseProcessor:
     def __init__(self, **args):
         self.args = args
@@ -173,12 +246,14 @@ class BaseProcessor:
     def process(self):
         raise NotImplementedError
 
-# XXX Subclass Processor
+# TODO implement 3 of these
+# Subclass Processor
 class MovieProcessor(BaseProcessor):
     def process(self, y: list):
         return sum(y)*5
 
 # -----------------------------------------------------------------------------
+# XXX (rough tests)
 MovieProcessor().retrieve([4,5,6])
 MovieProcessor().process([4,5,6])
 # -----------------------------------------------------------------------------
@@ -227,6 +302,7 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
 
 # listing_page = "List of legendary creatures from China"
 # retrieve_wiki_topics(listing_page)
+
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
