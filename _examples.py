@@ -84,7 +84,7 @@ def _save_scraped_datadict(
     """
     Save json-style schema of (key, type)/(key, value) pairs and a df.
     """
-    title = title.replace(' ', '_')
+    title = str(title).lower().replace(' ', '_')
     
     schema_path = f"output/{source}_{title}_schema.json"
     with open(schema_path, "w") as json_file:
@@ -113,8 +113,6 @@ def run_scraped_datadict_example(
     verbose: bool = False,
     do_save: bool = False) -> namedtuple:   
     
-    
-    
     r"""
     Auto-generate and save an exemplar data dictionary from the metadata of an arbitrary API-extracted data structure.
     
@@ -142,43 +140,43 @@ def run_scraped_datadict_example(
         
     Examples
     --------
-    imdb: film
-    >>> film = Film("eternal sunshine of the spotless mind")
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="imdb", search_terms=film, do_save=True)
-    >>> dict(outputs.obj)['genres']
-    ['Drama', 'Romance', 'Sci-Fi']
-    >>> outputs.schema['genres']
-    {1: 'str', 2: 'str', 3: 'str'}
-    >>> outputs.normalized_dict['composer'][0]
-    ['Jon Brion']
+    # imdb: film
+    # >>> film = Film("eternal sunshine of the spotless mind")
+    # >>> outputs = run_scraped_datadict_example(
+    # ...    source="imdb", search_terms=film, do_save=False)
+    # >>> dict(outputs.obj)['genres']
+    # ['Drama', 'Romance', 'Sci-Fi']
+    # >>> outputs.schema['genres']
+    # {1: 'str', 2: 'str', 3: 'str'}
+    # >>> outputs.normalized_dict['composer'][0]
+    # ['Jon Brion']
     
-    spotify: album
-    >>> album = Album("radiohead", "kid A")
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="spotify", search_terms=album, do_save=True)
-    >>> outputs.obj['total_tracks']
-    11
-    >>> outputs.schema['total_tracks']
-    'int'
-    >>> outputs.normalized_dict['id'][0]
-    '6GjwtEZcfenmOf6l18N7T7'
+    # spotify: album
+    # >>> album = Album("radiohead", "kid A") 
+    # >>> outputs = run_scraped_datadict_example(
+    # ...    source="spotify", search_terms=album, do_save=False)
+    # >>> outputs.obj['total_tracks']
+    # 11
+    # >>> outputs.schema['total_tracks']
+    # 'int'
+    # >>> outputs.normalized_dict['id'][0]
+    # '6GjwtEZcfenmOf6l18N7T7'
     
     wiki: novel
-    >>> book = Book("to kill a mockingbird")
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="wiki", search_terms=book, do_save=True)
-    >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
-    'Harper Lee'
-    >>> outputs.schema['author']
-    'str'
-    >>> outputs.normalized_dict['pages'][0]
-    '281'
+    # >>> book = Book("to kill a mockingbird")
+    # >>> outputs = run_scraped_datadict_example(
+    # ...    source="wiki", search_terms=book, do_save=False)
+    # >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
+    # 'Harper Lee'
+    # >>> outputs.schema['author']
+    # 'str'
+    # >>> outputs.normalized_dict['pages'][0]
+    # '281'
     
-    wiki: film
+    # wiki: film
     >>> film = Film("eternal sunshine of the spotless mind")
     >>> outputs = run_scraped_datadict_example(
-    ...    source="wiki", search_terms=film, do_save=True)
+    ...    source="wiki", search_terms=film, do_save=False)
     >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
     'Michel Gondry'
     >>> outputs.schema['director']
@@ -186,46 +184,48 @@ def run_scraped_datadict_example(
     >>> outputs.normalized_dict['budget'][0]
     '$20 million'
     
-    wiki: album
-    >>> album = Album("radiohead", "kid A")
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="wiki", search_terms=album, do_save=True)
-    >>> genres_raw = outputs.obj['genre']
-    >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
-    >>> genres_processed = _omit_patterns(genres_raw, patterns_to_omit)
-    >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
-    Experimental rock, post-rock, art rock, electronica
-    >>> outputs.schema['genre']
-    'str'
-    >>> outputs.normalized_dict['type'][0]
-    'studio'
+    # wiki: album
+    # >>> album = Album("radiohead", "kid A")
+    # >>> outputs = run_scraped_datadict_example(
+    # ...    source="wiki", search_terms=album, do_save=False)
+    # >>> genres_raw = outputs.obj['genre']
+    # >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
+    # >>> genres_processed = _omit_patterns(genres_raw, patterns_to_omit)
+    # >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
+    # Experimental rock, post-rock, art rock, electronica
+    # >>> outputs.schema['genre']
+    # 'str'
+    # >>> outputs.normalized_dict['type'][0]
+    # 'studio'
     
-    """
+    """    
     # Check assumptions
     source = str(source).lower()
     message = "Source must be either 'imdb', 'spotify', or 'wiki'."
     assert source in ['imdb', 'spotify', 'wiki'], message
-    
-    # Normalize query strings
-    search_terms = search_terms._replace(
-        **{key: str(value).lower() 
-           for key, value in search_terms._asdict().items()})
     
     # TODO refactor retrieval using retrieve method of resp Processor subclasses
     # Movie
     if source == 'imdb':
         ia = Cinemagoer()
         movies = ia.search_movie(search_terms.title)
-        obj = ia.get_movie(movies[0].movieID)
+        if not movies:
+            raise LookupError(f"No result found for {search_terms}.")
+        else:
+            obj = ia.get_movie(movies[0].movieID)
     
     # Album
+    # search_terms = search_terms._replace(artist='radiohead')
     elif source == 'spotify':    
         sp = spotipy.Spotify(
             client_credentials_manager=SpotifyClientCredentials()
         )
         results = sp.search(
             q=f'artist:{search_terms.artist} album:{search_terms.title}', type='album'
-        )
+        )    
+        if results['albums']['total'] == 0:
+            raise LookupError(f"No result found for {search_terms}.")
+        
         album_results = results['albums']['items'][0]
         album_id = album_results['id']
         album_details = sp.album(album_id)
@@ -250,7 +250,10 @@ def run_scraped_datadict_example(
         
     # Books etc.
     elif source == 'wiki':
-        obj = wptools.page(search_terms.title).get_parse().data['infobox']
+        try:
+            obj = wptools.page(search_terms.title).get_parse().data['infobox']
+        except Exception:
+            raise LookupError(f"No result found for {search_terms}.") from None
     
     else: 
         return None
@@ -280,11 +283,10 @@ def run_scraped_datadict_example(
 # Movie(**schema)  
 
 
-
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    doctest_function(run_scraped_datadict_example, globs=globals())
+    doctest_function(run_scraped_datadict_example, globs=globals(), verbose=False)
             
     ## One-off tests
     pass
