@@ -7,8 +7,9 @@ import doctest
 import importlib
 import requests
 import urllib.request
-from typing import Dict, List
-from typing import Any
+
+from typing import Dict, List, Any, Callable
+from collections.abc import Callable
 
 ### Save figs
 
@@ -81,13 +82,13 @@ def git_module_loader(modules: Dict[str, List[str]],
 
 ### Efficient testing
 
-def doctest_function(object: callable, globs: dict[str, Any]) -> None:
+def doctest_function(object: Callable[..., Any], globs: dict[str, Any]) -> None:
     """
     Convenience wrapper to run doctests for a specific function or class.
 
     Parameters
     ----------
-    object : callable
+    object : Callable[..., Any]
         Class, function, or other object with doctests to be run.
     globs : dict[str, Any]
         Global variables from module of interest.

@@ -19,11 +19,13 @@ from pydantic import BaseModel, ValidationError, PositiveInt
 import wptools
 import spotipy
 import imdb
+
 from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 
 from display_dataset import display
+from nb_utils import doctest_function
 
 
 # -----------------
@@ -255,9 +257,7 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    # doctest_function(get_film_metadata, globs=globals())
+    doctest_function(get_imdb_id, globs=globals())
     
     ## One-off tests
-    title = 'attack on titan'
-    film_df = get_film_metadata(title)
-    display("film_df.T[0]").r(globals())
+    pass
