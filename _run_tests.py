@@ -13,7 +13,7 @@ if __name__ == "__main__":
     import unittest
 
     for module in ('display_dataset', 'nb_utils', 'media_scrape', 
-                   'datamodel_utils'):
+                   'datamodel_utils', '_examples'):
         temp_module = __import__(module)
         test_suite = doctest.DocTestSuite(temp_module)
         unittest.TextTestRunner().run(test_suite)

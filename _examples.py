@@ -9,7 +9,7 @@ import doctest
 import json
 import pandas as pd
 
-from typing import List, Literal, Union, Tuple
+from typing import List, Literal, Union, Tuple, NamedTuple
 from collections import namedtuple
 from jsonschema import validate
 from dataclasses import dataclass, asdict
@@ -33,9 +33,9 @@ from datamodel_utils import (
 )
 
 # Define object types for metadata retrieval
-Film = namedtuple('Film', ['title'])
-Album = namedtuple('Album', ['artist', 'title'])
-Book = namedtuple('Book', ['title'])
+Film = NamedTuple('Film', [('title', str)])
+Album = NamedTuple('Album', [('artist', str), ('title', str)])
+Book = NamedTuple('Book', [('title', str)])
 
 
 # ---------------
@@ -110,25 +110,28 @@ def run_scraped_datadict_example(
     special_types: Tuple[type] = (
         dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
     ),
-    do_save: bool = False,
-    verbose: bool = False) -> tuple:   
+    verbose: bool = False,
+    do_save: bool = False) -> namedtuple:   
+    
+    
+    
     r"""
     Auto-generate and save an exemplar data dictionary from the metadata of an arbitrary API-extracted data structure.
     
     Parameters
     ----------
     source : Literal['imdb', 'spotify', 'wiki']) 
-        _description_
-    search_terms : tuple
-        _description_
+        The source from which to retrieve data about the requested topic. 
+    search_terms : Film | Album | Book
+        A namedtuple of required properties (e.g., title) for the topic query.
     special_types : Tuple[type], default=(
         dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
         )
-        __description__
+        Adds support for datatypes unique to the API of the provided source.
     verbose : bool, default=False
-        Option to enable printouts.
+        Option to enable printouts of the retrieved data and schema.
     do_save : bool, default=False
-        Option to enable saving of retrieved data.
+        Option to enable saving of the retrieved data and schema.
  
     Returns
     -------
@@ -203,6 +206,11 @@ def run_scraped_datadict_example(
     message = "Source must be either 'imdb', 'spotify', or 'wiki'."
     assert source in ['imdb', 'spotify', 'wiki'], message
     
+    # Normalize query strings
+    search_terms = search_terms._replace(
+        **{key: str(value).lower() 
+           for key, value in search_terms._asdict().items()})
+    
     # TODO refactor retrieval using retrieve method of resp Processor subclasses
     # Movie
     if source == 'imdb':
@@ -276,7 +284,7 @@ def run_scraped_datadict_example(
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    # doctest_function(run_scraped_datadict_example, globs=globals())
+    doctest_function(run_scraped_datadict_example, globs=globals())
             
     ## One-off tests
     pass
