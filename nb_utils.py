@@ -82,7 +82,8 @@ def git_module_loader(modules: Dict[str, List[str]],
 
 ### Efficient testing
 
-def doctest_function(object: Callable[..., Any], globs: dict[str, Any]) -> None:
+def doctest_function(object: Callable[..., Any], globs: dict[str, Any],
+                     verbose=True) -> None:
     """
     Convenience wrapper to run doctests for a specific function or class.
 
@@ -94,13 +95,13 @@ def doctest_function(object: Callable[..., Any], globs: dict[str, Any]) -> None:
         Global variables from module of interest.
     """
     print('-------------------------------------------------------')
-    finder = doctest.DocTestFinder(verbose=True, recurse=False)
-    runner = doctest.DocTestRunner(verbose=True)
+    finder = doctest.DocTestFinder(verbose=verbose, recurse=False)
+    runner = doctest.DocTestRunner(verbose=verbose)
     for test in finder.find(obj=object, globs=globs):
         results = runner.run(test)
     print('-------------------------------------------------------')
     print(results)
-
+    
 
 def main():
     import doctest

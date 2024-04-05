@@ -40,14 +40,24 @@ def _list_to_dict(obj: list) -> dict:
     >>> my_list = [1, 'two', [3], {'four': 5}]
     >>> _list_to_dict(my_list)
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
+    >>> my_dict = dict(a=1, b='two')
+    >>> _list_to_dict(my_dict)
+    Not running conversion since obj is already a dict.
+    {'a': 1, 'b': 'two'}
     """
-    return {(key + 1): value for key, value in enumerate(obj)}
+    if isinstance(obj, dict): 
+        print("Not running conversion since obj is already a dict.")
+        return obj
+    else:
+        return {(key + 1): value for key, value in enumerate(obj)}
 
 
 def _serialize_scraped_data(obj) -> dict:
     """
     Coerce unique dataclasses from scraped objects into serializable format.
     """
+    assert isinstance(obj, dict), f"obj must be a dict. Received {type(obj).__name__}."
+    
     serializable_dict = {}
     for key, value in obj.items():
         if isinstance(value, list):
@@ -346,7 +356,7 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=True)
+    doctest.testmod(verbose=False)
     # doctest_function(get_film_metadata, globs=globals())
         
     ## One-off tests
