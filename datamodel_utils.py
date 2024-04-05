@@ -8,7 +8,7 @@ import pprint
 import json
 import pandas as pd
 
-from typing import List
+from typing import List, Tuple
 from datetime import datetime
 from jsonschema import validate
 from dataclasses import dataclass, asdict
@@ -17,12 +17,15 @@ from pydantic import BaseModel, ValidationError, PositiveInt
 import wptools
 import spotipy
 import imdb
+
 from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 
 import _settings
+
 from display_dataset import display
+from nb_utils import doctest_function
 
 # ----------------------------------
 # --- Data dictionary generation ---
@@ -131,7 +134,38 @@ def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:
     return None
 
 
-def iterable_to_schema(obj, special_types: tuple = (dict,)) -> dict:
+def _omit_patterns(input_string: str, patterns: List[str]) -> str:
+    r"""
+    Helper to prune multiple character patterns from a string at once.
+
+    Parameters
+    ----------
+    input_string : str
+        The to-be-cleaned string. 
+    patterns : List[str] 
+        A list of patterns to omit from the string.
+
+    Returns
+    -------
+    str : The input string with the supplied patterns ommitted.
+        
+    Examples
+    --------
+    >>> input_string = "[[A \\\\ messy * string * with undesirable /patterns]]"
+    >>> print(input_string)
+    [[A \\ messy * string * with undesirable /patterns]]
+    >>> patterns_to_omit = ["[[", "]]", "* ", "\\\\ ", "/", "messy ", "un" ]
+    >>> output_string = _omit_patterns(input_string, patterns_to_omit)
+    >>> print(output_string)
+    A string with desirable patterns
+    """
+    pattern = '|'.join(re.escape(p) for p in patterns)
+    return re.sub(pattern, '', input_string)
+
+
+def iterable_to_schema(
+    obj, 
+    special_types: Tuple[type] = (dict,)) -> dict:
     """
     _summary_
 
@@ -234,8 +268,10 @@ except ValidationError as e:
 # --- Data processing base class ---
 # ----------------------------------
 
-# TODO implement this
 # BaseProcessor
+
+# TODO implement this
+
 class BaseProcessor:
     def __init__(self, **args):
         self.args = args
@@ -246,22 +282,26 @@ class BaseProcessor:
     def process(self):
         raise NotImplementedError
 
-# TODO implement 3 of these
-# Subclass Processor
-class MovieProcessor(BaseProcessor):
-    def process(self, y: list):
-        return sum(y)*5
-
-# -----------------------------------------------------------------------------
-# XXX (rough tests)
-MovieProcessor().retrieve([4,5,6])
-MovieProcessor().process([4,5,6])
-# -----------------------------------------------------------------------------
 
 # --------------------------
 # --- Metadata retrieval ---
 # --------------------------
 
+# Subclass Processor
+
+# TODO implement 5 subclasses
+
+
+
+# -----------------------------------------------------------------------------
+# XXX (rough tests)
+class MovieProcessor(BaseProcessor):
+    def process(self, y: list):
+        return sum(y)*5
+
+MovieProcessor().retrieve([4,5,6])
+MovieProcessor().process([4,5,6])
+# -----------------------------------------------------------------------------
 
 # -----------------------
 # --- Topic retrieval ---
@@ -310,5 +350,4 @@ if __name__ == "__main__":
     # doctest_function(get_film_metadata, globs=globals())
         
     ## One-off tests
-    # XXX Data dictionary stuff
     
