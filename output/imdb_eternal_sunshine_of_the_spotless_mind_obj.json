@@ -1,758 +1,610 @@
 {
     "original title": "Eternal Sunshine of the Spotless Mind",
     "localized title": "Eternal Sunshine of the Spotless Mind",
-    "cast": [
-        "Jim Carrey",
-        "Kate Winslet",
-        "Gerry Robert Byrne",
-        "Elijah Wood",
-        "Thomas Jay Ryan",
-        "Mark Ruffalo",
-        "Jane Adams",
-        "David Cross",
-        "Kirsten Dunst",
-        "Tom Wilkinson",
-        "Ryan Whitney",
-        "Debbon Ayer",
-        "Amir Ali Said",
-        "Brian Price",
-        "Paulie Litt",
-        "Josh Flitter",
-        "Lola Daehler",
-        "Deirdre O'Connell",
-        "Lauren Adler"
-    ],
-    "genres": [
-        "Drama",
-        "Romance",
-        "Sci-Fi"
-    ],
-    "runtimes": [
-        "108"
-    ],
-    "countries": [
-        "United States"
-    ],
-    "country codes": [
-        "us"
-    ],
-    "language codes": [
-        "en"
-    ],
-    "color info": [
-        "Color"
-    ],
+    "cast": {
+        "1": {
+            "name": "Jim Carrey",
+            "canonical name": "Carrey, Jim",
+            "long imdb name": "Jim Carrey",
+            "long imdb canonical name": "Carrey, Jim"
+        },
+        "2": {
+            "name": "Kate Winslet",
+            "canonical name": "Winslet, Kate",
+            "long imdb name": "Kate Winslet",
+            "long imdb canonical name": "Winslet, Kate"
+        },
+        "3": {
+            "name": "Gerry Robert Byrne",
+            "canonical name": "Byrne, Gerry Robert",
+            "long imdb name": "Gerry Robert Byrne",
+            "long imdb canonical name": "Byrne, Gerry Robert"
+        }
+    },
+    "genres": {
+        "1": "Drama",
+        "2": "Romance",
+        "3": "Sci-Fi"
+    },
+    "runtimes": {
+        "1": "108"
+    },
+    "countries": {
+        "1": "United States"
+    },
+    "country codes": {
+        "1": "us"
+    },
+    "language codes": {
+        "1": "en"
+    },
+    "color info": {
+        "1": "Color"
+    },
     "aspect ratio": "1.85 : 1",
-    "sound mix": [
-        "DTS",
-        "Dolby",
-        "SDDS"
-    ],
+    "sound mix": {
+        "1": "DTS",
+        "2": "Dolby",
+        "3": "SDDS"
+    },
     "box office": {
         "Budget": "$20,000,000 (estimated)",
         "Opening Weekend United States": "$8,175,198, 21 Mar 2004",
         "Cumulative Worldwide Gross": "$73,169,222"
     },
-    "certificates": [
-        "Argentina:13",
-        "Australia:M",
-        "Brazil:14",
-        "Canada:14A::(British Columbia/Ontario)",
-        "Canada:G::(Qu\u00e9bec)",
-        "Chile:TE+7",
-        "Ecuador:15::(self-applied)",
-        "Egypt:R",
-        "Finland:K-11",
-        "France:Tous publics",
-        "Germany:12",
-        "Greece:K-16",
-        "Hong Kong:IIB",
-        "Iceland:L",
-        "India:UA::(Bangalore)",
-        "India:A::(Mumbai)",
-        "Indonesia:16+::(self-applied)",
-        "Ireland:15",
-        "Israel:16::(self-applied)",
-        "Italy:T",
-        "Japan:G::(self-applied)",
-        "Mexico:B15",
-        "Netherlands:AL",
-        "New Zealand:M",
-        "Norway:11::(cinema rating)",
-        "Peru:Apt",
-        "Philippines:R-13",
-        "Poland:16",
-        "Portugal:M/16",
-        "Russia:16+",
-        "Singapore:NC-16",
-        "South Africa:13::(self-applied)",
-        "South Korea:15::(self-applied)",
-        "Spain:13",
-        "Sweden:11",
-        "Switzerland:10::(canton of Geneva)",
-        "Switzerland:10::(canton of Vaud)",
-        "Switzerland:16::(canton of Zurich)",
-        "Taiwan:6+",
-        "Thailand:u 18+::(self-applied)",
-        "Turkey:16+::(self-applied)",
-        "United Kingdom:15",
-        "United States:R",
-        "United Arab Emirates:16+::(self-applied)"
-    ],
+    "certificates": {
+        "1": "Argentina:13",
+        "2": "Australia:M",
+        "3": "Brazil:14"
+    },
     "original air date": "19 Mar 2004 (USA)",
-    "rating": 8.3,
-    "votes": 1075142,
+    "rating": "8.3",
+    "votes": "1075206",
     "cover url": "https://m.media-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_SY150_CR0,0,101,150_.jpg",
     "imdbID": "0338013",
-    "videos": [
-        "http://www.imdb.com/title/tt0338013/videoplayer/vi2292515097",
-        "http://www.imdb.com/title/tt0338013/videoplayer/vi1738735897"
-    ],
+    "videos": {
+        "1": "http://www.imdb.com/title/tt0338013/videoplayer/vi2292515097",
+        "2": "http://www.imdb.com/title/tt0338013/videoplayer/vi1738735897"
+    },
     "plot outline": "Much to his surprise, timid Joel Barish is shocked to discover that the love of his life, sparky Clementine, has had him erased from her memory. As a result, hurt and angry, Joel wants to pay her back in the same coin, going as far as to undergo a painless but intricate medical procedure to do the same. However, poor Joel is utterly unaware that darkness is an essential part of the light. And as the once-cherished recollections of Clementine gradually fade away, giving way to a soulless black void, something unexpected happens. Now Joel has second thoughts, toying with the idea of stopping the irreversible process. Who said ignorance is bliss?",
-    "languages": [
-        "English"
-    ],
+    "languages": {
+        "1": "English"
+    },
     "title": "Eternal Sunshine of the Spotless Mind",
-    "year": 2004,
+    "year": "2004",
     "kind": "movie",
-    "director": [
-        "Michel Gondry"
-    ],
-    "writer": [
-        "Charlie Kaufman",
-        "Michel Gondry",
-        "Pierre Bismuth",
-        "",
-        "Charlie Kaufman"
-    ],
-    "producer": [
-        "Georges Bermann",
-        "Anthony Bregman",
-        "David Bushell",
-        "Steve Golin",
-        "Linda Fields Hill",
-        "Michael Jackman",
-        "Charlie Kaufman",
-        "Glenn Williamson"
-    ],
-    "composer": [
-        "Jon Brion"
-    ],
-    "cinematographer": [
-        "Ellen Kuras"
-    ],
-    "editor": [
-        "Vald\u00eds \u00d3skarsd\u00f3ttir"
-    ],
-    "editorial department": [
-        "Kenny Becker",
-        "Angela Beresford",
-        "Michael Eaves",
-        "Chad Gunderson",
-        "James Haygood",
-        "Mike Kennedy",
-        "Loan Phan",
-        "David A. Smith",
-        "Mike Sowa",
-        "Andre Tr\u00e9jo",
-        "Jeffrey M. Werner",
-        "Katrina Whalen",
-        "Paul Zucker",
-        "Valance Eisleben",
-        "Jack Lewars",
-        "Martha Pike",
-        "Jeff Schweikart"
-    ],
-    "casting director": [
-        "Jeanne McCarthy"
-    ],
-    "production design": [
-        "Dan Leigh"
-    ],
-    "art direction": [
-        "David Stein"
-    ],
-    "set decoration": [
-        "Ron von Blomberg"
-    ],
-    "costume designer": [
-        "Melissa Toth"
-    ],
-    "make up": [
-        "Michelle Johnson",
-        "Peter Owen",
-        "Kyra Panchenko",
-        "Francesca Paris",
-        "Noriko Watanabe",
-        "Allen Weisinger",
-        "Rose Chatterton",
-        "Nicki Ledermann",
-        "Evelyne Noraz"
-    ],
-    "production manager": [
-        "Ray Angelic",
-        "David Bushell",
-        "Michael Jackman",
-        "Jeff Roth"
-    ],
-    "assistant director": [
-        "Scott Ferguson",
-        "Michael Hausman",
-        "Peter Thorell",
-        "Noelle Stehman",
-        "Adam T. Weisinger"
-    ],
-    "art department": [
-        "Liz Bonaventura",
-        "James Boniece",
-        "Garf Brown",
-        "Brian Buteau",
-        "Ruth Deleon",
-        "Paul George Divone",
-        "James Donahue",
-        "Natalie N. Dorset",
-        "David Scott Gagnon",
-        "Emily Gaunt",
-        "Jonathan Graham",
-        "Roman Greller",
-        "Sean Hawk",
-        "Anne Beiser Haywood",
-        "Brent Haywood",
-        "James Hoff",
-        "Miguel Jimenez",
-        "Roberto Jim\u00e9nez",
-        "Hinju Kim",
-        "Zbigniew 'Ziggy' Kouros",
-        "Julius Kozlowski",
-        "Gordon Krause",
-        "Kevin Ladson",
-        "Mark Lane-Davies",
-        "Michael Leather",
-        "Addy McClelland",
-        "Mike Melchiove",
-        "Nick Miller",
-        "Ronald Miller",
-        "Scott P. Murphy",
-        "Morgan Pitts",
-        "Paul Proch",
-        "Sean Robinson",
-        "John Roche",
-        "Sam Z. Rogers",
-        "R. Vincent Smith",
-        "Patricia Sprott",
-        "Robert Vaccariello",
-        "Andrew M. Velechenko",
-        "Derrick Alford",
-        "Eric Bryant",
-        "Hank Liebeskind",
-        "Scott Paige",
-        "Jeffrey Rollins",
-        "Ray Tintori"
-    ],
-    "sound crew": [
-        "Kam Chan",
-        "Marko A. Costanzo",
-        "Chris Fielder",
-        "Eugene Gearty",
-        "Frank Kern",
-        "George A. Lara",
-        "Marissa Littlefield",
-        "Tommy Louie",
-        "Tom Nelson",
-        "Jay Peck",
-        "Fred Rosenberg",
-        "Kira Smith",
-        "Reilly Steele",
-        "Philip Stockton",
-        "Paul Urmson",
-        "Steven Visscher",
-        "Larry Wineland",
-        "Alexa Zimmerman",
-        "Mike DeBonis",
-        "Kyle Godbey",
-        "Christopher Harvengt",
-        "Nigel Heath",
-        "Hal Levinsohn",
-        "Bob Olari",
-        "Greg Steele",
-        "David Warzynski"
-    ],
-    "special effects": [
-        "Mark Bero",
-        "Drew Jiritano",
-        "Thomas Viviano"
-    ],
-    "visual effects": [
-        "Tricia Barrett",
-        "Ryan Beadle",
-        "Steve Caldwell",
-        "Mark Dornfeld",
-        "Brent Ekstrand",
-        "Michele Ferrone",
-        "Martin Garner",
-        "Adam Gass",
-        "Laurie Powers Going",
-        "R.J. Harbour",
-        "Shaina Holmes",
-        "Ara Khanikian",
-        "Melanie La Rue",
-        "Alexandre Lafortune",
-        "Pierre-Simon Lebrun-Chaput",
-        "St\u00e9phane Loiselle",
-        "Fran\u00e7ois Lord",
-        "Francois Metivier",
-        "Lori C. Miller",
-        "Louis Morin",
-        "Martin Pelletier",
-        "Glenn Silver",
-        "David Smithson",
-        "Mary C. Snyder",
-        "Robin Tremblay",
-        "Gabriel Tremblay-Beauvais",
-        "Amani Williams",
-        "Derek Bird",
-        "Jacqueline Cooper",
-        "Dennis Dorney",
-        "Pam Kray",
-        "Alexandre Lafortune",
-        "Kevin Lin",
-        "Thomas Mathai",
-        "Mark Sawicki"
-    ],
-    "stunt performer": [
-        "Danny Aiello III",
-        "Bill Anagnos",
-        "E.J. Evans",
-        "John R. Favre",
-        "Stephanie Finochio",
-        "Cort Hessler",
-        "Artie Malesci",
-        "Peewee Piemonte",
-        "Stephen A. Pope",
-        "Michael Russo",
-        "Brian Smyj"
-    ],
-    "camera and electrical department": [
-        "Peter Agliata",
-        "Robert M. Andres",
-        "Alison Barton",
-        "Angela Bellisio",
-        "Braden Belmonte",
-        "Kelly Britt",
-        "Tony Campenni",
-        "Mel Cannon",
-        "Sam Chase",
-        "Lamont Crawford",
-        "Andrea Cronin-Souza",
-        "Paul Daley",
-        "James Domorski",
-        "Christopher Donohue",
-        "Stanley Fernandez Jr.",
-        "Ray Flynn",
-        "Carlos Omar Guerra",
-        "David Lee",
-        "Kevin McKenna",
-        "John C. Nadeau",
-        "Christopher Norr",
-        "Martin Nowlan",
-        "John Panuccio",
-        "Joseph Quirk",
-        "Christopher Raymond",
-        "Darren Ryan",
-        "Mark Schmidt",
-        "Chris Skutch",
-        "Mark Summers",
-        "Joseph Trammell",
-        "Richard Yacuk",
-        "Fernando Gayesky",
-        "Michael N. Green",
-        "Jeff Lomaglio",
-        "Hern\u00e1n Ota\u00f1o",
-        "Justin Panzanaro",
-        "Joshua Van Praag"
-    ],
-    "casting department": [
-        "Blythe Cappello",
-        "Linda R. Chen",
-        "Natasha Cuba",
-        "Sage Lehman",
-        "Kristian Sorge",
-        "John Srednicki",
-        "Grant Wilfley",
-        "Melissa Farnum"
-    ],
-    "costume department": [
-        "Hilary Basing",
-        "Cara Borrelli",
-        "Lisa R. Frucht",
-        "Jill Kliber",
-        "David Page",
-        "Deirdre N. Williams",
-        "Colleen Morris Glennon",
-        "Laura Steinman"
-    ],
-    "location management": [
-        "Kat Donahue",
-        "Chris Marsh",
-        "Currie Person",
-        "Daniel Tresca",
-        "Gayle Vangrofsky",
-        "Jimmy Price"
-    ],
-    "music department": [
-        "Steve Bartek",
-        "Christine Bergren",
-        "Tom Biller",
-        "Dana Bourke",
-        "Jon Brion",
-        "Tass Filipos",
-        "Peter Gordon",
-        "Jason Gossman",
-        "Chris Holmes",
-        "Mitchell Leib",
-        "Kathy Nelson",
-        "Jen Pray",
-        "Steven Rhodes",
-        "Reed Ruddy",
-        "Edgardo Simone",
-        "Patrick Spain",
-        "Nick Vidar",
-        "John Carrington",
-        "Greg Hamilton",
-        "Jim Keltner",
-        "Sean Osborn",
-        "Robert Puff",
-        "Nick Vidar"
-    ],
-    "script department": [
-        "Mary Cybulski",
-        "Corey W. Allen"
-    ],
-    "transportation department": [
-        "Ed Battista",
-        "Theodor A. Brown",
-        "John Canavan",
-        "Salvatore Cicone",
-        "Chuck Clarke",
-        "Peter Clores",
-        "Thomas Crehan",
-        "Mike Easter",
-        "Jerry Featherstone",
-        "Mo Fitzgerald",
-        "Ralph Gagliano",
-        "William K. Gaskins",
-        "Irv Gooch",
-        "William Gore",
-        "Joseph L. Johnson",
-        "Paul Kane",
-        "Dennis Kelly",
-        "James Kelly",
-        "Herb Lieberz",
-        "Scott Lieberz",
-        "Bobby Marsh",
-        "Tom Mawyer",
-        "Jerry McMullan",
-        "Richard Nelson Jr.",
-        "David M. Salisbury",
-        "William T. Stuart",
-        "Francis Volpe",
-        "Timothy J. Wood"
-    ],
-    "miscellaneous crew": [
-        "Sebasti\u00e1n Almeida",
-        "Stefanie Azpiazu",
-        "Hilary Basing",
-        "Nicholas R. Bell",
-        "Fred Berger",
-        "Dotan Bonen",
-        "Christian Brockey",
-        "Bobb Bruno",
-        "Brian Cantaldi",
-        "David Catalano",
-        "Linda R. Chen",
-        "Ben Conable",
-        "Douglas Costa",
-        "Robert Darwell",
-        "Liesl Davis",
-        "Philip DeRise",
-        "Stephanie DeTiege",
-        "Maureen Duffy",
-        "Tracy Ershow",
-        "Kathleen Fellegara",
-        "Rich Fellegara",
-        "Frances Fiore",
-        "Noah Fox",
-        "Martin Garner",
-        "Andrew Goodman",
-        "Kristy Hamer",
-        "Amro Hamzawi",
-        "Susan Hegarty",
-        "Arthur Hur",
-        "Lindsey Jaffin",
-        "Cynthia Kao",
-        "Kate Karbowniczek",
-        "Erica Kay",
-        "Matt King",
-        "David Koch",
-        "Sage Lehman",
-        "Paula P. Manzanedo",
-        "Patrick McDonald",
-        "Hillary Meyer",
-        "Valerie Nolan",
-        "Oona Overholtzer",
-        "Derek Pastures",
-        "Ali Pensyl",
-        "Michal Podell",
-        "Ruth Pollock",
-        "Chris Prapha",
-        "Gary S. Rake",
-        "Adrian Scartascini",
-        "Jeff Schlesinger",
-        "Eugy Septimo",
-        "Aleta Shaffer",
-        "John Shelby",
-        "Talley Singer",
-        "Debbie Stampfle",
-        "Greg Trattner",
-        "Andy Wheeler",
-        "Alex Zoppa",
-        "Andrew Zoppa",
-        "Zach Zoppa",
-        "Stephen Emery",
-        "Dylan Gallagher",
-        "Amber Gristak",
-        "Kristen Marie Holly",
-        "Linaia Light",
-        "Matthew Makar",
-        "Cyril Merle",
-        "Tony Muro",
-        "Roberto Pedicini",
-        "Jennifer Skyler",
-        "Jeremiah Zazueta"
-    ],
-    "thanks": [
-        "Karen Baird",
-        "Ted Baker",
-        "Heidi Bivens",
-        "Gerry Robert Byrne",
-        "Anne Carey",
-        "Kevin Dillon",
-        "Paul Dorf",
-        "Cyril Drabinsky",
-        "John Fluevog",
-        "Julie Fong",
-        "Paul Frank",
-        "Dr. Hauschka",
-        "Ted Hope",
-        "Betsey Johnson",
-        "Will Keenan",
-        "Laura Kightlinger",
-        "Drew Kunin",
-        "J.F. Lazartigue",
-        "Steve Madden",
-        "Laura Madrigano",
-        "Nicole Miller",
-        "Susan E. Morse",
-        "Thomas Pink",
-        "Ellen Pompeo",
-        "Victor Rasuk",
-        "Amy Rosen",
-        "Leon Silverman",
-        "Gwenn Smith",
-        "John Srednicki",
-        "Diana Victor",
-        "Karen Walker",
-        "The Zacks"
-    ],
-    "akas": [
-        "Eterno resplandor de una mente sin recuerdos (United States, Spanish title)",
-        "Eterno resplandor de una mente sin recuerdos (Egypt, English title)",
-        "Vergiss mein nicht (Germany)",
-        "\u00a1Olv\u00eddate de m\u00ed! (Spain)",
-        "\u6696\u6696\u5185\u542b\u5149 (China, Mandarin title)"
-    ],
-    "top 250 rank": 95,
-    "production companies": [
-        "Focus Features",
-        "Anonymous Content",
-        "This Is That Productions"
-    ],
-    "distributors": [
-        "Focus Features",
-        "A-Film Distribution",
-        "Bir Film",
-        "Constantin Film",
-        "Eagle Pictures",
-        "Gaga",
-        "Hollywood Classic Entertainment",
-        "Humax Pictures",
-        "International Film Distribution Consultants",
-        "Momentum Pictures",
-        "Pandasia Entertainment",
-        "Paradise Group",
-        "Pioneer Films",
-        "SPI International Magyarorszag",
-        "Sandrew Metronome Distribution Sverige AB",
-        "Sandrew Metronome Distribution",
-        "Shaw Organisation",
-        "United International Pictures (UIP)",
-        "United International Pictures (UIP)",
-        "United International Pictures (UIP)",
-        "United International Pictures",
-        "WEG Entertainment",
-        "A-Film Home Entertainment",
-        "Alliance Atlantis Home Video",
-        "Argentina Video Home",
-        "Argentina Video Home",
-        "Artist Film",
-        "Highlight Film",
-        "Movie Bank",
-        "Rai Movie",
-        "SBS",
-        "Sandrew Metronome Distribution",
-        "Sandrew Metronome Distribution",
-        "The Blu",
-        "The Criterion Channel",
-        "TriPictures",
-        "Universal Pictures Home Entertainment (UPHE)",
-        "Universal Pictures Home Entertainment (UPHE)",
-        "Universal Pictures Video",
-        "Universal Studios Home Video",
-        "Yleisradio (YLE)"
-    ],
-    "special effects companies": [
-        "Buzz Image Group",
-        "Custom Film Effects"
-    ],
-    "other companies": [
-        "AON/Albert G. Ruben Insurance Services",
-        "ARRI",
-        "ARRI",
-        "Amalgamated Dwellings",
-        "Arc Flashlights",
-        "Armani Exchange",
-        "Available Art",
-        "Barbour",
-        "Barnes & Noble College Booksellers",
-        "Bastyr University",
-        "Bayonne Local Redevelopment Authority",
-        "Birkenstock",
-        "Blue Plate",
-        "Bumble & Bumble",
-        "C5",
-        "Carhartt",
-        "Carroll & Graff Publishers",
-        "Casauri Bags and Wallets",
-        "Cello Studio",
-        "Chantecaille",
-        "Clarks Shoes",
-        "Columbia",
-        "Concept 2 Rowing",
-        "Converse",
-        "Copy Caps, Wellfleet",
-        "Custom Film Effects",
-        "DTS",
-        "David Dreishpoon's Gourmet Craft Service",
-        "Dawn Animal Agency",
-        "Deluxe Entertainment Services",
-        "Dolby",
-        "Dr. Hauschka Kosmetik",
-        "EFILM",
-        "Etro",
-        "Express",
-        "Falco Ink.",
-        "Falco Ink.",
-        "Film Finances",
-        "For Stars Catering",
-        "Frankie Steinz",
-        "Fresh Music Library",
-        "Frye Boots",
-        "Fujifilm",
-        "Fujifilm",
-        "Grant Wilfley Casting",
-        "Grove Press",
-        "H&M",
-        "H2O Plus",
-        "Helen Uffner Vintage Clothing",
-        "Henry Schein Medical Supplies",
-        "Hollywood Records",
-        "Hue",
-        "Ingwa",
-        "International Alliance of Theatrical Stage Employees (IATSE)",
-        "J.C. Penney",
-        "Jockey",
-        "Justin Boots",
-        "Kiehl's Since 1851",
-        "LL Bean",
-        "LaserPacific",
-        "Leksell Stereotactic System",
-        "Lirr",
-        "Long Island Jewish Medical Center",
-        "Mac",
-        "Manic Manic by Snooky & Tish",
-        "Mavi Jeans",
-        "Media Net",
-        "Melero",
-        "Metro Concepts Music",
-        "Metro-North Railroad Company",
-        "Molton Brown",
-        "NYC Subway Line",
-        "Necessary Objects",
-        "New 42nd Street",
-        "New Jersey Film Commission",
-        "New Victory Theatre",
-        "New York City Police Department, Movie and Television Unit",
-        "New York State Governor's Office for Motion Picture & Television Development",
-        "New York State Office of Parks, Recreation and Historical Preservation",
-        "Only Hearts",
-        "Oroblu Italian Hosiery",
-        "Paper Denim Cloth",
-        "Penguin Putnam Books",
-        "Perricone, Maryland",
-        "Pez",
-        "Phyto",
-        "Pivotal Post",
-        "Playbill",
-        "PolyGram Records",
-        "Puma",
-        "Random House",
-        "Robert Puff Music",
-        "Russell Stover Candy Company",
-        "SDDS Sony Dynamic Digital Sound",
-        "Schott Brothers",
-        "Schylling Toys",
-        "Seize Sur Vingt",
-        "Sesha Cosmeticals",
-        "Sheppard, Mullin, Richter & Hampton",
-        "Siemen's Medical",
-        "Signet Sound Studio",
-        "Simon James Music",
-        "Sound One Corporation",
-        "The Mark Shaiman Institute",
-        "The New York City Mayor's Office of Film, Theatre & Broadcasting",
-        "The North Face",
-        "Title House Digital",
-        "Tony & Tine's Cosmetics",
-        "Town of East Hampton, New York",
-        "UGG",
-        "Universal Polygram International Publishing Inc.",
-        "Urban Decay",
-        "Urban Outfitters",
-        "Valentine Management & The Gojani Family",
-        "Very Fine Tees",
-        "Wendy Cohen Production Resources",
-        "Wrangler Jeans"
-    ],
-    "plot": [
-        "When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories for ever.",
-        "Much to his surprise, timid Joel Barish is shocked to discover that the love of his life, sparky Clementine, has had him erased from her memory. As a result, hurt and angry, Joel wants to pay her back in the same coin, going as far as to undergo a painless but intricate medical procedure to do the same. However, poor Joel is utterly unaware that darkness is an essential part of the light. And as the once-cherished recollections of Clementine gradually fade away, giving way to a soulless black void, something unexpected happens. Now Joel has second thoughts, toying with the idea of stopping the irreversible process. Who said ignorance is bliss?\u2014Nick Riganas",
-        "A man awakes disheveled; impulsively, he skips work, heading instead to the shore. On this chilly February day, a woman in orange, hair dyed blue, chats him up: she's Clementine, he's Joel, shy and sad; by day's end, he likes her. The next night she takes him to the frozen Charles River. After, as he drops her off, she asks to sleep at his place, and she runs up to get her toothbrush. Strange things occur: their meeting was not entirely chance, they have a history neither remembers. Our seeing how the lacunae came to be and their discovery of the memory loss take the rest of the film.\u2014<jhailey@hotmail.com>",
-        "Joel is stunned to discover that his girlfriend Clementine has had her memories of their tumultuous relationship erased. Out of desperation, he contracts the inventor of the process, Dr. Howard Mierzwaik, to have Clementine removed from his own memory. But as Joel's memories progressively disappear, he begins to rediscover their earlier passion. From deep within the recesses of his brain, Joel attempts to escape the procedure. As Dr. Mierzwiak and his crew chase him through the maze of his memories, it's clear that Joel just can't get her out of his head.\u2014Focus Features",
-        "This is the story of a guy, Joel, who discovers that his long-time girlfriend, Clementine, has undergone a psychiatrist's experimental procedure in which all of her memory of Joel is removed, after the couple has tried for years to get their relationship working fluidly. Frustrated by the idea of still being in love with a woman who doesn't remember their time together, Joel agrees to undergo the procedure as well, to erase his memories of Clementine.\u2014austin4577@aol.com"
-    ],
-    "synopsis": [
-        "Joel Barish (Jim Carrey) is an emotionally withdrawn man and Clementine Kruczynski (Kate Winslet) is his girlfriend who is a dysfunctional free spirit. They are inexplicably attracted to each other despite their different personalities.They do not realize it at the time, but they are former lovers now separated after two years together. After a nasty fight, Clementine has had her memories of their relationship erased from her mind. Upon learning this, Joel is devastated and goes to the doctor to have the same procedure done. However, while unconscious, Joel has second thoughts and decides he wants to keep his memories of Clementine.Much of the film takes place in Joel's brain as he tries to find a way to preserve his memories of Clementine, and two Lacuna techies Patrick (Elijah Wood) and Stan (Mark Ruffalo) try to erase the memories. We watch their love and courtship go in reverse: The memories are slowly erased while Joel tries his best to resist the procedure and hide inside his mind.In separate and related story arcs, the employees of Lacuna Corporation are revealed to be more than peripheral characters in scenes which further show the harm caused by the memory-altering procedure. Mary (Kirsten Dunst) has had an affair with the married Dr. Howard Mierzwiak, who heads the company (Tom Wilkinson). She agreed to have the affair erased from her memory when his wife discovered the relationship. Lonely, socially inept Patrick becomes fixated on Clementine and uses Joel's personal mementos that he gave to Lacuna as part of the procedure in order to seduce her. These romantic entanglements turn out to have a critical effect on the main story line of the relationship between Joel and Clementine.Once Mary learns of the affair she has had with Mierzwiak, she steals the company's records and sends them to all of its clients. Thus Joel and Clementine both get to listen to their initial tape recordings at Lacuna, and afterwards realize that even if everything in life isn't perfect, their relationship can still be worthwhile."
-    ],
+    "director": {
+        "1": {
+            "name": "Michel Gondry",
+            "canonical name": "Gondry, Michel",
+            "long imdb name": "Michel Gondry",
+            "long imdb canonical name": "Gondry, Michel"
+        }
+    },
+    "writer": {
+        "1": {
+            "name": "Charlie Kaufman",
+            "canonical name": "Kaufman, Charlie",
+            "long imdb name": "Charlie Kaufman",
+            "long imdb canonical name": "Kaufman, Charlie"
+        },
+        "2": {
+            "name": "Michel Gondry",
+            "canonical name": "Gondry, Michel",
+            "long imdb name": "Michel Gondry",
+            "long imdb canonical name": "Gondry, Michel"
+        },
+        "3": {
+            "name": "Pierre Bismuth",
+            "canonical name": "Bismuth, Pierre",
+            "long imdb name": "Pierre Bismuth",
+            "long imdb canonical name": "Bismuth, Pierre"
+        }
+    },
+    "producer": {
+        "1": {
+            "name": "Georges Bermann",
+            "canonical name": "Bermann, Georges",
+            "long imdb name": "Georges Bermann",
+            "long imdb canonical name": "Bermann, Georges"
+        },
+        "2": {
+            "name": "Anthony Bregman",
+            "canonical name": "Bregman, Anthony",
+            "long imdb name": "Anthony Bregman",
+            "long imdb canonical name": "Bregman, Anthony"
+        },
+        "3": {
+            "name": "David Bushell",
+            "canonical name": "Bushell, David",
+            "long imdb name": "David Bushell",
+            "long imdb canonical name": "Bushell, David"
+        }
+    },
+    "composer": {
+        "1": {
+            "name": "Jon Brion",
+            "canonical name": "Brion, Jon",
+            "long imdb name": "Jon Brion",
+            "long imdb canonical name": "Brion, Jon"
+        }
+    },
+    "cinematographer": {
+        "1": {
+            "name": "Ellen Kuras",
+            "canonical name": "Kuras, Ellen",
+            "long imdb name": "Ellen Kuras",
+            "long imdb canonical name": "Kuras, Ellen"
+        }
+    },
+    "editor": {
+        "1": {
+            "name": "Vald\u00eds \u00d3skarsd\u00f3ttir",
+            "canonical name": "\u00d3skarsd\u00f3ttir, Vald\u00eds",
+            "long imdb name": "Vald\u00eds \u00d3skarsd\u00f3ttir",
+            "long imdb canonical name": "\u00d3skarsd\u00f3ttir, Vald\u00eds"
+        }
+    },
+    "editorial department": {
+        "1": {
+            "name": "Kenny Becker",
+            "canonical name": "Becker, Kenny",
+            "long imdb name": "Kenny Becker",
+            "long imdb canonical name": "Becker, Kenny"
+        },
+        "2": {
+            "name": "Angela Beresford",
+            "canonical name": "Beresford, Angela",
+            "long imdb name": "Angela Beresford",
+            "long imdb canonical name": "Beresford, Angela"
+        },
+        "3": {
+            "name": "Michael Eaves",
+            "canonical name": "Eaves, Michael",
+            "long imdb name": "Michael Eaves",
+            "long imdb canonical name": "Eaves, Michael"
+        }
+    },
+    "casting director": {
+        "1": {
+            "name": "Jeanne McCarthy",
+            "canonical name": "McCarthy, Jeanne",
+            "long imdb name": "Jeanne McCarthy",
+            "long imdb canonical name": "McCarthy, Jeanne"
+        }
+    },
+    "production design": {
+        "1": {
+            "name": "Dan Leigh",
+            "canonical name": "Leigh, Dan",
+            "long imdb name": "Dan Leigh",
+            "long imdb canonical name": "Leigh, Dan"
+        }
+    },
+    "art direction": {
+        "1": {
+            "name": "David Stein",
+            "canonical name": "Stein, David",
+            "long imdb name": "David Stein",
+            "long imdb canonical name": "Stein, David"
+        }
+    },
+    "set decoration": {
+        "1": {
+            "name": "Ron von Blomberg",
+            "canonical name": "von Blomberg, Ron",
+            "long imdb name": "Ron von Blomberg",
+            "long imdb canonical name": "von Blomberg, Ron"
+        }
+    },
+    "costume designer": {
+        "1": {
+            "name": "Melissa Toth",
+            "canonical name": "Toth, Melissa",
+            "long imdb name": "Melissa Toth",
+            "long imdb canonical name": "Toth, Melissa"
+        }
+    },
+    "make up": {
+        "1": {
+            "name": "Michelle Johnson",
+            "canonical name": "Johnson, Michelle",
+            "long imdb name": "Michelle Johnson",
+            "long imdb canonical name": "Johnson, Michelle"
+        },
+        "2": {
+            "name": "Peter Owen",
+            "canonical name": "Owen, Peter",
+            "long imdb name": "Peter Owen",
+            "long imdb canonical name": "Owen, Peter"
+        },
+        "3": {
+            "name": "Kyra Panchenko",
+            "canonical name": "Panchenko, Kyra",
+            "long imdb name": "Kyra Panchenko",
+            "long imdb canonical name": "Panchenko, Kyra"
+        }
+    },
+    "production manager": {
+        "1": {
+            "name": "Ray Angelic",
+            "canonical name": "Angelic, Ray",
+            "long imdb name": "Ray Angelic",
+            "long imdb canonical name": "Angelic, Ray"
+        },
+        "2": {
+            "name": "David Bushell",
+            "canonical name": "Bushell, David",
+            "long imdb name": "David Bushell",
+            "long imdb canonical name": "Bushell, David"
+        },
+        "3": {
+            "name": "Michael Jackman",
+            "canonical name": "Jackman, Michael",
+            "long imdb name": "Michael Jackman",
+            "long imdb canonical name": "Jackman, Michael"
+        }
+    },
+    "assistant director": {
+        "1": {
+            "name": "Scott Ferguson",
+            "canonical name": "Ferguson, Scott",
+            "long imdb name": "Scott Ferguson",
+            "long imdb canonical name": "Ferguson, Scott"
+        },
+        "2": {
+            "name": "Michael Hausman",
+            "canonical name": "Hausman, Michael",
+            "long imdb name": "Michael Hausman",
+            "long imdb canonical name": "Hausman, Michael"
+        },
+        "3": {
+            "name": "Peter Thorell",
+            "canonical name": "Thorell, Peter",
+            "long imdb name": "Peter Thorell",
+            "long imdb canonical name": "Thorell, Peter"
+        }
+    },
+    "art department": {
+        "1": {
+            "name": "Liz Bonaventura",
+            "canonical name": "Bonaventura, Liz",
+            "long imdb name": "Liz Bonaventura",
+            "long imdb canonical name": "Bonaventura, Liz"
+        },
+        "2": {
+            "name": "James Boniece",
+            "canonical name": "Boniece, James",
+            "long imdb name": "James Boniece",
+            "long imdb canonical name": "Boniece, James"
+        },
+        "3": {
+            "name": "Garf Brown",
+            "canonical name": "Brown, Garf",
+            "long imdb name": "Garf Brown",
+            "long imdb canonical name": "Brown, Garf"
+        }
+    },
+    "sound crew": {
+        "1": {
+            "name": "Kam Chan",
+            "canonical name": "Chan, Kam",
+            "long imdb name": "Kam Chan",
+            "long imdb canonical name": "Chan, Kam"
+        },
+        "2": {
+            "name": "Marko A. Costanzo",
+            "canonical name": "Costanzo, Marko A.",
+            "long imdb name": "Marko A. Costanzo",
+            "long imdb canonical name": "Costanzo, Marko A."
+        },
+        "3": {
+            "name": "Chris Fielder",
+            "canonical name": "Fielder, Chris",
+            "long imdb name": "Chris Fielder",
+            "long imdb canonical name": "Fielder, Chris"
+        }
+    },
+    "special effects": {
+        "1": {
+            "name": "Mark Bero",
+            "canonical name": "Bero, Mark",
+            "long imdb name": "Mark Bero",
+            "long imdb canonical name": "Bero, Mark"
+        },
+        "2": {
+            "name": "Drew Jiritano",
+            "canonical name": "Jiritano, Drew",
+            "long imdb name": "Drew Jiritano",
+            "long imdb canonical name": "Jiritano, Drew"
+        },
+        "3": {
+            "name": "Thomas Viviano",
+            "canonical name": "Viviano, Thomas",
+            "long imdb name": "Thomas Viviano",
+            "long imdb canonical name": "Viviano, Thomas"
+        }
+    },
+    "visual effects": {
+        "1": {
+            "name": "Tricia Barrett",
+            "canonical name": "Barrett, Tricia",
+            "long imdb name": "Tricia Barrett",
+            "long imdb canonical name": "Barrett, Tricia"
+        },
+        "2": {
+            "name": "Ryan Beadle",
+            "canonical name": "Beadle, Ryan",
+            "long imdb name": "Ryan Beadle",
+            "long imdb canonical name": "Beadle, Ryan"
+        },
+        "3": {
+            "name": "Steve Caldwell",
+            "canonical name": "Caldwell, Steve",
+            "long imdb name": "Steve Caldwell",
+            "long imdb canonical name": "Caldwell, Steve"
+        }
+    },
+    "stunt performer": {
+        "1": {
+            "name": "Danny Aiello III",
+            "canonical name": "III, Danny Aiello",
+            "long imdb name": "Danny Aiello III",
+            "long imdb canonical name": "III, Danny Aiello"
+        },
+        "2": {
+            "name": "Bill Anagnos",
+            "canonical name": "Anagnos, Bill",
+            "long imdb name": "Bill Anagnos",
+            "long imdb canonical name": "Anagnos, Bill"
+        },
+        "3": {
+            "name": "E.J. Evans",
+            "canonical name": "Evans, E.J.",
+            "long imdb name": "E.J. Evans",
+            "long imdb canonical name": "Evans, E.J."
+        }
+    },
+    "camera and electrical department": {
+        "1": {
+            "name": "Peter Agliata",
+            "canonical name": "Agliata, Peter",
+            "long imdb name": "Peter Agliata",
+            "long imdb canonical name": "Agliata, Peter"
+        },
+        "2": {
+            "name": "Robert M. Andres",
+            "canonical name": "Andres, Robert M.",
+            "long imdb name": "Robert M. Andres",
+            "long imdb canonical name": "Andres, Robert M."
+        },
+        "3": {
+            "name": "Alison Barton",
+            "canonical name": "Barton, Alison",
+            "long imdb name": "Alison Barton",
+            "long imdb canonical name": "Barton, Alison"
+        }
+    },
+    "casting department": {
+        "1": {
+            "name": "Blythe Cappello",
+            "canonical name": "Cappello, Blythe",
+            "long imdb name": "Blythe Cappello",
+            "long imdb canonical name": "Cappello, Blythe"
+        },
+        "2": {
+            "name": "Linda R. Chen",
+            "canonical name": "Chen, Linda R.",
+            "long imdb name": "Linda R. Chen",
+            "long imdb canonical name": "Chen, Linda R."
+        },
+        "3": {
+            "name": "Natasha Cuba",
+            "canonical name": "Cuba, Natasha",
+            "long imdb name": "Natasha Cuba",
+            "long imdb canonical name": "Cuba, Natasha"
+        }
+    },
+    "costume department": {
+        "1": {
+            "name": "Hilary Basing",
+            "canonical name": "Basing, Hilary",
+            "long imdb name": "Hilary Basing",
+            "long imdb canonical name": "Basing, Hilary"
+        },
+        "2": {
+            "name": "Cara Borrelli",
+            "canonical name": "Borrelli, Cara",
+            "long imdb name": "Cara Borrelli",
+            "long imdb canonical name": "Borrelli, Cara"
+        },
+        "3": {
+            "name": "Lisa R. Frucht",
+            "canonical name": "Frucht, Lisa R.",
+            "long imdb name": "Lisa R. Frucht",
+            "long imdb canonical name": "Frucht, Lisa R."
+        }
+    },
+    "location management": {
+        "1": {
+            "name": "Kat Donahue",
+            "canonical name": "Donahue, Kat",
+            "long imdb name": "Kat Donahue",
+            "long imdb canonical name": "Donahue, Kat"
+        },
+        "2": {
+            "name": "Chris Marsh",
+            "canonical name": "Marsh, Chris",
+            "long imdb name": "Chris Marsh",
+            "long imdb canonical name": "Marsh, Chris"
+        },
+        "3": {
+            "name": "Currie Person",
+            "canonical name": "Person, Currie",
+            "long imdb name": "Currie Person",
+            "long imdb canonical name": "Person, Currie"
+        }
+    },
+    "music department": {
+        "1": {
+            "name": "Steve Bartek",
+            "canonical name": "Bartek, Steve",
+            "long imdb name": "Steve Bartek",
+            "long imdb canonical name": "Bartek, Steve"
+        },
+        "2": {
+            "name": "Christine Bergren",
+            "canonical name": "Bergren, Christine",
+            "long imdb name": "Christine Bergren",
+            "long imdb canonical name": "Bergren, Christine"
+        },
+        "3": {
+            "name": "Tom Biller",
+            "canonical name": "Biller, Tom",
+            "long imdb name": "Tom Biller",
+            "long imdb canonical name": "Biller, Tom"
+        }
+    },
+    "script department": {
+        "1": {
+            "name": "Mary Cybulski",
+            "canonical name": "Cybulski, Mary",
+            "long imdb name": "Mary Cybulski",
+            "long imdb canonical name": "Cybulski, Mary"
+        },
+        "2": {
+            "name": "Corey W. Allen",
+            "canonical name": "Allen, Corey W.",
+            "long imdb name": "Corey W. Allen",
+            "long imdb canonical name": "Allen, Corey W."
+        }
+    },
+    "transportation department": {
+        "1": {
+            "name": "Ed Battista",
+            "canonical name": "Battista, Ed",
+            "long imdb name": "Ed Battista",
+            "long imdb canonical name": "Battista, Ed"
+        },
+        "2": {
+            "name": "Theodor A. Brown",
+            "canonical name": "Brown, Theodor A.",
+            "long imdb name": "Theodor A. Brown",
+            "long imdb canonical name": "Brown, Theodor A."
+        },
+        "3": {
+            "name": "John Canavan",
+            "canonical name": "Canavan, John",
+            "long imdb name": "John Canavan",
+            "long imdb canonical name": "Canavan, John"
+        }
+    },
+    "miscellaneous crew": {
+        "1": {
+            "name": "Sebasti\u00e1n Almeida",
+            "canonical name": "Almeida, Sebasti\u00e1n",
+            "long imdb name": "Sebasti\u00e1n Almeida",
+            "long imdb canonical name": "Almeida, Sebasti\u00e1n"
+        },
+        "2": {
+            "name": "Stefanie Azpiazu",
+            "canonical name": "Azpiazu, Stefanie",
+            "long imdb name": "Stefanie Azpiazu",
+            "long imdb canonical name": "Azpiazu, Stefanie"
+        },
+        "3": {
+            "name": "Hilary Basing",
+            "canonical name": "Basing, Hilary",
+            "long imdb name": "Hilary Basing",
+            "long imdb canonical name": "Basing, Hilary"
+        }
+    },
+    "thanks": {
+        "1": {
+            "name": "Karen Baird",
+            "canonical name": "Baird, Karen",
+            "long imdb name": "Karen Baird",
+            "long imdb canonical name": "Baird, Karen"
+        },
+        "2": {
+            "name": "Ted Baker",
+            "canonical name": "Baker, Ted",
+            "long imdb name": "Ted Baker",
+            "long imdb canonical name": "Baker, Ted"
+        },
+        "3": {
+            "name": "Heidi Bivens",
+            "canonical name": "Bivens, Heidi",
+            "long imdb name": "Heidi Bivens",
+            "long imdb canonical name": "Bivens, Heidi"
+        }
+    },
+    "akas": {
+        "1": "Eterno resplandor de una mente sin recuerdos (United States, Spanish title)",
+        "2": "Eterno resplandor de una mente sin recuerdos (Egypt, English title)",
+        "3": "Vergiss mein nicht (Germany)"
+    },
+    "top 250 rank": "95",
+    "production companies": {
+        "1": {
+            "name": "Focus Features",
+            "long imdb name": "Focus Features"
+        },
+        "2": {
+            "name": "Anonymous Content",
+            "long imdb name": "Anonymous Content"
+        },
+        "3": {
+            "name": "This Is That Productions",
+            "long imdb name": "This Is That Productions"
+        }
+    },
+    "distributors": {
+        "1": {
+            "name": "Focus Features",
+            "long imdb name": "Focus Features"
+        },
+        "2": {
+            "name": "A-Film Distribution",
+            "long imdb name": "A-Film Distribution"
+        },
+        "3": {
+            "name": "Bir Film",
+            "long imdb name": "Bir Film"
+        }
+    },
+    "special effects companies": {
+        "1": {
+            "name": "Buzz Image Group",
+            "long imdb name": "Buzz Image Group"
+        },
+        "2": {
+            "name": "Custom Film Effects",
+            "long imdb name": "Custom Film Effects"
+        }
+    },
+    "other companies": {
+        "1": {
+            "name": "AON/Albert G. Ruben Insurance Services",
+            "long imdb name": "AON/Albert G. Ruben Insurance Services"
+        },
+        "2": {
+            "name": "ARRI",
+            "long imdb name": "ARRI"
+        },
+        "3": {
+            "name": "ARRI",
+            "long imdb name": "ARRI"
+        }
+    },
+    "plot": {
+        "1": "When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories for ever.",
+        "2": "Much to his surprise, timid Joel Barish is shocked to discover that the love of his life, sparky Clementine, has had him erased from her memory. As a result, hurt and angry, Joel wants to pay her back in the same coin, going as far as to undergo a painless but intricate medical procedure to do the same. However, poor Joel is utterly unaware that darkness is an essential part of the light. And as the once-cherished recollections of Clementine gradually fade away, giving way to a soulless black void, something unexpected happens. Now Joel has second thoughts, toying with the idea of stopping the irreversible process. Who said ignorance is bliss?\u2014Nick Riganas",
+        "3": "A man awakes disheveled; impulsively, he skips work, heading instead to the shore. On this chilly February day, a woman in orange, hair dyed blue, chats him up: she's Clementine, he's Joel, shy and sad; by day's end, he likes her. The next night she takes him to the frozen Charles River. After, as he drops her off, she asks to sleep at his place, and she runs up to get her toothbrush. Strange things occur: their meeting was not entirely chance, they have a history neither remembers. Our seeing how the lacunae came to be and their discovery of the memory loss take the rest of the film.\u2014<jhailey@hotmail.com>"
+    },
+    "synopsis": {
+        "1": "Joel Barish (Jim Carrey) is an emotionally withdrawn man and Clementine Kruczynski (Kate Winslet) is his girlfriend who is a dysfunctional free spirit. They are inexplicably attracted to each other despite their different personalities.They do not realize it at the time, but they are former lovers now separated after two years together. After a nasty fight, Clementine has had her memories of their relationship erased from her mind. Upon learning this, Joel is devastated and goes to the doctor to have the same procedure done. However, while unconscious, Joel has second thoughts and decides he wants to keep his memories of Clementine.Much of the film takes place in Joel's brain as he tries to find a way to preserve his memories of Clementine, and two Lacuna techies Patrick (Elijah Wood) and Stan (Mark Ruffalo) try to erase the memories. We watch their love and courtship go in reverse: The memories are slowly erased while Joel tries his best to resist the procedure and hide inside his mind.In separate and related story arcs, the employees of Lacuna Corporation are revealed to be more than peripheral characters in scenes which further show the harm caused by the memory-altering procedure. Mary (Kirsten Dunst) has had an affair with the married Dr. Howard Mierzwiak, who heads the company (Tom Wilkinson). She agreed to have the affair erased from her memory when his wife discovered the relationship. Lonely, socially inept Patrick becomes fixated on Clementine and uses Joel's personal mementos that he gave to Lacuna as part of the procedure in order to seduce her. These romantic entanglements turn out to have a critical effect on the main story line of the relationship between Joel and Clementine.Once Mary learns of the affair she has had with Mierzwiak, she steals the company's records and sends them to all of its clients. Thus Joel and Clementine both get to listen to their initial tape recordings at Lacuna, and afterwards realize that even if everything in life isn't perfect, their relationship can still be worthwhile."
+    },
     "canonical title": "Eternal Sunshine of the Spotless Mind",
     "long imdb title": "Eternal Sunshine of the Spotless Mind (2004)",
     "long imdb canonical title": "Eternal Sunshine of the Spotless Mind (2004)",

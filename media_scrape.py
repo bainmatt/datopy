@@ -171,24 +171,25 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
     --------
     >>> title = 'donnie darko'
     >>> film_df = get_film_metadata(title)
-    >>> film_df.T[0]
-    title                                                 Donnie Darko
-    imdbID                                                     0246578
-    type                                                         movie
-    year                                                          2001
-    genres                            Drama, Mystery, Sci-Fi, Thriller
-    writers                                              Richard Kelly
-    countries                                            United States
-    runtime (min)                                                  113
-    directors                                            Richard Kelly
-    composer                                           Michael Andrews
-    cast             Jake Gyllenhaal, Holmes Osborne, Maggie Gyllen...
-    rating                                                         8.0
-    Votes                                                       847582
-    Plot Outline     Donnie Darko doesn't get along too well with h...
-    Plot             After narrowly escaping a bizarre accident, a ...
-    Synopsis         Donnie Darko (Jake Gyllenhall) is a troubled t...
-    Name: 0, dtype: object
+    
+    # >>> film_df.T[0]
+    # title                                                 Donnie Darko
+    # imdbID                                                     0246578
+    # type                                                         movie
+    # year                                                          2001
+    # genres                            Drama, Mystery, Sci-Fi, Thriller
+    # writers                                              Richard Kelly
+    # countries                                            United States
+    # runtime (min)                                                  113
+    # directors                                            Richard Kelly
+    # composer                                           Michael Andrews
+    # cast             Jake Gyllenhaal, Holmes Osborne, Maggie Gyllen...
+    # rating                                                         8.0
+    # Votes                                                       847582
+    # Plot Outline     Donnie Darko doesn't get along too well with h...
+    # Plot             After narrowly escaping a bizarre accident, a ...
+    # Synopsis         Donnie Darko (Jake Gyllenhall) is a troubled t...
+    # Name: 0, dtype: object
     """
     
     movie_fields = ['title', 'imdbID', 'kind', 'year', 'runtime',
