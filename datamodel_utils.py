@@ -10,10 +10,12 @@ import pandas as pd
 
 from typing import List, Tuple
 from datetime import datetime
+from collections.abc import Iterable
 from jsonschema import validate
 from dataclasses import dataclass, asdict
 from pydantic import BaseModel, ValidationError, PositiveInt
 
+import pydantic
 import wptools
 import spotipy
 import imdb
@@ -27,45 +29,49 @@ import _settings
 from display_dataset import display
 from nb_utils import doctest_function
 
+
 # ----------------------------------
 # --- Data dictionary generation ---
 # ----------------------------------
 
-def _list_to_dict(obj: list) -> dict:
+def _list_to_dict(obj: list, max_items: int = None) -> dict:
     """
     Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys. 
     
-    Example
+    Parameters
+    ----------
+    obj : list
+        A list to convert to a dictionary representation.
+    max_items : int, default=None
+        Option to impose a limit on the number of elements to iterate over.
+        Intended use: constructing pattern-based data models from a sample.
+    
+    Returns
+    dict : The supplied list's dictionary representation.
     -------
+    
+    Examples
+    --------
     >>> my_list = [1, 'two', [3], {'four': 5}]
     >>> _list_to_dict(my_list)
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
+    
+    >>> my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    >>> _list_to_dict(my_list, max_items=5)
+    {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+    
     >>> my_dict = dict(a=1, b='two')
     >>> _list_to_dict(my_dict)
-    Not running conversion since obj is already a dict.
+    Not running conversion since obj is already a dictionary.
     {'a': 1, 'b': 'two'}
     """
     if isinstance(obj, dict): 
-        print("Not running conversion since obj is already a dict.")
+        print("Not running conversion since obj is already a dictionary.")
         return obj
     else:
-        return {(key + 1): value for key, value in enumerate(obj)}
-
-
-def _serialize_scraped_data(obj) -> dict:
-    """
-    Coerce unique dataclasses from scraped objects into serializable format.
-    """
-    assert isinstance(obj, dict), f"obj must be a dict. Received {type(obj).__name__}."
-    
-    serializable_dict = {}
-    for key, value in obj.items():
-        if isinstance(value, list):
-            serializable_dict[key] = [str(item) for item in value]
-        else:
-            serializable_dict[key] = value        
-    return serializable_dict
-
+        return {(key + 1): value for key, value in enumerate(obj)
+                if (max_items is None) or (key < max_items)}
+        
 
 def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:   
     """
@@ -173,9 +179,40 @@ def _omit_patterns(input_string: str, patterns: List[str]) -> str:
     return re.sub(pattern, '', input_string)
 
 
-def iterable_to_schema(
-    obj, 
-    special_types: Tuple[type] = (dict,)) -> dict:
+def serialize_scraped_data(obj, max_items: int = None) -> dict:
+    """
+    Coerce unique dataclasses from scraped objects into serializable format.
+        
+    Parameters
+    ----------
+    obj : _type_
+        _description_
+    max_items : int, default=None
+        _description_
+        
+    Returns
+    -------
+    dict: 
+        _description_
+    """
+    # Handle dictionary-like objects
+    if hasattr(obj, 'items'):
+        return {key: serialize_scraped_data(value, max_items) 
+                for key, value in obj.items()}
+            
+    # Handle list-like objects
+    elif isinstance(obj, (list, tuple, set)):
+        return {key: serialize_scraped_data(value, max_items) 
+                for key, value in _list_to_dict(obj, max_items).items()}
+            
+    # Handle base cases
+    elif isinstance(obj, str):
+        return str(obj)
+    else:
+        return str(obj)
+
+
+def iterable_to_schema(obj, max_items: int = None) -> dict:
     """
     _summary_
 
@@ -183,30 +220,32 @@ def iterable_to_schema(
     ----------
     obj : _type_
         _description_
-    special_types: tuple
+    max_items : int, default=None
         _description_
-
     Returns
     -------
     dict: 
         _description_
     """
-        
-    if isinstance(obj, special_types):
-        return {key: iterable_to_schema(value, special_types) 
+    # Handle dictionary-like objects
+    if hasattr(obj, 'items'):
+        return {key: iterable_to_schema(value, max_items) 
                 for key, value in obj.items()}
     
+    # Handle list-like objects
     elif isinstance(obj, (list, tuple, set)):
-        return {key: iterable_to_schema(value, special_types) 
-                for key, value in _list_to_dict(obj).items()}
+        return {key: iterable_to_schema(value, max_items) 
+                for key, value in _list_to_dict(obj, max_items).items()}
     
+    # Handle base cases
+    # TODO omit this! indicates base case already reached
     elif isinstance(obj, type):
         return obj.__name__
     elif isinstance(obj, str):
         return type(obj).__name__
     else:
         return type(obj).__name__
-    
+
     
 # ------------------------------
 # --- Data validation scheme ---
@@ -222,22 +261,21 @@ def iterable_to_schema(
 # edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
 # masquerading as an iterable).
     
-# TODO implement pydantic datamodel for 3 scraped objects
-# TODO write corresponding tests for schema generator (including json)
+# TODO implement JSON schema for 5 scraped objects
+# TODO implement corresponding pydantic data model for processed objects
+# TODO valid + invalid ex of each (5*2 * 2) & validate w/ JSON/pydantic resp
 
-# -----------------------------------------------------------------------------
-# XXX (rough JSON validation tests)
-# Raw data schema
-MOVIE_SCHEMA = {
-    "type" : "object",
-    "properties" : {
-        "price" : {"type" : "number"},
-        "name" : {"type" : "string"},
-    },
+# TODO probably move these examples/validation tests to _examples.py
+
+# Raw API-retrieved data schemas and JSON data validation
+with open('models/imdb_model.json') as file:
+    MOVIE_SCHEMA = json.load(file)
+
+valid_raw_movie = {
+    "title": "green eggs and ham", "year": 1904, "kind": "movie", 
+    "director": {"1": {"name": "Jill Smith"}}
 }
-
-valid_raw_movie = {"name" : "Eggs", "price" : 34.99}
-invalid_raw_movie = {"name" : 1, "price" : 34.99}
+# invalid_raw_movie = {"name": 1, "price": 34.99}
 
 validate(instance=valid_raw_movie, schema=MOVIE_SCHEMA)
 # validate(instance=invalid_raw_movie, schema=MOVIE_SCHEMA)
@@ -280,7 +318,7 @@ except ValidationError as e:
 
 # BaseProcessor
 
-# TODO implement this
+# TODO implement BaseProcessor
 
 class BaseProcessor:
     def __init__(self, **args):

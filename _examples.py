@@ -27,9 +27,7 @@ import _settings
 
 from nb_utils import doctest_function
 from datamodel_utils import (
-    iterable_to_schema, 
-    _serialize_scraped_data, _list_to_dict, _compare_dict_keys,
-    _omit_patterns
+    iterable_to_schema, serialize_scraped_data, _list_to_dict, _compare_dict_keys, _omit_patterns
 )
 
 # Define object types for metadata retrieval
@@ -42,9 +40,7 @@ Book = NamedTuple('Book', [('title', str)])
 # --- Helpers ---
 # ---------------
 
-def _extract_datadict(
-    obj, 
-    special_types: Tuple[type] = (dict,), verbose: bool = False) -> tuple:
+def _extract_datadict(obj, max_items: int = 3, verbose: bool = False) -> tuple:
     """
     Extract data dictionary elements  json-style schema of (key, type)/(key, value) pairs and a df.
     
@@ -52,7 +48,7 @@ def _extract_datadict(
     ----------
     obj : 
         __description__
-    special_types : Tuple[type]
+    max_items : int, default=5
         __description__
     verbose : bool, default=False
     
@@ -65,8 +61,9 @@ def _extract_datadict(
     schema : 
         __description__    
     """
-    schema = iterable_to_schema(obj, special_types)
-    serialized_dict = json.dumps(_serialize_scraped_data(obj), indent=4)
+    schema = iterable_to_schema(obj, max_items)
+    serialized_dict = json.dumps(
+        serialize_scraped_data(obj, max_items), indent=4)
     parsed_dict = json.loads(serialized_dict)
     normalized_dict = pd.json_normalize(parsed_dict)
     
@@ -104,12 +101,11 @@ def _save_scraped_datadict(
 # --- Data dictionary retrieval/extraction ---
 # --------------------------------------------
     
+# TODO correct implementation of max_items
+
 def run_scraped_datadict_example(
     source: Literal['imdb', 'spotify', 'wiki'], 
     search_terms: Film | Album | Book,
-    special_types: Tuple[type] = (
-        dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
-    ),
     verbose: bool = False,
     do_save: bool = False) -> namedtuple:   
     
@@ -122,10 +118,6 @@ def run_scraped_datadict_example(
         The source from which to retrieve data about the requested topic. 
     search_terms : Film | Album | Book
         A namedtuple of required properties (e.g., title) for the topic query.
-    special_types : Tuple[type], default=(
-        dict, imdb.Person.Person, imdb.Movie.Movie, imdb.Company.Company
-        )
-        Adds support for datatypes unique to the API of the provided source.
     verbose : bool, default=False
         Option to enable printouts of the retrieved data and schema.
     do_save : bool, default=False
@@ -140,32 +132,35 @@ def run_scraped_datadict_example(
         
     Examples
     --------
+    setup
+    >>> do_save=False
+    
     # imdb: film
     # >>> film = Film("eternal sunshine of the spotless mind")
     # >>> outputs = run_scraped_datadict_example(
-    # ...    source="imdb", search_terms=film, do_save=False)
+    # ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
     # >>> dict(outputs.obj)['genres']
     # ['Drama', 'Romance', 'Sci-Fi']
     # >>> outputs.schema['genres']
     # {1: 'str', 2: 'str', 3: 'str'}
-    # >>> outputs.normalized_dict['composer'][0]
-    # ['Jon Brion']
+    # >>> outputs.normalized_dict['original air date'][0]
+    # '19 Mar 2004 (USA)'
     
-    # spotify: album
-    # >>> album = Album("radiohead", "kid A") 
-    # >>> outputs = run_scraped_datadict_example(
-    # ...    source="spotify", search_terms=album, do_save=False)
-    # >>> outputs.obj['total_tracks']
-    # 11
-    # >>> outputs.schema['total_tracks']
-    # 'int'
-    # >>> outputs.normalized_dict['id'][0]
-    # '6GjwtEZcfenmOf6l18N7T7'
+    spotify: album
+    >>> album = Album("radiohead", "kid A") 
+    >>> outputs = run_scraped_datadict_example(
+    ...    source="spotify", search_terms=album, do_save=do_save)
+    >>> outputs.obj['total_tracks']
+    11
+    >>> outputs.schema['total_tracks']
+    'int'
+    >>> outputs.normalized_dict['id'][0]
+    '6GjwtEZcfenmOf6l18N7T7'
     
-    wiki: novel
+    # wiki: novel
     # >>> book = Book("to kill a mockingbird")
     # >>> outputs = run_scraped_datadict_example(
-    # ...    source="wiki", search_terms=book, do_save=False)
+    # ...    source="wiki", search_terms=book, do_save=do_save)
     # >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
     # 'Harper Lee'
     # >>> outputs.schema['author']
@@ -174,20 +169,20 @@ def run_scraped_datadict_example(
     # '281'
     
     # wiki: film
-    >>> film = Film("eternal sunshine of the spotless mind")
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="wiki", search_terms=film, do_save=False)
-    >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
-    'Michel Gondry'
-    >>> outputs.schema['director']
-    'str'
-    >>> outputs.normalized_dict['budget'][0]
-    '$20 million'
+    # >>> film = Film("eternal sunshine of the spotless mind")
+    # >>> outputs = run_scraped_datadict_example(
+    # ...    source="wiki", search_terms=film, do_save=do_save)
+    # >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
+    # 'Michel Gondry'
+    # >>> outputs.schema['director']
+    # 'str'
+    # >>> outputs.normalized_dict['budget'][0]
+    # '$20 million'
     
     # wiki: album
     # >>> album = Album("radiohead", "kid A")
     # >>> outputs = run_scraped_datadict_example(
-    # ...    source="wiki", search_terms=album, do_save=False)
+    # ...    source="wiki", search_terms=album, do_save=do_save)
     # >>> genres_raw = outputs.obj['genre']
     # >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
     # >>> genres_processed = _omit_patterns(genres_raw, patterns_to_omit)
@@ -197,7 +192,7 @@ def run_scraped_datadict_example(
     # 'str'
     # >>> outputs.normalized_dict['type'][0]
     # 'studio'
-    
+
     """    
     # Check assumptions
     source = str(source).lower()
@@ -260,7 +255,7 @@ def run_scraped_datadict_example(
     
     # Extract & save
     schema, serialized_dict, normalized_dict = _extract_datadict(
-        obj, special_types, verbose)
+        obj, verbose=verbose)
     
     if do_save:
         _save_scraped_datadict(schema, serialized_dict, normalized_dict, 
@@ -285,8 +280,8 @@ def run_scraped_datadict_example(
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod(verbose=True)
-    doctest_function(run_scraped_datadict_example, globs=globals(), verbose=False)
+    doctest.testmod(verbose=False)
+    # doctest_function(run_scraped_datadict_example, globs=globals(), verbose=False)
             
     ## One-off tests
     pass

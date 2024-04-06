@@ -1,0 +1,139 @@
+{
+       "type": "object",
+       "properties": {
+         "original title": {"type": "string"},
+         "localized title": {"type": "string"},
+         "cast": {
+           "type": "object",
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"},
+               "canonical name": {"type": "string"},
+               "long imdb name": {"type": "string"},
+               "long imdb canonical name": {"type": "string"}
+             }
+           }
+         },
+         "genres": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 10,
+           "additionalProperties": {"type": "string"}
+         },
+         "runtimes": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 1,
+           "additionalProperties": {"type": "string"}
+         },
+         "countries": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 210,
+           "additionalProperties": {"type": "string"}
+         },
+         "box office": {
+           "type": "object",
+           "minProperties": 3,
+           "maxProperties": 3,
+           "properties": {
+             "Budget": {"type": "string"},
+             "Opening Weekend United States": {"type": "string"},
+             "Cumulative Worldwide Gross": {"type": "string"}
+           }
+         },
+         "original air date": {"type": "string"},
+         "rating": {"type": "number"},
+         "votes": {"type": "integer"},
+         "cover url": {"type": "string"},
+         "imdbID": {"type": "string"},
+         "plot outline": {"type": "string"},
+         "languages": {
+           "type": "object",
+           "minProperties": 1,
+           "additionalProperties": {"type": "string"}
+         },
+         "title": {"type": "string"},
+         "year": {"type": "integer"},
+         "kind": {"type": "string"},
+         "director": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "writer": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "producer": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "composer": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "cinematographer": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "editor": {
+           "type": "object",
+           "minProperties": 1,
+           "maxProperties": 3,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         },
+         "script department": {
+           "type": "object",
+           "minProperties": 1,
+           "additionalProperties": {
+             "type": "object",
+             "properties": {
+               "name": {"type": "string"}
+             }
+           }
+         }
+       },
+       "required": ["title", "year", "kind", "director"],
+       "additionalProperties": false
+     }
