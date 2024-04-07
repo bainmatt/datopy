@@ -60,6 +60,8 @@ class display(object):
     2  A2  B2
     3  A3  B3
     4  A4  B4
+    <BLANKLINE>
+    <BLANKLINE>
     
     Matrix example:
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
@@ -81,34 +83,37 @@ class display(object):
     --- (2, 1) ---
     array([[3],
            [4]])
+    <BLANKLINE>
+    <BLANKLINE>
     
     """
     
-    def __init__(self, *args):
+    def __init__(self, *args, globs: dict[str, Any] = None, bold: bool = True):
         self.args = args
     
-    # TODO move `globs` arg to constructor as class instance and 
-    # use __repr__ to execute upon construction
-    def r(self, globs: dict[str, Any] = globals(), bold: bool = True):    
+    # TODO ? move `globs` arg to constructor as class instance and 
+    # ? use __repr__ to execute upon construction
+    def r(self, globs: dict[str, Any] = None, bold: bool = True):    
         """
         Shorthand for `__repr__()`.
 
         Parameters
         ----------
-        globs : dict[str, Any], default=globals() 
+        globs : dict[str, Any], default=None
             Global namespace, for access to eval() for nonlocals passed by name.
         bold : bool, default=True
             Option to disable string styling for testing purposes.
         """
-        
-        return print('\n\n'.join(
-            '\n'
-            + ('\033[1m' + arg + '\033[0m' if bold else arg)            # name
-            + '\n' + '--- ' + repr(np.shape(eval(arg, globs))) + ' ---' # shape
-            + '\n' + repr(np.round(eval(arg, globs), 2))                # value
-            for arg in self.args
-            )
-        )
+        output = ""
+        for arg in self.args:
+            name = '\033[1m' + arg + '\033[0m' if bold else arg
+            value = eval(arg, globs)
+            shape = np.shape(value)
+            rounded_value = np.round(value, 2)
+            output += f"\n{name}\n--- {repr(shape)} ---\n{repr(rounded_value)}\n\n"
+
+        print(output)
+        return None
 
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
