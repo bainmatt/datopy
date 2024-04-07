@@ -1,0 +1,21 @@
+{
+    "name": "str",
+    "image": "str",
+    "caption": "str",
+    "director": "str",
+    "producer": "str",
+    "screenplay": "str",
+    "story": "str",
+    "starring": "str",
+    "music": "str",
+    "cinematography": "str",
+    "editing": "str",
+    "studio": "str",
+    "distributor": "str",
+    "released": "str",
+    "runtime": "str",
+    "country": "str",
+    "language": "str",
+    "budget": "str",
+    "gross": "str"
+}

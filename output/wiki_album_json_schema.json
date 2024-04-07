@@ -1,0 +1,71 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "artist": {
+            "type": "string"
+        },
+        "cover": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string"
+        },
+        "released": {
+            "type": "string"
+        },
+        "recorded": {
+            "type": "string"
+        },
+        "studio": {
+            "type": "string"
+        },
+        "genre": {
+            "type": "string"
+        },
+        "length": {
+            "type": "string"
+        },
+        "label": {
+            "type": "string"
+        },
+        "producer": {
+            "type": "string"
+        },
+        "prev_title": {
+            "type": "string"
+        },
+        "prev_year": {
+            "type": "string"
+        },
+        "next_title": {
+            "type": "string"
+        },
+        "next_year": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "type",
+        "artist",
+        "cover",
+        "alt",
+        "released",
+        "recorded",
+        "studio",
+        "genre",
+        "length",
+        "label",
+        "producer",
+        "prev_title",
+        "prev_year",
+        "next_title",
+        "next_year"
+    ]
+}

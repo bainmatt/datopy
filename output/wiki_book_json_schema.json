@@ -1,0 +1,51 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "author": {
+            "type": "string"
+        },
+        "language": {
+            "type": "string"
+        },
+        "country": {
+            "type": "string"
+        },
+        "genre": {
+            "type": "string"
+        },
+        "published": {
+            "type": "string"
+        },
+        "publisher": {
+            "type": "string"
+        },
+        "image": {
+            "type": "string"
+        },
+        "caption": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string"
+        },
+        "pages": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "author",
+        "language",
+        "country",
+        "genre",
+        "published",
+        "publisher",
+        "image",
+        "caption",
+        "alt",
+        "pages"
+    ]
+}

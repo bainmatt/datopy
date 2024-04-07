@@ -1,0 +1,853 @@
+{
+    "original title": "str",
+    "localized title": "str",
+    "cast": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "genres": {
+        "1": "str",
+        "2": "str",
+        "3": "str"
+    },
+    "runtimes": {
+        "1": "str"
+    },
+    "countries": {
+        "1": "str"
+    },
+    "country codes": {
+        "1": "str"
+    },
+    "language codes": {
+        "1": "str"
+    },
+    "color info": {
+        "1": "str"
+    },
+    "aspect ratio": "str",
+    "sound mix": {
+        "1": "str",
+        "2": "str",
+        "3": "str"
+    },
+    "box office": {
+        "Budget": "str",
+        "Opening Weekend United States": "str",
+        "Cumulative Worldwide Gross": "str"
+    },
+    "certificates": {
+        "1": "str",
+        "2": "str",
+        "3": "str",
+        "4": "str",
+        "5": "str"
+    },
+    "original air date": "str",
+    "rating": "float",
+    "votes": "int",
+    "cover url": "str",
+    "imdbID": "str",
+    "videos": {
+        "1": "str",
+        "2": "str"
+    },
+    "plot outline": "str",
+    "languages": {
+        "1": "str"
+    },
+    "title": "str",
+    "year": "int",
+    "kind": "str",
+    "director": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "writer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {},
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "producer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "composer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "cinematographer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "editor": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "editorial department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "casting director": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "production design": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "art direction": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "set decoration": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "costume designer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "make up": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "production manager": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "assistant director": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "art department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "sound crew": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "special effects": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "visual effects": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "stunt performer": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "camera and electrical department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "casting department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "costume department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "location management": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "music department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "script department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "transportation department": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "miscellaneous crew": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "thanks": {
+        "1": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "2": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "3": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "4": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        },
+        "5": {
+            "name": "str",
+            "canonical name": "str",
+            "long imdb name": "str",
+            "long imdb canonical name": "str"
+        }
+    },
+    "akas": {
+        "1": "str",
+        "2": "str",
+        "3": "str",
+        "4": "str",
+        "5": "str"
+    },
+    "top 250 rank": "int",
+    "production companies": {
+        "1": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "2": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "3": {
+            "name": "str",
+            "long imdb name": "str"
+        }
+    },
+    "distributors": {
+        "1": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "2": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "3": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "4": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "5": {
+            "name": "str",
+            "long imdb name": "str"
+        }
+    },
+    "special effects companies": {
+        "1": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "2": {
+            "name": "str",
+            "long imdb name": "str"
+        }
+    },
+    "other companies": {
+        "1": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "2": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "3": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "4": {
+            "name": "str",
+            "long imdb name": "str"
+        },
+        "5": {
+            "name": "str",
+            "long imdb name": "str"
+        }
+    },
+    "plot": {
+        "1": "str",
+        "2": "str",
+        "3": "str",
+        "4": "str",
+        "5": "str"
+    },
+    "synopsis": {
+        "1": "str"
+    },
+    "canonical title": "str",
+    "long imdb title": "str",
+    "long imdb canonical title": "str",
+    "smart canonical title": "str",
+    "smart long imdb canonical title": "str",
+    "full-size cover url": "str"
+}

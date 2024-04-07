@@ -19,6 +19,18 @@
             "canonical name": "Byrne, Gerry Robert",
             "long imdb name": "Gerry Robert Byrne",
             "long imdb canonical name": "Byrne, Gerry Robert"
+        },
+        "4": {
+            "name": "Elijah Wood",
+            "canonical name": "Wood, Elijah",
+            "long imdb name": "Elijah Wood",
+            "long imdb canonical name": "Wood, Elijah"
+        },
+        "5": {
+            "name": "Thomas Jay Ryan",
+            "canonical name": "Ryan, Thomas Jay",
+            "long imdb name": "Thomas Jay Ryan",
+            "long imdb canonical name": "Ryan, Thomas Jay"
         }
     },
     "genres": {
@@ -55,11 +67,13 @@
     "certificates": {
         "1": "Argentina:13",
         "2": "Australia:M",
-        "3": "Brazil:14"
+        "3": "Brazil:14",
+        "4": "Canada:14A::(British Columbia/Ontario)",
+        "5": "Canada:G::(Qu\u00e9bec)"
     },
     "original air date": "19 Mar 2004 (USA)",
     "rating": "8.3",
-    "votes": "1075206",
+    "votes": "1075329",
     "cover url": "https://m.media-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_SY150_CR0,0,101,150_.jpg",
     "imdbID": "0338013",
     "videos": {
@@ -99,6 +113,13 @@
             "canonical name": "Bismuth, Pierre",
             "long imdb name": "Pierre Bismuth",
             "long imdb canonical name": "Bismuth, Pierre"
+        },
+        "4": {},
+        "5": {
+            "name": "Charlie Kaufman",
+            "canonical name": "Kaufman, Charlie",
+            "long imdb name": "Charlie Kaufman",
+            "long imdb canonical name": "Kaufman, Charlie"
         }
     },
     "producer": {
@@ -119,6 +140,18 @@
             "canonical name": "Bushell, David",
             "long imdb name": "David Bushell",
             "long imdb canonical name": "Bushell, David"
+        },
+        "4": {
+            "name": "Steve Golin",
+            "canonical name": "Golin, Steve",
+            "long imdb name": "Steve Golin",
+            "long imdb canonical name": "Golin, Steve"
+        },
+        "5": {
+            "name": "Linda Fields Hill",
+            "canonical name": "Hill, Linda Fields",
+            "long imdb name": "Linda Fields Hill",
+            "long imdb canonical name": "Hill, Linda Fields"
         }
     },
     "composer": {
@@ -163,6 +196,18 @@
             "canonical name": "Eaves, Michael",
             "long imdb name": "Michael Eaves",
             "long imdb canonical name": "Eaves, Michael"
+        },
+        "4": {
+            "name": "Chad Gunderson",
+            "canonical name": "Gunderson, Chad",
+            "long imdb name": "Chad Gunderson",
+            "long imdb canonical name": "Gunderson, Chad"
+        },
+        "5": {
+            "name": "James Haygood",
+            "canonical name": "Haygood, James",
+            "long imdb name": "James Haygood",
+            "long imdb canonical name": "Haygood, James"
         }
     },
     "casting director": {
@@ -223,6 +268,18 @@
             "canonical name": "Panchenko, Kyra",
             "long imdb name": "Kyra Panchenko",
             "long imdb canonical name": "Panchenko, Kyra"
+        },
+        "4": {
+            "name": "Francesca Paris",
+            "canonical name": "Paris, Francesca",
+            "long imdb name": "Francesca Paris",
+            "long imdb canonical name": "Paris, Francesca"
+        },
+        "5": {
+            "name": "Noriko Watanabe",
+            "canonical name": "Watanabe, Noriko",
+            "long imdb name": "Noriko Watanabe",
+            "long imdb canonical name": "Watanabe, Noriko"
         }
     },
     "production manager": {
@@ -243,6 +300,12 @@
             "canonical name": "Jackman, Michael",
             "long imdb name": "Michael Jackman",
             "long imdb canonical name": "Jackman, Michael"
+        },
+        "4": {
+            "name": "Jeff Roth",
+            "canonical name": "Roth, Jeff",
+            "long imdb name": "Jeff Roth",
+            "long imdb canonical name": "Roth, Jeff"
         }
     },
     "assistant director": {
@@ -263,6 +326,18 @@
             "canonical name": "Thorell, Peter",
             "long imdb name": "Peter Thorell",
             "long imdb canonical name": "Thorell, Peter"
+        },
+        "4": {
+            "name": "Noelle Stehman",
+            "canonical name": "Stehman, Noelle",
+            "long imdb name": "Noelle Stehman",
+            "long imdb canonical name": "Stehman, Noelle"
+        },
+        "5": {
+            "name": "Adam T. Weisinger",
+            "canonical name": "Weisinger, Adam T.",
+            "long imdb name": "Adam T. Weisinger",
+            "long imdb canonical name": "Weisinger, Adam T."
         }
     },
     "art department": {
@@ -283,6 +358,18 @@
             "canonical name": "Brown, Garf",
             "long imdb name": "Garf Brown",
             "long imdb canonical name": "Brown, Garf"
+        },
+        "4": {
+            "name": "Brian Buteau",
+            "canonical name": "Buteau, Brian",
+            "long imdb name": "Brian Buteau",
+            "long imdb canonical name": "Buteau, Brian"
+        },
+        "5": {
+            "name": "Ruth Deleon",
+            "canonical name": "Deleon, Ruth",
+            "long imdb name": "Ruth Deleon",
+            "long imdb canonical name": "Deleon, Ruth"
         }
     },
     "sound crew": {
@@ -303,6 +390,18 @@
             "canonical name": "Fielder, Chris",
             "long imdb name": "Chris Fielder",
             "long imdb canonical name": "Fielder, Chris"
+        },
+        "4": {
+            "name": "Eugene Gearty",
+            "canonical name": "Gearty, Eugene",
+            "long imdb name": "Eugene Gearty",
+            "long imdb canonical name": "Gearty, Eugene"
+        },
+        "5": {
+            "name": "Frank Kern",
+            "canonical name": "Kern, Frank",
+            "long imdb name": "Frank Kern",
+            "long imdb canonical name": "Kern, Frank"
         }
     },
     "special effects": {
@@ -343,6 +442,18 @@
             "canonical name": "Caldwell, Steve",
             "long imdb name": "Steve Caldwell",
             "long imdb canonical name": "Caldwell, Steve"
+        },
+        "4": {
+            "name": "Mark Dornfeld",
+            "canonical name": "Dornfeld, Mark",
+            "long imdb name": "Mark Dornfeld",
+            "long imdb canonical name": "Dornfeld, Mark"
+        },
+        "5": {
+            "name": "Brent Ekstrand",
+            "canonical name": "Ekstrand, Brent",
+            "long imdb name": "Brent Ekstrand",
+            "long imdb canonical name": "Ekstrand, Brent"
         }
     },
     "stunt performer": {
@@ -363,6 +474,18 @@
             "canonical name": "Evans, E.J.",
             "long imdb name": "E.J. Evans",
             "long imdb canonical name": "Evans, E.J."
+        },
+        "4": {
+            "name": "John R. Favre",
+            "canonical name": "Favre, John R.",
+            "long imdb name": "John R. Favre",
+            "long imdb canonical name": "Favre, John R."
+        },
+        "5": {
+            "name": "Stephanie Finochio",
+            "canonical name": "Finochio, Stephanie",
+            "long imdb name": "Stephanie Finochio",
+            "long imdb canonical name": "Finochio, Stephanie"
         }
     },
     "camera and electrical department": {
@@ -383,6 +506,18 @@
             "canonical name": "Barton, Alison",
             "long imdb name": "Alison Barton",
             "long imdb canonical name": "Barton, Alison"
+        },
+        "4": {
+            "name": "Angela Bellisio",
+            "canonical name": "Bellisio, Angela",
+            "long imdb name": "Angela Bellisio",
+            "long imdb canonical name": "Bellisio, Angela"
+        },
+        "5": {
+            "name": "Braden Belmonte",
+            "canonical name": "Belmonte, Braden",
+            "long imdb name": "Braden Belmonte",
+            "long imdb canonical name": "Belmonte, Braden"
         }
     },
     "casting department": {
@@ -403,6 +538,18 @@
             "canonical name": "Cuba, Natasha",
             "long imdb name": "Natasha Cuba",
             "long imdb canonical name": "Cuba, Natasha"
+        },
+        "4": {
+            "name": "Sage Lehman",
+            "canonical name": "Lehman, Sage",
+            "long imdb name": "Sage Lehman",
+            "long imdb canonical name": "Lehman, Sage"
+        },
+        "5": {
+            "name": "Kristian Sorge",
+            "canonical name": "Sorge, Kristian",
+            "long imdb name": "Kristian Sorge",
+            "long imdb canonical name": "Sorge, Kristian"
         }
     },
     "costume department": {
@@ -423,6 +570,18 @@
             "canonical name": "Frucht, Lisa R.",
             "long imdb name": "Lisa R. Frucht",
             "long imdb canonical name": "Frucht, Lisa R."
+        },
+        "4": {
+            "name": "Jill Kliber",
+            "canonical name": "Kliber, Jill",
+            "long imdb name": "Jill Kliber",
+            "long imdb canonical name": "Kliber, Jill"
+        },
+        "5": {
+            "name": "David Page",
+            "canonical name": "Page, David",
+            "long imdb name": "David Page",
+            "long imdb canonical name": "Page, David"
         }
     },
     "location management": {
@@ -443,6 +602,18 @@
             "canonical name": "Person, Currie",
             "long imdb name": "Currie Person",
             "long imdb canonical name": "Person, Currie"
+        },
+        "4": {
+            "name": "Daniel Tresca",
+            "canonical name": "Tresca, Daniel",
+            "long imdb name": "Daniel Tresca",
+            "long imdb canonical name": "Tresca, Daniel"
+        },
+        "5": {
+            "name": "Gayle Vangrofsky",
+            "canonical name": "Vangrofsky, Gayle",
+            "long imdb name": "Gayle Vangrofsky",
+            "long imdb canonical name": "Vangrofsky, Gayle"
         }
     },
     "music department": {
@@ -463,6 +634,18 @@
             "canonical name": "Biller, Tom",
             "long imdb name": "Tom Biller",
             "long imdb canonical name": "Biller, Tom"
+        },
+        "4": {
+            "name": "Dana Bourke",
+            "canonical name": "Bourke, Dana",
+            "long imdb name": "Dana Bourke",
+            "long imdb canonical name": "Bourke, Dana"
+        },
+        "5": {
+            "name": "Jon Brion",
+            "canonical name": "Brion, Jon",
+            "long imdb name": "Jon Brion",
+            "long imdb canonical name": "Brion, Jon"
         }
     },
     "script department": {
@@ -497,6 +680,18 @@
             "canonical name": "Canavan, John",
             "long imdb name": "John Canavan",
             "long imdb canonical name": "Canavan, John"
+        },
+        "4": {
+            "name": "Salvatore Cicone",
+            "canonical name": "Cicone, Salvatore",
+            "long imdb name": "Salvatore Cicone",
+            "long imdb canonical name": "Cicone, Salvatore"
+        },
+        "5": {
+            "name": "Chuck Clarke",
+            "canonical name": "Clarke, Chuck",
+            "long imdb name": "Chuck Clarke",
+            "long imdb canonical name": "Clarke, Chuck"
         }
     },
     "miscellaneous crew": {
@@ -517,6 +712,18 @@
             "canonical name": "Basing, Hilary",
             "long imdb name": "Hilary Basing",
             "long imdb canonical name": "Basing, Hilary"
+        },
+        "4": {
+            "name": "Nicholas R. Bell",
+            "canonical name": "Bell, Nicholas R.",
+            "long imdb name": "Nicholas R. Bell",
+            "long imdb canonical name": "Bell, Nicholas R."
+        },
+        "5": {
+            "name": "Fred Berger",
+            "canonical name": "Berger, Fred",
+            "long imdb name": "Fred Berger",
+            "long imdb canonical name": "Berger, Fred"
         }
     },
     "thanks": {
@@ -537,12 +744,26 @@
             "canonical name": "Bivens, Heidi",
             "long imdb name": "Heidi Bivens",
             "long imdb canonical name": "Bivens, Heidi"
+        },
+        "4": {
+            "name": "Gerry Robert Byrne",
+            "canonical name": "Byrne, Gerry Robert",
+            "long imdb name": "Gerry Robert Byrne",
+            "long imdb canonical name": "Byrne, Gerry Robert"
+        },
+        "5": {
+            "name": "Anne Carey",
+            "canonical name": "Carey, Anne",
+            "long imdb name": "Anne Carey",
+            "long imdb canonical name": "Carey, Anne"
         }
     },
     "akas": {
         "1": "Eterno resplandor de una mente sin recuerdos (United States, Spanish title)",
         "2": "Eterno resplandor de una mente sin recuerdos (Egypt, English title)",
-        "3": "Vergiss mein nicht (Germany)"
+        "3": "Vergiss mein nicht (Germany)",
+        "4": "\u00a1Olv\u00eddate de m\u00ed! (Spain)",
+        "5": "\u6696\u6696\u5185\u542b\u5149 (China, Mandarin title)"
     },
     "top 250 rank": "95",
     "production companies": {
@@ -571,6 +792,14 @@
         "3": {
             "name": "Bir Film",
             "long imdb name": "Bir Film"
+        },
+        "4": {
+            "name": "Constantin Film",
+            "long imdb name": "Constantin Film"
+        },
+        "5": {
+            "name": "Eagle Pictures",
+            "long imdb name": "Eagle Pictures"
         }
     },
     "special effects companies": {
@@ -595,12 +824,22 @@
         "3": {
             "name": "ARRI",
             "long imdb name": "ARRI"
+        },
+        "4": {
+            "name": "Amalgamated Dwellings",
+            "long imdb name": "Amalgamated Dwellings"
+        },
+        "5": {
+            "name": "Arc Flashlights",
+            "long imdb name": "Arc Flashlights"
         }
     },
     "plot": {
         "1": "When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories for ever.",
         "2": "Much to his surprise, timid Joel Barish is shocked to discover that the love of his life, sparky Clementine, has had him erased from her memory. As a result, hurt and angry, Joel wants to pay her back in the same coin, going as far as to undergo a painless but intricate medical procedure to do the same. However, poor Joel is utterly unaware that darkness is an essential part of the light. And as the once-cherished recollections of Clementine gradually fade away, giving way to a soulless black void, something unexpected happens. Now Joel has second thoughts, toying with the idea of stopping the irreversible process. Who said ignorance is bliss?\u2014Nick Riganas",
-        "3": "A man awakes disheveled; impulsively, he skips work, heading instead to the shore. On this chilly February day, a woman in orange, hair dyed blue, chats him up: she's Clementine, he's Joel, shy and sad; by day's end, he likes her. The next night she takes him to the frozen Charles River. After, as he drops her off, she asks to sleep at his place, and she runs up to get her toothbrush. Strange things occur: their meeting was not entirely chance, they have a history neither remembers. Our seeing how the lacunae came to be and their discovery of the memory loss take the rest of the film.\u2014<jhailey@hotmail.com>"
+        "3": "A man awakes disheveled; impulsively, he skips work, heading instead to the shore. On this chilly February day, a woman in orange, hair dyed blue, chats him up: she's Clementine, he's Joel, shy and sad; by day's end, he likes her. The next night she takes him to the frozen Charles River. After, as he drops her off, she asks to sleep at his place, and she runs up to get her toothbrush. Strange things occur: their meeting was not entirely chance, they have a history neither remembers. Our seeing how the lacunae came to be and their discovery of the memory loss take the rest of the film.\u2014<jhailey@hotmail.com>",
+        "4": "Joel is stunned to discover that his girlfriend Clementine has had her memories of their tumultuous relationship erased. Out of desperation, he contracts the inventor of the process, Dr. Howard Mierzwaik, to have Clementine removed from his own memory. But as Joel's memories progressively disappear, he begins to rediscover their earlier passion. From deep within the recesses of his brain, Joel attempts to escape the procedure. As Dr. Mierzwiak and his crew chase him through the maze of his memories, it's clear that Joel just can't get her out of his head.\u2014Focus Features",
+        "5": "This is the story of a guy, Joel, who discovers that his long-time girlfriend, Clementine, has undergone a psychiatrist's experimental procedure in which all of her memory of Joel is removed, after the couple has tried for years to get their relationship working fluidly. Frustrated by the idea of still being in love with a woman who doesn't remember their time together, Joel agrees to undergo the procedure as well, to erase his memories of Clementine.\u2014austin4577@aol.com"
     },
     "synopsis": {
         "1": "Joel Barish (Jim Carrey) is an emotionally withdrawn man and Clementine Kruczynski (Kate Winslet) is his girlfriend who is a dysfunctional free spirit. They are inexplicably attracted to each other despite their different personalities.They do not realize it at the time, but they are former lovers now separated after two years together. After a nasty fight, Clementine has had her memories of their relationship erased from her mind. Upon learning this, Joel is devastated and goes to the doctor to have the same procedure done. However, while unconscious, Joel has second thoughts and decides he wants to keep his memories of Clementine.Much of the film takes place in Joel's brain as he tries to find a way to preserve his memories of Clementine, and two Lacuna techies Patrick (Elijah Wood) and Stan (Mark Ruffalo) try to erase the memories. We watch their love and courtship go in reverse: The memories are slowly erased while Joel tries his best to resist the procedure and hide inside his mind.In separate and related story arcs, the employees of Lacuna Corporation are revealed to be more than peripheral characters in scenes which further show the harm caused by the memory-altering procedure. Mary (Kirsten Dunst) has had an affair with the married Dr. Howard Mierzwiak, who heads the company (Tom Wilkinson). She agreed to have the affair erased from her memory when his wife discovered the relationship. Lonely, socially inept Patrick becomes fixated on Clementine and uses Joel's personal mementos that he gave to Lacuna as part of the procedure in order to seduce her. These romantic entanglements turn out to have a critical effect on the main story line of the relationship between Joel and Clementine.Once Mary learns of the affair she has had with Mierzwiak, she steals the company's records and sends them to all of its clients. Thus Joel and Clementine both get to listen to their initial tape recordings at Lacuna, and afterwards realize that even if everything in life isn't perfect, their relationship can still be worthwhile."

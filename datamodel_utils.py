@@ -8,8 +8,7 @@ import pprint
 import json
 import pandas as pd
 
-from typing import List, Tuple
-from datetime import datetime
+from typing import List, Tuple, Any, Callable
 from collections.abc import Iterable
 from jsonschema import validate
 from dataclasses import dataclass, asdict
@@ -34,7 +33,7 @@ from nb_utils import doctest_function
 # --- Data dictionary generation ---
 # ----------------------------------
 
-def _list_to_dict(obj: list, max_items: int = None) -> dict:
+def list_to_dict(obj: list, max_items: int = None) -> dict:
     """
     Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys. 
     
@@ -53,15 +52,15 @@ def _list_to_dict(obj: list, max_items: int = None) -> dict:
     Examples
     --------
     >>> my_list = [1, 'two', [3], {'four': 5}]
-    >>> _list_to_dict(my_list)
+    >>> list_to_dict(my_list)
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
     
     >>> my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    >>> _list_to_dict(my_list, max_items=5)
+    >>> list_to_dict(my_list, max_items=5)
     {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
     
     >>> my_dict = dict(a=1, b='two')
-    >>> _list_to_dict(my_dict)
+    >>> list_to_dict(my_dict)
     Not running conversion since obj is already a dictionary.
     {'a': 1, 'b': 'two'}
     """
@@ -73,7 +72,7 @@ def _list_to_dict(obj: list, max_items: int = None) -> dict:
                 if (max_items is None) or (key < max_items)}
         
 
-def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:   
+def compare_dict_keys(dict1: dict, dict2: dict) -> dict:   
     """
     Recursively compare two dictionaries and identify missing keys.
     
@@ -100,23 +99,23 @@ def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:
 
     Identical dictionaries
     >>> dict2 = copy.deepcopy(dict1)
-    >>> _compare_dict_keys(dict1, dict2)
+    >>> compare_dict_keys(dict1, dict2)
 
     Missing nesting level 0 key
     >>> del dict2['a1']
-    >>> _compare_dict_keys(dict1, dict2)
+    >>> compare_dict_keys(dict1, dict2)
     {'missing_keys': ['a1']}
 
     Missing nesting level 1 key
     >>> dict2 = copy.deepcopy(dict1)
     >>> del dict2['b1']['b12']
-    >>> _compare_dict_keys(dict1, dict2)
+    >>> compare_dict_keys(dict1, dict2)
     {'nested_diff': {'b1': {'missing_keys': ['b12']}}}
     
     Missing nesting level 2 key
     >>> dict2 = copy.deepcopy(dict1)
     >>> del dict2['c1']['c11']['c113']
-    >>> _compare_dict_keys(dict1, dict2)
+    >>> compare_dict_keys(dict1, dict2)
     {'nested_diff': {'c1': {'nested_diff': {'c11': {'missing_keys': ['c113']}}}}}
     """
     
@@ -132,7 +131,7 @@ def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:
     # Initialize difference dictionary
     diff_dict = {}
     for key in shared_keys:
-        nested_diff = _compare_dict_keys(dict1[key], dict2[key])
+        nested_diff = compare_dict_keys(dict1[key], dict2[key])
         # Add any differences to the difference
         if nested_diff is not None:
             diff_dict[key] = nested_diff
@@ -150,7 +149,7 @@ def _compare_dict_keys(dict1: dict, dict2: dict) -> dict:
     return None
 
 
-def _omit_patterns(input_string: str, patterns: List[str]) -> str:
+def omit_string_patterns(input_string: str, patterns: List[str]) -> str:
     r"""
     Helper to prune multiple character patterns from a string at once.
 
@@ -171,145 +170,142 @@ def _omit_patterns(input_string: str, patterns: List[str]) -> str:
     >>> print(input_string)
     [[A \\ messy * string * with undesirable /patterns]]
     >>> patterns_to_omit = ["[[", "]]", "* ", "\\\\ ", "/", "messy ", "un" ]
-    >>> output_string = _omit_patterns(input_string, patterns_to_omit)
+    >>> output_string = omit_string_patterns(input_string, patterns_to_omit)
     >>> print(output_string)
     A string with desirable patterns
     """
     pattern = '|'.join(re.escape(p) for p in patterns)
     return re.sub(pattern, '', input_string)
 
-
-def serialize_scraped_data(obj, max_items: int = None) -> dict:
+    
+def apply_recursive(func: Callable[..., Any], obj) -> dict:
     """
-    Coerce unique dataclasses from scraped objects into serializable format.
-        
+    Convert a nested data structure (with explicit or implied key/value pairs) into a tree-like dictionary, applying a given function to terminal values.
+            
     Parameters
     ----------
-    obj : _type_
+    func : Callable[..., Any]
         _description_
-    max_items : int, default=None
+    obj : 
         _description_
-        
+    
     Returns
     -------
     dict: 
         _description_
+        
+    Examples
+    --------
+    Define the data
+    >>> nested_data =  {'type': 'album', 'url': 'link.com', 'audio_features': [
+    ...     {'loudness': -11.4, 'duration_ms': 251},
+    ...     {'loudness': -15.5, 'duration_ms': 284}]}
+    >>> print(nested_data)
+    {'type': 'album', 'url': 'link.com', 'audio_features': [{'loudness': -11.4, 'duration_ms': 251}, {'loudness': -15.5, 'duration_ms': 284}]}
+    
+    Convert to json-friendly representation
+    >>> serialized = apply_recursive(str, nested_data)
+    >>> print(serialized)
+    {'type': 'album', 'url': 'link.com', 'audio_features': {1: {'loudness': '-11.4', 'duration_ms': '251'}, 2: {'loudness': '-15.5', 'duration_ms': '284'}}}
+    
+    Convert to field/type pairs
+    >>> schema = apply_recursive(lambda x: type(x).__name__, nested_data)
+    >>> print(schema)
+    {'type': 'str', 'url': 'str', 'audio_features': {1: {'loudness': 'float', 'duration_ms': 'int'}, 2: {'loudness': 'float', 'duration_ms': 'int'}}}
     """
     # Handle dictionary-like objects
     if hasattr(obj, 'items'):
-        return {key: serialize_scraped_data(value, max_items) 
+        return {key: apply_recursive(func, value) 
                 for key, value in obj.items()}
-            
+                
     # Handle list-like objects
     elif isinstance(obj, (list, tuple, set)):
-        return {key: serialize_scraped_data(value, max_items) 
-                for key, value in _list_to_dict(obj, max_items).items()}
-            
+        return {key: apply_recursive(func, value) 
+                for key, value in list_to_dict(obj, max_items=5).items()}
+                
     # Handle base cases
     elif isinstance(obj, str):
-        return str(obj)
+        return func(obj)
     else:
-        return str(obj)
+        return func(obj)
 
 
-def iterable_to_schema(obj, max_items: int = None) -> dict:
-    """
+def schema_jsonify(obj: dict) -> dict:
+    r"""
     _summary_
 
     Parameters
     ----------
-    obj : _type_
+    schema : dict
         _description_
-    max_items : int, default=None
-        _description_
+
     Returns
     -------
-    dict: 
-        _description_
+    dict : _description_
+    
+    Examples
+    --------
+    >>> original_schema = {'name': 'str', 'quantity': 'int', 'features': {1: {'volume': 'str', 'duration': 'float'}, 2: {'volume': 'str', 'duration': 'float'}}, 'creator': {'person': {'name': 'str'}, 'company': {'name': 'str', 'location': 'str'}}}
+    >>> schema = schema_jsonify(original_schema)
+    >>> schema = {**{"title": "title", "description": "description"}, **schema}
+    >>> pprint.pp(schema, compact=True, depth=3)
+    {'title': 'title',
+     'description': 'description',
+     'type': 'object',
+     'properties': {'name': {'type': 'string'},
+                    'quantity': {'type': 'number'},
+                    'features': {'type': 'array',
+                                 'minItems': 1,
+                                 'maxItems': 2,
+                                 'uniqueItems': True,
+                                 'items': {...}},
+                    'creator': {'type': 'object',
+                                'properties': {...},
+                                'required': [...]}},
+     'required': ['name', 'quantity', 'features', 'creator']}
     """
-    # Handle dictionary-like objects
-    if hasattr(obj, 'items'):
-        return {key: iterable_to_schema(value, max_items) 
-                for key, value in obj.items()}
+    schema = {}
+    is_dict = isinstance(obj, dict)
     
-    # Handle list-like objects
-    elif isinstance(obj, (list, tuple, set)):
-        return {key: iterable_to_schema(value, max_items) 
-                for key, value in _list_to_dict(obj, max_items).items()}
+    # Case 1 (array-like)    
+    if obj and is_dict and isinstance(list(obj.keys())[0], int):
+        field_len = list(obj.keys())[-1]
+        schema = {
+            "type": 'array', # coerced to object; includes tuple/list
+            "minItems": 1,
+            "maxItems": field_len,
+            "uniqueItems": True
+        }
+        # Recurse on first item, assuming homogeneity for simplicity
+        schema["items"] = schema_jsonify(obj[1])
+        return schema
     
-    # Handle base cases
-    # TODO omit this! indicates base case already reached
-    elif isinstance(obj, type):
-        return obj.__name__
-    elif isinstance(obj, str):
-        return type(obj).__name__
+    # Case 2 (dictionary) 
+    elif obj and is_dict:
+        schema["type"] = "object"
+        schema["properties"] = {}
+        # Require all by default to easily edit later
+        schema["required"] = list(obj.keys())
+        
+        for key, val in obj.items():
+            # Recurse on each value
+            schema["properties"][key] = schema_jsonify(val)
+        return schema
+    
+    # Base cases (non-container types)
+    # "str" -> "string"
+    elif obj == "str": 
+        schema["type"] = "string"
+        return schema
+
+    # "int"/"float" -> "number"
+    elif obj in ("int", "float"): 
+        schema["type"] = "number"
+        return schema
+    
     else:
-        return type(obj).__name__
-
-    
-# ------------------------------
-# --- Data validation scheme ---
-# ------------------------------
-
-# --- Data model considerations ---
-# - Fields: descriptions, required entries
-# - Type-specific: num (range), str (regex), cat (options)
-# - List-like container types: uniformity of elements, length, options, order
-
-# NOTE Generally opt for manually defined schemas for retrieved data. Data
-# is messy and unpredictable and every automated attempt will either screw up 
-# edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
-# masquerading as an iterable).
-    
-# TODO implement JSON schema for 5 scraped objects
-# TODO implement corresponding pydantic data model for processed objects
-# TODO valid + invalid ex of each (5*2 * 2) & validate w/ JSON/pydantic resp
-
-# TODO probably move these examples/validation tests to _examples.py
-
-# Raw API-retrieved data schemas and JSON data validation
-with open('models/imdb_model.json') as file:
-    MOVIE_SCHEMA = json.load(file)
-
-valid_raw_movie = {
-    "title": "green eggs and ham", "year": 1904, "kind": "movie", 
-    "director": {"1": {"name": "Jill Smith"}}
-}
-# invalid_raw_movie = {"name": 1, "price": 34.99}
-
-validate(instance=valid_raw_movie, schema=MOVIE_SCHEMA)
-# validate(instance=invalid_raw_movie, schema=MOVIE_SCHEMA)
-
-# -----------------------------------------------------------------------------
-# XXX (rough pydantic validation tests)
-# Processed data model
-class Movie(BaseModel):
-    id: int
-    name: str = 'John Doe'
-    signup_ts: datetime | None
-    tastes: dict[str, PositiveInt]
-
-valid_processed_movie = {
-    'id': 1, 'tastes': dict(a=3), 
-    'signup_ts': datetime(1990, 4, 1)
-} 
-invalid_processed_movie = {
-    'id': 'not an int', 'tastes': {'hek'},
-    'signup_ts': datetime(1990, 4, 1)
-}  
-valid_processed_movie_instance = Movie(**valid_processed_movie)  
-# invalid_processed_movie_instance = Movie(**invalid_processed_movie)  
-pd.DataFrame(pd.json_normalize(dict(valid_processed_movie_instance)))
-# pd.DataFrame(pd.json_normalize(dict(invalid_processed_movie_instance)))
-
-try:
-    Movie(**valid_processed_movie)  
-except ValidationError as e:
-    pprint.pp(e.errors())
-# try:
-#     Movie(**invalid_processed_movie)  
-# except ValidationError as e:
-#     pprint.pp(e.errors())
+        schema["type"] = "null"
+        return schema
 
 
 # ----------------------------------
