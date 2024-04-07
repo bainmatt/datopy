@@ -8,11 +8,6 @@ Runs doctests for all specified modules as a unittest suite.
 # To execute selection and share declarations with global namespace: shift+enter
 """
 
-import pandas as pd
-import numpy as np
-from display_dataset import make_df, display
-
-
 if __name__ == "__main__":
     import doctest
     import unittest
