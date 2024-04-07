@@ -9,6 +9,11 @@ A home for one-off tests and data-generating routines.
 # 3a) Implement a Pydantic data model that is robust and reflects your needs
 # 3b) Refine your quick-and-dirty Processor and incorporate data validation
 # Play around with the data before moving on to more sophisticated analysis
+
+# --- Data model considerations ---
+# - Fields: descriptions, required entries
+# - Type-specific: num (range), str (regex), cat (options)
+# - List-like container types: uniformity of elements, length, options, order
 """
 
 import re
@@ -350,11 +355,6 @@ def run_auto_datamodel_example(
 # --- Pitfalls of raw data validation ---
 # ---------------------------------------
 
-# --- Data model considerations ---
-# - Fields: descriptions, required entries
-# - Type-specific: num (range), str (regex), cat (options)
-# - List-like container types: uniformity of elements, length, options, order
-
 # Generally opt for manually defined schemas for retrieved data. Data
 # is messy and unpredictable and every automated attempt will either screw up 
 # edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
@@ -397,6 +397,10 @@ validate(instance=valid_raw_movie, schema=movie_schema)
 
 
 # TODO consider adding later: IUCNSpecies metadata, WBankNation metadata
+# IUCN: https://pypi.org/project/IUCN-API/
+# Excellent resource: 
+# https://www.kaggle.com/code/saiulluri/creating-a-wildlife-database
+# WBank: https://pypi.org/project/wbgapi/#description
 # TODO place media/animals/nations processors in {media/eco/global}_pulse.py
 
 
