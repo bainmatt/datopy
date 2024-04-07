@@ -1,0 +1,486 @@
+{
+    "album_type": "str",
+    "artists": {
+        "1": {
+            "external_urls": {
+                "spotify": "str"
+            },
+            "href": "str",
+            "id": "str",
+            "name": "str",
+            "type": "str",
+            "uri": "str"
+        }
+    },
+    "available_markets": {
+        "1": "str",
+        "2": "str",
+        "3": "str",
+        "4": "str",
+        "5": "str"
+    },
+    "copyrights": {
+        "1": {
+            "text": "str",
+            "type": "str"
+        },
+        "2": {
+            "text": "str",
+            "type": "str"
+        }
+    },
+    "external_ids": {
+        "upc": "str"
+    },
+    "external_urls": {
+        "spotify": "str"
+    },
+    "genres": {},
+    "href": "str",
+    "id": "str",
+    "images": {
+        "1": {
+            "height": "int",
+            "url": "str",
+            "width": "int"
+        },
+        "2": {
+            "height": "int",
+            "url": "str",
+            "width": "int"
+        },
+        "3": {
+            "height": "int",
+            "url": "str",
+            "width": "int"
+        }
+    },
+    "label": "str",
+    "name": "str",
+    "popularity": "int",
+    "release_date": "str",
+    "release_date_precision": "str",
+    "total_tracks": "int",
+    "tracks": {
+        "href": "str",
+        "items": {
+            "1": {
+                "artists": {
+                    "1": {
+                        "external_urls": {
+                            "spotify": "str"
+                        },
+                        "href": "str",
+                        "id": "str",
+                        "name": "str",
+                        "type": "str",
+                        "uri": "str"
+                    }
+                },
+                "available_markets": {
+                    "1": "str",
+                    "2": "str",
+                    "3": "str",
+                    "4": "str",
+                    "5": "str"
+                },
+                "disc_number": "int",
+                "duration_ms": "int",
+                "explicit": "bool",
+                "external_urls": {
+                    "spotify": "str"
+                },
+                "href": "str",
+                "id": "str",
+                "is_local": "bool",
+                "name": "str",
+                "preview_url": "str",
+                "track_number": "int",
+                "type": "str",
+                "uri": "str"
+            },
+            "2": {
+                "artists": {
+                    "1": {
+                        "external_urls": {
+                            "spotify": "str"
+                        },
+                        "href": "str",
+                        "id": "str",
+                        "name": "str",
+                        "type": "str",
+                        "uri": "str"
+                    }
+                },
+                "available_markets": {
+                    "1": "str",
+                    "2": "str",
+                    "3": "str",
+                    "4": "str",
+                    "5": "str"
+                },
+                "disc_number": "int",
+                "duration_ms": "int",
+                "explicit": "bool",
+                "external_urls": {
+                    "spotify": "str"
+                },
+                "href": "str",
+                "id": "str",
+                "is_local": "bool",
+                "name": "str",
+                "preview_url": "str",
+                "track_number": "int",
+                "type": "str",
+                "uri": "str"
+            },
+            "3": {
+                "artists": {
+                    "1": {
+                        "external_urls": {
+                            "spotify": "str"
+                        },
+                        "href": "str",
+                        "id": "str",
+                        "name": "str",
+                        "type": "str",
+                        "uri": "str"
+                    }
+                },
+                "available_markets": {
+                    "1": "str",
+                    "2": "str",
+                    "3": "str",
+                    "4": "str",
+                    "5": "str"
+                },
+                "disc_number": "int",
+                "duration_ms": "int",
+                "explicit": "bool",
+                "external_urls": {
+                    "spotify": "str"
+                },
+                "href": "str",
+                "id": "str",
+                "is_local": "bool",
+                "name": "str",
+                "preview_url": "str",
+                "track_number": "int",
+                "type": "str",
+                "uri": "str"
+            },
+            "4": {
+                "artists": {
+                    "1": {
+                        "external_urls": {
+                            "spotify": "str"
+                        },
+                        "href": "str",
+                        "id": "str",
+                        "name": "str",
+                        "type": "str",
+                        "uri": "str"
+                    }
+                },
+                "available_markets": {
+                    "1": "str",
+                    "2": "str",
+                    "3": "str",
+                    "4": "str",
+                    "5": "str"
+                },
+                "disc_number": "int",
+                "duration_ms": "int",
+                "explicit": "bool",
+                "external_urls": {
+                    "spotify": "str"
+                },
+                "href": "str",
+                "id": "str",
+                "is_local": "bool",
+                "name": "str",
+                "preview_url": "str",
+                "track_number": "int",
+                "type": "str",
+                "uri": "str"
+            },
+            "5": {
+                "artists": {
+                    "1": {
+                        "external_urls": {
+                            "spotify": "str"
+                        },
+                        "href": "str",
+                        "id": "str",
+                        "name": "str",
+                        "type": "str",
+                        "uri": "str"
+                    }
+                },
+                "available_markets": {
+                    "1": "str",
+                    "2": "str",
+                    "3": "str",
+                    "4": "str",
+                    "5": "str"
+                },
+                "disc_number": "int",
+                "duration_ms": "int",
+                "explicit": "bool",
+                "external_urls": {
+                    "spotify": "str"
+                },
+                "href": "str",
+                "id": "str",
+                "is_local": "bool",
+                "name": "str",
+                "preview_url": "str",
+                "track_number": "int",
+                "type": "str",
+                "uri": "str"
+            }
+        },
+        "limit": "int",
+        "next": "NoneType",
+        "offset": "int",
+        "previous": "NoneType",
+        "total": "int"
+    },
+    "type": "str",
+    "uri": "str",
+    "track_audio_features": {
+        "1": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "2": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "3": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "4": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "5": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "6": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "7": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "8": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "9": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "10": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        },
+        "11": {
+            "danceability": "float",
+            "energy": "float",
+            "key": "int",
+            "loudness": "float",
+            "mode": "int",
+            "speechiness": "float",
+            "acousticness": "float",
+            "instrumentalness": "float",
+            "liveness": "float",
+            "valence": "float",
+            "tempo": "float",
+            "type": "str",
+            "id": "str",
+            "uri": "str",
+            "track_href": "str",
+            "analysis_url": "str",
+            "duration_ms": "int",
+            "time_signature": "int"
+        }
+    },
+    "track_streams": {
+        "1": "int",
+        "2": "int",
+        "3": "int",
+        "4": "int",
+        "5": "int",
+        "6": "int",
+        "7": "int",
+        "8": "int",
+        "9": "int",
+        "10": "int",
+        "11": "int"
+    }
+}

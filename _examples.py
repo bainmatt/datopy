@@ -1,5 +1,14 @@
 """
 A home for one-off tests and data-generating routines.
+
+# --- My retrieve/process/load (ETL) & model/validation process for APIs ---
+# 1a) Identify your topic, fields of interest, source, and tools
+# 1b) Access the relevant API and familiarize
+# 2a) Implement a quick-and-dirty Processor subclass for retrieved objects
+# 2b) Construct 1-2 representative examples for testing and documentation
+# 3a) Implement a Pydantic data model that is robust and reflects your needs
+# 3b) Refine your quick-and-dirty Processor and incorporate data validation
+# Play around with the data before moving on to more sophisticated analysis
 """
 
 import re
@@ -11,6 +20,7 @@ import pandas as pd
 
 from typing import List, Literal, Union, Tuple, NamedTuple
 from collections import namedtuple
+from datetime import datetime
 from jsonschema import validate
 from dataclasses import dataclass, asdict
 from pydantic import BaseModel, ValidationError, PositiveInt
@@ -27,20 +37,86 @@ import _settings
 
 from nb_utils import doctest_function
 from datamodel_utils import (
-    iterable_to_schema, serialize_scraped_data, _list_to_dict, _compare_dict_keys, _omit_patterns
+    apply_recursive, schema_jsonify,
+    list_to_dict, omit_string_patterns
 )
 
 # Define object types for metadata retrieval
-Film = NamedTuple('Film', [('title', str)])
-Album = NamedTuple('Album', [('artist', str), ('title', str)])
-Book = NamedTuple('Book', [('title', str)])
+FilmQuery = NamedTuple('FilmQuery', [('title', str)])
+AlbumQuery = NamedTuple('Album', [('artist', str), ('title', str)])
+BookQuery = NamedTuple('Book', [('title', str)])
+
+DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
+                                     'serialized', 'normalized'])
+
+# TODO add 'see also' sections for required imports from other modules in proj
+# TODO rename this to _example_auto_datamodels ?
 
 
 # ---------------
 # --- Helpers ---
 # ---------------
 
-def _extract_datadict(obj, max_items: int = 3, verbose: bool = False) -> tuple:
+# TODO refactor later into SubProcessor
+
+def spotify_album_retrieve(album: AlbumQuery) -> dict:
+    """Spotify album metadata retrieval routine."""
+    sp = spotipy.Spotify(
+        client_credentials_manager=SpotifyClientCredentials()
+    )
+    results = sp.search(
+        q=f'artist:{album.artist} album:{album.title}', type='album'
+    )    
+    if results['albums']['total'] == 0:
+        raise LookupError(f"No result found for {album}.")
+            
+    album_results = results['albums']['items'][0]
+    album_id = album_results['id']
+    album_details = sp.album(album_id)
+    tracks = sp.album_tracks(album_id)['items']        
+            
+    # Retrieve additional track details
+    track_audio_features = []
+    track_streams = []
+    for track_num, track_info in enumerate(tracks, start=1):
+        track_id = track_info['id']
+        # sp.audio_analysis(track_id)
+        track_audio_features.append(sp.audio_features(track_id)[0])
+        track_streams.append(sp.track(track_id)['popularity'])
+
+    track_audio_features = list_to_dict(track_audio_features)
+    track_streams = list_to_dict(track_streams)
+            
+    # Merge album details with additional track details
+    obj = copy.deepcopy(album_details)
+    obj['track_audio_features'] = track_audio_features
+    obj['track_streams'] = track_streams
+    
+    return obj
+
+
+def imdb_film_retrieve(film: FilmQuery) -> dict: 
+    """IMDb film metadata retrieval routine."""
+    ia = Cinemagoer()
+    movies = ia.search_movie(film.title)
+    if not movies:
+        raise LookupError(f"No result found for {film}.")
+    else:
+        obj = ia.get_movie(movies[0].movieID)
+        
+    return obj
+
+
+def wiki_metadata_retrieve(query: NamedTuple) -> dict:
+    try:
+        obj = wptools.page(query.title).get_parse().data['infobox']
+    except Exception:
+        raise LookupError(f"No result found for {query}.") from None
+        
+    return obj
+
+
+def extract_datamodel(obj, verbose: bool = False) -> DataModel:
     """
     Extract data dictionary elements  json-style schema of (key, type)/(key, value) pairs and a df.
     
@@ -48,51 +124,58 @@ def _extract_datadict(obj, max_items: int = 3, verbose: bool = False) -> tuple:
     ----------
     obj : 
         __description__
-    max_items : int, default=5
-        __description__
     verbose : bool, default=False
     
     Returns
     -------
     schema : 
         __description__
-    serialized_dict : 
+    json_schema : 
+        __description__
+    obj_serialized : 
         __description__    
-    schema : 
+    obj_normalized : 
         __description__    
     """
-    schema = iterable_to_schema(obj, max_items)
-    serialized_dict = json.dumps(
-        serialize_scraped_data(obj, max_items), indent=4)
-    parsed_dict = json.loads(serialized_dict)
-    normalized_dict = pd.json_normalize(parsed_dict)
+    
+    schema = apply_recursive(lambda x: type(x).__name__, obj)
+    json_schema = schema_jsonify(schema)
+    obj_serialized = json.dumps(apply_recursive(str, obj), indent=4)
+    obj_parsed = json.loads(obj_serialized)
+    obj_normalized = pd.json_normalize(obj_parsed)
     
     if verbose:
-        pprint.pp(schema, depth=5)
         pprint.pp(dict(obj), depth=5)
-        pprint.pp(normalized_dict.T[0], compact=True)
+        pprint.pp(schema, depth=5)
+        pprint.pp(obj_normalized.T[0], compact=True)
     
-    return schema, serialized_dict, normalized_dict
+    return DataModel(obj, schema, json_schema, obj_serialized, obj_normalized)
 
 
-def _save_scraped_datadict(
-    schema: dict, serialized_dict: dict, normalized_dict: dict,
-    source: str, title: str) -> None:
+def save_datamodel(
+    schema: dict, json_schema: dict, 
+    obj_serialized: dict, obj_normalized: dict,
+    source: str, search_terms: NamedTuple) -> None:
     """
     Save json-style schema of (key, type)/(key, value) pairs and a df.
     """
-    title = str(title).lower().replace(' ', '_')
+    title = str(search_terms.title).lower().replace(' ', '_')
+    medium = type(search_terms).__name__.lower().replace(' ', '_')
     
-    schema_path = f"output/{source}_{title}_schema.json"
+    schema_path = f"output/{source}_{medium}_schema.json"
     with open(schema_path, "w") as json_file:
-        json.dump(schema, json_file, indent=7)
+        json.dump(schema, json_file, indent=4)
+
+    json_schema_path = f"output/{source}_{medium}_json_schema.json"
+    with open(json_schema_path, "w") as json_file:
+        json.dump(json_schema, json_file, indent=4)
 
     obj_path = f"output/{source}_{title}_obj.json"
     with open(obj_path, "w") as json_file:
-        json_file.write(serialized_dict)
+        json_file.write(obj_serialized)
                     
     df_path = f"output/{source}_{title}_df.csv"
-    normalized_dict.to_csv(df_path, index=False, header=True)
+    obj_normalized.to_csv(df_path, index=False, header=True)
                 
     return None
 
@@ -100,14 +183,12 @@ def _save_scraped_datadict(
 # --------------------------------------------
 # --- Data dictionary retrieval/extraction ---
 # --------------------------------------------
-    
-# TODO correct implementation of max_items
 
-def run_scraped_datadict_example(
+def run_auto_datamodel_example(
     source: Literal['imdb', 'spotify', 'wiki'], 
-    search_terms: Film | Album | Book,
+    search_terms: FilmQuery | AlbumQuery | BookQuery,
     verbose: bool = False,
-    do_save: bool = False) -> namedtuple:   
+    do_save: bool = False) -> DataModel:   
     
     r"""
     Auto-generate and save an exemplar data dictionary from the metadata of an arbitrary API-extracted data structure.
@@ -116,7 +197,7 @@ def run_scraped_datadict_example(
     ----------
     source : Literal['imdb', 'spotify', 'wiki']) 
         The source from which to retrieve data about the requested topic. 
-    search_terms : Film | Album | Book
+    search_terms : FilmQuery | AlbumQuery | BookQuery
         A namedtuple of required properties (e.g., title) for the topic query.
     verbose : bool, default=False
         Option to enable printouts of the retrieved data and schema.
@@ -128,7 +209,7 @@ def run_scraped_datadict_example(
     obj : 
         __description__
     (__tuple__) : 
-        Output of _extract_datadict.
+        Output of extract_datamodel.
         
     Examples
     --------
@@ -136,61 +217,61 @@ def run_scraped_datadict_example(
     >>> do_save=False
     
     # imdb: film
-    # >>> film = Film("eternal sunshine of the spotless mind")
-    # >>> outputs = run_scraped_datadict_example(
+    # >>> film = FilmQuery("eternal sunshine of the spotless mind")
+    # >>> datamodel = run_auto_datamodel_example(
     # ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
-    # >>> dict(outputs.obj)['genres']
+    # >>> dict(datamodel.obj)['genres']
     # ['Drama', 'Romance', 'Sci-Fi']
-    # >>> outputs.schema['genres']
+    # >>> datamodel.schema['genres']
     # {1: 'str', 2: 'str', 3: 'str'}
-    # >>> outputs.normalized_dict['original air date'][0]
+    # >>> datamodel.normalized['original air date'][0]
     # '19 Mar 2004 (USA)'
     
     spotify: album
-    >>> album = Album("radiohead", "kid A") 
-    >>> outputs = run_scraped_datadict_example(
-    ...    source="spotify", search_terms=album, do_save=do_save)
-    >>> outputs.obj['total_tracks']
+    >>> album = AlbumQuery("radiohead", "kid A") 
+    >>> datamodel = run_auto_datamodel_example(
+    ...     source="spotify", search_terms=album, do_save=do_save)
+    >>> datamodel.obj['total_tracks']
     11
-    >>> outputs.schema['total_tracks']
+    >>> datamodel.schema['total_tracks']
     'int'
-    >>> outputs.normalized_dict['id'][0]
+    >>> datamodel.normalized['id'][0]
     '6GjwtEZcfenmOf6l18N7T7'
     
     # wiki: novel
-    # >>> book = Book("to kill a mockingbird")
-    # >>> outputs = run_scraped_datadict_example(
+    # >>> book = BookQuery("to kill a mockingbird")
+    # >>> outputs = run_auto_datamodel_example(
     # ...    source="wiki", search_terms=book, do_save=do_save)
     # >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
     # 'Harper Lee'
     # >>> outputs.schema['author']
     # 'str'
-    # >>> outputs.normalized_dict['pages'][0]
+    # >>> outputs.normalized['pages'][0]
     # '281'
     
     # wiki: film
-    # >>> film = Film("eternal sunshine of the spotless mind")
-    # >>> outputs = run_scraped_datadict_example(
+    # >>> film = FilmQuery("eternal sunshine of the spotless mind")
+    # >>> outputs = run_auto_datamodel_example(
     # ...    source="wiki", search_terms=film, do_save=do_save)
     # >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
     # 'Michel Gondry'
     # >>> outputs.schema['director']
     # 'str'
-    # >>> outputs.normalized_dict['budget'][0]
+    # >>> outputs.normalized['budget'][0]
     # '$20 million'
     
     # wiki: album
-    # >>> album = Album("radiohead", "kid A")
-    # >>> outputs = run_scraped_datadict_example(
+    # >>> album = AlbumQuery("radiohead", "kid A")
+    # >>> outputs = run_auto_datamodel_example(
     # ...    source="wiki", search_terms=album, do_save=do_save)
     # >>> genres_raw = outputs.obj['genre']
     # >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
-    # >>> genres_processed = _omit_patterns(genres_raw, patterns_to_omit)
+    # >>> genres_processed = omit_string_patterns(genres_raw, patterns_to_omit)
     # >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
     # Experimental rock, post-rock, art rock, electronica
     # >>> outputs.schema['genre']
     # 'str'
-    # >>> outputs.normalized_dict['type'][0]
+    # >>> outputs.normalized['type'][0]
     # 'studio'
 
     """    
@@ -210,7 +291,6 @@ def run_scraped_datadict_example(
             obj = ia.get_movie(movies[0].movieID)
     
     # Album
-    # search_terms = search_terms._replace(artist='radiohead')
     elif source == 'spotify':    
         sp = spotipy.Spotify(
             client_credentials_manager=SpotifyClientCredentials()
@@ -235,8 +315,8 @@ def run_scraped_datadict_example(
             track_audio_features.append(sp.audio_features(track_id)[0])
             track_streams.append(sp.track(track_id)['popularity'])
 
-        track_audio_features = _list_to_dict(track_audio_features)
-        track_streams = _list_to_dict(track_streams)
+        track_audio_features = list_to_dict(track_audio_features)
+        track_streams = list_to_dict(track_streams)
         
         # Merge album details with additional track details
         obj = copy.deepcopy(album_details)
@@ -254,34 +334,167 @@ def run_scraped_datadict_example(
         return None
     
     # Extract & save
-    schema, serialized_dict, normalized_dict = _extract_datadict(
-        obj, verbose=verbose)
+    datamodel = extract_datamodel(obj, verbose)
     
     if do_save:
-        _save_scraped_datadict(schema, serialized_dict, normalized_dict, 
-                               source, search_terms.title)
+        save_datamodel(datamodel.schema, datamodel.json_schema,
+                       datamodel.serialized, datamodel.normalized,
+                       source, search_terms)
     else:
         pass
     
-    Outputs = namedtuple(
-        'Outputs', ['obj', 'schema', 'serialized_dict', 'normalized_dict'])
+    return datamodel
+
+
+# ---------------------------------------
+# --- Pitfalls of raw data validation ---
+# ---------------------------------------
+
+# --- Data model considerations ---
+# - Fields: descriptions, required entries
+# - Type-specific: num (range), str (regex), cat (options)
+# - List-like container types: uniformity of elements, length, options, order
+
+# Generally opt for manually defined schemas for retrieved data. Data
+# is messy and unpredictable and every automated attempt will either screw up 
+# edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
+# masquerading as an iterable).
+# 
+# Most importantly, do NOT try to validate all the data coming in! Just build a
+# robust retrieval system and validate everything before loading into your DBS.
+# As cool as it would be to seamlessly validate incoming data against 
+# auto-generated schemas, this is (1) really messy and (2) highly unnecessary.
+# 
+# Instead, use these tools to quickly grasp the structure of retrieved data and 
+# build comprehensive Pydantic models that perfectly suit your downstream needs!
+
+
+# An example of messy, highly unnecessary testing of retrieved data
+obj = spotify_album_retrieve(AlbumQuery("radiohead", "kid a"))
+with open('output/spotify_album_json_schema.json') as file:
+    album_schema = json.load(file)
+# This line raises an error
+# validate(instance=obj, schema=album_schema)
+
+# An idealized example to demonstrate json validation in theory
+with open('models/imdb_model.json') as file:
+    movie_schema = json.load(file)
+
+valid_raw_movie = {
+    "title": "green eggs and ham", "year": 1904, "kind": "movie", 
+    "director": {"1": {"name": "Jill Smith"}}
+}
+
+# The second line raises an error
+invalid_raw_movie = {"name": 1, "price": 34.99}
+validate(instance=valid_raw_movie, schema=movie_schema)
+# validate(instance=invalid_raw_movie, schema=movie_schema)
+
+
+# ---------------------------------
+# --- Processed data validation ---
+# ---------------------------------
+
+
+# TODO consider adding later: IUCNSpecies metadata, WBankNation metadata
+# TODO place media/animals/nations processors in {media/eco/global}_pulse.py
+
+
+# TODO implement pydantic data models for processed objects
+# TODO 1 valid/invalid validation demo for each (5*2) using pydantic
+
+# Reference: 
+class IMDbFilm(BaseModel):
+    """
+    Data model for processed imdb metadata. 
+    Raw data schema reference: 'output/imdb_film_schema.json'
+    """
+    # fields of interest: 
     
-    return Outputs(obj, schema, serialized_dict, normalized_dict)
+    title: str
+    
+    
+class SpotifyAlbum(BaseModel):
+    """
+    Data model for processed Spotify metadata. 
+    Raw data schema reference: 'output/spotify_album_schema.json'
+    """
+    # fields of interest: 
+    
+    title: str
+    album_type: str
+    
+
+class WikiBook(BaseModel):
+    """
+    Data model for processed Wikipedia novel metadata. 
+    Raw data schema reference: 'output/wiki_book_schema.json'
+    """
+    # fields of interest: 
+        
+    title: str
 
 
-# ---------------------------------------
-# --- Data model and validation stuff ---
-# ---------------------------------------
+class WikiFilm(BaseModel):
+    """
+    Data model for processed Wikipedia film metadata. 
+    Raw data schema reference: 'output/wiki_film_schema.json'
+    """
+    # fields of interest: 
+            
+    title: str
 
-# TODO finish example from `datamodel_utils` 'Data validation scheme'
 
-# Movie(**schema)  
+class WikiAlbum(BaseModel):
+    """
+    Data model for processed Wikipedia album metadata. 
+    Raw data schema reference: 'output/wiki_album_schema.json'
+    """
+    # fields of interest: 
+                
+    title: str
+
+
+
+
+
+
+
+# XXX rough pydantic validation tests
+class Movie(BaseModel):
+    id: int
+    name: str = 'John Doe'
+    signup_ts: datetime | None
+    tastes: dict[str, PositiveInt]
+
+valid_processed_movie = {
+    'id': 1, 'tastes': dict(a=3), 
+    'signup_ts': datetime(1990, 4, 1)
+} 
+invalid_processed_movie = {
+    'id': 'not an int', 'tastes': {'hek'},
+    'signup_ts': datetime(1990, 4, 1)
+}  
+valid_processed_movie_instance = Movie(**valid_processed_movie)  
+# invalid_processed_movie_instance = Movie(**invalid_processed_movie)  
+pd.DataFrame(pd.json_normalize(dict(valid_processed_movie_instance)))
+# pd.DataFrame(pd.json_normalize(dict(invalid_processed_movie_instance)))
+
+try:
+    Movie(**valid_processed_movie)  
+except ValidationError as e:
+    pprint.pp(e.errors())
+# try:
+#     Movie(**invalid_processed_movie)  
+# except ValidationError as e:
+#     pprint.pp(e.errors())
+
 
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=False)
-    # doctest_function(run_scraped_datadict_example, globs=globals(), verbose=False)
+    # doctest_function(run_auto_datamodel_example, globs=globals(), verbose=False)
             
     ## One-off tests
     pass

@@ -1,0 +1,83 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "image": {
+            "type": "string"
+        },
+        "caption": {
+            "type": "string"
+        },
+        "director": {
+            "type": "string"
+        },
+        "producer": {
+            "type": "string"
+        },
+        "screenplay": {
+            "type": "string"
+        },
+        "story": {
+            "type": "string"
+        },
+        "starring": {
+            "type": "string"
+        },
+        "music": {
+            "type": "string"
+        },
+        "cinematography": {
+            "type": "string"
+        },
+        "editing": {
+            "type": "string"
+        },
+        "studio": {
+            "type": "string"
+        },
+        "distributor": {
+            "type": "string"
+        },
+        "released": {
+            "type": "string"
+        },
+        "runtime": {
+            "type": "string"
+        },
+        "country": {
+            "type": "string"
+        },
+        "language": {
+            "type": "string"
+        },
+        "budget": {
+            "type": "string"
+        },
+        "gross": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "image",
+        "caption",
+        "director",
+        "producer",
+        "screenplay",
+        "story",
+        "starring",
+        "music",
+        "cinematography",
+        "editing",
+        "studio",
+        "distributor",
+        "released",
+        "runtime",
+        "country",
+        "language",
+        "budget",
+        "gross"
+    ]
+}
