@@ -150,9 +150,11 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     return pd.DataFrame(data, ind)    
 
 
-def eva(*args, globs: dict[str, Any] = None, bold: bool = True):    
+def display(*args, globs: dict[str, Any] = None, bold: bool = True):    
     """
     Display an informative representation of multiple objects side-by-side.
+    
+    Note: This function uses `eval()` to render expressions it receives as strings. Access to variables in the global namespace is controlled by `globs`. Take care to only pass trusted expressions to the function.
     
     Parameters
     ----------
@@ -167,7 +169,7 @@ def eva(*args, globs: dict[str, Any] = None, bold: bool = True):
     --------
     Data frame example:
     >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
-    >>> eva('df1', 'df2', 'pd.concat([df1, df2])', globs=globals(), bold=False)
+    >>> display('df1', 'df2', 'pd.concat([df1, df2])', globs=globals(), bold=False)
     <BLANKLINE>
     df1
     --- (2, 2) ---
@@ -195,7 +197,7 @@ def eva(*args, globs: dict[str, Any] = None, bold: bool = True):
     
     Matrix example:
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
-    >>> eva("A", "x.T", "np.dot(A, x.T)", globs=globals(), bold=False)
+    >>> display("A", "x.T", "np.dot(A, x.T)", globs=globals(), bold=False)
     <BLANKLINE>
     A
     --- (2, 2) ---
@@ -233,7 +235,7 @@ def eva(*args, globs: dict[str, Any] = None, bold: bool = True):
 def main():
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
-    doctest_function(eva, globs=globals())
+    doctest_function(display, globs=globals())
     return None
 
 if __name__ == "__main__":
