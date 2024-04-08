@@ -25,7 +25,7 @@ from bs4 import BeautifulSoup
 
 import _settings
 
-from display_dataset import eva
+from display_dataset import display
 from nb_utils import doctest_function
 
 

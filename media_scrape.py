@@ -24,7 +24,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 
-from display_dataset import eva
+from display_dataset import display
 from nb_utils import doctest_function
 
 
