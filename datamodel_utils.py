@@ -8,11 +8,11 @@ import pprint
 import json
 import pandas as pd
 
-from typing import List, Tuple, Any, Callable
+from typing import List, Tuple, Any, Callable, NamedTuple, Annotated
 from collections.abc import Iterable
 from jsonschema import validate
 from dataclasses import dataclass, asdict
-from pydantic import BaseModel, ValidationError, PositiveInt
+from pydantic import BaseModel, ValidationError, PositiveInt, Field
 
 import pydantic
 import wptools
@@ -29,9 +29,9 @@ from display_dataset import display
 from nb_utils import doctest_function
 
 
-# ----------------------------------
-# --- Data dictionary generation ---
-# ----------------------------------
+# ----------------------------------------
+# --- Data dictionary generation utils ---
+# ----------------------------------------
 
 def list_to_dict(obj: list, max_items: int = None) -> dict:
     """
@@ -308,44 +308,100 @@ def schema_jsonify(obj: dict) -> dict:
         return schema
 
 
-# ----------------------------------
-# --- Data processing base class ---
-# ----------------------------------
+# --------------------------------------------
+# --- Data processing base types and class ---
+# --------------------------------------------
 
-# BaseProcessor
+class CustomTypes:
+    """
+    Reusable custom field types. 
+    Whitespace around commas should be stripped before analysis.
+    """
+    CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$', 
+                                  description="Custom lowercase comma-separated string type. Excludes num and special chars")]
+    CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$', 
+                                     description="Allows numerics")]
+    CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+
+# TODO discard this
+# CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$')]
+# CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+# CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+
 
 # TODO implement BaseProcessor
 
 class BaseProcessor:
-    def __init__(self, **args):
-        self.args = args
+    """_summary_
+    """
+    def __init__(self, model: BaseModel, query: NamedTuple):
+        """_summary_
+
+        Parameters
+        ----------
+        model : BaseModel
+            _description_
+        query : NamedTuple 
+            _description_
+        """
+        self.query = query
+        self.model = model
         
-    def retrieve(self, x: list):
-        return sum(x)
+    def retrieve(self):
+        """
+        Retrieve data for the query from the API of the supplied model.
+
+        Raises
+        ------
+            NotImplementedError: _description_
+        """
+        ### Retrieval routine goes here
+        
+        ###
+        raise NotImplementedError
+        # include return here? self assignment? 
 
     def process(self):
+        """
+        Process (extract/clean) retrieved data.
+
+        Raises
+        ------
+            NotImplementedError: _description_
+        """
+        ### Processing routine goes here
+
+        ###
+        # TODO raise NotRetrieved error (try model.obj)
         raise NotImplementedError
+    
+    def _validate(self):
+        """
+        Validate the processed data against the supplied model.
+
+        Raises
+        ------
+            ValidationError: _description_
+        """
+        model = self.model
+        # try:
+        #     model(**self.data)
+        # except ValidationError as e:
+        #     pprint.pp(e.errors())
+        print("Validated")
+        return None
+    
+    def to_df(self):
+        """
+        Load the data into a dataframe for further processing or analysis.
+        """
+        # Validate before loading
+        self._validate()
+        
+        df = pd.DataFrame([self.data])
+        return df
 
 
-# --------------------------
-# --- Metadata retrieval ---
-# --------------------------
-
-# Subclass Processor
-
-# TODO implement 5 subclasses
-
-
-
-# -----------------------------------------------------------------------------
-# XXX (rough tests)
-class MovieProcessor(BaseProcessor):
-    def process(self, y: list):
-        return sum(y)*5
-
-MovieProcessor().retrieve([4,5,6])
-MovieProcessor().process([4,5,6])
-# -----------------------------------------------------------------------------
 
 # -----------------------
 # --- Topic retrieval ---
@@ -390,7 +446,7 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=False)
+    doctest.testmod(verbose=True)
     # doctest_function(get_film_metadata, globs=globals())
         
     ## One-off tests
