@@ -75,7 +75,7 @@ def git_module_loader(modules: Dict[str, List[str]],
             
             if run_tests:
                 print('Running tests:\n')
-                module_name = module.split('.')[0]
+                module_name = module.split('/')[-1].split('.')[0]
                 mod = importlib.import_module(module_name)
                 doctest.testmod(mod, verbose=True)
 
