@@ -24,35 +24,21 @@ To run a module within a subfolder that relies on modules in a parent folder:
 """
 
 import re
-import pprint
-import copy
 import doctest
-import json
 import pandas as pd
+from pydantic import BaseModel, Field, ValidationError
+from typing import Annotated, List, Literal, NamedTuple, Optional, Tuple, Union
 
-from typing import List, Literal, Union, Tuple, NamedTuple, Optional, Annotated
-from collections import namedtuple
-from datetime import datetime
-from jsonschema import validate
-from dataclasses import dataclass, asdict
-from pydantic import BaseModel, ValidationError, PositiveInt, Field, constr
-
-import wptools
-import spotipy
 import imdb
-
-from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy
+import wptools
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
-
 from nb_utils import doctest_function
-from datamodel_utils import (
-    apply_recursive, schema_jsonify,
-    list_to_dict, omit_string_patterns,
-    CustomTypes, BaseProcessor
-)
+from datamodel_utils import BaseProcessor, CustomTypes, omit_string_patterns
 
 
 # --------------------------
@@ -101,6 +87,8 @@ class IMDbFilm(BaseModel):
     Survey available fields and types
     # >>> film = imdb_film_retrieve(Film('spirited away'))
     # >>> film.keys()
+    # >>> import pprint
+    # >>> from datamodel_utils import apply_recursive
     # >>> pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)
     """
     # Identifiers
@@ -232,8 +220,8 @@ class IMDbFilmProcessor(BaseProcessor):
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod(verbose=True)
-    doctest_function(IMDbFilm, globs=globals(), verbose=False)
+    doctest.testmod(verbose=True)
+    # doctest_function(IMDbFilm, globs=globals(), verbose=False)
                 
     ## One-off tests
     pass

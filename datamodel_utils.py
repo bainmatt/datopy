@@ -3,28 +3,22 @@ Tools for data retrieval and entry, from generating data models to processing ra
 """
 
 import re
-import doctest
-import pprint
 import json
+import pprint
+import doctest
 import pandas as pd
-
-from typing import List, Tuple, Any, Callable, NamedTuple, Annotated
-from collections.abc import Iterable
 from jsonschema import validate
-from dataclasses import dataclass, asdict
-from pydantic import BaseModel, ValidationError, PositiveInt, Field
+from pydantic import BaseModel, Field, PositiveInt, ValidationError
+from typing import Tuple, NamedTuple, List, Callable, Any, Annotated
 
-import pydantic
-import wptools
-import spotipy
 import imdb
-
-from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy
+import wptools
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
-
 from display_dataset import display
 from nb_utils import doctest_function
 
@@ -322,11 +316,6 @@ class CustomTypes:
     CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$', 
                                      description="Allows numerics")]
     CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-
-# TODO discard this
-# CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$')]
-# CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-# CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
 
 
 # TODO implement BaseProcessor

@@ -4,12 +4,11 @@ Tools for data I/O (systematically and securely saving figures and Colaboratory 
 
 import os
 import doctest
-import importlib
 import requests
+import importlib
 import urllib.request
-
-from typing import Dict, List, Any, Callable
 from collections.abc import Callable
+from typing import Dict, List, Any, Callable
 
 ### Save figs
 

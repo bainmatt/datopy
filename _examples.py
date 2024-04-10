@@ -17,35 +17,34 @@ A home for one-off tests and data-generating routines.
 """
 
 import re
-import pprint
 import copy
-import doctest
 import json
+import pprint
+import doctest
 import pandas as pd
-
-from typing import List, Literal, Union, Tuple, NamedTuple, Optional, Annotated
-from collections import namedtuple
-from datetime import datetime
 from jsonschema import validate
+from collections import namedtuple
 from dataclasses import dataclass, asdict
-from pydantic import BaseModel, ValidationError, PositiveInt, Field, constr
+from pydantic import BaseModel, Field, PositiveInt, ValidationError, constr
+from typing import Annotated, List, Literal, NamedTuple, Optional, Tuple, Union
 
-import wptools
-import spotipy
 import imdb
-
-from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy
+import wptools
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
-
-from nb_utils import doctest_function
 from datamodel_utils import (
-    apply_recursive, schema_jsonify,
-    list_to_dict, omit_string_patterns
+    list_to_dict, 
+    schema_jsonify,
+    apply_recursive, 
+    omit_string_patterns
 )
+from nb_utils import doctest_function
 from models.media_pulse import MediaQuery
+
 
 DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
                                      'serialized', 'normalized'])
