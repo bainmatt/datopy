@@ -3,26 +3,22 @@ Data models and retrieval/processing tools for scraping metadata for movies and 
 """
 
 import re
-import requests
-import doctest
-import textwrap
-import pprint
 import json
+import pprint
+import doctest
+import requests
+import textwrap
 import pandas as pd
-
 from typing import List
-from datetime import datetime
 from jsonschema import validate
-from dataclasses import dataclass, asdict
-from pydantic import BaseModel, ValidationError, PositiveInt
+from pydantic import BaseModel, ValidationError
 
+import imdb
 import wptools
 import spotipy
-import imdb
-
-from spotipy.oauth2 import SpotifyClientCredentials
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+from spotipy.oauth2 import SpotifyClientCredentials
 
 from display_dataset import display
 from nb_utils import doctest_function

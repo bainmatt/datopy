@@ -11,10 +11,10 @@ References
         for working with data. "O'Reilly Media, Inc.".
 """
 
+import doctest
 import numpy as np
 import pandas as pd
 from typing import Iterable, Any
-import doctest
 from nb_utils import doctest_function
 
 
