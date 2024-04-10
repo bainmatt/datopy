@@ -45,14 +45,11 @@ from datamodel_utils import (
     apply_recursive, schema_jsonify,
     list_to_dict, omit_string_patterns
 )
-
-# Define object types for metadata retrieval
-Film = NamedTuple('Film', [('title', str)])
-Album = NamedTuple('Album', [('artist', str), ('title', str)])
-Book = NamedTuple('Book', [('title', str)])
+from models.media_pulse import MediaQuery
 
 DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
                                      'serialized', 'normalized'])
+
 
 # TODO add 'see also' sections for required imports from other modules in proj
 # TODO rename this to _example_auto_datamodels ?
@@ -64,7 +61,7 @@ DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
 
 # TODO refactor later into SubProcessor
 
-def spotify_album_retrieve(album: Album) -> dict:
+def spotify_album_retrieve(album: MediaQuery.Album) -> dict:
     """Spotify album metadata retrieval routine."""
     sp = spotipy.Spotify(
         client_credentials_manager=SpotifyClientCredentials()
@@ -100,7 +97,7 @@ def spotify_album_retrieve(album: Album) -> dict:
     return obj
 
 
-def imdb_film_retrieve(film: Film) -> dict: 
+def imdb_film_retrieve(film: MediaQuery.Film) -> dict: 
     """IMDb film metadata retrieval routine."""
     ia = Cinemagoer()
     movies = ia.search_movie(film.title)
@@ -191,7 +188,7 @@ def save_datamodel(
 
 def run_auto_datamodel_example(
     source: Literal['imdb', 'spotify', 'wiki'], 
-    search_terms: Film | Album | Book,
+    search_terms: MediaQuery.Film | MediaQuery.Album | MediaQuery.Book,
     verbose: bool = False,
     do_save: bool = False) -> DataModel:   
     
@@ -202,7 +199,7 @@ def run_auto_datamodel_example(
     ----------
     source : Literal['imdb', 'spotify', 'wiki']) 
         The source from which to retrieve data about the requested topic. 
-    search_terms : Film | Album | Book
+    search_terms : MediaQuery.Film | MediaQuery.Album | MediaQuery.Book
         A namedtuple of required properties (e.g., title) for the topic query.
     verbose : bool, default=False
         Option to enable printouts of the retrieved data and schema.
@@ -233,7 +230,7 @@ def run_auto_datamodel_example(
     # '19 Mar 2004 (USA)'
     
     spotify: album
-    >>> album = Album("radiohead", "kid A") 
+    >>> album = MediaQuery.Album("radiohead", "kid A") 
     >>> datamodel = run_auto_datamodel_example(
     ...     source="spotify", search_terms=album, do_save=do_save)
     >>> datamodel.obj['total_tracks']
@@ -370,7 +367,7 @@ def run_auto_datamodel_example(
 
 
 # An example of messy, highly unnecessary testing of retrieved data
-obj = spotify_album_retrieve(Album("radiohead", "kid a"))
+obj = spotify_album_retrieve(MediaQuery.Album("radiohead", "kid a"))
 with open('output/spotify_album_json_schema.json') as file:
     album_schema = json.load(file)
 # This line raises an error
@@ -395,173 +392,16 @@ validate(instance=valid_raw_movie, schema=movie_schema)
 # --- Processed data validation ---
 # ---------------------------------
 
-
 # TODO consider adding later: IUCNSpecies metadata, WBankNation metadata
 # IUCN: https://pypi.org/project/IUCN-API/
-# Excellent resource: 
-# https://www.kaggle.com/code/saiulluri/creating-a-wildlife-database
+# Consult: https://www.kaggle.com/code/saiulluri/creating-a-wildlife-database
 # WBank: https://pypi.org/project/wbgapi/#description
-# TODO place media/animals/nations processors in {media/eco/global}_pulse.py
-
-# TODO implement pydantic data models for processed objects
-# TODO 1 valid/invalid validation demo for each (5*2) using pydantic
-
-
-# Custom lowercase comma-separated string type. 
-# (1) Excludes numerics and special chars; (2) allows numerics.
-# Whitespace around commas should be stripped before analysis.
-CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$')]
-CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-
-class IMDbFilm(BaseModel):
-    """
-    Data model for processed imdb metadata. 
-    
-    Example
-    -------
-    >>> valid_film = IMDbFilm(
-    ...     title='name 10!', imdb_id='tt1234567', kind='movie',
-    ...     year=1990, rating=7.2, votes=122,
-    ...     genres='romantic comedy, thriller', cast='mrs smith,mr smith',
-    ...     plot='alas! once upon a time, ...',
-    ...     budget_mil=1123929)
-    
-    >>> invalid_film = dict(
-    ...     title='name', imdb_id='tt12', year=1975, votes=-2, rating=5.0)
-    >>> try: 
-    ...     IMDbFilm(**invalid_film)
-    ... except ValidationError as e: 
-    ...     print(e)          # use pprint.pp(e.errors()) for easy-to-read list
-    3 validation errors for IMDbFilm
-    imdb_id
-      String should match pattern '^tt.*\d{7}$' [type=string_pattern_mismatch, input_value='tt12', input_type=str]
-        For further information visit https://errors.pydantic.dev/2.6/v/string_pattern_mismatch
-    kind
-      Field required [type=missing, input_value={'title': 'name', 'imdb_i...tes': -2, 'rating': 5.0}, input_type=dict]
-        For further information visit https://errors.pydantic.dev/2.6/v/missing
-    votes
-      Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]
-        For further information visit https://errors.pydantic.dev/2.6/v/greater_than_equal
-    
-    Survey available fields and types
-    # >>> film = imdb_film_retrieve(Film('spirited away'))
-    # >>> film.keys()
-    # >>> pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)
-    """
-    # Identifiers
-    title: CSVnumstr
-    imdb_id: str = Field(pattern=r'^tt.*\d{7}$',
-                         description="Unique 7-digit IMDb tt identifier")
-    kind: CSVstr = Field(examples=['movie', 'tv series'],
-                         description="Retrieved from: `type`")
-    
-    # Numeric
-    year: int = Field(ge=1880, le=3000)
-    rating: float = Field(ge=0, le=10)
-    votes: int = Field(ge=0)
-    runtime_mins: float = Field(gt=0, default=None)
-    
-    # String lists
-    genres: CSVstr = Field(default=None)
-    countries: CSVstr = Field(default=None)
-    director: CSVstr = Field(default=None)
-    writer: CSVstr = Field(default=None)
-    composer: CSVstr = Field(default=None)
-    cast: CSVstr = Field(default=None)
-    
-    # Strings
-    plot: CSVnumsent = Field(default=None)
-    synopsis: CSVnumsent = Field(default=None)
-    plot_outline: CSVnumsent = Field(default=None)
-    
-    # Financial
-    budget_mil: float = Field(ge=0, default=None, 
-                              description="Strip $/, & text after first space")
-    opening_weekend_gross_mil: float = Field(ge=0, default=None)
-    cumulative_worldwide_gross_mil: float = Field(ge=0, default=None)
-    
-    
-class SpotifyAlbum(BaseModel):
-    """
-    Data model for processed Spotify metadata. 
-    Raw data schema reference: 'output/spotify_album_schema.json'
-    """
-    # fields of interest: 
-    
-    title: str
-    album_type: str
-    
-
-class WikiBook(BaseModel):
-    """
-    Data model for processed Wikipedia novel metadata. 
-    Raw data schema reference: 'output/wiki_book_schema.json'
-    """
-    # fields of interest: 
-        
-    title: str
-
-
-class WikiFilm(BaseModel):
-    """
-    Data model for processed Wikipedia film metadata. 
-    Raw data schema reference: 'output/wiki_film_schema.json'
-    """
-    # fields of interest: 
-            
-    title: str
-
-
-class WikiAlbum(BaseModel):
-    """
-    Data model for processed Wikipedia album metadata. 
-    Raw data schema reference: 'output/wiki_album_schema.json'
-    """
-    # fields of interest: 
-                
-    title: str
-
-
-
-
-
-
-
-# XXX rough pydantic validation tests
-class Movie(BaseModel):
-    id: int
-    name: str = 'John Doe'
-    signup_ts: datetime | None
-    tastes: dict[str, PositiveInt]
-
-valid_processed_movie = {
-    'id': 1, 'tastes': dict(a=3), 
-    'signup_ts': datetime(1990, 4, 1)
-} 
-invalid_processed_movie = {
-    'id': 'not an int', 'tastes': {'hek'},
-    'signup_ts': datetime(1990, 4, 1)
-}  
-valid_processed_movie_instance = Movie(**valid_processed_movie)  
-# invalid_processed_movie_instance = Movie(**invalid_processed_movie)  
-pd.DataFrame(pd.json_normalize(dict(valid_processed_movie_instance)))
-# pd.DataFrame(pd.json_normalize(dict(invalid_processed_movie_instance)))
-
-try:
-    Movie(**valid_processed_movie)  
-except ValidationError as e:
-    pprint.pp(e.errors())
-# try:
-#     Movie(**invalid_processed_movie)  
-# except ValidationError as e:
-#     pprint.pp(e.errors())
 
 
 
 if __name__ == "__main__":    
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=False)
+    doctest.testmod(verbose=True)
     # doctest_function(run_auto_datamodel_example, globs=globals(), verbose=False)
             
     ## One-off tests
