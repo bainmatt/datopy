@@ -1,6 +1,6 @@
 # IDE config
 .vscode/
-datools/.vscode/
+datatoolz/.vscode/
 
 # System-generated
 *.DS_Store
@@ -59,7 +59,7 @@ target/
 
 # dotenv
 .env
-datools/_settings.py
+datatoolz/_settings.py
 
 # virtualenv
 .venv

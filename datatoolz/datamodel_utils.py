@@ -1,26 +1,18 @@
 """ 
-Tools for data retrieval and entry, from generating data models to processing raw data and populating missing metadata fields. 
+Tools for data modeling, validation, and basic data processing, including auto-generating data models and a flexible base framework for ETL workflows. 
 """
 
-import re
 import json
 import pprint
 import doctest
 import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
-from typing import Tuple, NamedTuple, List, Callable, Any, Annotated
-
-import imdb
-import spotipy
-import wptools
-from imdb import Cinemagoer
-from bs4 import BeautifulSoup
-from spotipy.oauth2 import SpotifyClientCredentials
+from typing import Annotated, Any, Callable, List, NamedTuple
 
 import _settings
 from display_dataset import display
-from nb_utils import doctest_function
+from workflow_utils import doctest_function
 
 
 # ----------------------------------------
@@ -141,35 +133,6 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict:
 
     # Return None if no missing keys or differences found
     return None
-
-
-def omit_string_patterns(input_string: str, patterns: List[str]) -> str:
-    r"""
-    Helper to prune multiple character patterns from a string at once.
-
-    Parameters
-    ----------
-    input_string : str
-        The to-be-cleaned string. 
-    patterns : List[str] 
-        A list of patterns to omit from the string.
-
-    Returns
-    -------
-    str : The input string with the supplied patterns ommitted.
-        
-    Examples
-    --------
-    >>> input_string = "[[A \\\\ messy * string * with undesirable /patterns]]"
-    >>> print(input_string)
-    [[A \\ messy * string * with undesirable /patterns]]
-    >>> patterns_to_omit = ["[[", "]]", "* ", "\\\\ ", "/", "messy ", "un" ]
-    >>> output_string = omit_string_patterns(input_string, patterns_to_omit)
-    >>> print(output_string)
-    A string with desirable patterns
-    """
-    pattern = '|'.join(re.escape(p) for p in patterns)
-    return re.sub(pattern, '', input_string)
 
     
 def apply_recursive(func: Callable[..., Any], obj) -> dict:
@@ -390,47 +353,6 @@ class BaseProcessor:
         df = pd.DataFrame([self.data])
         return df
 
-
-
-# -----------------------
-# --- Topic retrieval ---
-# -----------------------
-
-# TODO take first and last entry (relative indices non-0'ed))
-
-def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
-    """
-    _summary_
-    
-    Find listing_page here: https://en.wikipedia.org/wiki/List_of_lists_of_lists
-
-    Parameters
-    ----------
-    listing_page : str
-        _description_
-    verbose : bool, default=True
-        _description_ 
-
-    Returns
-    -------
-    target_pages : List[str]
-        _description_
-    """
-    
-    wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']
-
-    regex_pattern = re.compile("\[\[(.*?)\]\]")
-    matches = regex_pattern.findall(wiki_parse)
-    pages = [match.split('|')[0].strip() for match in matches]
-    target_pages = pages[4:-3]
-    
-    if verbose:
-        pprint.pp(target_pages)
-    
-    return target_pages
-
-# listing_page = "List of legendary creatures from China"
-# retrieve_wiki_topics(listing_page)
 
 
 if __name__ == "__main__":    

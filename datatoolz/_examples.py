@@ -36,14 +36,10 @@ from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
-from datamodel_utils import (
-    list_to_dict, 
-    schema_jsonify,
-    apply_recursive, 
-    omit_string_patterns
-)
-from nb_utils import doctest_function
 from models.media_pulse import MediaQuery
+from etl_utils import omit_string_patterns
+from workflow_utils import doctest_function
+from datamodel_utils import apply_recursive, list_to_dict, schema_jsonify
 
 
 DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
@@ -373,7 +369,7 @@ with open('output/spotify_album_json_schema.json') as file:
 # validate(instance=obj, schema=album_schema)
 
 # An idealized example to demonstrate json validation in theory
-with open('models/imdb_model.json') as file:
+with open('models/output/imdb_model.json') as file:
     movie_schema = json.load(file)
 
 valid_raw_movie = {

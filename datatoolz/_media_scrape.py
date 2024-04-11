@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
 from display_dataset import display
-from nb_utils import doctest_function
+from workflow_utils import doctest_function
 
 
 # -----------------
