@@ -1,5 +1,5 @@
 """
-__summary__
+Data models, validators, and ETL tools for scraped media data, including reviews (via IMDb), music albums (via Spotify), and related information (via Wikipedia).
 
 --- Execution guidelines ---
 To run a module within a subfolder that relies on modules in a parent folder:
@@ -37,10 +37,9 @@ from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
-from nb_utils import doctest_function
-from datamodel_utils import (
-    BaseProcessor, CustomTypes, omit_string_patterns
-)
+from etl_utils import omit_string_patterns
+from workflow_utils import doctest_function
+from datamodel_utils import BaseProcessor, CustomTypes
 
 
 # --------------------------

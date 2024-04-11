@@ -45,16 +45,17 @@ def run_doctest_suite(modules_to_test: Tuple[str]):
                                           orient='index')
     print(f"\n\n{result_message}\n{'=' * len(result_message)}")
     print(result_table, '\n')    
-    
+
 
 if __name__ == "__main__":
     MODULES_TO_TEST = (
-        'datools.display_dataset', 
-        'datools.nb_utils', 
-        # 'media_scrape', 
-        'datools.datamodel_utils', 
-        # '_examples', 
-        'datools.models.media_pulse',
+        'datatoolz.display_dataset', 
+        'datatoolz.workflow_utils', 
+        'datatoolz.datamodel_utils',
+        'datatoolz.etl_utils',
+        'datatoolz.models.media_pulse',
+        # 'datatoolz._media_scrape',  
+        # 'datatoolz._examples', 
     )
     
     run_doctest_suite(MODULES_TO_TEST)

@@ -15,7 +15,7 @@ import doctest
 import numpy as np
 import pandas as pd
 from typing import Iterable, Any
-from nb_utils import doctest_function
+from workflow_utils import doctest_function
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
