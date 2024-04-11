@@ -38,7 +38,9 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
 from nb_utils import doctest_function
-from datamodel_utils import BaseProcessor, CustomTypes, omit_string_patterns
+from datamodel_utils import (
+    BaseProcessor, CustomTypes, omit_string_patterns
+)
 
 
 # --------------------------
