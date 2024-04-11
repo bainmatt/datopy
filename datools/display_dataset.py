@@ -136,8 +136,8 @@ def display(*args, globs: dict[str, Any] = None, bold: bool = True):
 
 def main():
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod(verbose=True)
-    doctest_function(display, globs=globals())
+    doctest.testmod(verbose=True)
+    # doctest_function(display, globs=globals())
     return None
 
 if __name__ == "__main__":
