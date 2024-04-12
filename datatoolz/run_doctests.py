@@ -49,13 +49,13 @@ def run_doctest_suite(modules_to_test: Tuple[str]):
 
 if __name__ == "__main__":
     MODULES_TO_TEST = (
-        'datatoolz.display_dataset', 
-        'datatoolz.workflow_utils', 
-        'datatoolz.datamodel_utils',
-        'datatoolz.etl_utils',
-        'datatoolz.models.media_pulse',
-        # 'datatoolz._media_scrape',  
-        # 'datatoolz._examples', 
+        'display_dataset', 
+        'workflow_utils', 
+        'datamodel_utils',
+        'etl_utils',
+        'models.media_pulse',
+        # '_media_scrape',  
+        # '_examples', 
     )
     
     run_doctest_suite(MODULES_TO_TEST)

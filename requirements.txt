@@ -1,0 +1,14 @@
+requests
+pandas
+pydantic
+jsonschema
+wptools
+bs4
+openssl
+pycurl
+# Dev
+setuptools
+python-dotenv
+# Optional
+cinemagoer
+spotipy
