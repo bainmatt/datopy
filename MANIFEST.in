@@ -1,0 +1,14 @@
+# Include select root files
+include README.md
+include MANIFEST.in
+
+# Include all Python source files
+#recursive-include . *.py
+
+# Exclude directories named 'tests' and 'data'
+recursive-exclude . tests
+recursive-exclude . data
+
+# Exclude specific files and directories
+exclude _examples.py
+exclude _media_scrape.py

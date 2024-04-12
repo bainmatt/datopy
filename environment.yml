@@ -2,7 +2,7 @@
 # To create & activate environment {name} from this file:
 # (1) $ conda env create -f environment.yml
 # (2) $ conda activate {name}
-# To update dependencies in environment {name} from this file:
+# To update dependencies from this file:
 # $ conda env update --file environment.yml --prune
 
 # To create ENV file from loaded dependencies:
@@ -24,20 +24,25 @@ dependencies:
   - python=3.10
   - pip>=19.0
   - requests
-  - scipy
   - pandas
+  # python data validation
+  - pydantic        
+  # Web scraping
+  - bs4
+  # ensures pycurl and wptools are installed correctly
+  - openssl         
+  - pycurl 
+  # secure API key retrieval
+  - python-dotenv   
+  # Optional dependencies
+  - scipy
   - matplotlib
   - seaborn
-  - bs4
-  - python-dotenv   # secure API key retrieval
-  - pydantic        # python data validation
-  - openssl         # ensures pycurl and wptools are installed correctly
-  - pycurl 
-  # - ipython
-  # - scikit-learn
 
   - pip:
-    - jsonschema    # json data validation
+    # json data validation
+    - jsonschema   
+    # API clients
     - wptools
     - cinemagoer
     - spotipy
