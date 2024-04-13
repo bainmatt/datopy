@@ -6,16 +6,17 @@ def read(fname: str):
     
 
 setup(
-    name='datatoolz',
+    name='datatools',
     version='0.1',
     author="Matthew Bain",
     description = ("Assorted examples and tools for data modeling, ETL,"
                    "and web scraping."),
     url = "https://github.com/bainmatt/data-tools",
     license='MIT',
-    packages=find_packages(exclude=(
-        'datatools/tests', 'datatools/data', 'datatools/_examples', 'datatools/_settings', 'datatools/_media_scrape')),
-    include_package_data=True,
+    # packages=find_packages(exclude=(
+    #     'datatools/tests', 'datatools/data', 'datatools/_examples', 'datatools/_settings', 'datatools/_media_scrape')),
+    packages=find_packages(),
+    include_package_data=False,
     long_description=read("README.md"),
     install_requires=[
         "requests",
