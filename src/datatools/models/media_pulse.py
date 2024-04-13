@@ -41,7 +41,6 @@ from etl_utils import omit_string_patterns
 from workflow_utils import doctest_function
 from datamodel_utils import BaseProcessor, CustomTypes
 
-
 # --------------------------
 # --- Metadata retrieval ---
 # --------------------------

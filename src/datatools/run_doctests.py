@@ -54,8 +54,8 @@ if __name__ == "__main__":
         'datamodel_utils',
         'etl_utils',
         'models.media_pulse',
-        # '_media_scrape',  
-        # '_examples', 
+        '_media_scrape',  
+        '_examples', 
     )
     
     run_doctest_suite(MODULES_TO_TEST)
