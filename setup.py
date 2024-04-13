@@ -4,6 +4,7 @@ def read(fname: str):
     with open(fname) as file:
         return file.read()
     
+
 setup(
     name='datatoolz',
     version='0.1',
@@ -13,7 +14,7 @@ setup(
     url = "https://github.com/bainmatt/data-tools",
     license='MIT',
     packages=find_packages(exclude=(
-        'datatoolz/tests', 'datatoolz/data', 'datatoolz/_examples', 'datatoolz/_settings', 'datatoolz/_media_scrape')),
+        'datatools/tests', 'datatools/data', 'datatools/_examples', 'datatools/_settings', 'datatools/_media_scrape')),
     include_package_data=True,
     long_description=read("README.md"),
     install_requires=[

@@ -1,10 +1,32 @@
-# IDE config
+# --- System config/cache ---
+# IDE
 .vscode/
-datatoolz/.vscode/
 
-# System-generated
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# OS
 *.DS_Store
 
+# --- Environment ---
+# virtualenv
+.venv
+venv/
+ENV/
+ENV.yml
+ENV.txt
+
+# --- Keys/Settings ---
+# dotenv
+.env
+_settings.py
+
+# --- Ignorables ---
+# Archived files/folders (irrespective of subdirectory/basename)
+**/archive/
+*_archive
+
+# --- Dev artifacts ---
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -29,9 +51,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
 # pyenv
 .python-version
 
@@ -43,6 +62,7 @@ wheels/
 pip-log.txt
 pip-delete-this-directory.txt
 
+# --- Testing ---
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -57,24 +77,14 @@ coverage.xml
 # PyBuilder
 target/
 
-# dotenv
-.env
-datatoolz/_settings.py
-
-# virtualenv
-.venv
-venv/
-ENV/
-ENV.yml
-ENV.txt
-
+# --- Docs/Typing ---
 # mkdocs documentation
 /site
 
 # mypy
 .mypy_cache/
 
-## Other
+# --- Other ----
 # Translations
 *.mo
 *.pot

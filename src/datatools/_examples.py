@@ -360,7 +360,6 @@ def run_auto_datamodel_example(
 # Instead, use these tools to quickly grasp the structure of retrieved data and 
 # build comprehensive Pydantic models that perfectly suit your downstream needs!
 
-
 # An example of messy, highly unnecessary testing of retrieved data
 obj = spotify_album_retrieve(MediaQuery.Album("radiohead", "kid a"))
 with open('output/spotify_album_json_schema.json') as file:
