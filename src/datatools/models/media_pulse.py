@@ -3,24 +3,8 @@ Data models, validators, and ETL tools for scraped media data, including reviews
 
 --- Execution guidelines ---
 To run a module within a subfolder that relies on modules in a parent folder:
-- Ensure your working directory is set to your project parent directory.
-- Always use absolute imports. The debugger will execute from the parent.
-- Do not rely on the 'Run Python File in Dedicated Terminal' procedure. Instead:
-- Set up a project_dir/.vscode/launch.json file containing the configuration:
-{
-    "name": "Python: Current File (Integrated Terminal)",
-    "type": "debugpy",
-    "request": "launch",
-    "program": "${file}",
-    "cwd": "${workspaceFolder}",
-    "env": {
-        "PYTHONPATH": "${workspaceFolder}"
-    },
-    "console": "integratedTerminal"
-}
-- Use this configuration to execute and debug files in context.
-- To execute modules directly from the Debug Console or Integrated Terminal:
->> python -m {directory}.{module}
+- Ensure your working directory is set to your package directory.
+- Use absolute imports. The debugger will execute relative to the package root.
 """
 
 import re

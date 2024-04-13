@@ -1,11 +1,5 @@
 """
 Runs doctests for all specified modules as a unittest suite.
-
-# --- Execution guidelines ---
-# To execute main (__main__) & module-level (non-testing/callable) helper code:
-# (option 1) run (|>) script in dedicated terminal
-# (option 2) execute script in terminal (`python <script_name>.py`) with wd=repo
-# To execute selection and share declarations with global namespace: shift+enter
 """
 
 from typing import Tuple
