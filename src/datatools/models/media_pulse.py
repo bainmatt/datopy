@@ -39,7 +39,7 @@ class MediaQuery:
 
 
 class IMDbFilm(BaseModel):
-    """
+    r"""
     Data model for processed imdb metadata. 
     
     Example
@@ -156,10 +156,10 @@ class WikiAlbum(BaseModel):
 
 
 # XXX Scratch tests
-valid_obj = {}
-invalid_obj = {}
-pd.DataFrame(pd.json_normalize(dict(valid_obj)))
-pd.DataFrame(pd.json_normalize(dict(invalid_obj)))
+# valid_obj = {}
+# invalid_obj = {}
+# pd.DataFrame(pd.json_normalize(dict(valid_obj)))
+# pd.DataFrame(pd.json_normalize(dict(invalid_obj)))
 
 # try: IMDbFilm(**valid_obj)  
 # except ValidationError as e: pprint.pp(e.errors())

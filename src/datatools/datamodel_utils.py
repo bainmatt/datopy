@@ -19,7 +19,7 @@ from workflow_utils import doctest_function
 # --- Data dictionary generation utils ---
 # ----------------------------------------
 
-def list_to_dict(obj: list, max_items: int = None) -> dict:
+def list_to_dict(obj: list | tuple | set, max_items: int | None = None) -> dict:
     """
     Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys. 
     
@@ -58,7 +58,7 @@ def list_to_dict(obj: list, max_items: int = None) -> dict:
                 if (max_items is None) or (key < max_items)}
         
 
-def compare_dict_keys(dict1: dict, dict2: dict) -> dict:   
+def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:   
     """
     Recursively compare two dictionaries and identify missing keys.
     

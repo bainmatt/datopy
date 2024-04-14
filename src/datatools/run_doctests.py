@@ -1,5 +1,10 @@
 """
 Runs doctests for all specified modules as a unittest suite.
+
+Note
+---- 
+With `pytest` installed and configured to locate module imports correctly,
+can also run `pytest --doctest-modules {optional_subpkg/module_name}`.
 """
 
 from typing import Tuple
@@ -10,7 +15,7 @@ import pandas as pd
 
 # TODO default to all modules and submodules
 
-def run_doctest_suite(modules_to_test: Tuple[str]):
+def run_doctest_suite(modules_to_test: Tuple[str, ...]):
     total_failures = 0
     results_by_module = {}
     n_modules = len(modules_to_test)

@@ -25,14 +25,14 @@ dependencies:
   - pip>=19.0
   - requests
   - pandas
-  # python data validation
+  # Data validation
   - pydantic        
   # Web scraping
   - bs4
   # ensures pycurl and wptools are installed correctly
   - openssl         
   - pycurl 
-  # secure API key retrieval
+  # Secure API key retrieval
   - python-dotenv   
   # Optional dependencies
   - scipy
@@ -40,7 +40,12 @@ dependencies:
   - seaborn
 
   - pip:
-    # json data validation
+    # Typing. Run `mypy --install-types` to install missing stub
+    - mypy
+    # Testing
+    - pytest
+    - pytest-doctestplus
+    # JSON data validation
     - jsonschema   
     # API clients
     - wptools

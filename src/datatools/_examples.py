@@ -273,7 +273,8 @@ def run_auto_datamodel_example(
 
     """    
     # Check assumptions
-    source = str(source).lower()
+    # TODO remove line below (redundant)
+    # source = str(source).lower()
     message = "Source must be either 'imdb', 'spotify', or 'wiki'."
     assert source in ['imdb', 'spotify', 'wiki'], message
     

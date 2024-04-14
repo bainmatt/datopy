@@ -48,7 +48,7 @@ from workflow_utils import doctest_function
 
 ### Get IMdB
 
-def get_imdb_id(movie_title: str) -> str:
+def get_imdb_id(movie_title: str) -> str | None:
     """
     Retrieves the unique IMDb identifier associated with a film or tv show.
 
@@ -98,7 +98,7 @@ def get_imdb_id(movie_title: str) -> str:
     # If no links contain ttid
     return f"No IMDb Identifier found for '{movie_title}'."
 
-def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str]:
+def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     r"""
     _summary_
 
