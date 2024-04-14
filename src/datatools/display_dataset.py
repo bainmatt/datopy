@@ -52,7 +52,7 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     return pd.DataFrame(data, ind)    
 
 
-def display(*args, globs: dict[str, Any] = None, bold: bool = True):    
+def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):    
     """
     Display an informative representation of multiple objects side-by-side.
     
