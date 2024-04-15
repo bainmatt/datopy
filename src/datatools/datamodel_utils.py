@@ -8,18 +8,15 @@ import doctest
 import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
-from typing import (
-    Annotated, Any, Callable, Dict, Iterable, List, NamedTuple,
-    Union, Optional,
-)
+from typing import Annotated, Any, Callable, Dict, Iterable, List, NamedTuple
 
 import _settings
 from workflow_utils import doctest_function
 
 # Custom types
 # (recursively) nested dict with arbitrary depth and pre-defined node type
-# FIXME resolve this to fix mypy error...
-NestedDict = Union[Dict[str, 'NestedDict'], List[str]]
+# TODO check this!
+NestedDict = Dict[str, "NestedDict" | List[str] | None]
 
 
 # ----------------------------------------
@@ -27,7 +24,7 @@ NestedDict = Union[Dict[str, 'NestedDict'], List[str]]
 # ----------------------------------------
 
 def list_to_dict(obj: list | tuple | set,
-                 max_items: Optional[int] = None) -> dict:
+                 max_items: int | None = None) -> dict:
     """
     Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys.
 
@@ -66,8 +63,7 @@ def list_to_dict(obj: list | tuple | set,
                 if (max_items is None) or (key < max_items)}
 
 
-def compare_dict_keys(dict1: dict,
-                      dict2: dict) -> Optional[Union[dict, List[str]]]:
+def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
     """
     Recursively compare two dictionaries and identify missing keys.
 
@@ -80,7 +76,7 @@ def compare_dict_keys(dict1: dict,
 
     Returns
     -------
-    result : Optional[Union[dict, List[str]]]
+    result : dict | List[str] | None
         The nested dictionary of fields missing from `dict2` relative `dict1`.
 
     Examples
@@ -124,7 +120,9 @@ def compare_dict_keys(dict1: dict,
     shared_keys = set(dict1.keys()).intersection(set(dict2.keys()))
 
     # Initialize difference dictionary
-    diff_dict = {}
+    # TODO check this
+    diff_dict: NestedDict = {}
+
     for key in shared_keys:
         nested_diff = compare_dict_keys(dict1[key], dict2[key])
         # Add any differences to the difference
@@ -133,7 +131,8 @@ def compare_dict_keys(dict1: dict,
 
     # Return result if no missing keys or no diffs in nested dicts found
     if missing_keys or diff_dict:
-        result = {}
+        # TODO check this
+        result: NestedDict = {}
         if missing_keys:
             result['missing_keys'] = list(missing_keys)
         if diff_dict:
@@ -237,7 +236,7 @@ def schema_jsonify(obj: dict) -> dict:
     if obj and is_dict and isinstance(list(obj.keys())[0], int):
         field_len = list(obj.keys())[-1]
         schema = {
-            "type": 'array', # coerced to object; includes tuple/list
+            "type": 'array',  # coerced to object; includes tuple/list
             "minItems": 1,
             "maxItems": field_len,
             "uniqueItems": True
@@ -345,6 +344,7 @@ class BaseProcessor:
             ValidationError: _description_
         """
         model = self.model
+        model
         # try:
         #     model(**self.data)
         # except ValidationError as e:

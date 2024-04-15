@@ -1,14 +1,19 @@
-requests
-pandas
-pydantic
-jsonschema
-wptools
-bs4
-openssl
-pycurl
+# Required
+requests==2.31.0
+pandas==2.2.2
+pydantic==2.7.0
+bs4==0.0.2
+pycurl==7.45.3
 # Dev
-setuptools
-python-dotenv
+setuptools==69.5.1
+mypy==1.9.0
+pandas-stubs==2.2.1.240316
+pytest==8.1.1
+flake8==7.0.0
 # Optional
-cinemagoer
-spotipy
+python-dotenv==1.0.1
+jsonschema==4.21.1
+wptools==0.4.17
+cinemagoer==2023.5.1
+spotipy==2.23.0
+scipy==1.13.0
