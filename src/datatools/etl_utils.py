@@ -1,5 +1,5 @@
 """
-Tools for efficient web-based data retrieval, raw data processing, constructing tables, and populating missing metadata fields in existing tables.
+Tools for efficient web-based data retrieval, data processing, constructing tables, and populating missing metadata fields in existing tables.
 """
 
 import re
@@ -70,7 +70,8 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
     """
     _summary_
 
-    Find listing_page here: https://en.wikipedia.org/wiki/List_of_lists_of_lists
+    Find listing_page here:
+    https://en.wikipedia.org/wiki/List_of_lists_of_lists
 
     Parameters
     ----------
@@ -87,7 +88,7 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
 
     wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']
 
-    regex_pattern = re.compile("\[\[(.*?)\]\]")
+    regex_pattern = re.compile(r"\[\[(.*?)\]\]")
     matches = regex_pattern.findall(wiki_parse)
     pages = [match.split('|')[0].strip() for match in matches]
     target_pages = pages[4:-3]

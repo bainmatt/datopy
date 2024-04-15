@@ -11,7 +11,7 @@ import re
 import doctest
 import pandas as pd
 from pydantic import BaseModel, Field, ValidationError
-from typing import Annotated, List, Literal, NamedTuple, Optional, Tuple, Union
+from typing import Annotated, List, Literal, NamedTuple, Tuple
 
 import imdb
 import spotipy
@@ -34,12 +34,13 @@ from datamodel_utils import BaseProcessor, CustomTypes
 # TODO archive this: does not generalize well
 # class MediaSearchTerms(NamedTuple):
 #     title: str
-#     creator: Optional[str] = None
+#     creator: str | None = None
 
 
-Film = NamedTuple('Film', [('title', str)])
-Album = NamedTuple('Album', [('artist', str), ('title', str)])
-Book = NamedTuple('Book', [('title', str)])
+Film = NamedTuple('Film', [('title', str), ('artist', str | None)])
+Album = NamedTuple('Album', [('title', str), ('artist', str)])
+Book = NamedTuple('Book', [('title', str), ('artist', str | None)])
+
 
 class MediaQuery:
     """Query object types for media metadata retrieval."""
@@ -70,13 +71,13 @@ class IMDbFilm(BaseModel):
     3 validation errors for IMDbFilm
     imdb_id
       String should match pattern '^tt.*\d{7}$' [type=string_pattern_mismatch, input_value='tt12', input_type=str]
-        For further information visit https://errors.pydantic.dev/2.6/v/string_pattern_mismatch
+        For further information visit https://errors.pydantic.dev/2.7/v/string_pattern_mismatch
     kind
       Field required [type=missing, input_value={'title': 'name', 'imdb_i...tes': -2, 'rating': 5.0}, input_type=dict]
-        For further information visit https://errors.pydantic.dev/2.6/v/missing
+        For further information visit https://errors.pydantic.dev/2.7/v/missing
     votes
       Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]
-        For further information visit https://errors.pydantic.dev/2.6/v/greater_than_equal
+        For further information visit https://errors.pydantic.dev/2.7/v/greater_than_equal
 
     Survey available fields and types
     # >>> film = imdb_film_retrieve(Film('spirited away'))
@@ -164,7 +165,6 @@ class WikiAlbum(BaseModel):
     title: str
 
 
-
 # XXX Scratch tests
 # valid_obj = {}
 # invalid_obj = {}
@@ -175,7 +175,6 @@ class WikiAlbum(BaseModel):
 # except ValidationError as e: pprint.pp(e.errors())
 # try: IMDbFilm(**invalid_obj)
 # except ValidationError as e: pprint.pp(e.errors())
-
 
 
 # --------------------------

@@ -1,20 +1,48 @@
 # --- Environment management guidelines ---
-# To create & activate environment {name} from this file:
+# To create & activate environment {name} from this file, run:
 # (1) $ conda env create -f environment.yml
 # (2) $ conda activate {name}
-# To update dependencies from this file:
+# To update (upgrade/install new/delete removed *conda*) deps from this file:
 # $ conda env update --file environment.yml --prune
-
-# To create ENV file from loaded dependencies:
-# $ conda env export --from-history > ENV.yml
-# For the most comprehensive listing, with versions:
-# $ conda list -e > ENV.txt
+# 
+# To create an environment file from your loaded dependencies, run:
+# $ conda env export --from-history > requirements_conda.yml
+# For the most comprehensive listing including version and build information:
+# $ conda list --export > requirements_conda.txt 
 # Then install by running:
-# $ conda create -n <env-name> --file ENV.txt
-
+# $ conda create -n {env-name} --file requirements_conda.txt
+# 
+# For a complete listing of *Python* dependencies for distribution, use pip:
+# $ pip list --format=freeze > requirements_pip.txt
+# This filters out packages that are not: 
+# (1) installed in the currently activated (conda or pip) environment;
+# (2) reqs of the installed packages (provided `--not-required` option given)
+# This option is ommitted due to unfortunate conda discrepancies it causes
+# 
+# To ensure all Python dependencies are updated before distribution, run:
+# (0) $ python -m pip check                           # check for missing
+# (1) $ python -m pip list --outdated --not-required  # check for outdated
+# 
+# To prep clean requirements.txt/requirements_dev.txt files for distribution:
+# Manually update by cross-referencing: 
+# (1) dependencies/order/category (required/dev/optional) in environment.yml 
+# (2) versions in requirements_pip.txt
+# 
 # Remember to periodically update conda and brew:
 # $ conda update -n base -c conda-forge conda
 # $ brew update
+# 
+# --- Overall environment management workflow ---
+# > update environment.yml 
+# > $ conda env update --file environment.yml --prune
+# To manually resolve any failed uninstallations/upgrades:
+# > $ conda uninstall <pkg-name> / $ conda update <pkg-name>
+# > $ pip list --format=freeze > requirements_pip.txt
+# 
+# Following any new installations/uninstallations/upgrades:
+# manually update requirements.txt/requirements_dev.txt with
+# (1) dependency information in ‘environment.yml’
+# (2) corresponding version information in ‘requirements_pip.txt’
 
 name: data-tools
 channels:
@@ -26,32 +54,40 @@ dependencies:
   - requests
   - pandas
   # Data validation
-  - pydantic        
+  - pydantic     
   # Web scraping
   - bs4
   # ensures pycurl and wptools are installed correctly
   - openssl         
   - pycurl 
-  # Secure API key retrieval
+  # secure API key retrieval
   - python-dotenv   
-  # Optional dependencies
+  # [Optional]
   - scipy
   - matplotlib
   - seaborn
 
   - pip:
-    # Typing
+    # [Dev] Typing
     # run `mypy --install-types` to install missing stubs. Pandas' given below.
     - mypy
     - pandas-stubs
-    # Testing
+    # [Dev] Testing
     - pytest
     # - pytest-doctestplus
-    # Linting
+    # [Dev] Linting
     - flake8
     # JSON data validation
     - jsonschema   
-    # API clients
+    # [Optional] API clients
     - wptools
     - cinemagoer
     - spotipy
+
+
+    # TODO flake8 opts: 80px, no "line to long"/"too many #"/"import not used"
+    # Ex: `flake8 . --ignore=E266,E303,E305,E501,F401`
+    # TODO pytest `--doctest-modules` configure/note (run in src/datatools/)
+    # Ex: `pytest --doctest-modules workflow_utils.py`
+    # TODO mypy opts: `--ignore-missing-imports`
+    # Ex: `mypy --ignore-missing-imports models/`

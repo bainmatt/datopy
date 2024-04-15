@@ -1,4 +1,4 @@
-""" 
+"""
 Data models and retrieval/processing tools for scraping metadata for movies and movie reviews (via IMDb), music albums (via Spotify), and related topics (via Wikipedia).
 """
 
@@ -27,7 +27,7 @@ from workflow_utils import doctest_function
 # -----------------
 # --- Wikipedia ---
 # -----------------
-### Get Wiki 
+### Get Wiki
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
 # XXX wiki scratch
@@ -61,7 +61,7 @@ def get_imdb_id(movie_title: str) -> str | None:
     -------
     imdb_id : str
         The unique IMDb tt identifier associated with the show.
-        
+
     Examples
     --------
     >>> movie_title = "the shawshank redemption"
@@ -74,7 +74,7 @@ def get_imdb_id(movie_title: str) -> str | None:
     >>> tt_id
     "No IMDb Identifier found for 'ths shukshank redumption'."
     """
-    
+
     base_url = "https://www.imdb.com"
     search_url = f"{base_url}/find?q={movie_title}"
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
@@ -85,7 +85,7 @@ def get_imdb_id(movie_title: str) -> str | None:
     except requests.exceptions.HTTPError as err:
         print(f"HTTP error occurred: {err}")
         return None
-    
+
     soup = BeautifulSoup(search_response.content, 'html.parser')
     result_links = soup.find_all('a', href=True)
 
@@ -97,6 +97,7 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     # If no links contain ttid
     return f"No IMDb Identifier found for '{movie_title}'."
+
 
 def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     r"""
@@ -113,29 +114,29 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     -------
     reviews : List[str]
         _description_
-        
+
     Examples
     --------
     >>> movie_title = "finding nemo"
     >>> movie_id = get_imdb_id(movie_title)
     >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
     >>> for i, review in enumerate(movie_reviews, start=1):
-    ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ... \n");
+    ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ...\n");
     Review 1:
-    I'll be totally honest and confirm to you that eve ... 
+    I'll be totally honest and confirm to you that eve ...
     <BLANKLINE>
     Review 2:
-    I have enjoyed most of the computer-animated films ... 
+    I have enjoyed most of the computer-animated films ...
     <BLANKLINE>
     """
-    
+
     base_url = f"https://www.imdb.com/title/{movie_id}/reviews"
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
     response = requests.get(base_url, headers=headers)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        review_containers = soup.find_all('div', 
+        review_containers = soup.find_all('div',
                                           class_='text show-more__control')
 
         reviews = []
@@ -162,12 +163,12 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
     -------
     film_df : pd.DataFrame
         _description_
-        
+
     Examples
     --------
     >>> title = 'donnie darko'
     >>> film_df = get_film_metadata(title)
-    
+
     # >>> film_df.T[0]
     # title                                                 Donnie Darko
     # imdbID                                                     0246578
@@ -187,12 +188,12 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
     # Synopsis         Donnie Darko (Jake Gyllenhall) is a troubled t...
     # Name: 0, dtype: object
     """
-    
+
     movie_fields = ['title', 'imdbID', 'kind', 'year', 'runtime',
-                    'genres', 'countries', 'directors', 'writers', 
-                    'composers', 'cast', 'rating', 'votes', 
+                    'genres', 'countries', 'directors', 'writers',
+                    'composers', 'cast', 'rating', 'votes',
                     'plot outline', 'plot', 'synopsis']
-    
+
     # Create an IMDb object
     ia = Cinemagoer()
 
@@ -216,7 +217,7 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
             "genres": ', '.join(movie.get('genres', None)),
             "countries": ', '.join(movie.get('countries', None)),
             "director": (
-                movie['director'][0].get('name', None) 
+                movie['director'][0].get('name', None)
                 if 'director' in movie else None
             ),
             "writer": (
@@ -239,22 +240,22 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
             ),
             "plot outline": movie.get('plot outline', None),
         }
-        
+
         # Create a DataFrame
-        film_df = pd.DataFrame([movie_data])    
+        film_df = pd.DataFrame([movie_data])
         return film_df
     else:
         print(f"{movie_title} not found.")
         film_df = pd.DataFrame(
             [{movie_field: None for movie_field in movie_fields}]
-        )   
+        )
         return film_df
-    
 
-if __name__ == "__main__":    
+
+if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
     # doctest.testmod(verbose=True)
     doctest_function(get_imdb_id, globs=globals())
-    
+
     ## One-off tests
     pass

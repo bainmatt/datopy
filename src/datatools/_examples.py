@@ -16,7 +16,7 @@ A home for one-off tests and data-generating routines.
 # - List-like container types: uniformity of elements, length, options, order
 """
 
-# import re
+import re
 import copy
 import json
 import pprint
@@ -24,20 +24,18 @@ import doctest
 import pandas as pd
 from jsonschema import validate
 from collections import namedtuple
-# from dataclasses import dataclass, asdict
-# from pydantic import BaseModel, Field, PositiveInt, ValidationError, constr
-from typing import Literal, NamedTuple, Union
+from typing import Literal, NamedTuple
 
-# import imdb
+import imdb
 import spotipy
 import wptools
 from imdb import Cinemagoer
-# from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
 import _settings
 from models.media_pulse import Film, Album, Book
-# from etl_utils import omit_string_patterns
+from etl_utils import omit_string_patterns
 from workflow_utils import doctest_function
 from datamodel_utils import apply_recursive, list_to_dict, schema_jsonify
 
@@ -73,16 +71,16 @@ def spotify_album_retrieve(album: Album) -> dict:
     tracks = sp.album_tracks(album_id)['items']
 
     # Retrieve additional track details
-    track_audio_features = []
-    track_streams = []
+    track_audio_features_tmp = []
+    track_streams_tmp = []
     for track_num, track_info in enumerate(tracks, start=1):
         track_id = track_info['id']
         # sp.audio_analysis(track_id)
-        track_audio_features.append(sp.audio_features(track_id)[0])
-        track_streams.append(sp.track(track_id)['popularity'])
+        track_audio_features_tmp.append(sp.audio_features(track_id)[0])
+        track_streams_tmp.append(sp.track(track_id)['popularity'])
 
-    track_audio_features = list_to_dict(track_audio_features)
-    track_streams = list_to_dict(track_streams)
+    track_audio_features = list_to_dict(track_audio_features_tmp)
+    track_streams = list_to_dict(track_streams_tmp)
 
     # Merge album details with additional track details
     obj = copy.deepcopy(album_details)
@@ -104,9 +102,7 @@ def imdb_film_retrieve(film: Film) -> dict:
     return obj
 
 
-def wiki_metadata_retrieve(
-    query: Union[Film, Album, Book]
-    ) -> dict:
+def wiki_metadata_retrieve(query: Film | Album | Book) -> dict:
     try:
         obj = wptools.page(query.title).get_parse().data['infobox']
     except Exception:
@@ -154,8 +150,9 @@ def extract_datamodel(obj, verbose: bool = False) -> DataModel:
 
 def save_datamodel(
     schema: dict, json_schema: dict,
-    obj_serialized: dict, obj_normalized: dict,
-    source: str, search_terms: Union[Film, Album, Book]) -> None:
+    obj_serialized: dict, obj_normalized: pd.DataFrame,
+    source: str, search_terms: Film | Album | Book
+) -> None:
     """
     Save json-style schema of (key, type)/(key, value) pairs and a df.
     """
@@ -186,9 +183,10 @@ def save_datamodel(
 
 def run_auto_datamodel_example(
     source: Literal['imdb', 'spotify', 'wiki'],
-    search_terms: Union[Film, Album, Book],
+    search_terms: Film | Album | Book,
     verbose: bool = False,
-    do_save: bool = False) -> DataModel:
+    do_save: bool = False
+) -> DataModel:
 
     r"""
     Auto-generate and save an exemplar data dictionary from the metadata of
@@ -198,7 +196,7 @@ def run_auto_datamodel_example(
     ----------
     source : Literal['imdb', 'spotify', 'wiki'])
         The source from which to retrieve data about the requested topic.
-    search_terms : Union[Film, Album, Book],
+    search_terms : Film | Album | Book
         A namedtuple of required properties (e.g., title) for the topic query.
     verbose : bool, default=False
         Option to enable printouts of the retrieved data and schema.
@@ -229,7 +227,7 @@ def run_auto_datamodel_example(
     # '19 Mar 2004 (USA)'
 
     spotify: album
-    >>> album = Album("radiohead", "kid A")
+    >>> album = Album("kid A", "radiohead")
     >>> datamodel = run_auto_datamodel_example(
     ...     source="spotify", search_terms=album, do_save=do_save)
     >>> datamodel.obj['total_tracks']
@@ -262,7 +260,7 @@ def run_auto_datamodel_example(
     # '$20 million'
 
     # wiki: album
-    # >>> album = Album("radiohead", "kid A")
+    # >>> album = Album("kid A", "radiohead")
     # >>> outputs = run_auto_datamodel_example(
     # ...    source="wiki", search_terms=album, do_save=do_save)
     # >>> genres_raw = outputs.obj['genre']
@@ -309,16 +307,16 @@ def run_auto_datamodel_example(
         tracks = sp.album_tracks(album_id)['items']
 
         # Retrieve additional track details
-        track_audio_features = []
-        track_streams = []
+        track_audio_features_tmp = []
+        track_streams_tmp = []
         for track_num, track_info in enumerate(tracks, start=1):
             track_id = track_info['id']
             # sp.audio_analysis(track_id)
-            track_audio_features.append(sp.audio_features(track_id)[0])
-            track_streams.append(sp.track(track_id)['popularity'])
+            track_audio_features_tmp.append(sp.audio_features(track_id)[0])
+        track_streams_tmp.append(sp.track(track_id)['popularity'])
 
-        track_audio_features = list_to_dict(track_audio_features)
-        track_streams = list_to_dict(track_streams)
+        track_audio_features = list_to_dict(track_audio_features_tmp)
+        track_streams = list_to_dict(track_streams_tmp)
 
         # Merge album details with additional track details
         obj = copy.deepcopy(album_details)
@@ -366,7 +364,7 @@ def run_auto_datamodel_example(
 # build comprehensive Pydantic models that fully suit your downstream needs!
 
 # An example of messy, highly unnecessary testing of retrieved data
-obj = spotify_album_retrieve(Album("radiohead", "kid a"))
+obj = spotify_album_retrieve(Album("kid a", "radiohead"))
 with open('output/spotify_album_json_schema.json') as file:
     album_schema = json.load(file)
 # This line raises an error

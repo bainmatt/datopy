@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import seaborn as sns
 
+
 def customize_matplotlib_rcParams():
     """Sets custom matplotlib rcParams to handle default styling for all matplotlib plotting functions and functions built upon matplotlib (e.g., Seaborn). Contrast with: https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
 
@@ -13,12 +14,12 @@ def customize_matplotlib_rcParams():
     Returns
     -------
         None
-        
+
     Examples
     --------
     Apply the customizations:
     >>> customize_matplotlib_rcParams()
-    
+
     Create a plot:
     >>> import matplotlib.pyplot as plt
     >>> plt.plot([1, 2, 3], [4, 5, 6])
@@ -41,7 +42,6 @@ def customize_matplotlib_rcParams():
     mpl.rcParams['figure.titlesize'] = 15       # large (suptitle size)
     mpl.rcParams['figure.labelsize'] = 12       # large (sup[x|y]label size)
 
-
     # Spines and ticks
     mpl.rcParams['axes.spines.top'] = True
     mpl.rcParams['axes.spines.right'] = True
@@ -61,10 +61,10 @@ def customize_matplotlib_rcParams():
     # mpl.rcParams['grid.alpha'] = 1
 
     # Label placement
-    mpl.rcParams['axes.titlelocation'] = 'center' # {left, right, center}
-    mpl.rcParams['axes.titlepad'] = 7.5 # 6
-    mpl.rcParams['axes.labelpad'] = 7.5 # 4
-    # mpl.rcParams['xtick.major.pad'] = 3.5 # dist to major tick label in pts
+    mpl.rcParams['axes.titlelocation'] = 'center'  # {left, right, center}
+    mpl.rcParams['axes.titlepad'] = 7.5  # 6
+    mpl.rcParams['axes.labelpad'] = 7.5  # 4
+    # mpl.rcParams['xtick.major.pad'] = 3.5  # dist to major tick label in pts
     # mpl.rcParams['ytick.major.pad'] = 3.5
 
     # Discrete color cycle (and continuous map)
@@ -81,20 +81,18 @@ def customize_matplotlib_rcParams():
     # mpl.rcParams['legend.labelspacing'] = 0.5   # vert space between entries
     # mpl.rcParams['legend.handlelength'] = 2.0   # length of the legend lines
     # mpl.rcParams['legend.handleheight'] = 0.7   # height of the legend handle
-    # mpl.rcParams['legend.handletextpad'] = 0.8  # space btwn legend lines and
-                                                  # legend text
-    # mpl.rcParams['legend.borderaxespad'] = 0.5  # border between axes and
-                                                  # legend edge
+    # mpl.rcParams['legend.handletextpad'] = 0.8  # space btwn leg lines/text
+    # mpl.rcParams['legend.borderaxespad'] = 0.5  # border btwn axes/leg edge
     # mpl.rcParams['legend.columnspacing'] = 2.0  # column separation
 
     # Space-filling object properties (e.g., polygons/circles, bars/scatter)
-    mpl.rcParams['patch.edgecolor'] = 'black' # if forced, else patch not filled
+    mpl.rcParams['patch.edgecolor'] = 'black'  # if forced, else not filled
     mpl.rcParams['patch.force_edgecolor'] = 1
-    mpl.rcParams['patch.linewidth'] = 0       # edgewidth (default: .5)
+    mpl.rcParams['patch.linewidth'] = 0        # edgewidth (default: .5)
 
     ## Object-specific properties
     # Scatter properties
-    # mpl.rcParams['scatter.edgecolors'] = 'black' # 'face' = match edges
+    # mpl.rcParams['scatter.edgecolors'] = 'black'  # 'face' = match edges
 
     # Line properties
     mpl.rcParams['lines.markersize'] = 5
@@ -106,7 +104,7 @@ def customize_matplotlib_rcParams():
 
     # Error properties
     mpl.rcParams['errorbar.capsize'] = 3
-    
+
     # NOTE No global styling parameter exists for the following
     # mpl.rcParams['errorbar.color'] = 'black'
     # mpl.rcParams['errorbar.linewidth'] = 1.5
@@ -154,7 +152,7 @@ def customize_matplotlib_rcParams():
     # Figure layout
     # auto-make plot elements fit on figure
     mpl.rcParams['figure.autolayout'] = True
-    mpl.rcParams['figure.constrained_layout.use'] = True # apply tight layout
+    mpl.rcParams['figure.constrained_layout.use'] = True  # apply tight layout
 
     # Subplot padding (all dims are a fraction of the fig width and height)
     #  (Not compatible with constrained_layout)
@@ -162,7 +160,7 @@ def customize_matplotlib_rcParams():
     # mpl.rcParams['figure.subplot.right'] = 0.9    # right side of subplots
     # mpl.rcParams['figure.subplot.bottom'] = 0.11  # bottom of subplots
     # mpl.rcParams['figure.subplot.top'] = 0.88     # top of subplots
-    
+
     # Reserved space between subplots
     # mpl.rcParams['figure.subplot.wspace'] = 0.2   # width
     # mpl.rcParams['figure.subplot.hspace'] = 0.2   # height
@@ -172,24 +170,24 @@ def customize_matplotlib_rcParams():
     # mpl.rcParams['figure.constrained_layout.w_pad'] = 0.04167
 
     # Constrained layout spacing between subplots, relative to subplot sizes
-    #  Much smaller than for tight_layout (figure.subplot.{hspace, wspace) 
-    #  as constrained_layout already takes surrounding text 
-    #  (titles, labels, # ticklabels) into account. 
+    #  Much smaller than for tight_layout (figure.subplot.{hspace, wspace)
+    #  as constrained_layout already takes surrounding text
+    #  (titles, labels, # ticklabels) into account.
     #  (Not compatible with autolayout)
     # mpl.rcParams['figure.constrained_layout.hspace'] = 0.02
     # mpl.rcParams['figure.constrained_layout.wspace'] = 0.02
 
     ## Other
     # Figure size and quality
-    mpl.rcParams['figure.dpi'] = 100        # NOTE: Alters figure size
-    mpl.rcParams['figure.figsize'] = (5, 5) # (6, 4), (6.4, 4.8)
+    mpl.rcParams['figure.dpi'] = 100         # NOTE: Alters figure size
+    mpl.rcParams['figure.figsize'] = (5, 5)  # (6, 4), (6.4, 4.8)
 
     # Figure saving settings
     mpl.rcParams['savefig.transparent'] = True
-    mpl.rcParams['savefig.format'] = 'png' # {png, ps, pdf, svg}
+    mpl.rcParams['savefig.format'] = 'png'  # {png, ps, pdf, svg}
     mpl.rcParams['savefig.dpi'] = 330
 
     # set inline figure format/quality
-    #%config InlineBackend.figure_format = 'svg'
-    
+    # %config InlineBackend.figure_format = 'svg'
+
     return

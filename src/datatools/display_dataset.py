@@ -1,4 +1,4 @@
-"""    
+"""
 Tools for visualizing matrix and dataframe operations.
 
 Notes
@@ -14,8 +14,10 @@ References
 import doctest
 import numpy as np
 import pandas as pd
-from typing import Iterable, Any
+from typing import Any, Iterable
+
 from workflow_utils import doctest_function
+
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
@@ -30,8 +32,8 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
 
     Returns
     -------
-    result : DataFrame of shape ( len(ind), len(cols) )
-        
+    result : DataFrame of shape (len(ind), len(cols))
+
     Examples
     --------
     >>> import pandas as pd
@@ -40,7 +42,7 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     1  A1  B1  C1
     2  A2  B2  C2
     3  A3  B3  C3
-    
+
     >>> make_df([1,2,3], ("A", "B", "C"))
         1   2   3
     A  1A  2A  3A
@@ -49,15 +51,15 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
 
     data = {c: [str(c) + str(i) for i in ind] for c in cols}
-    return pd.DataFrame(data, ind)    
+    return pd.DataFrame(data=data, index=pd.Index(ind))
 
 
-def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):    
+def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     """
     Display an informative representation of multiple objects side-by-side.
-    
+
     Note: This function uses `eval()` to render expressions it receives as strings. Access to variables in the global namespace is controlled by `globs`. Take care to only pass trusted expressions to the function.
-    
+
     Parameters
     ----------
     args : tuple
@@ -66,7 +68,7 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
         Global namespace, to give eval() access to nonlocals passed by name.
     bold : bool, default=True
         Option to enable/disable string styling.
-        
+
     Examples
     --------
     Data frame example:
@@ -96,7 +98,7 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     4  A4  B4
     <BLANKLINE>
     <BLANKLINE>
-    
+
     Matrix example:
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
     >>> display("A", "x.T", "np.dot(A, x.T)", globs=globals(), bold=False)
@@ -121,8 +123,8 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     <BLANKLINE>
     """
     if globs is None:
-        globs = {}    
-        
+        globs = {}
+
     output = ""
     for arg in args:
         name = '\033[1m' + arg + '\033[0m' if bold else arg
@@ -139,6 +141,7 @@ def main():
     doctest.testmod(verbose=True)
     # doctest_function(display, globs=globals())
     return None
+
 
 if __name__ == "__main__":
     main()
