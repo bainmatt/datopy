@@ -40,11 +40,15 @@ dependencies:
   - seaborn
 
   - pip:
-    # Typing. Run `mypy --install-types` to install missing stub
+    # Typing
+    # run `mypy --install-types` to install missing stubs. Pandas' given below.
     - mypy
+    - pandas-stubs
     # Testing
     - pytest
-    - pytest-doctestplus
+    # - pytest-doctestplus
+    # Linting
+    - flake8
     # JSON data validation
     - jsonschema   
     # API clients
