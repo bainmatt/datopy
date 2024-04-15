@@ -1,5 +1,5 @@
-""" 
-Tools for data modeling, validation, and basic data processing, including auto-generating data models and a flexible base framework for ETL workflows. 
+"""
+Tools for data modeling, validation, and basic data processing, including auto-generating data models and a flexible base framework for ETL workflows.
 """
 
 import json
@@ -8,21 +8,29 @@ import doctest
 import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
-from typing import Annotated, Any, Callable, List, NamedTuple
+from typing import (
+    Annotated, Any, Callable, Dict, Iterable, List, NamedTuple,
+    Union, Optional,
+)
 
 import _settings
-from display_dataset import display
 from workflow_utils import doctest_function
+
+# Custom types
+# (recursively) nested dict with arbitrary depth and pre-defined node type
+# FIXME resolve this to fix mypy error...
+NestedDict = Union[Dict[str, 'NestedDict'], List[str]]
 
 
 # ----------------------------------------
 # --- Data dictionary generation utils ---
 # ----------------------------------------
 
-def list_to_dict(obj: list | tuple | set, max_items: int | None = None) -> dict:
+def list_to_dict(obj: list | tuple | set,
+                 max_items: Optional[int] = None) -> dict:
     """
-    Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys. 
-    
+    Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys.
+
     Parameters
     ----------
     obj : list
@@ -30,38 +38,39 @@ def list_to_dict(obj: list | tuple | set, max_items: int | None = None) -> dict:
     max_items : int, default=None
         Option to impose a limit on the number of elements to iterate over.
         Intended use: constructing pattern-based data models from a sample.
-    
+
     Returns
     dict : The supplied list's dictionary representation.
     -------
-    
+
     Examples
     --------
     >>> my_list = [1, 'two', [3], {'four': 5}]
     >>> list_to_dict(my_list)
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
-    
+
     >>> my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     >>> list_to_dict(my_list, max_items=5)
     {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
-    
+
     >>> my_dict = dict(a=1, b='two')
     >>> list_to_dict(my_dict)
     Not running conversion since obj is already a dictionary.
     {'a': 1, 'b': 'two'}
     """
-    if isinstance(obj, dict): 
+    if isinstance(obj, dict):
         print("Not running conversion since obj is already a dictionary.")
         return obj
     else:
         return {(key + 1): value for key, value in enumerate(obj)
                 if (max_items is None) or (key < max_items)}
-        
 
-def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:   
+
+def compare_dict_keys(dict1: dict,
+                      dict2: dict) -> Optional[Union[dict, List[str]]]:
     """
     Recursively compare two dictionaries and identify missing keys.
-    
+
     Parameters
     ----------
     dict1 : dict
@@ -71,9 +80,9 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:
 
     Returns
     -------
-    result : dict
+    result : Optional[Union[dict, List[str]]]
         The nested dictionary of fields missing from `dict2` relative `dict1`.
-        
+
     Examples
     --------
     Setup
@@ -97,23 +106,23 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:
     >>> del dict2['b1']['b12']
     >>> compare_dict_keys(dict1, dict2)
     {'nested_diff': {'b1': {'missing_keys': ['b12']}}}
-    
+
     Missing nesting level 2 key
     >>> dict2 = copy.deepcopy(dict1)
     >>> del dict2['c1']['c11']['c113']
     >>> compare_dict_keys(dict1, dict2)
     {'nested_diff': {'c1': {'nested_diff': {'c11': {'missing_keys': ['c113']}}}}}
     """
-    
+
     if isinstance(dict1, dict) and not isinstance(dict2, dict):
         return 'missing nested dictionary'
 
     if not (isinstance(dict1, dict) and isinstance(dict2, dict)):
         return None
-    
+
     missing_keys = set(dict1.keys()) - set(dict2.keys())
     shared_keys = set(dict1.keys()).intersection(set(dict2.keys()))
-    
+
     # Initialize difference dictionary
     diff_dict = {}
     for key in shared_keys:
@@ -121,7 +130,7 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:
         # Add any differences to the difference
         if nested_diff is not None:
             diff_dict[key] = nested_diff
-    
+
     # Return result if no missing keys or no diffs in nested dicts found
     if missing_keys or diff_dict:
         result = {}
@@ -134,23 +143,23 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | None:
     # Return None if no missing keys or differences found
     return None
 
-    
+
 def apply_recursive(func: Callable[..., Any], obj) -> dict:
     """
     Convert a nested data structure (with explicit or implied key/value pairs) into a tree-like dictionary, applying a given function to terminal values.
-            
+
     Parameters
     ----------
     func : Callable[..., Any]
         _description_
-    obj : 
+    obj :
         _description_
-    
+
     Returns
     -------
-    dict: 
+    dict:
         _description_
-        
+
     Examples
     --------
     Define the data
@@ -159,12 +168,12 @@ def apply_recursive(func: Callable[..., Any], obj) -> dict:
     ...     {'loudness': -15.5, 'duration_ms': 284}]}
     >>> print(nested_data)
     {'type': 'album', 'url': 'link.com', 'audio_features': [{'loudness': -11.4, 'duration_ms': 251}, {'loudness': -15.5, 'duration_ms': 284}]}
-    
+
     Convert to json-friendly representation
     >>> serialized = apply_recursive(str, nested_data)
     >>> print(serialized)
     {'type': 'album', 'url': 'link.com', 'audio_features': {1: {'loudness': '-11.4', 'duration_ms': '251'}, 2: {'loudness': '-15.5', 'duration_ms': '284'}}}
-    
+
     Convert to field/type pairs
     >>> schema = apply_recursive(lambda x: type(x).__name__, nested_data)
     >>> print(schema)
@@ -172,14 +181,14 @@ def apply_recursive(func: Callable[..., Any], obj) -> dict:
     """
     # Handle dictionary-like objects
     if hasattr(obj, 'items'):
-        return {key: apply_recursive(func, value) 
+        return {key: apply_recursive(func, value)
                 for key, value in obj.items()}
-                
+
     # Handle list-like objects
     elif isinstance(obj, (list, tuple, set)):
-        return {key: apply_recursive(func, value) 
+        return {key: apply_recursive(func, value)
                 for key, value in list_to_dict(obj, max_items=5).items()}
-                
+
     # Handle base cases
     elif isinstance(obj, str):
         return func(obj)
@@ -199,7 +208,7 @@ def schema_jsonify(obj: dict) -> dict:
     Returns
     -------
     dict : _description_
-    
+
     Examples
     --------
     >>> original_schema = {'name': 'str', 'quantity': 'int', 'features': {1: {'volume': 'str', 'duration': 'float'}, 2: {'volume': 'str', 'duration': 'float'}}, 'creator': {'person': {'name': 'str'}, 'company': {'name': 'str', 'location': 'str'}}}
@@ -223,8 +232,8 @@ def schema_jsonify(obj: dict) -> dict:
     """
     schema = {}
     is_dict = isinstance(obj, dict)
-    
-    # Case 1 (array-like)    
+
+    # Case 1 (array-like)
     if obj and is_dict and isinstance(list(obj.keys())[0], int):
         field_len = list(obj.keys())[-1]
         schema = {
@@ -236,30 +245,30 @@ def schema_jsonify(obj: dict) -> dict:
         # Recurse on first item, assuming homogeneity for simplicity
         schema["items"] = schema_jsonify(obj[1])
         return schema
-    
-    # Case 2 (dictionary) 
+
+    # Case 2 (dictionary)
     elif obj and is_dict:
         schema["type"] = "object"
         schema["properties"] = {}
         # Require all by default to easily edit later
         schema["required"] = list(obj.keys())
-        
+
         for key, val in obj.items():
             # Recurse on each value
             schema["properties"][key] = schema_jsonify(val)
         return schema
-    
+
     # Base cases (non-container types)
     # "str" -> "string"
-    elif obj == "str": 
+    elif obj == "str":
         schema["type"] = "string"
         return schema
 
     # "int"/"float" -> "number"
-    elif obj in ("int", "float"): 
+    elif obj in ("int", "float"):
         schema["type"] = "number"
         return schema
-    
+
     else:
         schema["type"] = "null"
         return schema
@@ -271,12 +280,12 @@ def schema_jsonify(obj: dict) -> dict:
 
 class CustomTypes:
     """
-    Reusable custom field types. 
+    Reusable custom field types.
     Whitespace around commas should be stripped before analysis.
     """
-    CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$', 
+    CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$',
                                   description="Custom lowercase comma-separated string type. Excludes num and special chars")]
-    CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$', 
+    CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$',
                                      description="Allows numerics")]
     CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
 
@@ -293,12 +302,12 @@ class BaseProcessor:
         ----------
         model : BaseModel
             _description_
-        query : NamedTuple 
+        query : NamedTuple
             _description_
         """
         self.query = query
         self.model = model
-        
+
     def retrieve(self):
         """
         Retrieve data for the query from the API of the supplied model.
@@ -308,10 +317,10 @@ class BaseProcessor:
             NotImplementedError: _description_
         """
         ### Retrieval routine goes here
-        
+
         ###
         raise NotImplementedError
-        # include return here? self assignment? 
+        # include return here? self assignment?
 
     def process(self):
         """
@@ -326,7 +335,7 @@ class BaseProcessor:
         ###
         # TODO raise NotRetrieved error (try model.obj)
         raise NotImplementedError
-    
+
     def _validate(self):
         """
         Validate the processed data against the supplied model.
@@ -342,23 +351,22 @@ class BaseProcessor:
         #     pprint.pp(e.errors())
         print("Validated")
         return None
-    
+
     def to_df(self):
         """
         Load the data into a dataframe for further processing or analysis.
         """
         # Validate before loading
         self._validate()
-        
+
         df = pd.DataFrame([self.data])
         return df
 
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
     # doctest_function(get_film_metadata, globs=globals())
-        
+
     ## One-off tests
-    

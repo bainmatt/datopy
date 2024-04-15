@@ -25,23 +25,33 @@ from etl_utils import omit_string_patterns
 from workflow_utils import doctest_function
 from datamodel_utils import BaseProcessor, CustomTypes
 
+
 # --------------------------
 # --- Metadata retrieval ---
 # --------------------------
 
+# Custom type containing search terms with required 'title' attribute
+# TODO archive this: does not generalize well
+# class MediaSearchTerms(NamedTuple):
+#     title: str
+#     creator: Optional[str] = None
+
+
+Film = NamedTuple('Film', [('title', str)])
+Album = NamedTuple('Album', [('artist', str), ('title', str)])
+Book = NamedTuple('Book', [('title', str)])
+
 class MediaQuery:
-    """
-    Query object types for media metadata retrieval.
-    """
-    Film = NamedTuple('Film', [('title', str)])
-    Album = NamedTuple('Album', [('artist', str), ('title', str)])
-    Book = NamedTuple('Book', [('title', str)])
+    """Query object types for media metadata retrieval."""
+    Film = Film
+    Album = Album
+    Book = Book
 
 
 class IMDbFilm(BaseModel):
     r"""
-    Data model for processed imdb metadata. 
-    
+    Data model for processed imdb metadata.
+
     Example
     -------
     >>> valid_film = IMDbFilm(
@@ -50,12 +60,12 @@ class IMDbFilm(BaseModel):
     ...     genres='romantic comedy, thriller', cast='mrs smith,mr smith',
     ...     plot='alas! once upon a time, ...',
     ...     budget_mil=1123929)
-    
+
     >>> invalid_film = dict(
     ...     title='name', imdb_id='tt12', year=1975, votes=-2, rating=5.0)
-    >>> try: 
+    >>> try:
     ...     IMDbFilm(**invalid_film)
-    ... except ValidationError as e: 
+    ... except ValidationError as e:
     ...     print(e)          # use pprint.pp(e.errors()) for easy-to-read list
     3 validation errors for IMDbFilm
     imdb_id
@@ -67,7 +77,7 @@ class IMDbFilm(BaseModel):
     votes
       Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]
         For further information visit https://errors.pydantic.dev/2.6/v/greater_than_equal
-    
+
     Survey available fields and types
     # >>> film = imdb_film_retrieve(Film('spirited away'))
     # >>> film.keys()
@@ -81,13 +91,13 @@ class IMDbFilm(BaseModel):
                          description="Unique 7-digit IMDb tt identifier")
     kind: CustomTypes.CSVstr = Field(examples=['movie', 'tv series'],
                                      description="Retrieved from: `type`")
-    
+
     # Numeric
     year: int = Field(ge=1880, le=3000)
     rating: float = Field(ge=0, le=10)
     votes: int = Field(ge=0)
     runtime_mins: float = Field(gt=0, default=None)
-    
+
     # String lists
     genres: CustomTypes.CSVstr = Field(default=None)
     countries: CustomTypes.CSVstr = Field(default=None)
@@ -96,61 +106,61 @@ class IMDbFilm(BaseModel):
     composer: CustomTypes.CSVstr = Field(default=None)
     cast: CustomTypes.CSVstr = Field(default=None)
     # cast: CustomTypes.CSVnumsent = Field(default=None)
-    
+
     # Strings
     plot: CustomTypes.CSVnumsent = Field(default=None)
     synopsis: CustomTypes.CSVnumsent = Field(default=None)
     plot_outline: CustomTypes.CSVnumsent = Field(default=None)
-    
+
     # Financial
-    budget_mil: float = Field(ge=0, default=None, 
+    budget_mil: float = Field(ge=0, default=None,
                               description="Strip $/, & text after first space")
     opening_weekend_gross_mil: float = Field(ge=0, default=None)
     cumulative_worldwide_gross_mil: float = Field(ge=0, default=None)
-    
 
-# TODO place media/animals/nations models/queries/processors in 
-# {media/eco/global}_pulse.py    
+
+# TODO place media/animals/nations models/queries/processors in
+# {media/eco/global}_pulse.py
 # TODO implement 4 pydantic processed data models + 1 valid/invalid demo
 
 class SpotifyAlbum(BaseModel):
     """
-    Data model for processed Spotify metadata. 
+    Data model for processed Spotify metadata.
     Raw data schema reference: 'output/spotify_album_schema.json'
     """
-    # fields of interest: 
-    
+    # fields of interest:
+
     title: str
     album_type: str
-    
+
 
 class WikiBook(BaseModel):
     """
-    Data model for processed Wikipedia novel metadata. 
+    Data model for processed Wikipedia novel metadata.
     Raw data schema reference: 'output/wiki_book_schema.json'
     """
-    # fields of interest: 
-        
+    # fields of interest:
+
     title: str
 
 
 class WikiFilm(BaseModel):
     """
-    Data model for processed Wikipedia film metadata. 
+    Data model for processed Wikipedia film metadata.
     Raw data schema reference: 'output/wiki_film_schema.json'
     """
-    # fields of interest: 
-            
+    # fields of interest:
+
     title: str
 
 
 class WikiAlbum(BaseModel):
     """
-    Data model for processed Wikipedia album metadata. 
+    Data model for processed Wikipedia album metadata.
     Raw data schema reference: 'output/wiki_album_schema.json'
     """
-    # fields of interest: 
-                
+    # fields of interest:
+
     title: str
 
 
@@ -161,9 +171,9 @@ class WikiAlbum(BaseModel):
 # pd.DataFrame(pd.json_normalize(dict(valid_obj)))
 # pd.DataFrame(pd.json_normalize(dict(invalid_obj)))
 
-# try: IMDbFilm(**valid_obj)  
+# try: IMDbFilm(**valid_obj)
 # except ValidationError as e: pprint.pp(e.errors())
-# try: IMDbFilm(**invalid_obj)  
+# try: IMDbFilm(**invalid_obj)
 # except ValidationError as e: pprint.pp(e.errors())
 
 
@@ -177,19 +187,19 @@ class WikiAlbum(BaseModel):
 # TODO move these to media_pulse
 # TODO implement 5 subclasses
 
-class IMDbFilmProcessor(BaseProcessor):    
+class IMDbFilmProcessor(BaseProcessor):
     def retrieve(self):
         # title = self.query.title
-        
+
         # Retrieval routine
-        
+
         obj = []
         self.obj = obj
         return self
-    
+
     def process(self):
         # Processing routine
-        
+
         data = []
         self.data = data
         return self
@@ -202,10 +212,10 @@ class IMDbFilmProcessor(BaseProcessor):
 # film.retrieve().process().to_df()
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
     # doctest_function(IMDbFilm, globs=globals(), verbose=False)
-                
+
     ## One-off tests
     pass
