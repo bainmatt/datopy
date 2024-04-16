@@ -68,14 +68,14 @@ dependencies:
   - seaborn
 
   - pip:
-    # [Dev] Typing
+    # [Build]
+    - setuptools
+    # [Dev] Typing/Testing/Linting
     # run `mypy --install-types` to install missing stubs. Pandas' given below.
     - mypy
     - pandas-stubs
-    # [Dev] Testing
     - pytest
     # - pytest-doctestplus
-    # [Dev] Linting
     - flake8
     # JSON data validation
     - jsonschema   
@@ -90,4 +90,4 @@ dependencies:
     # TODO pytest `--doctest-modules` configure/note (run in src/datatools/)
     # Ex: `pytest --doctest-modules workflow_utils.py`
     # TODO mypy opts: `--ignore-missing-imports`
-    # Ex: `mypy --ignore-missing-imports models/`
+    # Ex: `mypy --ignore-missing-imports --explicit-package-bases .`

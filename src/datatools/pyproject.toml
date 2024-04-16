@@ -1,0 +1,157 @@
+# Package / environment / development configuration
+# Reference: https://github.com/pypa/sampleproject/blob/main/pyproject.toml
+#
+# Useful template repository: 
+# https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject?#tab=readme-ov-file
+# 
+# Python Packaging User Guide:
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+# Python Packaging User Guide Tutorial:
+# https://packaging.python.org/en/latest/tutorials/packaging-projects/ 
+# 
+# Further configurations specific to our chosen build system (setuptools):
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+
+# Build backend
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# Project metadata. Name is the installation name for a published package:
+#   $ pip install data-tools
+[project]
+name = "data-tools"
+version = "0.0.1"
+description = "Tools for data modeling, ETL, and web scraping"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["pydantic", "beautifulsoup", "modelling", "validation", "etl"]
+authors = [
+    {name="Matthew Bain"},
+]
+maintainers = [
+    {name="Matthew Bain"},
+]
+# For a complete list of classifiers:
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Data Analysts",
+    "Topic :: Data Management :: DataOps",
+    "License :: OSI Approved :: MIT License",
+    # These reqs are not checked by `pip install .`. See `requires-python`.
+    'Programming Language :: Python :: 3.10',
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+]
+
+# Installation dependencies
+# What a project needs minimally to be run correctly.
+# These will be installed by pip when the project is installed with pip.
+# 
+# For details on this vs 'requirements.txt': 
+# https://packaging.python.org/en/latest/discussions/#install-requires-vs-requirements/
+#
+# Note: Best practice is to indicate any known lower/upper bounds on versions.
+# For repeatable installation,
+# an exhaustive list of requirements is given in requirements{_dev}.txt.
+dependencies = [
+    "requests>=2.31.0",
+    "pandas>=2.2.2",
+    "pydantic>=2.7.0",
+    "bs4>=0.0.2",
+    "pycurl>=7.45.3",
+]
+
+# Extra groups of dependencies. 
+# These can be installed using the "extras" syntax, e.g.:
+#   $ pip install datatools[dev]
+# 
+# For details on dependency specifiers: 
+# https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras
+# Setuptools details:
+# https://setuptools.pypa.io/en/latest/userguide/dependency_management.html
+[project.optional-dependencies]
+dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
+examples = [
+    "jsonschema>=4.21.1",
+    "wptools>=0.4.17",
+    "cinemagoer>=2023.5.1",
+    "spotipy>=2.23.0",
+    "scipy>=1.13.0",
+]
+
+# Links
+[project.urls]
+Homepage = "https://github.com/bainmatt/data-tools"
+Issues = "https://github.com/bainmatt/data-tools/issues"
+
+
+# Executable scripts
+# These are installed with pip and execute the specified functions when invoked
+# Reference: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
+# e.g., `my-script` executes `function` from `my_package.module`:
+[project.scripts]
+# my-script = "my_package.module:function"
+
+# Data files
+# List any data files included in your packages that need to be installed.
+# Reference: https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+[tool.setuptools.package-data]
+# package-data = ["*.txt", "*.rst", "*.dat"]
+
+
+# --- Further setuptools configurations ---
+# Package discovery. Setuptools-specific:
+# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#
+# [options]
+# package_dir = "src"
+[tool.setuptools.packages.find]
+where = ["src"]
+packages = ["datatools"]
+
+# XXX (needed?) Indicates that the package is type-hinted
+[options.package_data]
+datatools = "py.typed"
+
+# Testing configuration
+# Reference: https://docs.pytest.org/en/7.1.x/reference/customize.html
+[tool.pytest.ini_options]
+# minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+# Typing configuration
+# Reference: https://mypy.readthedocs.io/en/stable/config_file.html
+[tool.mypy]
+mypy_path = "src"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
+
+
+# --- Build and installation ---
+# Building and distributing packages with setuptools:
+# https://setuptools.pypa.io/en/latest/setuptools.html
+# Build system support (setuptools):
+# https://setuptools.pypa.io/en/latest/build_meta.html
+# Development mode (setuptools):
+# https://setuptools.pypa.io/en/latest/userguide/development_mode.html
+# 
+# The packaging flow (Python Packaging User Guide):
+# https://packaging.python.org/en/latest/flow/
+
+
