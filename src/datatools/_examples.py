@@ -296,7 +296,8 @@ def run_auto_datamodel_example(
             client_credentials_manager=SpotifyClientCredentials()
         )
         results = sp.search(
-            q=f'artist:{search_terms.artist} album:{search_terms.title}', type='album'
+            q=f'artist:{search_terms.artist} album:{search_terms.title}',
+            type='album'
         )
         if results['albums']['total'] == 0:
             raise LookupError(f"No result found for {search_terms}.")
@@ -398,7 +399,7 @@ validate(instance=valid_raw_movie, schema=movie_schema)
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
-    # doctest_function(run_auto_datamodel_example, globs=globals(), verbose=False)
+    # doctest_function(run_auto_datamodel_example, globs=globals(),verbose=False)
 
     # One-off tests
     pass

@@ -27,6 +27,7 @@ _settings.py
 # Archived files/folders (irrespective of subdirectory/basename)
 **/archive/
 *_archive
+_setup.cfg
 
 # --- Dev artifacts ---
 # Byte-compiled / optimized / DLL files
