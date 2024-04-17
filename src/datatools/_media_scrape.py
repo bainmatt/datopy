@@ -1,5 +1,7 @@
 """
-Data models and retrieval/processing tools for scraping metadata for movies and movie reviews (via IMDb), music albums (via Spotify), and related topics (via Wikipedia).
+Data models and retrieval/processing tools for scraping metadata for movies
+and movie reviews (via IMDb), music albums (via Spotify), and related
+topics (via Wikipedia).
 """
 
 import re

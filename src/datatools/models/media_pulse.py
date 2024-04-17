@@ -1,5 +1,6 @@
 """
-Data models, validators, and ETL tools for scraped media data, including reviews (via IMDb), music albums (via Spotify), and related information (via Wikipedia).
+Data models, validators, and ETL tools for scraped media data,
+including reviews (via IMDb), music albums (via Spotify), and related information (via Wikipedia).
 
 --- Execution guidelines ---
 To run a module within a subfolder that relies on modules in a parent folder:
@@ -202,7 +203,6 @@ class IMDbFilmProcessor(BaseProcessor):
         data = []
         self.data = data
         return self
-
 
 
 # XXX Scratch tests
