@@ -21,10 +21,10 @@ from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import _settings
-from etl_utils import omit_string_patterns
-from workflow_utils import doctest_function
-from datamodel_utils import BaseProcessor, CustomTypes
+import datatools._settings
+from datatools.etl_utils import omit_string_patterns
+from datatools.workflow_utils import doctest_function
+from datatools.datamodel_utils import BaseProcessor, CustomTypes
 
 
 # --------------------------
@@ -37,17 +37,27 @@ from datamodel_utils import BaseProcessor, CustomTypes
 #     title: str
 #     creator: str | None = None
 
+# Film = NamedTuple('Film', [('title', str), ('artist', None)])
+# Album = NamedTuple('Album', [('title', str), ('artist', str)])
+# Book = NamedTuple('Book', [('title', str), ('artist', str | None)])
 
-Film = NamedTuple('Film', [('title', str), ('artist', str | None)])
-Album = NamedTuple('Album', [('title', str), ('artist', str)])
-Book = NamedTuple('Book', [('title', str), ('artist', str | None)])
 
-
-class MediaQuery:
+class MediaQuery(NamedTuple):
     """Query object types for media metadata retrieval."""
-    Film = Film
-    Album = Album
-    Book = Book
+    title: str
+    artist: str | None = None
+
+
+Film = type('Film', (MediaQuery,), {})
+Album = type('Album', (MediaQuery,), {})
+Book = type('Book', (MediaQuery,), {})
+
+
+# class MediaQuery:
+#     """Query object types for media metadata retrieval."""
+#     Film = Film
+#     Album = Album
+#     Book = Book
 
 
 class IMDbFilm(BaseModel):
@@ -128,7 +138,7 @@ class IMDbFilm(BaseModel):
 class SpotifyAlbum(BaseModel):
     """
     Data model for processed Spotify metadata.
-    Raw data schema reference: 'output/spotify_album_schema.json'
+    Raw data schema reference: 'datatools/output/spotify_album_schema.json'
     """
     # fields of interest:
 
@@ -139,7 +149,7 @@ class SpotifyAlbum(BaseModel):
 class WikiBook(BaseModel):
     """
     Data model for processed Wikipedia novel metadata.
-    Raw data schema reference: 'output/wiki_book_schema.json'
+    Raw data schema reference: 'datatools/output/wiki_book_schema.json'
     """
     # fields of interest:
 
@@ -149,7 +159,7 @@ class WikiBook(BaseModel):
 class WikiFilm(BaseModel):
     """
     Data model for processed Wikipedia film metadata.
-    Raw data schema reference: 'output/wiki_film_schema.json'
+    Raw data schema reference: 'datatools/output/wiki_film_schema.json'
     """
     # fields of interest:
 
@@ -159,7 +169,7 @@ class WikiFilm(BaseModel):
 class WikiAlbum(BaseModel):
     """
     Data model for processed Wikipedia album metadata.
-    Raw data schema reference: 'output/wiki_album_schema.json'
+    Raw data schema reference: 'datatools/output/wiki_album_schema.json'
     """
     # fields of interest:
 

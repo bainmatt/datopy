@@ -22,8 +22,8 @@ from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from display_dataset import display
-from workflow_utils import doctest_function
+from datatools.display_dataset import display
+from datatools.workflow_utils import doctest_function
 
 
 # -----------------
@@ -125,10 +125,10 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     >>> for i, review in enumerate(movie_reviews, start=1):
     ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ...\n");
     Review 1:
-    I'll be totally honest and confirm to you that eve ...
+    I have enjoyed most of the computer-animated films ...
     <BLANKLINE>
     Review 2:
-    I have enjoyed most of the computer-animated films ...
+    I'll be totally honest and confirm to you that eve ...
     <BLANKLINE>
     """
 

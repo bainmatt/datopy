@@ -15,8 +15,8 @@ from typing import (
 )
 from typing import TYPE_CHECKING
 
-import _settings
-from workflow_utils import doctest_function
+import datatools._settings
+from datatools.workflow_utils import doctest_function
 
 # Custom types
 # (recursively) nested dict with arbitrary depth and pre-defined node type

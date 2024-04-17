@@ -16,11 +16,13 @@ A home for one-off tests and data-generating routines.
 # - List-like container types: uniformity of elements, length, options, order
 """
 
+import os
 import re
 import copy
 import json
 import pprint
 import doctest
+import pathlib
 import pandas as pd
 from jsonschema import validate
 from collections import namedtuple
@@ -33,15 +35,26 @@ from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import _settings
-from models.media_pulse import Film, Album, Book
-from etl_utils import omit_string_patterns
-from workflow_utils import doctest_function
-from datamodel_utils import apply_recursive, list_to_dict, schema_jsonify
+import datatools._settings
+from datatools.models.media_pulse import Film, Album, Book
+from datatools.etl_utils import omit_string_patterns
+from datatools.workflow_utils import doctest_function
+from datatools.datamodel_utils import (
+    apply_recursive, list_to_dict, schema_jsonify
+)
 
 # Define custom types
 DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
                                      'serialized', 'normalized'])
+
+# Define paths
+try:
+    # The __file__ variable is only accessible at runtime
+    file_dir = pathlib.Path(__file__).parent.resolve()
+except NameError:
+    # If __file__ is not defined, use a fallback directory
+    # cwd = pathlib.Path().resolve()
+    file_dir = 'src/datatools/'
 
 
 # TODO add 'see also' sections for required imports from other modules in proj
@@ -159,7 +172,7 @@ def save_datamodel(
     title = str(search_terms.title).lower().replace(' ', '_')
     medium = type(search_terms).__name__.lower().replace(' ', '_')
 
-    schema_path = f"output/{source}_{medium}_schema.json"
+    schema_path = f"{file_dir}/output/{source}_{medium}_schema.json"
     with open(schema_path, "w") as json_file:
         json.dump(schema, json_file, indent=4)
 
@@ -215,16 +228,16 @@ def run_auto_datamodel_example(
     setup
     >>> do_save=False
 
-    # imdb: film
-    # >>> film = Film("eternal sunshine of the spotless mind")
-    # >>> datamodel = run_auto_datamodel_example(
-    # ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
-    # >>> dict(datamodel.obj)['genres']
-    # ['Drama', 'Romance', 'Sci-Fi']
-    # >>> datamodel.schema['genres']
-    # {1: 'str', 2: 'str', 3: 'str'}
-    # >>> datamodel.normalized['original air date'][0]
-    # '19 Mar 2004 (USA)'
+    imdb: film
+    >>> film = Film("eternal sunshine of the spotless mind")
+    >>> datamodel = run_auto_datamodel_example(
+    ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
+    >>> dict(datamodel.obj)['genres']
+    ['Drama', 'Romance', 'Sci-Fi']
+    >>> datamodel.schema['genres']
+    {1: 'str', 2: 'str', 3: 'str'}
+    >>> datamodel.normalized['original air date'][0]
+    '19 Mar 2004 (USA)'
 
     spotify: album
     >>> album = Album("kid A", "radiohead")
@@ -237,41 +250,41 @@ def run_auto_datamodel_example(
     >>> datamodel.normalized['id'][0]
     '6GjwtEZcfenmOf6l18N7T7'
 
-    # wiki: novel
-    # >>> book = Book("to kill a mockingbird")
-    # >>> outputs = run_auto_datamodel_example(
-    # ...    source="wiki", search_terms=book, do_save=do_save)
-    # >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
-    # 'Harper Lee'
-    # >>> outputs.schema['author']
-    # 'str'
-    # >>> outputs.normalized['pages'][0]
-    # '281'
+    wiki: novel
+    >>> book = Book("to kill a mockingbird")
+    >>> outputs = run_auto_datamodel_example(
+    ...    source="wiki", search_terms=book, do_save=do_save)
+    >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
+    'Harper Lee'
+    >>> outputs.schema['author']
+    'str'
+    >>> outputs.normalized['pages'][0]
+    '281'
 
-    # wiki: film
-    # >>> film = Film("eternal sunshine of the spotless mind")
-    # >>> outputs = run_auto_datamodel_example(
-    # ...    source="wiki", search_terms=film, do_save=do_save)
-    # >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
-    # 'Michel Gondry'
-    # >>> outputs.schema['director']
-    # 'str'
-    # >>> outputs.normalized['budget'][0]
-    # '$20 million'
+    wiki: film
+    >>> film = Film("eternal sunshine of the spotless mind")
+    >>> outputs = run_auto_datamodel_example(
+    ...    source="wiki", search_terms=film, do_save=do_save)
+    >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
+    'Michel Gondry'
+    >>> outputs.schema['director']
+    'str'
+    >>> outputs.normalized['budget'][0]
+    '$20 million'
 
-    # wiki: album
-    # >>> album = Album("kid A", "radiohead")
-    # >>> outputs = run_auto_datamodel_example(
-    # ...    source="wiki", search_terms=album, do_save=do_save)
-    # >>> genres_raw = outputs.obj['genre']
-    # >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
-    # >>> genres_processed = omit_string_patterns(genres_raw, patterns_to_omit)
-    # >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
-    # Experimental rock, post-rock, art rock, electronica
-    # >>> outputs.schema['genre']
-    # 'str'
-    # >>> outputs.normalized['type'][0]
-    # 'studio'
+    wiki: album
+    >>> album = Album("kid A", "radiohead")
+    >>> outputs = run_auto_datamodel_example(
+    ...    source="wiki", search_terms=album, do_save=do_save)
+    >>> genres_raw = outputs.obj['genre']
+    >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
+    >>> genres_processed = omit_string_patterns(genres_raw, patterns_to_omit)
+    >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
+    Experimental rock, post-rock, art rock, electronica, alternative rock
+    >>> outputs.schema['genre']
+    'str'
+    >>> outputs.normalized['type'][0]
+    'studio'
 
     """
     # Check assumptions
@@ -366,13 +379,15 @@ def run_auto_datamodel_example(
 
 # An example of messy, highly unnecessary testing of retrieved data
 obj = spotify_album_retrieve(Album("kid a", "radiohead"))
-with open('output/spotify_album_json_schema.json') as file:
+fname = 'output/spotify_album_json_schema.json'
+with open(os.path.join(file_dir, fname)) as file:
     album_schema = json.load(file)
 # This line raises an error
 # validate(instance=obj, schema=album_schema)
 
 # An idealized example to demonstrate json validation in theory
-with open('models/output/imdb_model.json') as file:
+fname = 'models/output/imdb_model.json'
+with open(os.path.join(file_dir, fname)) as file:
     movie_schema = json.load(file)
 
 valid_raw_movie = {

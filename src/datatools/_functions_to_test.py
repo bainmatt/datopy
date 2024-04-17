@@ -9,7 +9,7 @@ import enum
 import pandas as pd
 from imdb import Cinemagoer
 
-from display_dataset import make_df
+from datatools.display_dataset import make_df
 
 
 # --- Interfaces ---
