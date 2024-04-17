@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 from typing import Any, Iterable
 
-from workflow_utils import doctest_function
+from datatools.workflow_utils import doctest_function
 
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:

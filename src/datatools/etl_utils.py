@@ -11,7 +11,7 @@ import pandas as pd
 from pydantic import BaseModel, Field
 from typing import Any, Annotated, Callable, Generic, List, NamedTuple, TypeVar
 
-from workflow_utils import doctest_function
+from datatools.workflow_utils import doctest_function
 
 # Custom types
 # TODO archive (define type variables (type(arg_in) == type(arg_out)))
