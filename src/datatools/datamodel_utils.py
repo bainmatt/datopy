@@ -1,5 +1,6 @@
 """
-Tools for data modeling, validation, and basic data processing, including auto-generating data models and a flexible base framework for ETL workflows.
+Tools for data modeling, validation, and basic data processing,
+including auto-generating data models and a flexible base framework for ETL workflows.
 """
 
 import json
@@ -8,7 +9,11 @@ import doctest
 import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
-from typing import Annotated, Any, Callable, Dict, Iterable, List, NamedTuple
+from typing import (
+    Annotated, Any, Callable, Collection, Dict, Iterable, List,
+    NamedTuple, TypeVar,
+)
+from typing import TYPE_CHECKING
 
 import _settings
 from workflow_utils import doctest_function
@@ -16,17 +21,25 @@ from workflow_utils import doctest_function
 # Custom types
 # (recursively) nested dict with arbitrary depth and pre-defined node type
 # TODO check this!
-NestedDict = Dict[str, "NestedDict" | List[str] | None]
+NestedDict = dict[str, "NestedDict" | List[str] | None]
+GenericNestedDict = dict[object, object]
+
+# Define TypeVars
+# XXX remove unused
+# for dictionary (key/value type)
+# _KT = TypeVar('_KT')
+# _VT = TypeVar('_VT')
 
 
 # ----------------------------------------
 # --- Data dictionary generation utils ---
 # ----------------------------------------
 
-def list_to_dict(obj: list | tuple | set,
-                 max_items: int | None = None) -> dict:
+def list_to_dict(obj: list[object] | tuple[object] | set[object],
+                 max_items: int | None = None) -> dict[int, object]:
     """
-    Provide a dictionary representation of a list or other non-dictionary or string-like iterable, using indices as keys.
+    Provide a dictionary representation of a list or other non-dictionary
+    or string-like iterable, using indices as keys.
 
     Parameters
     ----------
@@ -55,15 +68,19 @@ def list_to_dict(obj: list | tuple | set,
     Not running conversion since obj is already a dictionary.
     {'a': 1, 'b': 'two'}
     """
+
     if isinstance(obj, dict):
-        print("Not running conversion since obj is already a dictionary.")
+        print("Not running conversion since obj",  # type: ignore [unreachable]
+              "is already a dictionary.")
         return obj
     else:
         return {(key + 1): value for key, value in enumerate(obj)
                 if (max_items is None) or (key < max_items)}
 
 
-def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
+def compare_dict_keys(dict1: GenericNestedDict | object,
+                      dict2: GenericNestedDict | object
+                      ) -> GenericNestedDict | str | None:
     """
     Recursively compare two dictionaries and identify missing keys.
 
@@ -111,7 +128,7 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
     """
 
     if isinstance(dict1, dict) and not isinstance(dict2, dict):
-        return 'missing nested dictionary'
+        return "missing nested dictionary"
 
     if not (isinstance(dict1, dict) and isinstance(dict2, dict)):
         return None
@@ -120,8 +137,7 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
     shared_keys = set(dict1.keys()).intersection(set(dict2.keys()))
 
     # Initialize difference dictionary
-    # TODO check this
-    diff_dict: NestedDict = {}
+    diff_dict: dict[object, object] = {}
 
     for key in shared_keys:
         nested_diff = compare_dict_keys(dict1[key], dict2[key])
@@ -131,8 +147,7 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
 
     # Return result if no missing keys or no diffs in nested dicts found
     if missing_keys or diff_dict:
-        # TODO check this
-        result: NestedDict = {}
+        result: dict[object, object] = {}
         if missing_keys:
             result['missing_keys'] = list(missing_keys)
         if diff_dict:
@@ -143,9 +158,12 @@ def compare_dict_keys(dict1: dict, dict2: dict) -> dict | List[str] | None:
     return None
 
 
-def apply_recursive(func: Callable[..., Any], obj) -> dict:
+def apply_recursive(func: Callable[..., Any],
+                    obj) -> dict[str | int, Any] | Any:
     """
-    Convert a nested data structure (with explicit or implied key/value pairs) into a tree-like dictionary, applying a given function to terminal values.
+    Convert a nested data structure (with explicit or implied key/value
+    pairs) into a tree-like dictionary, applying a given function to
+    terminal values.
 
     Parameters
     ----------
@@ -195,7 +213,7 @@ def apply_recursive(func: Callable[..., Any], obj) -> dict:
         return func(obj)
 
 
-def schema_jsonify(obj: dict) -> dict:
+def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
     r"""
     _summary_
 
@@ -229,7 +247,7 @@ def schema_jsonify(obj: dict) -> dict:
                                 'required': [...]}},
      'required': ['name', 'quantity', 'features', 'creator']}
     """
-    schema = {}
+    schema: GenericNestedDict = {}
     is_dict = isinstance(obj, dict)
 
     # Case 1 (array-like)
@@ -242,7 +260,7 @@ def schema_jsonify(obj: dict) -> dict:
             "uniqueItems": True
         }
         # Recurse on first item, assuming homogeneity for simplicity
-        schema["items"] = schema_jsonify(obj[1])
+        schema["items"] = schema_jsonify(obj[1])    # type: ignore [arg-type]
         return schema
 
     # Case 2 (dictionary)
@@ -254,17 +272,17 @@ def schema_jsonify(obj: dict) -> dict:
 
         for key, val in obj.items():
             # Recurse on each value
-            schema["properties"][key] = schema_jsonify(val)
+            schema["properties"][key] = schema_jsonify(val)    # type: ignore [index, arg-type]
         return schema
 
     # Base cases (non-container types)
     # "str" -> "string"
-    elif obj == "str":
+    elif obj == "str":    # type: ignore [comparison-overlap]
         schema["type"] = "string"
         return schema
 
     # "int"/"float" -> "number"
-    elif obj in ("int", "float"):
+    elif obj in ("int", "float"):    # type: ignore [comparison-overlap]
         schema["type"] = "number"
         return schema
 
@@ -363,10 +381,14 @@ class BaseProcessor:
         return df
 
 
-
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
     # doctest_function(get_film_metadata, globs=globals())
 
     ## One-off tests
+
+    # type checks that compiler does not see/understand (run mypy on module)
+    if TYPE_CHECKING:
+        # reveal_type((1, 'hello'))
+        pass

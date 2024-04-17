@@ -1,24 +1,31 @@
+# -----------------------------------------------------------------------------
 # Package / environment / development configuration
+# =============================================================================
+#
 # Reference: https://github.com/pypa/sampleproject/blob/main/pyproject.toml
 #
-# Useful template repository: 
+# Useful template repository:
 # https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject?#tab=readme-ov-file
-# 
+#
 # Python Packaging User Guide:
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 # Python Packaging User Guide Tutorial:
-# https://packaging.python.org/en/latest/tutorials/packaging-projects/ 
-# 
+# https://packaging.python.org/en/latest/tutorials/packaging-projects/
+#
 # Further configurations specific to our chosen build system (setuptools):
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
 
+
+# --- Basics ---
 # Build backend
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-# Project metadata. Name is the installation name for a published package:
+# Project metadata
+# 'name' is the installation name for a published package. e.g.:
 #   $ pip install data-tools
+#
 [project]
 name = "data-tools"
 version = "0.0.1"
@@ -48,11 +55,13 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+
+# --- Dependencies ---
 # Installation dependencies
 # What a project needs minimally to be run correctly.
 # These will be installed by pip when the project is installed with pip.
-# 
-# For details on this vs 'requirements.txt': 
+#
+# For details on this vs 'requirements.txt':
 # https://packaging.python.org/en/latest/discussions/#install-requires-vs-requirements/
 #
 # Note: Best practice is to indicate any known lower/upper bounds on versions.
@@ -66,14 +75,15 @@ dependencies = [
     "pycurl>=7.45.3",
 ]
 
-# Extra groups of dependencies. 
-# These can be installed using the "extras" syntax, e.g.:
-#   $ pip install datatools[dev]
-# 
-# For details on dependency specifiers: 
+# Extra groups of dependencies
+# For details on dependency specifiers:
 # https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras
 # Setuptools details:
 # https://setuptools.pypa.io/en/latest/userguide/dependency_management.html
+#
+# These can be installed using the "extras" syntax, e.g.:
+#   $ pip install datatools[dev]
+#
 [project.optional-dependencies]
 dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
 examples = [
@@ -84,6 +94,8 @@ examples = [
     "scipy>=1.13.0",
 ]
 
+
+# --- Additional info ---
 # Links
 [project.urls]
 Homepage = "https://github.com/bainmatt/data-tools"
@@ -94,64 +106,145 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 # These are installed with pip and execute the specified functions when invoked
 # Reference: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
 # e.g., `my-script` executes `function` from `my_package.module`:
+#
 [project.scripts]
 # my-script = "my_package.module:function"
 
 # Data files
 # List any data files included in your packages that need to be installed.
 # Reference: https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+#
 [tool.setuptools.package-data]
 # package-data = ["*.txt", "*.rst", "*.dat"]
 
 
-# --- Further setuptools configurations ---
-# Package discovery. Setuptools-specific:
+# =============================================================================
+# Additional configurations
+# =============================================================================
+
+# --- Package discovery (setuptools-specific) ---
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#
-# [options]
-# package_dir = "src"
+#
 [tool.setuptools.packages.find]
 where = ["src"]
-packages = ["datatools"]
+include = ["datatools"]
 
 # XXX (needed?) Indicates that the package is type-hinted
-[options.package_data]
-datatools = "py.typed"
+# [options.package_data]
+# datatools = "py.typed"
 
-# Testing configuration
+# --- Testing configuration ---
 # Reference: https://docs.pytest.org/en/7.1.x/reference/customize.html
+# Complete reference:
+# https://docs.pytest.org/en/7.1.x/reference/reference.#html#configuration-options
+#
 [tool.pytest.ini_options]
+pythonpath = "src/datatools/"
 # minversion = "6.0"
-addopts = "-ra -q"
+addopts = "-ra -vv"  # -q
 testpaths = [
     "tests",
 ]
+# Custom test markers (include above test with `@pytest.mark.{marker}`
+markers = [
+    "slow: marks tests as slow (deselect with: '-m \"not slow\"')",
+    "serial",
+]
 
-# Typing configuration
-# Reference: https://mypy.readthedocs.io/en/stable/config_file.html
+
+# --- Coverage reports ---
+# Reference: https://coverage.readthedocs.io/en/latest/config.html
+# [tool.coverage.paths]
+# source = [
+#     "src/datatools/",
+#     ]
+
+# [tool.coverage.run]
+# branch = true
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run
+    "@(abc\\.)?abstractmethod",
+    ]
+
+ignore_errors = true
+show_missing = true
+# Don't report on files that have no executable code (e.g., __init__.py)
+skip_empty = true
+
+
+# --- Typing configuration ---
+# mypy .toml docs: https://mypy.readthedocs.io/en/stable/config_file.html
+# mypy command line docs: https://mypy.readthedocs.io/en/stable/command_line.#html
+#
+# Also useful: https://justincaustin.com/blog/mypy-tips-and-tricks/
+# Dealing with generics: https://mypy.readthedocs.io/en/stable/generics.html
+#
+# To run mypy on pkg in src (while respecting every configuration here):
+#   (root_dir) $ mypy .
+# To run mypy on subpkg/module in src:
+#   (root_dir) $ mypy {relative_path}/{module}.py
+#
 [tool.mypy]
 mypy_path = "src"
-check_untyped_defs = true
-disallow_any_generics = true
+# check_untyped_defs = true
 ignore_missing_imports = true
-no_implicit_optional = true
-show_error_codes = true
-strict_equality = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unreachable = true
-warn_unused_configs = true
 no_implicit_reexport = true
+show_error_codes = true
+show_error_context = true
+# Main typing configurations
+no_implicit_optional = true
+strict_optional = true
+strict_equality = true
+disallow_any_generics = true    # strict
+warn_return_any = true          # strict
+warn_redundant_casts = true
+warn_unreachable = true         # strict
+warn_unused_configs = true
+
+# Do not type-check the specified subpkgs/modules
+# Inline silencing of specific errors:
+# https://mypy.readthedocs.io/en/stable/error_codes.html
+#
+[[tool.mypy.overrides]]
+module = [
+    # "datatools.models.*",
+    "datatools._examples",
+    "datatools._functions_to_test",
+    "datatools._media_scrape",
+]
+ignore_errors = true
 
 
 # --- Build and installation ---
+# Development mode (setuptools):
+# https://setuptools.pypa.io/en/latest/userguide/development_mode.html
+#
 # Building and distributing packages with setuptools:
 # https://setuptools.pypa.io/en/latest/setuptools.html
 # Build system support (setuptools):
 # https://setuptools.pypa.io/en/latest/build_meta.html
-# Development mode (setuptools):
-# https://setuptools.pypa.io/en/latest/userguide/development_mode.html
-# 
 # The packaging flow (Python Packaging User Guide):
 # https://packaging.python.org/en/latest/flow/
 
-
+# To perform editable installation (with environment activated):
+# (such that changes in the Python source code can immediately take place
+# without requiring a new installation)
+#   $ pip install --editable .
+# To uninstall:
+#   $ pip uninstall datatools
+#

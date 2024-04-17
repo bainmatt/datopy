@@ -58,7 +58,9 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     """
     Display an informative representation of multiple objects side-by-side.
 
-    Note: This function uses `eval()` to render expressions it receives as strings. Access to variables in the global namespace is controlled by `globs`. Take care to only pass trusted expressions to the function.
+    Note: This function uses `eval()` to render expressions it receives
+    as strings. Access to variables in the global namespace is controlled
+    by `globs`. Take care to only pass trusted expressions to the function.
 
     Parameters
     ----------

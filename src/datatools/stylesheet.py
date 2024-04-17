@@ -3,17 +3,36 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import seaborn as sns
 
+import os
+import sys
+
+
+class suppress_output:
+    """
+    Context manager to suppress outputs.
+    Intended for use with pyplot to suppress intermittent printouts.
+    """
+    def __enter__(self):
+        self.stdout = sys.stdout
+        # Redirect stdout to null device
+        sys.stdout = open(os.devnull, 'w')
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Args:
+            exc_type  : Exception type
+            exc_value : Exception value
+            traceback : Traceback
+        """
+        sys.stdout.close()
+        sys.stdout = self.stdout
+
 
 def customize_matplotlib_rcParams():
-    """Sets custom matplotlib rcParams to handle default styling for all matplotlib plotting functions and functions built upon matplotlib (e.g., Seaborn). Contrast with: https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
-
-    Parameters
-    ----------
-        None
-
-    Returns
-    -------
-        None
+    """Sets custom matplotlib rcParams to handle default styling for
+    all matplotlib plotting functions and functions built upon matplotlib
+    (e.g., Seaborn). Contrast with:
+    https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
 
     Examples
     --------
@@ -22,10 +41,12 @@ def customize_matplotlib_rcParams():
 
     Create a plot:
     >>> import matplotlib.pyplot as plt
-    >>> plt.plot([1, 2, 3], [4, 5, 6])
-    >>> plt.xlabel('x label'); plt.ylabel('y label'); plt.title('Title')
+    >>> with suppress_output():
+    ...     plt.plot([1, 2, 3], [4, 5, 6])
+    ...     plt.xlabel('x label')
+    ...     plt.ylabel('y label')
+    ...     plt.title('Title');
     >>> plt.show()
-
     """
 
     ## General properties

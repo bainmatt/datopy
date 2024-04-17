@@ -1,5 +1,6 @@
 """
-Tools for efficient web-based data retrieval, data processing, constructing tables, and populating missing metadata fields in existing tables.
+Tools for efficient web-based data retrieval, data processing,
+constructing tables, and populating missing metadata fields in existing tables.
 """
 
 import re
