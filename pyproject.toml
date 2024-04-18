@@ -148,6 +148,7 @@ testpaths = [
 # Custom test markers (include above test with `@pytest.mark.{marker}`
 markers = [
     "slow: marks tests as slow (deselect with: '-m \"not slow\"')",
+    # "benchmark: tests that include benchmarking",
     "serial",
 ]
 

@@ -1,6 +1,5 @@
 """
-Tools for data modeling, validation, and basic data processing,
-including auto-generating data models and a flexible base framework for ETL workflows.
+Tools for data modeling, validation, and raw data processing, including auto-generated data models and a flexible framework for ETL workflows.
 """
 
 import json

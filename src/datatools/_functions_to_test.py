@@ -1,5 +1,5 @@
 """
-Some boilerplate functions to use to demonstrate the pytest testing framework.
+Some boilerplate functions for demonstrating the pytest testing framework.
 Corresponding test module: 'tests/test__functions_to_test.py'.
 Reference: https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject?tab=readme-ov-file
 """
@@ -61,7 +61,8 @@ def omit_string_patterns(input_string: str, patterns: list[str]) -> str:
 
 # --- API-based data retrieval ---
 def imdb_film_retrieve(movie_title: str) -> object:
-    """IMDb film metadata retrieval routine."""
+    """IMDb film metadata retrieval routine.
+    """
     ia = Cinemagoer()
     movies = ia.search_movie(movie_title)
 

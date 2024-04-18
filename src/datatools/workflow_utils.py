@@ -1,6 +1,6 @@
 """
-Tools for data I/O (systematically and securely saving figures and
-Jupyter runtime files, manually downloading modules) and other data workflows.
+Tools for data I/O (saving figures and Jupyter runtime environment files,
+manually downloading modules) and other data workflows.
 """
 
 import os
