@@ -75,6 +75,9 @@ dependencies:
     - mypy
     - pandas-stubs
     - pytest
+    - coverage
+    - pytest-benchmark
+    - tox
     # - pytest-doctestplus
     - flake8
     # JSON data validation

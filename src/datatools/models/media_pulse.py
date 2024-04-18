@@ -1,11 +1,6 @@
 """
 Data models, validators, and ETL tools for scraped media data,
 including reviews (via IMDb), music albums (via Spotify), and related information (via Wikipedia).
-
---- Execution guidelines ---
-To run a module within a subfolder that relies on modules in a parent folder:
-- Ensure your working directory is set to your package directory.
-- Use absolute imports. The debugger will execute relative to the package root.
 """
 
 import re

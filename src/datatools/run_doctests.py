@@ -1,10 +1,5 @@
 """
 Runs doctests for all specified modules as a unittest suite.
-
-Note
-----
-With `pytest` installed and configured to locate module imports correctly,
-can also run `pytest --doctest-modules {optional_subpkg/module_name}`.
 """
 
 from typing import Tuple

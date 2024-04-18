@@ -5,6 +5,7 @@ Reference:     https://github.com/mCodingLLC/clickThatLikeButton-TestingStarterP
 """
 
 import sys
+import time
 import pytest
 
 from datatools._functions_to_test import (
@@ -56,6 +57,8 @@ def test_single_clicks():
     ('ddl', LikeState.liked),
 ])
 def test_multi_clicks(test_input, expected):
+    """A parametrized test.
+    """
     assert click_many(LikeState.empty, test_input) is expected
 
 
@@ -101,7 +104,7 @@ def test_db_click(db_conn):
 def test_print(capture_stdout):
     print("hello")
     assert capture_stdout["stdout"] == "hello\n"
-
+    
 
 # --- Other testing patterns (e.g., text, tables) ---
 def test_omit_string_patterns():
@@ -114,6 +117,43 @@ def test_omit_string_patterns():
 def test_transpose_table():
     table = transpose_table([1, 2], [3, 4])
     assert list(table.iloc[0, :]) == ['31', '41']
+
+
+# --- Benchmarking ---
+# Reference: https://pytest-benchmark.readthedocs.io/en/latest/
+# Useful: https://pytest-with-eric.com/pytest-best-practices/pytest-benchmark/
+def something(duration=.0000001):
+    """Function to be benchmarked. Accepts the seconds it will take to run.
+    """
+    time.sleep(duration)
+    # Return anything, as in a normal test
+    return 123
+
+
+@pytest.mark.benchmark
+def test_my_stuff(benchmark):
+    """Benchmarking function.
+    """
+    # benchmark something
+    result = benchmark(something)
+
+    # Extra code to verify that the run completed correctly
+    assert result == 123
+
+
+# Encapsulate any to-be-benchmarked tests and pass to the benchmark fixture
+# Limit rounds and time to make output more readable as needed
+@pytest.mark.benchmark(
+    min_rounds=5, 
+    min_time=0.1,
+    disable_gc=True,
+    warmup=False,
+)
+def test_omit_benchmark(benchmark):
+    """A standard benchmarking wrapper function.
+    """
+    benchmark(test_omit_string_patterns)
+    
 
 
 # --- Overview of useful pytesting CLI routines ---

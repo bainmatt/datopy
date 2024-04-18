@@ -3,6 +3,7 @@
 # 
 # 	$ make {recipe-name}
 # 
+# Reference: https://makefiletutorial.com/#makefile-cookbook
 # ==============================================================================
 
 
@@ -28,12 +29,12 @@ pytests:
 	coverage report
 
 qa-suite:
-	@echo "\n\nRunning pytests\n===================="
+	@echo "\n\nRunning pytests...\n===================="
 	coverage run -m pytest
 	coverage report
-	@echo "\n\nRunning type checking\n===================="
+	@echo "\n\nRunning type checking...\n===================="
 	mypy src
-	@echo "\n\nRunning linting\n===================="
+	@echo "\n\nRunning linting...\n===================="
 	flake8 src
 
 cov-report:

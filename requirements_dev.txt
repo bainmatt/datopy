@@ -1,0 +1,5 @@
+mypy==1.9.0
+pandas-stubs==2.2.1.240316
+pytest==8.1.1
+pytest-benchmark==4.0.0
+flake8==7.0.0
