@@ -61,6 +61,9 @@ class IMDbFilm(BaseModel):
 
     Example
     -------
+    >>> from pydantic import ValidationError
+    >>> from datatools.models.media_pulse import IMDbFilm
+    
     >>> valid_film = IMDbFilm(
     ...     title='name 10!', imdb_id='tt1234567', kind='movie',
     ...     year=1990, rating=7.2, votes=122,
@@ -86,10 +89,14 @@ class IMDbFilm(BaseModel):
         For further information visit https://errors.pydantic.dev/2.7/v/greater_than_equal
 
     Survey available fields and types
-    # >>> film = imdb_film_retrieve(Film('spirited away'))
+    
+    >>> import pprint
+    >>> from datatools.models.media_pulse import Film
+    >>> from datatools._examples import imdb_film_retrieve
+    >>> from datatools.datamodel_utils import apply_recursive
+    >>> film = imdb_film_retrieve(Film('spirited away'))
+    
     # >>> film.keys()
-    # >>> import pprint
-    # >>> from datamodel_utils import apply_recursive
     # >>> pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)
     """
     # Identifiers

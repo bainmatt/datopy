@@ -27,7 +27,7 @@ build-backend = "setuptools.build_meta"
 #   $ pip install data-tools
 #
 [project]
-name = "data-tools"
+name = "datatools"
 version = "0.0.1"
 description = "Tools for data modeling, ETL, and web scraping"
 readme = "README.md"

@@ -66,6 +66,8 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     Examples
     --------
+    >>> from datatools._media_scrape import get_imdb_id
+    
     >>> movie_title = "the shawshank redemption"
     >>> tt_id = get_imdb_id(movie_title)
     >>> tt_id
@@ -119,6 +121,9 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
 
     Examples
     --------
+    >>> import textwrap
+    >>> from datatools._media_scrape import get_imdb_reviews, get_imdb_id
+    
     >>> movie_title = "finding nemo"
     >>> movie_id = get_imdb_id(movie_title)
     >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
@@ -168,6 +173,9 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
     Examples
     --------
+    Setup
+    
+    >>> from datatools._media_scrape import get_film_metadata
     >>> title = 'donnie darko'
     >>> film_df = get_film_metadata(title)
 

@@ -1,7 +1,14 @@
+"""
+A helper function that updates the default matplotlib (and by
+extension, Seaborn) style parameters for a more uniform and readable
+look.
+"""
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import seaborn as sns
+from cycler import cycler
 
 import os
 import sys
@@ -28,18 +35,32 @@ class suppress_output:
         sys.stdout = self.stdout
 
 
-def customize_matplotlib_rcParams():
-    """Sets custom matplotlib rcParams to handle default styling for
+def customize_matplotlib_rcParams() -> None:
+    """
+    Sets custom matplotlib rcParams to handle default styling for
     all matplotlib plotting functions and functions built upon matplotlib
-    (e.g., Seaborn). Contrast with:
-    https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
+    (e.g., Seaborn).
+
+    Notes
+    -----
+    - When run in isolation, will apply the new style parameters globally.
+    - When provided as context to a plotting routine, styles only that plot.
+    - Contrast with the default matplotlib rc file:
+    ... https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
 
     Examples
     --------
-    Apply the customizations:
+    >>> from datatools.stylesheet import (
+    ...     customize_matplotlib_rcParams,
+    ...     suppress_output,
+    ... )
+
+    Apply the customizations
+
     >>> customize_matplotlib_rcParams()
 
-    Create a plot:
+    Create a plot
+
     >>> import matplotlib.pyplot as plt
     >>> with suppress_output():
     ...     plt.plot([1, 2, 3], [4, 5, 6])
@@ -89,8 +110,8 @@ def customize_matplotlib_rcParams():
     # mpl.rcParams['ytick.major.pad'] = 3.5
 
     # Discrete color cycle (and continuous map)
-    mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
-    mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=sns.color_palette("PiYG", n_colors=6))
+    mpl.rcParams['axes.prop_cycle'] = cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
+    mpl.rcParams['axes.prop_cycle'] = cycler(color=sns.color_palette("PiYG", n_colors=6))
 
     # Legend properties
     mpl.rcParams['legend.loc'] = 'best'

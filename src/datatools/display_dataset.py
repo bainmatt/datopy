@@ -3,12 +3,12 @@ Tools for visualizing matrix and dataframe operations.
 
 Notes
 -----
-- Adapted from [1] to support NumPy arrays, in addition to Pandas data frames.
+Adapted from [1] to support NumPy arrays, in addition to Pandas data frames.
 
 References
 ----------
-... [1] VanderPlas, J. (2016). Python data science handbook: Essential tools
-        for working with data. "O'Reilly Media, Inc.".
+[1] VanderPlas, J. (2016). Python data science handbook: Essential tools
+    for working with data. "O'Reilly Media, Inc.".
 """
 
 import doctest
@@ -36,6 +36,8 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
 
     Examples
     --------
+    >>> from datatools.display_dataset import make_df
+    
     >>> import pandas as pd
     >>> make_df("ABC", [1,2,3])
         A   B   C
@@ -58,7 +60,9 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     """
     Display an informative representation of multiple objects side-by-side.
 
-    Note: This function uses `eval()` to render expressions it receives
+    Note
+    ----
+    This function uses `eval()` to render expressions it receives
     as strings. Access to variables in the global namespace is controlled
     by `globs`. Take care to only pass trusted expressions to the function.
 
@@ -73,7 +77,12 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
 
     Examples
     --------
-    Data frame example:
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> from datatools.display_dataset import display, make_df
+
+    Data frame example
+    
     >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
     >>> display('df1', 'df2', 'pd.concat([df1, df2])', globs=globals(), bold=False)
     <BLANKLINE>
@@ -101,7 +110,8 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     <BLANKLINE>
     <BLANKLINE>
 
-    Matrix example:
+    Matrix example
+    
     >>> A = np.array([[1, 3], [2, 4]]); x = np.array([[0, 1]])
     >>> display("A", "x.T", "np.dot(A, x.T)", globs=globals(), bold=False)
     <BLANKLINE>
@@ -124,6 +134,7 @@ def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
     <BLANKLINE>
     <BLANKLINE>
     """
+
     if globs is None:
         globs = {}
 

@@ -49,11 +49,14 @@ def list_to_dict(obj: list[object] | tuple[object] | set[object],
         Intended use: constructing pattern-based data models from a sample.
 
     Returns
-    dict : The supplied list's dictionary representation.
     -------
+    res : dict
+        The supplied list's dictionary representation.
 
     Examples
     --------
+    >>> from datatools.datamodel_utils import list_to_dict
+
     >>> my_list = [1, 'two', [3], {'four': 5}]
     >>> list_to_dict(my_list)
     {1: 1, 2: 'two', 3: [3], 4: {'four': 5}}
@@ -98,28 +101,36 @@ def compare_dict_keys(dict1: GenericNestedDict | object,
     Examples
     --------
     Setup
+
+    >>> from datatools.datamodel_utils import compare_dict_keys
     >>> import copy
     >>> dict1 = {'a1': 1, 'a2': 'two', 'a3': [3],
     ...          'b1': {'b11': 1, 'b12': 'two', 'b13': [3]},
     ...          'c1': {'c11': {'c111': 1, 'c112': 'two', 'c113': [3]}}
     ... }
 
+    >>> from datatools.datamodel_utils import compare_dict_keys
+
     Identical dictionaries
+
     >>> dict2 = copy.deepcopy(dict1)
     >>> compare_dict_keys(dict1, dict2)
 
     Missing nesting level 0 key
+
     >>> del dict2['a1']
     >>> compare_dict_keys(dict1, dict2)
     {'missing_keys': ['a1']}
 
     Missing nesting level 1 key
+
     >>> dict2 = copy.deepcopy(dict1)
     >>> del dict2['b1']['b12']
     >>> compare_dict_keys(dict1, dict2)
     {'nested_diff': {'b1': {'missing_keys': ['b12']}}}
 
     Missing nesting level 2 key
+
     >>> dict2 = copy.deepcopy(dict1)
     >>> del dict2['c1']['c11']['c113']
     >>> compare_dict_keys(dict1, dict2)
@@ -178,7 +189,10 @@ def apply_recursive(func: Callable[..., Any],
 
     Examples
     --------
+    >>> from datatools.datamodel_utils import apply_recursive
+
     Define the data
+
     >>> nested_data =  {'type': 'album', 'url': 'link.com', 'audio_features': [
     ...     {'loudness': -11.4, 'duration_ms': 251},
     ...     {'loudness': -15.5, 'duration_ms': 284}]}
@@ -186,11 +200,13 @@ def apply_recursive(func: Callable[..., Any],
     {'type': 'album', 'url': 'link.com', 'audio_features': [{'loudness': -11.4, 'duration_ms': 251}, {'loudness': -15.5, 'duration_ms': 284}]}
 
     Convert to json-friendly representation
+
     >>> serialized = apply_recursive(str, nested_data)
     >>> print(serialized)
     {'type': 'album', 'url': 'link.com', 'audio_features': {1: {'loudness': '-11.4', 'duration_ms': '251'}, 2: {'loudness': '-15.5', 'duration_ms': '284'}}}
 
     Convert to field/type pairs
+
     >>> schema = apply_recursive(lambda x: type(x).__name__, nested_data)
     >>> print(schema)
     {'type': 'str', 'url': 'str', 'audio_features': {1: {'loudness': 'float', 'duration_ms': 'int'}, 2: {'loudness': 'float', 'duration_ms': 'int'}}}
@@ -227,6 +243,9 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 
     Examples
     --------
+    >>> import pprint
+    >>> from datatools.datamodel_utils import schema_jsonify
+
     >>> original_schema = {'name': 'str', 'quantity': 'int', 'features': {1: {'volume': 'str', 'duration': 'float'}, 2: {'volume': 'str', 'duration': 'float'}}, 'creator': {'person': {'name': 'str'}, 'company': {'name': 'str', 'location': 'str'}}}
     >>> schema = schema_jsonify(original_schema)
     >>> schema = {**{"title": "title", "description": "description"}, **schema}
