@@ -11,6 +11,14 @@ import pandas as pd
 # TODO default to all modules and submodules
 
 def run_doctest_suite(modules_to_test: Tuple[str, ...]):
+    """_sumary_
+
+    Parameters
+    ----------
+    modules_to_test : Tuple[str, ...]
+        _description_
+    """
+
     total_failures = 0
     results_by_module = {}
     n_modules = len(modules_to_test)

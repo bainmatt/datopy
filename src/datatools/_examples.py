@@ -1,5 +1,6 @@
 """
 A home for one-off tests and data-generating routines.
+"""
 
 # --- My retrieve/process/load (ETL) & model/validation process for APIs ---
 # 1a) Identify your topic, fields of interest, source, and tools
@@ -14,7 +15,7 @@ A home for one-off tests and data-generating routines.
 # - Fields: descriptions, required entries
 # - Type-specific: num (range), str (regex), cat (options)
 # - List-like container types: uniformity of elements, length, options, order
-"""
+
 
 import os
 import re
@@ -225,10 +226,17 @@ def run_auto_datamodel_example(
 
     Examples
     --------
-    setup
+    Setup
+
+    >>> import re
+    >>> from datatools._examples import run_auto_datamodel_example
+    >>> from datatools.etl_utils import omit_string_patterns
+    >>> from datatools.models.media_pulse import Album, Book, Film
+    
     >>> do_save=False
 
     imdb: film
+
     >>> film = Film("eternal sunshine of the spotless mind")
     >>> datamodel = run_auto_datamodel_example(
     ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
@@ -240,6 +248,7 @@ def run_auto_datamodel_example(
     '19 Mar 2004 (USA)'
 
     spotify: album
+
     >>> album = Album("kid A", "radiohead")
     >>> datamodel = run_auto_datamodel_example(
     ...     source="spotify", search_terms=album, do_save=do_save)
@@ -251,6 +260,7 @@ def run_auto_datamodel_example(
     '6GjwtEZcfenmOf6l18N7T7'
 
     wiki: novel
+
     >>> book = Book("to kill a mockingbird")
     >>> outputs = run_auto_datamodel_example(
     ...    source="wiki", search_terms=book, do_save=do_save)
@@ -262,6 +272,7 @@ def run_auto_datamodel_example(
     '281'
 
     wiki: film
+
     >>> film = Film("eternal sunshine of the spotless mind")
     >>> outputs = run_auto_datamodel_example(
     ...    source="wiki", search_terms=film, do_save=do_save)
@@ -273,6 +284,7 @@ def run_auto_datamodel_example(
     '$20 million'
 
     wiki: album
+
     >>> album = Album("kid A", "radiohead")
     >>> outputs = run_auto_datamodel_example(
     ...    source="wiki", search_terms=album, do_save=do_save)

@@ -106,6 +106,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/lumache.py
+
 
 # celery beat schedule file
 celerybeat-schedule

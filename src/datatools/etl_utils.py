@@ -35,6 +35,7 @@ def omit_string_patterns(input_string: str, patterns: List[str]) -> str:
     ----------
     input_string : str
         The to-be-cleaned string.
+
     patterns : List[str]
         A list of patterns to omit from the string.
 
@@ -44,6 +45,8 @@ def omit_string_patterns(input_string: str, patterns: List[str]) -> str:
 
     Examples
     --------
+    >>> from datatools.etl_utils import omit_string_patterns
+
     >>> input_string = "[[A \\\\ messy * string * with undesirable /patterns]]"
     >>> print(input_string)
     [[A \\ messy * string * with undesirable /patterns]]
@@ -71,20 +74,24 @@ def retrieve_wiki_topics(listing_page: str, verbose: bool = True) -> List[str]:
     """
     _summary_
 
-    Find listing_page here:
+
+    Notes
+    -----
+    Only hyperlinked topics (those with a Wikipedia page) are retrieved.
+    Search Wikipedia's catalogue of listing pages here:
     https://en.wikipedia.org/wiki/List_of_lists_of_lists
 
     Parameters
     ----------
     listing_page : str
-        _description_
+        The title of a Wikipedia article containing topics to be retrieved.
     verbose : bool, default=True
-        _description_
+        Option to enable/disable printouts.
 
     Returns
     -------
     target_pages : List[str]
-        _description_
+        A list of topics (by article name) extracted from the listing page.
     """
 
     wiki_parse = wptools.page(listing_page).get_parse().data['parsetree']

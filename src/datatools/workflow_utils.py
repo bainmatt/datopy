@@ -39,6 +39,8 @@ def git_module_loader(modules: Dict[str, List[str]],
 
     Examples
     --------
+    >>> from datatools.workflow_utils import git_module_loader
+    
     >>> modules = {'gitusername/repo/branch': ['module1.py', 'module2.py']}
     >>> git_module_loader(modules, run_tests=True, run_download=True)
     Module gitusername/repo/branch/module1.py does not exist.

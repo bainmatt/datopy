@@ -1,0 +1,6 @@
+﻿datatools.models.media\_pulse.WikiAlbum.model\_dump\_json
+=========================================================
+
+.. currentmodule:: datatools.models.media_pulse
+
+.. automethod:: WikiAlbum.model_dump_json

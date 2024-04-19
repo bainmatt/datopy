@@ -52,26 +52,40 @@ dependencies:
   - python=3.10
   - pip>=19.0
   - requests
+  # Data analysis
   - pandas
-  # Data validation
-  - pydantic     
-  # Web scraping
+  - scipy
+  # Plotting
+  - matplotlib
+  - seaborn
+  # data validation
+  - pydantic
+
+  # [Optional: API clients]
   - bs4
   # ensures pycurl and wptools are installed correctly
   - openssl         
   - pycurl 
   # secure API key retrieval
   - python-dotenv   
-  # [Optional]
-  - scipy
-  - matplotlib
-  - seaborn
+
+  # [Docs]
+  - sphinx
 
   - pip:
+    # JSON data validation
+    - jsonschema
+
+    # [Optional: API clients]
+    - wptools
+    - cinemagoer
+    - spotipy
+
     # [Build]
     - setuptools
+
     # [Dev] Typing/Testing/Linting
-    # run `mypy --install-types` to install missing stubs. Pandas' given below.
+    # run `mypy --install-types` to install missing stubs. Pandas given below.
     - mypy
     - pandas-stubs
     - pytest
@@ -80,9 +94,9 @@ dependencies:
     - tox
     # - pytest-doctestplus
     - flake8
-    # JSON data validation
-    - jsonschema   
-    # [Optional] API clients
-    - wptools
-    - cinemagoer
-    - spotipy
+
+    # [Docs]
+    - furo
+    - babel
+    - numpydoc
+    - autodoc_pydantic
