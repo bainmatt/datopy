@@ -3,6 +3,7 @@ requests==2.31.0
 pandas==2.2.2
 pydantic==2.7.0
 bs4==0.0.2
+# pycurl==7.45.3 --global-option="--with-openssl==8.4.0"
 # pycurl==7.45.3
 # Build
 setuptools==69.5.1

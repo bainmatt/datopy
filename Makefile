@@ -8,11 +8,11 @@
 
 
 # Variables
-PKG ?= datatools
+PKG ?= datopy
 
 
 doctests:
-	python src/datatools/run_doctests.py
+	python src/datopy/run_doctests.py
 
 # Argument `mod` can be a path to a python module (relative PKG dir) or a dir
 py-doctests:

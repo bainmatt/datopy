@@ -1,14 +1,14 @@
 """
 Assorted boilerplate tests demonstrating pytest syntax and use cases.
 Documentation: https://docs.pytest.org/en/7.1.x/example/index.html
-Reference:     https://github.com/mCodingLLC/clickThatLikeButton-TestingStarterProject?tab=readme-ov-file
+Reference:     https://github.com/mCodingLLC/slapThatLikeButton-TestingStarterProject?tab=readme-ov-file
 """
 
 import sys
 import time
 import pytest
 
-from datatools._functions_to_test import (
+from datopy._functions_to_test import (
     LikeState, click_many,
     omit_string_patterns, imdb_film_retrieve, transpose_table,
 )
@@ -104,7 +104,7 @@ def test_db_click(db_conn):
 def test_print(capture_stdout):
     print("hello")
     assert capture_stdout["stdout"] == "hello\n"
-    
+
 
 # --- Other testing patterns (e.g., text, tables) ---
 def test_omit_string_patterns():
@@ -144,7 +144,7 @@ def test_my_stuff(benchmark):
 # Encapsulate any to-be-benchmarked tests and pass to the benchmark fixture
 # Limit rounds and time to make output more readable as needed
 @pytest.mark.benchmark(
-    min_rounds=5, 
+    min_rounds=5,
     min_time=0.1,
     disable_gc=True,
     warmup=False,
@@ -153,7 +153,6 @@ def test_omit_benchmark(benchmark):
     """A standard benchmarking wrapper function.
     """
     benchmark(test_omit_string_patterns)
-    
 
 
 # --- Overview of useful pytesting CLI routines ---

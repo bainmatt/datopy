@@ -44,7 +44,7 @@
 # (1) dependency information in ‘environment.yml’
 # (2) corresponding version information in ‘requirements_pip.txt’
 
-name: data-tools
+name: dato-py
 channels:
   - apple
   - conda-forge
@@ -64,10 +64,10 @@ dependencies:
   # [Optional: API clients]
   - bs4
   # ensures pycurl and wptools are installed correctly
-  - openssl         
-  - pycurl 
+  - openssl
+  - pycurl
   # secure API key retrieval
-  - python-dotenv   
+  - python-dotenv
 
   # [Docs]
   - sphinx
@@ -92,6 +92,7 @@ dependencies:
     - coverage
     - pytest-benchmark
     - tox
+    # - tox-conda
     # - pytest-doctestplus
     - flake8
 

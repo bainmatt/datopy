@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
 
 # setup(
-#     name='datatools',
+#     name='datopy',
 #     version='0.1',
 #     author="Matthew Bain",
 #     description = ("Assorted examples and tools for data modeling, ETL,"
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 #     url = "https://github.com/bainmatt/data-tools",
 #     license='MIT',
 #     # packages=find_packages(exclude=(
-#     #     'datatools/tests', 'datatools/data', 'datatools/_examples', 'datatools/_settings', 'datatools/_media_scrape')),
+#     #     'datopy/tests', 'datopy/data', 'datopy/_examples', 'datopy/_settings', 'datopy/_media_scrape')),
 #     packages=find_packages(),
 #     include_package_data=False,
 #     long_description=read("README.md"),

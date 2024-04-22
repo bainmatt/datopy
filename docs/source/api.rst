@@ -23,18 +23,23 @@ API
     .. autosummary::
     :toctree: generated
 
-    datatools
+    datopy
 
 .. autosummary::
-    :toctree: datatools
+    :toctree: datopy
     :recursive:
     
-    datatools.workflow_utils
-    datatools.datamodel_utils
-    datatools.etl_utils
-    datatools.run_doctests
-    datatools.display_dataset
-    datatools.stylesheet
-    datatools._examples
-    datatools._media_scrape
-    datatools.models.media_pulse
+    datopy.workflow
+    datopy.modeling
+    datopy.etl
+    datopy.run_doctests
+    datopy.inspection
+    datopy.stylesheet
+    datopy._examples
+    datopy._media_scrape
+
+.. autosummary::
+    :toctree: models
+    :recursive:
+    
+    datopy.models.media

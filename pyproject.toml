@@ -27,7 +27,7 @@ build-backend = "setuptools.build_meta"
 #   $ pip install data-tools
 #
 [project]
-name = "datatools"
+name = "datopy"
 version = "0.0.1"
 description = "Tools for data modeling, ETL, and web scraping"
 readme = "README.md"
@@ -82,7 +82,7 @@ dependencies = [
 # https://setuptools.pypa.io/en/latest/userguide/dependency_management.html
 #
 # These can be installed using the "extras" syntax, e.g.:
-#   $ pip install datatools[dev]
+#   $ pip install datopy[dev]
 #
 [project.optional-dependencies]
 dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
@@ -127,11 +127,11 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 #
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["datatools"]
+include = ["datopy"]
 
 # XXX (needed?) Indicates that the package is type-hinted
 # [options.package_data]
-# datatools = "py.typed"
+# datopy = "py.typed"
 
 # --- Testing configuration ---
 # Reference: https://docs.pytest.org/en/7.1.x/reference/customize.html
@@ -139,7 +139,7 @@ include = ["datatools"]
 # https://docs.pytest.org/en/7.1.x/reference/reference.#html#configuration-options
 #
 [tool.pytest.ini_options]
-pythonpath = "src/datatools/"
+pythonpath = "src"
 # minversion = "6.0"
 addopts = "-ra -vv"  # -q
 testpaths = [
@@ -157,7 +157,7 @@ markers = [
 # Reference: https://coverage.readthedocs.io/en/latest/config.html
 # [tool.coverage.paths]
 # source = [
-#     "src/datatools/",
+#     "src/datopy/",
 #     ]
 
 # [tool.coverage.run]
@@ -223,10 +223,10 @@ warn_unused_configs = true
 #
 [[tool.mypy.overrides]]
 module = [
-    # "datatools.models.*",
-    "datatools._examples",
-    "datatools._functions_to_test",
-    "datatools._media_scrape",
+    # "datopy.models.*",
+    "datopy._examples",
+    "datopy._functions_to_test",
+    "datopy._media_scrape",
 ]
 ignore_errors = true
 
@@ -247,5 +247,5 @@ ignore_errors = true
 # without requiring a new installation)
 #   $ pip install --editable .
 # To uninstall:
-#   $ pip uninstall datatools
+#   $ pip uninstall datopy
 #

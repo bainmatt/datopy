@@ -10,7 +10,7 @@ if "%SPHINXBUILD%" == "" (
 set SOURCEDIR=source
 set BUILDDIR=build
 @REM [MB] added this
-set SPHINXPROJ=datatools
+set SPHINXPROJ=datopy
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (

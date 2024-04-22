@@ -5,7 +5,7 @@
 Usage
 =====
 
-.. _installation:
+.. __installation:
 
 Installation
 ------------
@@ -14,12 +14,12 @@ To use data-tools, first install it using pip:
 
 .. code-block:: console
 
-   (.venv) $ pip install "git+https://github.com/bainmatt/data-tools.git#egg=datatools"
+   (.venv) $ pip install "git+https://github.com/bainmatt/data-tools.git#egg=datopy"
 
 
 .. a placeholder example illustrating a function use case
 
-display_dataset
+inspection
 ---------------
 
 ..
