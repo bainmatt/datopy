@@ -8,7 +8,7 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
 # [MB] added this
-SPHINXPROJ    = datatools
+SPHINXPROJ    = datopy
 
 
 # Put it first so that "make" without argument is like "make help".
