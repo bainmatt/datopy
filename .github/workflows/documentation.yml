@@ -14,6 +14,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx furo numpydoc
+      - name: Add src directory to PYTHONPATH
+        run: echo "::add-path::src"
       - name: Sphinx build
         run: |
           sphinx-build docs/source _build
