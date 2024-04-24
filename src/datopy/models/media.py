@@ -16,7 +16,7 @@ from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import datopy._settings
+# import datopy._settings
 from datopy.etl import omit_string_patterns
 from datopy.workflow import doctest_function
 from datopy.modeling import BaseProcessor, CustomTypes
@@ -96,13 +96,13 @@ class IMDbFilm(BaseModel):
     >>> from datopy._examples import imdb_film_retrieve
     >>> from datopy.modeling import apply_recursive
     >>> film = imdb_film_retrieve(Film('spirited away'))
-    
+
     ..
         # >>> film.keys()
         # >>> pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)
-    
+
     """
-    
+
     # Identifiers
     title: CustomTypes.CSVnumstr
     imdb_id: str = Field(pattern=r'^tt.*\d{7}$',

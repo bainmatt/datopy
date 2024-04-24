@@ -17,6 +17,7 @@ https://pydata-sphinx-theme.readthedocs.io/en/stable/
 https://sphinx-themes.org/sample-sites/pydata-sphinx-theme/#
 
 Nice model projects:
+*https://tox.wiki/en/latest/index.html
 https://github.com/scikit-learn/scikit-learn/blob/main/doc/conf.py
 https://github.com/gbif/pygbif/tree/master
 
@@ -43,6 +44,7 @@ import pathlib
 # sys.path.insert(0, pathlib.Path(__file__).parents[2].
 #                 joinpath('src/datopy').resolve().as_posix())
 sys.path.insert(0, os.path.abspath('../src'))
+# sys.path.insert(0, os.path.abspath('../src/datopy'))
 
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -196,6 +198,16 @@ exclude_patterns = ['_[!_]*.py', 'main']
 
 # --- Options for HTML output ---
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# Fundamentals
+# html_theme = 'alabaster'
+html_theme = 'furo'
+html_static_path = ['_static']
+# html_title = "datopy: Data tools for Python"
+html_short_title = "datopy"
+# html_logo = "_static/datopy-logo.png"
+# html_favicon = "_static/datopy-logo.png"
+
+# Fine-tuning
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
@@ -208,11 +220,11 @@ suppress_warnings = ['all']
 # suppress_warnings = ["WARNING: document isn't included in any toctree"]
 python_display_short_literal_types = True
 
-# html_theme = 'alabaster'
-html_theme = 'furo'
-html_static_path = ['_static']
-# html_title = "datopy: Data tools for Python"
-html_short_title = "datopy"
+html_theme_options = {
+    "navigation_with_keys": True,
+    # "light_logo": "logo-light-mode.png",
+    # "dark_logo": "logo-dark-mode.png",
+}
 
 # If false, no index is generated.
 html_use_index = False
