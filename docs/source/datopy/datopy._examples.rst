@@ -25,10 +25,6 @@ datopy.\_examples
 .. autosummary::
     :toctree: .
     
-    _run_idealized_example
-    
-    _run_messy_example
-    
     extract_datamodel
     
     imdb_film_retrieve

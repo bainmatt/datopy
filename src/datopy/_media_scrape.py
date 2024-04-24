@@ -66,19 +66,20 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     Examples
     --------
-.. doctest-skip
+    .. doctest::
+        :skipif: skip_slow
 
-    >>> from datopy._media_scrape import get_imdb_id
+        >>> from datopy._media_scrape import get_imdb_id
 
-    >>> movie_title = "the shawshank redemption"
-    >>> tt_id = get_imdb_id(movie_title)
-    >>> tt_id
-    'tt0111161'
+        >>> movie_title = "the shawshank redemption"
+        >>> tt_id = get_imdb_id(movie_title)
+        >>> tt_id
+        'tt0111161'
 
-    >>> movie_title = "ths shukshank redumption"
-    >>> tt_id = get_imdb_id(movie_title)
-    >>> tt_id
-    "No IMDb Identifier found for 'ths shukshank redumption'."
+        >>> movie_title = "ths shukshank redumption"
+        >>> tt_id = get_imdb_id(movie_title)
+        >>> tt_id
+        "No IMDb Identifier found for 'ths shukshank redumption'."
     """
 
     base_url = "https://www.imdb.com"
@@ -123,22 +124,23 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
 
     Examples
     --------
-.. doctest-skip
+    .. doctest::
+        :skipif: skip_slow
 
-    >>> import textwrap
-    >>> from datopy._media_scrape import get_imdb_reviews, get_imdb_id
+        >>> import textwrap
+        >>> from datopy._media_scrape import get_imdb_reviews, get_imdb_id
 
-    >>> movie_title = "finding nemo"
-    >>> movie_id = get_imdb_id(movie_title)
-    >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
-    >>> for i, review in enumerate(movie_reviews, start=1):
-    ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ...\n");
-    Review 1:
-    I have enjoyed most of the computer-animated films ...
-    <BLANKLINE>
-    Review 2:
-    I'll be totally honest and confirm to you that eve ...
-    <BLANKLINE>
+        >>> movie_title = "finding nemo"
+        >>> movie_id = get_imdb_id(movie_title)
+        >>> movie_reviews = get_imdb_reviews(movie_id, num_reviews=2)
+        >>> for i, review in enumerate(movie_reviews, start=1):
+        ...     print(f"Review {i}:\n{textwrap.fill(review[:50], 79)} ...\n");
+        Review 1:
+        I have enjoyed most of the computer-animated films ...
+        <BLANKLINE>
+        Review 2:
+        I'll be totally honest and confirm to you that eve ...
+        <BLANKLINE>
     """
 
     base_url = f"https://www.imdb.com/title/{movie_id}/reviews"
@@ -177,33 +179,34 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
     Examples
     --------
-.. doctest-skip
+    .. doctest::
+        :skipif: skip_slow
 
-    Setup
+        Setup
 
-    >>> from datopy._media_scrape import get_film_metadata
-    >>> title = 'donnie darko'
-    >>> film_df = get_film_metadata(title)
+        >>> from datopy._media_scrape import get_film_metadata
+        >>> title = 'donnie darko'
+        >>> film_df = get_film_metadata(title)
 
-    ..
-        # >>> film_df.T[0]
-        # title                                                 Donnie Darko
-        # imdbID                                                     0246578
-        # type                                                         movie
-        # year                                                          2001
-        # genres                            Drama, Mystery, Sci-Fi, Thriller
-        # writers                                              Richard Kelly
-        # countries                                            United States
-        # runtime (min)                                                  113
-        # directors                                            Richard Kelly
-        # composer                                           Michael Andrews
-        # cast             Jake Gyllenhaal, Holmes Osborne, Maggie Gyllen...
-        # rating                                                         8.0
-        # Votes                                                       847582
-        # Plot Outline     Donnie Darko doesn't get along too well with h...
-        # Plot             After narrowly escaping a bizarre accident, a ...
-        # Synopsis         Donnie Darko (Jake Gyllenhall) is a troubled t...
-        # Name: 0, dtype: object
+        ..
+            # >>> film_df.T[0]
+            # title                                                 Donnie Darko
+            # imdbID                                                     0246578
+            # type                                                         movie
+            # year                                                          2001
+            # genres                            Drama, Mystery, Sci-Fi, Thriller
+            # writers                                              Richard Kelly
+            # countries                                            United States
+            # runtime (min)                                                  113
+            # directors                                            Richard Kelly
+            # composer                                           Michael Andrews
+            # cast             Jake Gyllenhaal, Holmes Osborne, Maggie Gyllen...
+            # rating                                                         8.0
+            # Votes                                                       847582
+            # Plot Outline     Donnie Darko doesn't get along too well with h...
+            # Plot             After narrowly escaping a bizarre accident, a ...
+            # Synopsis         Donnie Darko (Jake Gyllenhall) is a troubled t...
+            # Name: 0, dtype: object
         """
 
     movie_fields = ['title', 'imdbID', 'kind', 'year', 'runtime',

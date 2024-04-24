@@ -55,6 +55,7 @@ if __name__ == "__main__":
         'datopy.workflow',
         'datopy.modeling',
         'datopy.etl',
+        'datopy.stylesheet',
         'datopy.models.media',
         # 'datopy._media_scrape',
         # 'datopy._examples',

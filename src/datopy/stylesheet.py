@@ -36,7 +36,7 @@ class suppress_output:
 
 
 def customize_rcparams() -> None:
-    """
+    r"""
     Sets custom matplotlib rcParams to handle default styling for
     all matplotlib plotting functions and functions built upon matplotlib
     (e.g., Seaborn).
@@ -46,48 +46,63 @@ def customize_rcparams() -> None:
     - When run in isolation, will apply the new style parameters globally.
     - When provided as context to a plotting routine, styles only that plot.
     - Contrast with the default matplotlib rc file:
+    
       https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
+    - Sphinx directives unfortunately do not display within intellisense
+      tooltips :(, so the below is only visible in the rendered
+      documentation. See
+      
+      https://www.reddit.com/r/vscode/comments/j7itta/sphinx_rendering_in_tooltips/
+
 
     Examples
     --------
     .. plot::
         :context: close-figs
+        :width: 85%
+        :align: left
 
-    >>> from datopy.stylesheet import customize_rcparams, suppress_output
+        Define some data
 
-    Apply the customizations
+        >>> import numpy as np
+        >>> x = np.linspace(0, 50, 1000)
+        >>> y = np.sin(x)
 
-    >>> customize_rcparams()
+        Apply the custom styling
 
-    Create a plot
+        >>> import matplotlib
+        >>> import matplotlib.pyplot as plt
+        >>> from datopy.stylesheet import customize_rcparams, suppress_output
+        >>> customize_rcparams()
 
-    >>> import matplotlib.pyplot as plt
-    >>> with suppress_output():
-    ...     plt.plot([1, 2, 3], [4, 5, 6])
-    ...     plt.xlabel('x label')
-    ...     plt.ylabel('y label')
-    ...     plt.title('Title');
-    >>> plt.show()
+        Produce the plot
 
-    .. plot::
-        :context: close-figs
+        >>> with suppress_output():
+        ...     ax = plt.subplot(111)
+        ...     ax.plot(x, y)
+        ...     ax.set_xlabel('x label')
+        ...     ax.set_ylabel('y label')
+        ...     ax.set_title('Title')
+        ...     ax.grid()
+        ...     ax.set_frame_on(False)
 
-    .. image:: test_image.jpg
+        >>> plt.show()  # /doctest: +SKIP
     """
 
     ## General properties
     # Font face and sizes
     mpl.rcParams['font.family'] = 'sans-serif'
-    # mpl.rcParams['font.sans-serif'] = "Helvetica"
-    mpl.rcParams['font.size'] = 8               # default font sizes
-    mpl.rcParams['axes.titlesize'] = 12         # large
-    mpl.rcParams['axes.labelsize'] = 9          # medium
-    mpl.rcParams['xtick.labelsize'] = 8         # medium
-    mpl.rcParams['ytick.labelsize'] = 8         # medium
-    mpl.rcParams['legend.fontsize'] = 9         # medium
-    mpl.rcParams['legend.title_fontsize'] = 9   # None (same as default axes)
-    mpl.rcParams['figure.titlesize'] = 15       # large (suptitle size)
-    mpl.rcParams['figure.labelsize'] = 12       # large (sup[x|y]label size)
+    # NOTE will need to be reverted to the default for use in a notebook
+    mpl.rcParams['font.sans-serif'] = "Verdana"
+    mpl.rcParams['font.size'] = 9               # default font sizes
+    mpl.rcParams['axes.titlesize'] = 13         # large
+    mpl.rcParams['axes.labelsize'] = 10         # medium
+    mpl.rcParams['xtick.labelsize'] = 9         # medium
+    mpl.rcParams['ytick.labelsize'] = 9         # medium
+    mpl.rcParams['legend.fontsize'] = 10        # medium
+    mpl.rcParams['legend.title_fontsize'] = 10  # None (same as default axes)
+    mpl.rcParams['figure.titlesize'] = 16       # large (suptitle size)
+    mpl.rcParams['figure.labelsize'] = 13       # large (sup[x|y]label size)
 
     # Spines and ticks
     mpl.rcParams['axes.spines.top'] = True
@@ -230,7 +245,7 @@ def customize_rcparams() -> None:
     mpl.rcParams['figure.figsize'] = (5, 5)  # (6, 4), (6.4, 4.8)
 
     # Figure saving settings
-    mpl.rcParams['savefig.transparent'] = True
+    mpl.rcParams['savefig.transparent'] = False
     mpl.rcParams['savefig.format'] = 'png'  # {png, ps, pdf, svg}
     mpl.rcParams['savefig.dpi'] = 330
 
