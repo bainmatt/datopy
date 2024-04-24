@@ -7,8 +7,8 @@
    https://documatt.com/restructuredtext-reference/admonitions.html
 
 
-datopy
-======
+datopy: Python tools for data
+=============================
 
 Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 

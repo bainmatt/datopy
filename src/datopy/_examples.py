@@ -226,79 +226,83 @@ def run_auto_datamodel_example(
 
     Examples
     --------
-.. doctest-skip
+    .. doctest::
+        :skipif: skip_slow
 
-    Setup
+        Setup
+        
+        >>> import re
+        >>> from datopy._examples import run_auto_datamodel_example
+        >>> from datopy.etl import omit_string_patterns
+        >>> from datopy.models.media import Album, Book, Film
 
-    >>> import re
-    >>> from datopy._examples import run_auto_datamodel_example
-    >>> from datopy.etl import omit_string_patterns
-    >>> from datopy.models.media import Album, Book, Film
+        >>> do_save=False
 
-    >>> do_save=False
+        imdb: film
 
-    imdb: film
+        >>> film = Film("eternal sunshine of the spotless mind")
+        >>> datamodel = run_auto_datamodel_example(
+        ...     source="imdb", search_terms=film,
+        ...     verbose=False, do_save=do_save)
+        >>> dict(datamodel.obj)['genres']
+        ['Drama', 'Romance', 'Sci-Fi']
+        >>> datamodel.schema['genres']
+        {1: 'str', 2: 'str', 3: 'str'}
+        >>> datamodel.normalized['original air date'][0]
+        '19 Mar 2004 (USA)'
 
-    >>> film = Film("eternal sunshine of the spotless mind")
-    >>> datamodel = run_auto_datamodel_example(
-    ...     source="imdb", search_terms=film, verbose=False, do_save=do_save)
-    >>> dict(datamodel.obj)['genres']
-    ['Drama', 'Romance', 'Sci-Fi']
-    >>> datamodel.schema['genres']
-    {1: 'str', 2: 'str', 3: 'str'}
-    >>> datamodel.normalized['original air date'][0]
-    '19 Mar 2004 (USA)'
+        spotify: album
 
-    spotify: album
+        ..
+            # >>> album = Album("kid A", "radiohead")
+            # >>> datamodel = run_auto_datamodel_example(
+            # ...     source="spotify", search_terms=album, do_save=do_save)
+            # >>> datamodel.obj['total_tracks']
+            # 11
+            # >>> datamodel.schema['total_tracks']
+            # 'int'
+            # >>> datamodel.normalized['id'][0]
+            # '6GjwtEZcfenmOf6l18N7T7'
 
-    # >>> album = Album("kid A", "radiohead")
-    # >>> datamodel = run_auto_datamodel_example(
-    # ...     source="spotify", search_terms=album, do_save=do_save)
-    # >>> datamodel.obj['total_tracks']
-    # 11
-    # >>> datamodel.schema['total_tracks']
-    # 'int'
-    # >>> datamodel.normalized['id'][0]
-    # '6GjwtEZcfenmOf6l18N7T7'
+        wiki: novel
 
-    wiki: novel
+        >>> book = Book("to kill a mockingbird")
+        >>> outputs = run_auto_datamodel_example(
+        ...    source="wiki", search_terms=book, do_save=do_save)
+        >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
+        'Harper Lee'
+        >>> outputs.schema['author']
+        'str'
+        >>> outputs.normalized['pages'][0]
+        '281'
 
-    >>> book = Book("to kill a mockingbird")
-    >>> outputs = run_auto_datamodel_example(
-    ...    source="wiki", search_terms=book, do_save=do_save)
-    >>> re.search(r'\[\[(.*?)\]\]', outputs.obj['author']).group(1)
-    'Harper Lee'
-    >>> outputs.schema['author']
-    'str'
-    >>> outputs.normalized['pages'][0]
-    '281'
+        wiki: film
 
-    wiki: film
+        >>> film = Film("eternal sunshine of the spotless mind")
+        >>> outputs = run_auto_datamodel_example(
+        ...    source="wiki", search_terms=film, do_save=do_save)
+        >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
+        'Michel Gondry'
+        >>> outputs.schema['director']
+        'str'
+        >>> outputs.normalized['budget'][0]
+        '$20 million'
 
-    >>> film = Film("eternal sunshine of the spotless mind")
-    >>> outputs = run_auto_datamodel_example(
-    ...    source="wiki", search_terms=film, do_save=do_save)
-    >>> re.search(r'\[\[(.*?) \]\]', outputs.obj['director']).group(1)
-    'Michel Gondry'
-    >>> outputs.schema['director']
-    'str'
-    >>> outputs.normalized['budget'][0]
-    '$20 million'
+        wiki: album
 
-    wiki: album
-
-    >>> album = Album("kid A", "radiohead")
-    >>> outputs = run_auto_datamodel_example(
-    ...    source="wiki", search_terms=album, do_save=do_save)
-    >>> genres_raw = outputs.obj['genre']
-    >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
-    >>> genres_processed = omit_string_patterns(genres_raw, patterns_to_omit)
-    >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
-    Experimental rock, post-rock, art rock, electronica, alternative rock
-    >>> outputs.schema['genre']
-    'str'
-    >>> outputs.normalized['type'][0]
-    'studio'
+        >>> album = Album("kid A", "radiohead")
+        >>> outputs = run_auto_datamodel_example(
+        ...    source="wiki", search_terms=album, do_save=do_save)
+        >>> genres_raw = outputs.obj['genre']
+        >>> patterns_to_omit = ["[[", "* ", " * ", "\n", "{{nowrap|", "}}"]
+        >>> genres_processed = omit_string_patterns(
+        ...     genres_raw, patterns_to_omit)
+        >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
+        Experimental rock, post-rock, art rock, electronica, alternative rock
+        >>> outputs.schema['genre']
+        'str'
+        >>> outputs.normalized['type'][0]
+        'studio'
 
     """
     # Check assumptions

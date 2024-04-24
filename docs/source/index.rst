@@ -3,15 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. TOC tree options:
+   https://sphinx-doc-zh.readthedocs.io/en/latest/markup/toctree.html
+
 datopy
 ======
 
 .. Home page intro text
+
 **datopy** (day-toh-pie) is a Python library for people who 
 work with data that aims to simplify repetitive data modelling tasks and
 routine ETL workflows.
 
 .. Use :doc: to reference a document rather than a section within it
+
 Check out the :ref:`Usage <usage>` section for further information, including how to :ref:`install <installation>` the project.
 
 .. note::
@@ -19,8 +24,9 @@ Check out the :ref:`Usage <usage>` section for further information, including ho
    This project is under active development.
 
 .. Main left-hand navbar TOC
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
 
@@ -28,11 +34,12 @@ Indices and tables
 ==================
 
 .. * :ref:`genindex`
-* :ref:`modindex`
+.. * :ref:`modindex`
 .. * :ref:`search`
 
 
 .. Home page TOC
+
 Contents
 --------
 
@@ -41,6 +48,18 @@ Contents
 
    readme
    api
+   api_models
    changelog
 
    .. usage
+
+.. 
+   An additional hidden TOC tree containing all pages (below max depth)
+   to supress the "WARNING: document isn't included in any toctree".
+
+   .. toctree::
+      :hidden:
+      :maxdepth: 10
+      :glob:
+
+      *

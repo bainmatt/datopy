@@ -96,11 +96,13 @@ class IMDbFilm(BaseModel):
     >>> from datopy._examples import imdb_film_retrieve
     >>> from datopy.modeling import apply_recursive
     >>> film = imdb_film_retrieve(Film('spirited away'))
-
+    
     ..
         # >>> film.keys()
         # >>> pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)
+    
     """
+    
     # Identifiers
     title: CustomTypes.CSVnumstr
     imdb_id: str = Field(pattern=r'^tt.*\d{7}$',

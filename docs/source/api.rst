@@ -14,8 +14,8 @@
         (docs) $ make clean
 
 
-API
-===
+Core API
+========
 
 .. rubric:: Modules
 
@@ -37,9 +37,3 @@ API
     datopy.stylesheet
     datopy._examples
     datopy._media_scrape
-
-.. autosummary::
-    :toctree: models
-    :recursive:
-    
-    datopy.models.media

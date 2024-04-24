@@ -20,4 +20,6 @@ datopy.workflow
     
     git_module_loader
     
+    main
+    
 
