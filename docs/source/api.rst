@@ -29,11 +29,11 @@ Core API
     :toctree: datopy
     :recursive:
     
+    datopy.inspection
     datopy.workflow
     datopy.modeling
     datopy.etl
-    datopy.run_doctests
-    datopy.inspection
     datopy.stylesheet
+    datopy.run_doctests
     datopy._examples
     datopy._media_scrape

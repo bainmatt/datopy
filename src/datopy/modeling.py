@@ -15,7 +15,7 @@ from typing import (
 )
 from typing import TYPE_CHECKING
 
-import datopy._settings
+# import datopy._settings
 from datopy.workflow import doctest_function
 
 # Custom types

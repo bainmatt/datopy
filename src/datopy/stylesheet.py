@@ -46,12 +46,12 @@ def customize_rcparams() -> None:
     - When run in isolation, will apply the new style parameters globally.
     - When provided as context to a plotting routine, styles only that plot.
     - Contrast with the default matplotlib rc file:
-    
+
       https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
     - Sphinx directives unfortunately do not display within intellisense
       tooltips :(, so the below is only visible in the rendered
       documentation. See
-      
+
       https://www.reddit.com/r/vscode/comments/j7itta/sphinx_rendering_in_tooltips/
 
 

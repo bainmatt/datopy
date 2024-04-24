@@ -13,9 +13,11 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
-          pip install sphinx furo numpydoc
-      - name: Add src directory to PYTHONPATH
-        run: echo "::add-path::src"
+          pip install sphinx furo numpydoc autodoc_pydantic matplotlib
+          pip install -r requirements.txt
+          pip install --editable .
+      #- name: Add src directory to PYTHONPATH
+      #  run: echo "::add-path::src"
       - name: Sphinx build
         run: |
           sphinx-build docs/source _build

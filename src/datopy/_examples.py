@@ -36,7 +36,7 @@ from imdb import Cinemagoer
 from bs4 import BeautifulSoup
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import datopy._settings
+# import datopy._settings
 from datopy.models.media import Film, Album, Book
 from datopy.etl import omit_string_patterns
 from datopy.workflow import doctest_function
@@ -230,7 +230,7 @@ def run_auto_datamodel_example(
         :skipif: skip_slow
 
         Setup
-        
+
         >>> import re
         >>> from datopy._examples import run_auto_datamodel_example
         >>> from datopy.etl import omit_string_patterns
