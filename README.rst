@@ -12,6 +12,9 @@ datopy: Python tools for data
 
 Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 
+.. image:: https://github.com/bainmatt/datopy/actions/workflows/python-package.yml/badge.svg
+    :alt: Tests
+
 .. note::
 
    This project is under active development.
