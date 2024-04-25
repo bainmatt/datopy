@@ -15,10 +15,6 @@ Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/python-package.yml/badge.svg
    :alt: Tests
 
-.. image:: https://bainmatt.github.io/datopy/badges/coverage.svg
-   :target: https://github.com/bainmatt/datopy/actions
-   :alt: cov
-
 .. note::
 
    This project is under active development.
