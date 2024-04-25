@@ -14,6 +14,7 @@ typing_extensions==4.11.0
 types-requests==2.31.0.20240406
 pandas-stubs==2.2.1.240316
 pytest==8.1.1
+coverage==7.4.4
 pytest-benchmark==4.0.0
 flake8==7.0.0
 python-dotenv==1.0.1
