@@ -13,11 +13,11 @@ datopy: Python tools for data
 Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/python-package.yml/badge.svg
-    :alt: Tests
+   :alt: Tests
 
-`.. image:: https://bainmatt.github.io/datopy/badges/coverage.svg
+.. image:: https://bainmatt.github.io/datopy/badges/coverage.svg
    :target: https://github.com/bainmatt/datopy/actions
-   :alt: cov`
+   :alt: cov
 
 .. note::
 
