@@ -61,79 +61,98 @@ jobs:
         # coverage report
         coverage run -m pytest src/datopy --doctest-modules
         # coverage report
-        coverage html
+        # coverage html
+        # Generate detailed coverage report
+        coverage report -m
+        # Generate XML report for the following steps
+        coverage xml
 
-    # Publish coverage report
-    # Upload the generated report above to "coverage-data"
-    # TODO verify that this action applies to the final round of testing run 
-    # (i.e., --doctest-modules on py311)
-    # https://python-basics-tutorial.readthedocs.io/en/latest/test/coverage.html#test-coverage-of-all-tests-with-github-actions
-    - name: "Upload coverage data"
-      uses: actions/upload-artifact@v3
-      with:
-        name: "coverage-data"
-        path: .coverage.*
-        if-no-files-found: ignore
 
-  # Summarize coverage results
-  # Requires that all tests under the job 'tests' are performed.
-  # Once the workflow is complete, the HTML report can be found under: 
-  # Actions ‣ tests ‣ Combine and check coverage.
-  coverage:
-      name: "Combine and check coverage"
-      needs: tests
-      runs-on: ubuntu-latest
-      steps:
-        - name: "Check out the repo"
-          uses: "actions/checkout@v3"
-  
-        - name: "Set up Python"
-          uses: "actions/setup-python@v4"
-          with:
-            python-version: "3.11"
-  
-        - name: "Install dependencies"
-          run: |
-            python -m pip install --upgrade coverage[toml]
+    # - name: Install 
+    #   run: npm install
+    # - name: Test and Coverage
+    #   run: npm run test:cov  # or npm run coverage
 
-        # Downloads the coverage data uploaded above in 
-        # the step "Upload coverage data" to the location "coverage-data".
-        - name: "Download coverage data"
-          uses: actions/download-artifact@v3
-          with:
-            name: "coverage-data"
+    - name: Update Coverage Badge
+      # GitHub actions: default branch variable
+      # https://stackoverflow.com/questions/64781462/github-actions-default-branch-variable
+      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      uses: we-cli/coverage-badge-action@main
 
-        # Checks coverage and exits if it falls below a given threshold. 
-        - name: "Combine coverage and fail it it’s under 50%"
-          run: |
-            python -m coverage combine
-            python -m coverage html --skip-covered --skip-empty
-  
-            # Report and write to summary
-            python -m coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
-  
-            # Report again and fail if under 100%
-            python -Im coverage report --fail-under=50
-  
-        - name: "Upload HTML report if check failed"
-          uses: actions/upload-artifact@v3
-          with:
-            name: html-report
-            path: htmlcov
-          if: ${{ failure() }}
 
-        # Create a badge for coverage % that can be displayed in a readme file.
-        - name: "Create badge"
-          uses: schneegans/dynamic-badges-action@v1.6.0
-          with:
-            auth: ${{ secrets.GIST_TOKEN }}
-            gistID: 3b6365582ce4701db1c3fa36c004d65d
-            filename: covbadge.json
-            label: Coverage
-            message: ${{ env.total }}%
-            minColorRange: 50
-            maxColorRange: 90
-            valColorRange: ${{ env.total }}
+  # TODO discard failed attempts at uploading coverage
+
+  #   # Publish coverage report
+  #   # Upload the generated report above to "coverage-data"
+  #   # TODO verify that this action applies to the final round of testing run 
+  #   # (i.e., --doctest-modules on py311)
+  #   # https://python-basics-tutorial.readthedocs.io/en/latest/test/coverage.html#test-coverage-of-all-tests-with-github-actions
+  #   - name: "Upload coverage data"
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: "coverage-data"
+  #       path: .coverage.*
+  #       if-no-files-found: ignore
+
+  # # Summarize coverage results
+  # # Requires that all tests under the job 'tests' are performed.
+  # # Once the workflow is complete, the HTML report can be found under: 
+  # # Actions ‣ tests ‣ Combine and check coverage.
+  # coverage:
+  #     name: "Combine and check coverage"
+  #     needs: tests
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - name: "Check out the repo"
+  #         uses: "actions/checkout@v3"
+  
+  #       - name: "Set up Python"
+  #         uses: "actions/setup-python@v4"
+  #         with:
+  #           python-version: "3.11"
+  
+  #       - name: "Install dependencies"
+  #         run: |
+  #           python -m pip install --upgrade coverage[toml]
+
+  #       # Downloads the coverage data uploaded above in 
+  #       # the step "Upload coverage data" to the location "coverage-data".
+  #       - name: "Download coverage data"
+  #         uses: actions/download-artifact@v3
+  #         with:
+  #           name: "coverage-data"
+
+  #       # Checks coverage and exits if it falls below a given threshold. 
+  #       - name: "Combine coverage and fail it it’s under 50%"
+  #         run: |
+  #           python -m coverage combine
+  #           python -m coverage html --skip-covered --skip-empty
+  
+  #           # Report and write to summary
+  #           python -m coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+  
+  #           # Report again and fail if under 100%
+  #           python -Im coverage report --fail-under=50
+  
+  #       - name: "Upload HTML report if check failed"
+  #         uses: actions/upload-artifact@v3
+  #         with:
+  #           name: html-report
+  #           path: htmlcov
+  #         if: ${{ failure() }}
+
+  #       # Create a badge for coverage % that can be displayed in a readme file.
+  #       - name: "Create badge"
+  #         uses: schneegans/dynamic-badges-action@v1.6.0
+  #         with:
+  #           auth: ${{ secrets.GIST_TOKEN }}
+  #           gistID: 3b6365582ce4701db1c3fa36c004d65d
+  #           filename: covbadge.json
+  #           label: Coverage
+  #           message: ${{ env.total }}%
+  #           minColorRange: 50
+  #           maxColorRange: 90
+  #           valColorRange: ${{ env.total }}
 
 
     # TODO discard failed attempts at uploading coverage
