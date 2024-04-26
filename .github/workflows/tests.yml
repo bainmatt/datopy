@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python package
+name: CI
 
 on:
   push:
@@ -54,6 +54,12 @@ jobs:
         coverage report
         coverage run -m pytest src/datopy --doctest-modules
         coverage report
+        coverage html
+    - name: Publish coverage report to GitHub Pages
+      # if: ${{ github.ref == 'refs/heads/master' }}
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: htmlcov
 
     # Coverage report badge: https://github.com/marketplace/actions/coverage-badge
     # - name: Update Coverage Badge
