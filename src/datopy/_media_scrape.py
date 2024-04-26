@@ -66,6 +66,7 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     Examples
     --------
+    .. code-block:: python doctest
     .. doctest::
         :skipif: skip_slow
 
@@ -124,6 +125,7 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
 
     Examples
     --------
+    .. code-block:: python doctest
     .. doctest::
         :skipif: skip_slow
 
@@ -179,6 +181,7 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
     Examples
     --------
+    .. code-block:: python doctest
     .. doctest::
         :skipif: skip_slow
 

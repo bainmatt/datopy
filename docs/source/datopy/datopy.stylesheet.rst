@@ -14,7 +14,9 @@ datopy.stylesheet
 .. autosummary::
     :toctree: .
     
-    suppress_output
+    customstyle
+    
+    outputoff
     
 
 
@@ -25,6 +27,6 @@ datopy.stylesheet
 .. autosummary::
     :toctree: .
     
-    customize_rcparams
+    customize_plots
     
 

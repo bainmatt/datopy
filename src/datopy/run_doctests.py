@@ -51,13 +51,14 @@ def run_doctest_suite(modules_to_test: Tuple[str, ...]):
 
 if __name__ == "__main__":
     MODULES_TO_TEST = (
+        'datopy.stylesheet',
         'datopy.inspection',
         'datopy.workflow',
         'datopy.modeling',
         'datopy.etl',
-        'datopy.stylesheet',
         'datopy.models.media',
-        # 'datopy._media_scrape',
+
+        'datopy._media_scrape',
         # 'datopy._examples',
     )
 

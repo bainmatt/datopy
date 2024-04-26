@@ -24,13 +24,17 @@ https://github.com/gbif/pygbif/tree/master
 Beautiful docs (no auto-doctests):
 https://mkdocstrings.github.io/python/usage/
 
+rst reference:
+https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#substitution-definitions
+https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html
+
+For additional numpy-style doctest functionality:
+https://pypi.org/project/pytest-doctestplus/
+
 Sphinx build configuration:
 https://sphinx-rtd-trial.readthedocs.io/en/1.1.3/invocation.html
 
-Numpydocs doctest skipping:
-https://pypi.org/project/pytest-doctestplus/
-
-Handy:
+Handy recipes:
 $ make doctest -B  # overwrite previous build
 
 """
@@ -79,7 +83,7 @@ release = '0.0.1'
 # Autodocs/autosummary:
 # https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
-# 
+#
 extensions = [
    'sphinx.ext.duration',
    'sphinx.ext.doctest',
@@ -139,7 +143,7 @@ plot_html_show_source_link = False
 
 # --- Customize autodoc_pydantic options ---
 # https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html
-# NOTE auto_pydantic does not play well with TOC or `make clean` after build!! 
+# NOTE auto_pydantic does not play well with TOC or `make clean` after build!!
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
 autodoc_pydantic_model_show_json = True
 autodoc_pydantic_model_show_config_summary = False
@@ -181,7 +185,6 @@ numpydoc_show_inherited_class_members = False
 numpydoc_class_members_toctree = True
 
 # Numpy docstring validation checks
-# https://numpydoc.readthedocs.io/en/latest/validation.html#validation-checks
 # https://numpydoc.readthedocs.io/en/latest/validation.html
 # Report warnings for all validation checks except GL01, GL02, and GL05
 numpydoc_validation_checks = {"GL01", "GL02", "GL05"}  # "all"
