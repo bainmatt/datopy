@@ -58,12 +58,13 @@ jobs:
       run: |
         # pytest
         coverage run -m pytest
-        coverage report
+        # coverage report
         coverage run -m pytest src/datopy --doctest-modules
-        coverage report
-        # coverage html
+        # coverage report
+        coverage html
 
     # Publish coverage report
+    # Upload the generated report above to "coverage-data"
     # TODO verify that this action applies to the final round of testing run 
     # (i.e., --doctest-modules on py311)
     # https://python-basics-tutorial.readthedocs.io/en/latest/test/coverage.html#test-coverage-of-all-tests-with-github-actions
