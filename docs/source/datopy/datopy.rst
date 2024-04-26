@@ -1,8 +1,12 @@
 ﻿.. Reference: https://stackoverflow.com/questions/48074094/use-sphinx-autosummary-recursively-to-generate-api-documentation
+datopy
+======
 
-datopy.models.media.WikiBook
-============================
+.. rubric:: Description
 
-.. currentmodule:: datopy.models.media
+.. automodule:: datopy
 
-.. autopydantic_model:: WikiBook
+.. currentmodule:: datopy
+
+
+

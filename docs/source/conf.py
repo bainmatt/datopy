@@ -14,14 +14,15 @@ Theming references:
 https://sphinx-themes.org/
 https://sphinx-themes.org/sample-sites/furo/
 https://pydata-sphinx-theme.readthedocs.io/en/stable/
-https://sphinx-themes.org/sample-sites/pydata-sphinx-theme/#
+https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html
 
 Nice model projects:
+*https://python.arviz.org/en/stable/index.html
 *https://tox.wiki/en/latest/index.html
 https://github.com/scikit-learn/scikit-learn/blob/main/doc/conf.py
 https://github.com/gbif/pygbif/tree/master
 
-Beautiful docs (no auto-doctests):
+Beautiful docs (at the cost of total automation):
 https://mkdocstrings.github.io/python/usage/
 
 rst reference:
@@ -33,6 +34,12 @@ https://pypi.org/project/pytest-doctestplus/
 
 Sphinx build configuration:
 https://sphinx-rtd-trial.readthedocs.io/en/1.1.3/invocation.html
+
+PyData performance improvements:
+https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/performance.html
+
+PyData performance lag example:
+https://numpy.org/doc/stable/reference/generated/numpy.eye.html
 
 Handy recipes:
 $ make doctest -B  # overwrite previous build
@@ -83,17 +90,18 @@ release = '0.0.1'
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
 
 extensions = [
-   'sphinx.ext.duration',
-   'sphinx.ext.doctest',
-   'sphinx.ext.autodoc',
-   'sphinx.ext.autosummary',
-   'sphinx.ext.napoleon',
-   'sphinx.ext.coverage',
-   'numpydoc',
-   'sphinx.ext.intersphinx',
-   'matplotlib.sphinxext.plot_directive',
-   'matplotlib.sphinxext.mathmpl',
-   'sphinxcontrib.autodoc_pydantic',
+   "sphinx.ext.duration",
+   "sphinx.ext.doctest",
+   "sphinx.ext.autodoc",
+   "sphinx.ext.autosummary",
+   "sphinx.ext.napoleon",
+   "sphinx.ext.coverage",
+   "sphinx.ext.viewcode",
+   "sphinx.ext.intersphinx",
+   "numpydoc",
+   "matplotlib.sphinxext.plot_directive",
+   "matplotlib.sphinxext.mathmpl",
+   "sphinxcontrib.autodoc_pydantic",
 ]
 
 
@@ -102,12 +110,22 @@ extensions = [
 
 autodoc_default_options = {
    # Show all objects within a module on one page via embedded TOC
-   'members': False,
-   'private-members': False,
-   'inherited-members': False,
-   'special-members': False,
-   'show-inheritance': True,
-   'undoc-members': False,
+   # NOTE required for autodoc_pydantic so that models aren't orphaned
+   # NOTE turn off for a more manageable (albeit less comprehensive) toc tree
+   # ... but change `show_toc_level` from 1 to 2 so members are accessible
+   # ... and turn off `autodoc_pydantic` so pydantic models aren't orphaned
+   # ... and turn on `numpydoc_class_members_toctree` so members not orphaned
+   # TODO add rubric: module include pydantic models; class include members
+   # ... once this accomplished, can set members off and show_toc_level = 2
+   #
+   "members": True,
+   # Don't document private, inherited, or special class members
+   "private-members": False,
+   "inherited-members": False,
+   "special-members": False,
+   # Show name and source of object on which a subclass is based
+   "show-inheritance": True,
+   "undoc-members": False,
 }
 
 
@@ -148,11 +166,12 @@ plot_html_show_source_link = False
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
 
 autodoc_pydantic_model_show_json = True
-autodoc_pydantic_model_show_config_summary = False
+autodoc_pydantic_model_show_config_summary = True
+# Don't include individual pages for members (config summary is sufficient)
 autodoc_pydantic_model_show_field_summary = False
 autodoc_pydantic_model_show_members = False
-# autodoc_pydantic_field_show_required = True
-# autodoc_pydantic_field_show_optional = True
+autodoc_pydantic_field_show_required = True
+autodoc_pydantic_field_show_optional = True
 autodoc_pydantic_settings_hide_reused_validator = True
 autodoc_pydantic_settings_show_validator_members = False
 
@@ -174,7 +193,9 @@ napoleon_use_admonition_for_notes = True
 napoleon_use_admonition_for_references = True  # ?for footnote compatibility
 napoleon_use_ivar = False
 napoleon_use_param = False
+# ensures section navigation bar remains present on autodoc-generated pages
 napoleon_use_rtype = True
+# turn off styling of parameter types if signatures are configured as such
 napoleon_preprocess_types = False
 napoleon_type_aliases = None
 napoleon_attr_annotations = False
@@ -184,15 +205,17 @@ napoleon_attr_annotations = False
 # https://numpydoc.readthedocs.io/en/latest/install.html
 
 numpydoc_use_plots = True
+# Include class methods/attributes on autodoc page of class
 numpydoc_show_class_members = True
 numpydoc_show_inherited_class_members = False
-numpydoc_class_members_toctree = True
+# Don't clutter section navigation
+numpydoc_class_members_toctree = False
 
 # Numpy docstring validation checks
 # https://numpydoc.readthedocs.io/en/latest/validation.html
-# 
-# Report warnings for all validation checks except GL01, GL02, and GL05
-numpydoc_validation_checks = {"GL01", "GL02", "GL05"}  # "all"
+#
+# Report warnings for all validation checks except GL01, GL02, and GL05 (GL08)
+numpydoc_validation_checks = {"all", "GL01", "GL02", "GL05", "GL08"}
 
 # FIXME fix this to actually exclude the specified patterns
 templates_path = ['_templates']
@@ -227,8 +250,11 @@ html_theme_options = {
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
+# Don't clutter signatures with absolute paths to objects 
 add_module_names = False
+# Include module/class members in right-hand toc
 toc_object_entries = True
+# Don't clutter right-hand toc with absolute paths to objects
 toc_object_entries_show_parents = "hide"
 trim_doctest_flags = True
 show_warning_types = True
@@ -242,14 +268,15 @@ suppress_warnings = ["all"]
 html_use_index = False
 
 # Link to underlying rsts
-html_show_sourcelink = False
+# NOTE excellent tool for debugging documentation
+html_show_sourcelink = True
 
 # Exclude parent paths from appearing in TOC
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
-# 
+#
 # NOTE sidebar customization in Furo is limited:
 # https://pradyunsg.me/furo/customisation/sidebar/
-# 
+#
 # html_sidebars = {
 #    '**': ["globaltoc.html"],
 # }
@@ -263,8 +290,8 @@ html_theme_options = {
     # Previous/next buttons are unstable in PyData (poor overflow handling)
     "show_prev_next": False,
     "show_nav_level": 1,
-    # Show class methods in right-hand toc by default
-    "show_toc_level": 2,
+    # Don't show class methods in right-hand toc by default
+    "show_toc_level": 1,
 }
 
 # html_context = {

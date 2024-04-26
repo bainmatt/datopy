@@ -3,13 +3,13 @@ Tools for visualizing matrix and dataframe operations.
 
 Notes
 -----
-Adapted from [VP]_ to support NumPy arrays, in addition to Pandas
+Adapted from [1]_ to support NumPy arrays, in addition to Pandas
 data frames.
 
 References
 ----------
-.. [VP] VanderPlas, J. (2016). Python data science handbook: Essential tools
-        for working with data. "O'Reilly Media, Inc.".
+.. [1] VanderPlas, J. (2016). Python data science handbook: Essential tools
+       for working with data. "O'Reilly Media, Inc.".
 """
 
 import doctest

@@ -339,18 +339,6 @@ class BaseProcessor:
     query : NamedTuple
         _description_
 
-    Methods
-    -------
-    retrieve()
-        Retrieve data for the query from the API of the supplied model.
-    process()
-        Process (extract/clean) retrieved data.
-    to_df()
-        Convert to a dataframe.
-
-    Attributes
-    ----------
-
     """
 
     def __init__(self, model: BaseModel, query: NamedTuple):
