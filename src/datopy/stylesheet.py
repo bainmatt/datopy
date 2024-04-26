@@ -35,6 +35,8 @@ class outputoff:
         sys.stdout = self.stdout
 
 
+# TODO attempt to clean up plot examples using approach like this:
+# https://github.com/arviz-devs/arviz/blob/main/arviz/plots/autocorrplot.py
 def customize_plots() -> None:
     r"""
     Sets custom matplotlib rcParams to handle default styling for
