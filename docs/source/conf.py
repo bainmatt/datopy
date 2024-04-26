@@ -40,22 +40,19 @@ $ make doctest -B  # overwrite previous build
 """
 
 # --- Variables and paths ---
+
 # For auto-generating documentation from docstrings
 import os
 import sys
 import pathlib
 
-# sys.path.insert(0, pathlib.Path(__file__).parents[2].
-#                 joinpath('src/datopy').resolve().as_posix())
 sys.path.insert(0, os.path.abspath('../src'))
-# sys.path.insert(0, os.path.abspath('../src/datopy'))
 
-# import matplotlib
-# matplotlib.use('TkAgg')
 
 # --- Doctest conditional skipping option ---
 # Conditionally skip computationally intensive examples
 # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
+
 doctest_global_setup = '''
 try:
     import pandas as pd
@@ -64,6 +61,7 @@ except ImportError:
 
 skip_slow = False
 '''
+
 
 # --- Project information ---
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -83,7 +81,7 @@ release = '0.0.1'
 # Autodocs/autosummary:
 # https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
-#
+
 extensions = [
    'sphinx.ext.duration',
    'sphinx.ext.doctest',
@@ -94,14 +92,14 @@ extensions = [
    'numpydoc',
    'sphinx.ext.intersphinx',
    'matplotlib.sphinxext.plot_directive',
-   # 'sphinxcontrib.autodoc_pydantic',
    'matplotlib.sphinxext.mathmpl',
-   # 'autodoc_pydantic',
+   'sphinxcontrib.autodoc_pydantic',
 ]
 
 
 # --- Customize autosummary options ---
 # https://autodocsumm.readthedocs.io/en/latest/conf_settings.html
+
 autodoc_default_options = {
    # Show all objects within a module on one page via embedded TOC
    'members': False,
@@ -117,6 +115,7 @@ autodoc_default_options = {
 # Links to documentation for any base types that Sphinx should source and
 # hyperlink within the rendered definitions.
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
+
 # intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 intersphinx_mapping = {
     "python": ("https://docs.python.org/{.major}".format(sys.version_info), None),
@@ -129,11 +128,13 @@ intersphinx_mapping = {
     "skops": ("https://skops.readthedocs.io/en/stable/", None),
     "scikit-learn": ("https://scikit-learn.org/stable/", None),
     "pydantic": ("https://docs.pydantic.dev/latest/", None),
+    # "datopy": {"https://bainmatt.github.io/datopy/", None},
 }
 
 
 # --- Customize matplotlib.sphinxext.plot_directive options ---
 # https://matplotlib.org/stable/api/sphinxext_plot_directive_api.html
+
 # This extension is used for doctest plots and output rendered inline
 plot_formats = ["svg"]
 plot_include_source = True
@@ -145,6 +146,7 @@ plot_html_show_source_link = False
 # https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html
 # NOTE auto_pydantic does not play well with TOC or `make clean` after build!!
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
+
 autodoc_pydantic_model_show_json = True
 autodoc_pydantic_model_show_config_summary = False
 autodoc_pydantic_model_show_field_summary = False
@@ -161,24 +163,26 @@ autodoc_pydantic_settings_show_validator_members = False
 
 # --- Customize Napoleon options ---
 # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
+
 # napoleon_google_docstring = True
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_include_private_with_doc = False
 napoleon_include_special_with_doc = False
-napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_examples = True
 napoleon_use_admonition_for_notes = True
-napoleon_use_admonition_for_references = False  # ?for footnote compatibility
+napoleon_use_admonition_for_references = True  # ?for footnote compatibility
 napoleon_use_ivar = False
 napoleon_use_param = False
 napoleon_use_rtype = True
 napoleon_preprocess_types = False
 napoleon_type_aliases = None
-napoleon_attr_annotations = True
+napoleon_attr_annotations = False
 
 
 # --- Customize numpydocs options ---
 # https://numpydoc.readthedocs.io/en/latest/install.html
+
 numpydoc_use_plots = True
 numpydoc_show_class_members = True
 numpydoc_show_inherited_class_members = False
@@ -186,10 +190,11 @@ numpydoc_class_members_toctree = True
 
 # Numpy docstring validation checks
 # https://numpydoc.readthedocs.io/en/latest/validation.html
+# 
 # Report warnings for all validation checks except GL01, GL02, and GL05
 numpydoc_validation_checks = {"GL01", "GL02", "GL05"}  # "all"
 
-
+# FIXME fix this to actually exclude the specified patterns
 templates_path = ['_templates']
 # exclude_patterns = []
 exclude_patterns = ['_[!_]*.py', 'main']
@@ -201,9 +206,11 @@ exclude_patterns = ['_[!_]*.py', 'main']
 
 # --- Options for HTML output ---
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
 # Fundamentals
-# html_theme = 'alabaster'
-html_theme = 'furo'
+# html_theme = "alabaster"
+# html_theme = "furo"
+html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 # html_title = "datopy: Data tools for Python"
 html_short_title = "datopy"
@@ -211,47 +218,63 @@ html_short_title = "datopy"
 # html_favicon = "_static/datopy-logo.png"
 
 # Fine-tuning
-python_maximum_signature_line_length = 20
-math_number_all = True
-add_function_parentheses = True
-add_module_names = False
-toc_object_entries = True
-toc_object_entries_show_parents = 'hide'
-trim_doctest_flags = True
-show_warning_types = True
-suppress_warnings = ['all']
-# suppress_warnings = ["WARNING: document isn't included in any toctree"]
-python_display_short_literal_types = True
-
 html_theme_options = {
     "navigation_with_keys": True,
     # "light_logo": "logo-light-mode.png",
     # "dark_logo": "logo-dark-mode.png",
 }
 
-# If false, no index is generated.
+python_maximum_signature_line_length = 20
+math_number_all = True
+add_function_parentheses = True
+add_module_names = False
+toc_object_entries = True
+toc_object_entries_show_parents = "hide"
+trim_doctest_flags = True
+show_warning_types = True
+python_display_short_literal_types = True
+
+# Suppress_warnings = ["WARNING: document isn't included in any toctree"]
+# FIXME make this work
+suppress_warnings = ["all"]
+
+# If false, no index is generated
 html_use_index = False
 
-# [MB] added
-sticky_navigation = True
+# Link to underlying rsts
+html_show_sourcelink = False
 
 # Exclude parent paths from appearing in TOC
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
+# 
 # NOTE sidebar customization in Furo is limited:
 # https://pradyunsg.me/furo/customisation/sidebar/
+# 
 # html_sidebars = {
-#    '**': ['globaltoc.html'],
+#    '**': ["globaltoc.html"],
 # }
-html_show_sourcelink = True
 
 
-# TODO discard this
-# This is the expected signature of the handler for this event, cf doc
-# def autodoc_skip_member_handler(app, what, name, obj, skip, options):
-#     # Basic approach; you might want a regex instead
-#     return name.startswith("main")
+# --- Additional PyData HTML customizations ---
+# https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#references
 
-# # Automatically called by sphinx at startup
-# def setup(app):
-#     # Connect the autodoc-skip-member event from apidoc to the callback
-#     app.connect('autodoc-skip-member', autodoc_skip_member_handler)
+# NOTE not compatible with Furo. Comment out unless using PyData.
+html_theme_options = {
+    # Previous/next buttons are unstable in PyData (poor overflow handling)
+    "show_prev_next": False,
+    "show_nav_level": 1,
+    # Show class methods in right-hand toc by default
+    "show_toc_level": 2,
+}
+
+# html_context = {
+#     "github_url": "https://github.com", # or your GitHub Enterprise site
+#     "github_user": "bainmatt",
+#     "github_repo": "datopy",
+#     "github_version": "main",
+#     "doc_path": "docs/source",
+# }
+
+# Source buttons
+# https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/source-buttons.html
+use_edit_page_button = False
