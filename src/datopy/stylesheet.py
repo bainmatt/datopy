@@ -14,7 +14,7 @@ import os
 import sys
 
 
-class suppress_output:
+class outputoff:
     """
     Context manager to suppress outputs.
     Intended for use with pyplot to suppress intermittent printouts.
@@ -35,7 +35,7 @@ class suppress_output:
         sys.stdout = self.stdout
 
 
-def customize_rcparams() -> None:
+def customize_plots() -> None:
     r"""
     Sets custom matplotlib rcParams to handle default styling for
     all matplotlib plotting functions and functions built upon matplotlib
@@ -48,67 +48,106 @@ def customize_rcparams() -> None:
     - Contrast with the default matplotlib rc file:
 
       https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
-    - Sphinx directives unfortunately do not display within intellisense
-      tooltips :(, so the below is only visible in the rendered
-      documentation. See
-
-      https://www.reddit.com/r/vscode/comments/j7itta/sphinx_rendering_in_tooltips/
-
 
     Examples
     --------
+    .. code-block:: python plot
     .. plot::
         :context: close-figs
-        :width: 85%
+        :width: 100%
         :align: left
+
+        >>> import matplotlib
+        >>> import matplotlib.pyplot as plt
+        >>> from datopy.stylesheet import customize_plots
 
         Define some data
 
         >>> import numpy as np
-        >>> x = np.linspace(0, 50, 1000)
-        >>> y = np.sin(x)
+        >>> x = np.linspace(0, 2 * np.pi, 1000)
 
-        Apply the custom styling
+        Define a couple plotting functions
 
-        >>> import matplotlib
-        >>> import matplotlib.pyplot as plt
-        >>> from datopy.stylesheet import customize_rcparams, suppress_output
-        >>> customize_rcparams()
-
-        Produce the plot
-
-        >>> with suppress_output():
+        >>> def single_panel_plot():
         ...     ax = plt.subplot(111)
-        ...     ax.plot(x, y)
-        ...     ax.set_xlabel('x label')
-        ...     ax.set_ylabel('y label')
-        ...     ax.set_title('Title')
+        ...     ax.plot(x, np.sin(x), label="$sin(x)$")
+        ...     ax.plot(x, np.cos(x), label="$cos(x)$")
+        ...     ax.set_xlabel('$x$')
+        ...     ax.set_ylabel('$y$')
+        ...     ax.set_title("A minimal plot")
+        ...     ax.legend()
         ...     ax.grid()
         ...     ax.set_frame_on(False)
+        ...     # ax.tick_params(bottom=False, left=False)
+        ...     plt.show()
 
-        >>> plt.show()  # /doctest: +SKIP
+        >>> def multi_panel_plot():
+        ...     fig, axs = plt.subplots(2, 2, sharey=True)
+        ...     axs = axs.flatten()
+        ...     for i, ax in enumerate(axs, start=1):
+        ...         ax.plot(x, np.sin(i/2 * x))
+        ...         ax.plot(x, np.cos(i/2 * x))
+        ...         # ax.set_title(f"$a = {i}$")
+        ...         # if i > 2: ax.set_xlabel('$x$')
+        ...         # if i % 2 != 0: ax.set_ylabel('$y$')
+        ...         ax.grid()
+        ...         ax.text(
+        ...             2 * np.pi - 0.1, -1 + 0.1,
+        ...             f"$a = {i}$",
+        ...             size=12,
+        ...             horizontalalignment="right",
+        ...             bbox={
+        ...                 "boxstyle": "round",
+        ...                 "alpha": 0.8,
+        ...                 "facecolor": "white",
+        ...             }
+        ...         )
+        ...     fig.supylabel("$y$")
+        ...     fig.supxlabel("$x$", x=.57)
+        ...     fig.suptitle("A busier plot", x=.57)
+        ...     axs[0].legend(
+        ...         labels=["$sin(ax)$", "$cos(ax)$"],
+        ...         ncol=1,
+        ...         loc="lower left",
+        ...     )
+        ...     plt.show()
+
+        Create the plots
+
+        ..
+            # The first two examples are before styling;
+            # the following two are after styling.
+            # >>> single_panel_plot()  # /doctest: +SKIP
+            # >>> multi_panel_plot()  # /doctest: +SKIP
+
+        >>> customize_plots()
+        >>> single_panel_plot()  # /doctest: +SKIP
+        >>> multi_panel_plot()  # /doctest: +SKIP
+
     """
 
     ## General properties
     # Font face and sizes
     mpl.rcParams['font.family'] = 'sans-serif'
     # NOTE will need to be reverted to the default for use in a notebook
-    mpl.rcParams['font.sans-serif'] = "Verdana"
-    mpl.rcParams['font.size'] = 9               # default font sizes
-    mpl.rcParams['axes.titlesize'] = 13         # large
-    mpl.rcParams['axes.labelsize'] = 10         # medium
-    mpl.rcParams['xtick.labelsize'] = 9         # medium
-    mpl.rcParams['ytick.labelsize'] = 9         # medium
-    mpl.rcParams['legend.fontsize'] = 10        # medium
-    mpl.rcParams['legend.title_fontsize'] = 10  # None (same as default axes)
-    mpl.rcParams['figure.titlesize'] = 16       # large (suptitle size)
+    # mpl.rcParams['font.sans-serif'] = "Verdana"
+    mpl.rcParams['font.size'] = 10              # default font sizes
+    mpl.rcParams['axes.titlesize'] = 14         # large
+    mpl.rcParams['axes.labelsize'] = 12         # medium
+    mpl.rcParams['xtick.labelsize'] = 10        # medium
+    mpl.rcParams['ytick.labelsize'] = 10        # medium
+    mpl.rcParams['legend.fontsize'] = 11        # medium
+    mpl.rcParams['legend.title_fontsize'] = 11  # None (same as default axes)
+    mpl.rcParams['figure.titlesize'] = 15       # large (suptitle size)
     mpl.rcParams['figure.labelsize'] = 13       # large (sup[x|y]label size)
 
     # Spines and ticks
     mpl.rcParams['axes.spines.top'] = True
     mpl.rcParams['axes.spines.right'] = True
-    mpl.rcParams['axes.linewidth'] = .6
+    mpl.rcParams['axes.linewidth'] = .7
     mpl.rcParams['axes.edgecolor'] = 'black'
+    mpl.rcParams['xtick.direction'] = 'out'
+    mpl.rcParams['ytick.direction'] = 'out'
     mpl.rcParams['xtick.major.size'] = 0        # default: 3.5
     mpl.rcParams['ytick.major.size'] = 0        # default: 3.5
     # mpl.rcParams['xtick.major.width'] =  0.8
@@ -117,10 +156,10 @@ def customize_rcparams() -> None:
     # Grid
     # lines at {major, minor, both} ticks
     mpl.rcParams['axes.grid.which'] = 'major'
-    mpl.rcParams['grid.linestyle'] = '--'
+    mpl.rcParams['grid.linestyle'] = '-'
     mpl.rcParams['grid.color'] = '#CCCCCC'
-    mpl.rcParams['grid.linewidth'] = 0.2
-    # mpl.rcParams['grid.alpha'] = 1
+    mpl.rcParams['grid.linewidth'] = 0.8
+    mpl.rcParams['grid.alpha'] = .2
 
     # Label placement
     mpl.rcParams['axes.titlelocation'] = 'center'  # {left, right, center}
@@ -130,7 +169,7 @@ def customize_rcparams() -> None:
     # mpl.rcParams['ytick.major.pad'] = 3.5
 
     # Discrete color cycle (and continuous map)
-    mpl.rcParams['axes.prop_cycle'] = cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
+    # mpl.rcParams['axes.prop_cycle'] = cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
     mpl.rcParams['axes.prop_cycle'] = cycler(color=sns.color_palette("PiYG", n_colors=6))
 
     # Legend properties
@@ -150,14 +189,14 @@ def customize_rcparams() -> None:
     # Space-filling object properties (e.g., polygons/circles, bars/scatter)
     mpl.rcParams['patch.edgecolor'] = 'black'  # if forced, else not filled
     mpl.rcParams['patch.force_edgecolor'] = 1
-    mpl.rcParams['patch.linewidth'] = 0        # edgewidth (default: .5)
+    mpl.rcParams['patch.linewidth'] = .5        # edgewidth (default: .5)
 
     ## Object-specific properties
     # Scatter properties
     # mpl.rcParams['scatter.edgecolors'] = 'black'  # 'face' = match edges
 
     # Line properties
-    mpl.rcParams['lines.markersize'] = 5
+    mpl.rcParams['lines.markersize'] = 7
     mpl.rcParams['lines.linewidth'] = 2
 
     # Bar properties
@@ -252,4 +291,33 @@ def customize_rcparams() -> None:
     # set inline figure format/quality
     # %config InlineBackend.figure_format = 'svg'
 
-    return
+
+class customstyle:
+    """Wrapper for `customize_plots` that serves as a context manager.
+
+    Examples
+    --------
+    .. code-block:: python plot
+    .. plot::
+        :context: close-figs
+        :width: 100%
+        :align: left
+
+    ..
+        # >>> with customstyle():
+        # ...     plt.plot([1,2,3], [4,5,6])
+        # ...     plt.show()  # /doctest: +SKIP
+
+        # >>> plt.plot([1,2,3], [4,5,6]) # doctest: +SKIP
+        # >>> plt.show()  # /doctest: +SKIP
+
+    """
+    def __enter__(self):
+        # TODO ?package customize_plots with context manager
+        # to avoid circular dependency and double execution
+        from datopy.stylesheet import customize_plots
+        customize_plots()
+        return self
+
+    def __exit__(self, *exc):
+        pass

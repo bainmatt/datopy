@@ -226,6 +226,7 @@ def run_auto_datamodel_example(
 
     Examples
     --------
+    .. code-block:: python doctest
     .. doctest::
         :skipif: skip_slow
 
