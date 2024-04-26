@@ -30,12 +30,13 @@ Check out the :ref:`Usage <usage>` section for further information, including ho
    :caption: Contents:
 
 
-Indices and tables
-==================
+..
+   Indices and tables
+   ==================
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`
 
 
 .. Home page TOC

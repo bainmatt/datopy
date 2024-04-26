@@ -99,5 +99,6 @@ dependencies:
     # [Docs]
     - furo
     - babel
+    - pydata-sphinx-theme
     - numpydoc
     - autodoc_pydantic

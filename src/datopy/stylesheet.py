@@ -74,7 +74,7 @@ def customize_plots() -> None:
         ...     ax.plot(x, np.cos(x), label="$cos(x)$")
         ...     ax.set_xlabel('$x$')
         ...     ax.set_ylabel('$y$')
-        ...     ax.set_title("A minimal plot")
+        ...     # ax.set_title("A minimal plot")
         ...     ax.legend()
         ...     ax.grid()
         ...     ax.set_frame_on(False)
@@ -104,7 +104,7 @@ def customize_plots() -> None:
         ...         )
         ...     fig.supylabel("$y$")
         ...     fig.supxlabel("$x$", x=.57)
-        ...     fig.suptitle("A busier plot", x=.57)
+        ...     # fig.suptitle("A multi-panel plot", x=.57)
         ...     axs[0].legend(
         ...         labels=["$sin(ax)$", "$cos(ax)$"],
         ...         ncol=1,
@@ -131,12 +131,12 @@ def customize_plots() -> None:
     mpl.rcParams['font.family'] = 'sans-serif'
     # NOTE will need to be reverted to the default for use in a notebook
     # mpl.rcParams['font.sans-serif'] = "Verdana"
-    mpl.rcParams['font.size'] = 10              # default font sizes
+    mpl.rcParams['font.size'] = 9               # default font sizes
     mpl.rcParams['axes.titlesize'] = 14         # large
     mpl.rcParams['axes.labelsize'] = 12         # medium
     mpl.rcParams['xtick.labelsize'] = 10        # medium
     mpl.rcParams['ytick.labelsize'] = 10        # medium
-    mpl.rcParams['legend.fontsize'] = 11        # medium
+    mpl.rcParams['legend.fontsize'] = 10        # medium
     mpl.rcParams['legend.title_fontsize'] = 11  # None (same as default axes)
     mpl.rcParams['figure.titlesize'] = 15       # large (suptitle size)
     mpl.rcParams['figure.labelsize'] = 13       # large (sup[x|y]label size)
@@ -180,23 +180,23 @@ def customize_plots() -> None:
     # Legend padding
     # mpl.rcParams['legend.borderpad'] =  0.4     # border whitespace
     # mpl.rcParams['legend.labelspacing'] = 0.5   # vert space between entries
-    # mpl.rcParams['legend.handlelength'] = 2.0   # length of the legend lines
+    mpl.rcParams['legend.handlelength'] = 1.0     # length of the legend lines
     # mpl.rcParams['legend.handleheight'] = 0.7   # height of the legend handle
-    # mpl.rcParams['legend.handletextpad'] = 0.8  # space btwn leg lines/text
-    # mpl.rcParams['legend.borderaxespad'] = 0.5  # border btwn axes/leg edge
-    # mpl.rcParams['legend.columnspacing'] = 2.0  # column separation
+    mpl.rcParams['legend.handletextpad'] = 0.8    # space btwn leg lines/text
+    mpl.rcParams['legend.borderaxespad'] = 0.5    # border btwn axes/leg edge
+    mpl.rcParams['legend.columnspacing'] = 1.0    # column separation
 
     # Space-filling object properties (e.g., polygons/circles, bars/scatter)
     mpl.rcParams['patch.edgecolor'] = 'black'  # if forced, else not filled
     mpl.rcParams['patch.force_edgecolor'] = 1
-    mpl.rcParams['patch.linewidth'] = .5        # edgewidth (default: .5)
+    mpl.rcParams['patch.linewidth'] = .4       # edgewidth (default: .5)
 
     ## Object-specific properties
     # Scatter properties
     # mpl.rcParams['scatter.edgecolors'] = 'black'  # 'face' = match edges
 
     # Line properties
-    mpl.rcParams['lines.markersize'] = 7
+    mpl.rcParams['lines.markersize'] = 6
     mpl.rcParams['lines.linewidth'] = 2
 
     # Bar properties
