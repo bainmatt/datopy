@@ -3,9 +3,6 @@
 # 
 # Github PR labels guide:
 # https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
-# 
-# View the YAML fieldguide for reference: 
-# https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html
 
 changelog:
 
@@ -31,13 +28,15 @@ changelog:
         - breaking-change
         # - Semver-Major
 
-      subcategories:
-        - title: Core API
-          labels:
-            - core
-        - title: models API
-          labels:
-            - models
+      # Rather than attempting to configure the below,
+      # consider manually assigning subcategories to release entries.
+      # subcategories:
+      #   - title: Core API
+      #     labels:
+      #       - core
+      #   - title: models API
+      #     labels:
+      #       - models
 
     - title: Exciting New Features 🙌
       labels:
@@ -48,13 +47,13 @@ changelog:
         - fix
         # - Semver-Minor
 
-      subcategories:
-        - title: Core API
-          labels:
-            - core
-        - title: models API
-          labels:
-            - models
+      # subcategories:
+      #   - title: Core API
+      #     labels:
+      #       - core
+      #   - title: models API
+      #     labels:
+      #       - models
 
     - title: Stability and Performance Improvements 🐢
       labels:
@@ -71,3 +70,6 @@ changelog:
     - title: Other Changes
       labels:
         - "*"
+
+  # 
+  exclude_authors: true
