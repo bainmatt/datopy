@@ -15,7 +15,7 @@ changelog:
       - ignore-for-release
     
     # Authors of PRs to exclude from release notes
-    authors:
+    # authors:
       # - bainmatt
 
   # PR labels to group in release notes under a given title
