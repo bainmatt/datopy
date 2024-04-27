@@ -7,7 +7,8 @@ changelog:
   exclude:
     labels:
       - minor
-      - testing
+      - documentation
+      - cleanup
       - ignore-for-release
     authors:
       - bainmatt
@@ -16,13 +17,21 @@ changelog:
   categories:
     - title: Breaking Changes 🛠
       labels:
-        - Semver-Major
         - breaking-change
+        # - Semver-Major
 
     - title: Exciting New Features 🎉
       labels:
-        - Semver-Minor
         - enhancement
+        - fix
+        # - Semver-Minor
+
+    - title: Stability and Performance Improvements 
+      labels:
+        - testing
+        - typing
+        - CI
+        - build
 
     - title: Other Changes
       labels:
