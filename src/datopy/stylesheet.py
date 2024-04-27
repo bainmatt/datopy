@@ -37,6 +37,7 @@ class outputoff:
 
 # TODO attempt to clean up plot examples using approach like this:
 # https://github.com/arviz-devs/arviz/blob/main/arviz/plots/autocorrplot.py
+# https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot
 def customize_plots() -> None:
     r"""
     Sets custom matplotlib rcParams to handle default styling for

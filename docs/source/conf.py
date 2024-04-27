@@ -245,7 +245,33 @@ html_theme_options = {
     "navigation_with_keys": True,
     # "light_logo": "logo-light-mode.png",
     # "dark_logo": "logo-dark-mode.png",
+    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/bainmatt/datopy",
+            "icon": "fa-brands fa-square-github",
+            "type": "fontawesome",
+        },
+    ],
+    # "analytics": {"google_analytics_id": "G-XX"},
+    "external_links": [
+        {"name": "Related projects", "url": "https://bainmatt.github.io/"},
+    ],
 }
+html_context = {
+    "github_url": "https://github.com", # or your GitHub Enterprise site
+    "github_user": "bainmatt",
+    "github_repo": "datopy",
+    "github_version": "main",
+    "doc_path": "docs/source/",
+    # "default_mode": "light",
+}
+
+# html_sidebars = {
+#     "index": [],
+#     "community": ["search-field.html", "sidebar-nav-bs.html", "twitter.html"],
+# }
 
 python_maximum_signature_line_length = 20
 math_number_all = True
@@ -293,14 +319,6 @@ html_theme_options = {
     # Don't show class methods in right-hand toc by default
     "show_toc_level": 1,
 }
-
-# html_context = {
-#     "github_url": "https://github.com", # or your GitHub Enterprise site
-#     "github_user": "bainmatt",
-#     "github_repo": "datopy",
-#     "github_version": "main",
-#     "doc_path": "docs/source",
-# }
 
 # Source buttons
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/source-buttons.html
