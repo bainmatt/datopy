@@ -6,6 +6,9 @@ changelog:
   # PR labels to exclude from release notes 
   exclude:
     labels:
+      - MIN
+      - DOC
+      - CLN
       - minor
       - documentation
       - cleanup
@@ -22,12 +25,18 @@ changelog:
 
     - title: Exciting New Features 🎉
       labels:
+        - ENH
+        - FIX
+        - BUG
         - enhancement
         - fix
         # - Semver-Minor
 
     - title: Stability and Performance Improvements 
       labels:
+        - TST
+        - TYP
+        - BLD
         - testing
         - typing
         - CI
