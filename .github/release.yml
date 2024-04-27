@@ -13,8 +13,10 @@ changelog:
       - documentation
       - cleanup
       - ignore-for-release
+    
+    # Authors of PRs to exclude from release notes
     authors:
-      - bainmatt
+      # - bainmatt
 
   # PR labels to group in release notes under a given title
   categories:
