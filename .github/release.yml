@@ -1,5 +1,11 @@
 # Configuration for automatically generated release notes
 # https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes#configuring-automatically-generated-release-notes
+# 
+# Github PR labels guide:
+# https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
+# 
+# View the YAML fieldguide for reference: 
+# https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html
 
 changelog:
 
@@ -20,12 +26,20 @@ changelog:
 
   # PR labels to group in release notes under a given title
   categories:
-    - title: Breaking Changes 🐆
+    - title: Breaking Changes ⚡️
       labels:
         - breaking-change
         # - Semver-Major
 
-    - title: Exciting New Features 🐘
+      subcategories:
+        - title: Core API
+          labels:
+            - core
+        - title: models API
+          labels:
+            - models
+
+    - title: Exciting New Features 🙌
       labels:
         - ENH
         - FIX
@@ -33,6 +47,14 @@ changelog:
         - enhancement
         - fix
         # - Semver-Minor
+
+      subcategories:
+        - title: Core API
+          labels:
+            - core
+        - title: models API
+          labels:
+            - models
 
     - title: Stability and Performance Improvements 🐢
       labels:
