@@ -66,6 +66,8 @@ jobs:
     # NOTE don't bother uploading coverage reports to include a coverage badge
     # with your readme as this step requires extensive configuration and is
     # not easily generalized.
+    # Reference for future: https://docs.codecov.com/docs/quick-start
+    # Model project: https://github.com/pandas-dev/pandas/blob/main/README.md
   
 
 
