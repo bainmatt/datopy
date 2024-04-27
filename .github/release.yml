@@ -20,12 +20,12 @@ changelog:
 
   # PR labels to group in release notes under a given title
   categories:
-    - title: Breaking Changes 🛠
+    - title: Breaking Changes 🐆
       labels:
         - breaking-change
         # - Semver-Major
 
-    - title: Exciting New Features 🎉
+    - title: Exciting New Features 🐘
       labels:
         - ENH
         - FIX
@@ -34,13 +34,15 @@ changelog:
         - fix
         # - Semver-Minor
 
-    - title: Stability and Performance Improvements 
+    - title: Stability and Performance Improvements 🐢
       labels:
         - TST
         - TYP
+        - PRF
         - BLD
         - testing
         - typing
+        - performance
         - CI
         - build
 
