@@ -3,6 +3,14 @@
 # 
 # Github PR labels guide:
 # https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
+# 
+# The case for conventional commits:
+# https://www.conventionalcommits.org/en/v1.0.0/#summary
+# 
+# Some guiding principles for managing changelogs:
+# https://github.com/olivierlacan/keep-a-changelog/releases
+# https://keepachangelog.com/en/1.1.0/
+# TL;DR: Changelogs are for humans, not machines.
 
 changelog:
 
@@ -71,5 +79,5 @@ changelog:
       labels:
         - "*"
 
-  # 
-  exclude_authors: true
+  # TODO consider implementing something like this in the future
+  # exclude_authors: true
