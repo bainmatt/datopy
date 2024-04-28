@@ -1,5 +1,4 @@
-"""
-Configuration file for the Sphinx documentation builder.
+"""Configuration file for the Sphinx documentation builder.
 
 Full list of built-in configuration values:
 https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -90,18 +89,18 @@ release = '0.0.1'
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
 
 extensions = [
-   "sphinx.ext.duration",
-   "sphinx.ext.doctest",
-   "sphinx.ext.autodoc",
-   "sphinx.ext.autosummary",
-   "sphinx.ext.napoleon",
-   "sphinx.ext.coverage",
-   "sphinx.ext.viewcode",
-   "sphinx.ext.intersphinx",
-   "numpydoc",
-   "matplotlib.sphinxext.plot_directive",
-   "matplotlib.sphinxext.mathmpl",
-   "sphinxcontrib.autodoc_pydantic",
+    "sphinx.ext.duration",
+    "sphinx.ext.doctest",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.coverage",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.intersphinx",
+    "numpydoc",
+    "matplotlib.sphinxext.plot_directive",
+    "matplotlib.sphinxext.mathmpl",
+    "sphinxcontrib.autodoc_pydantic",
 ]
 
 
@@ -109,23 +108,24 @@ extensions = [
 # https://autodocsumm.readthedocs.io/en/latest/conf_settings.html
 
 autodoc_default_options = {
-   # Show all objects within a module on one page via embedded TOC
-   # NOTE required for autodoc_pydantic so that models aren't orphaned
-   # NOTE turn off for a more manageable (albeit less comprehensive) toc tree
-   # ... but change `show_toc_level` from 1 to 2 so members are accessible
-   # ... and turn off `autodoc_pydantic` so pydantic models aren't orphaned
-   # ... and turn on `numpydoc_class_members_toctree` so members not orphaned
-   # TODO add rubric: module include pydantic models; class include members
-   # ... once this accomplished, can set members off and show_toc_level = 2
-   #
-   "members": True,
-   # Don't document private, inherited, or special class members
-   "private-members": False,
-   "inherited-members": False,
-   "special-members": False,
-   # Show name and source of object on which a subclass is based
-   "show-inheritance": True,
-   "undoc-members": False,
+    # Show all objects within a module on one page via embedded TOC
+    # NOTE required for autodoc_pydantic so that models aren't orphaned
+    # NOTE turn off for a more manageable (albeit less comprehensive) toc tree
+    # ... but change `show_toc_level` from 1 to 2 so members are accessible
+    # ... and turn off `autodoc_pydantic` so pydantic models aren't orphaned
+    # ... and turn on `numpydoc_class_members_toctree` so members not orphaned
+    # TODO add rubric: module include pydantic models; class include members
+    # ... once this accomplished, can set members off and show_toc_level = 2
+    # https://github.com/pandas-dev/pandas/blob/main/doc/_templates/autosummary/#class.rst
+    #
+    "members": True,
+    # Don't document private, inherited, or special class members
+    "private-members": False,
+    "inherited-members": False,
+    "special-members": False,
+    # Show name and source of object on which a subclass is based
+    "show-inheritance": True,
+    "undoc-members": False,
 }
 
 
@@ -276,7 +276,7 @@ html_context = {
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
-# Don't clutter signatures with absolute paths to objects 
+# Don't clutter signatures with absolute paths to objects
 add_module_names = False
 # Include module/class members in right-hand toc
 toc_object_entries = True

@@ -38,6 +38,7 @@ class outputoff:
 # TODO attempt to clean up plot examples using approach like this:
 # https://github.com/arviz-devs/arviz/blob/main/arviz/plots/autocorrplot.py
 # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot
+
 def customize_plots() -> None:
     r"""
     Sets custom matplotlib rcParams to handle default styling for
@@ -85,7 +86,7 @@ def customize_plots() -> None:
         ...     plt.show()
 
         >>> def multi_panel_plot():
-        ...     fig, axs = plt.subplots(2, 2, sharey=True)
+        ...     fig, axs = plt.subplots(2, 2, sharex=True, sharey=True)
         ...     axs = axs.flatten()
         ...     for i, ax in enumerate(axs, start=1):
         ...         ax.plot(x, np.sin(i/2 * x))
@@ -129,10 +130,11 @@ def customize_plots() -> None:
 
     """
 
-    ## General properties
+    # --- General properties ---
+
     # Font face and sizes
     mpl.rcParams['font.family'] = 'sans-serif'
-    # NOTE will need to be reverted to the default for use in a notebook
+    # NOTE will need to be reverted to the default for use in a notebook.
     # mpl.rcParams['font.sans-serif'] = "Verdana"
     mpl.rcParams['font.size'] = 9               # default font sizes
     mpl.rcParams['axes.titlesize'] = 14         # large
@@ -172,8 +174,12 @@ def customize_plots() -> None:
     # mpl.rcParams['ytick.major.pad'] = 3.5
 
     # Discrete color cycle (and continuous map)
-    # mpl.rcParams['axes.prop_cycle'] = cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
-    mpl.rcParams['axes.prop_cycle'] = cycler(color=sns.color_palette("PiYG", n_colors=6))
+    # mpl.rcParams['axes.prop_cycle'] = cycler(
+    #     color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+    # )
+    mpl.rcParams['axes.prop_cycle'] = cycler(
+        color=sns.color_palette("PiYG", n_colors=6)
+    )
 
     # Legend properties
     mpl.rcParams['legend.loc'] = 'best'
@@ -183,7 +189,7 @@ def customize_plots() -> None:
     # Legend padding
     # mpl.rcParams['legend.borderpad'] =  0.4     # border whitespace
     # mpl.rcParams['legend.labelspacing'] = 0.5   # vert space between entries
-    mpl.rcParams['legend.handlelength'] = 1.0     # length of the legend lines
+    mpl.rcParams['legend.handlelength'] = 1.25    # length of the legend lines
     # mpl.rcParams['legend.handleheight'] = 0.7   # height of the legend handle
     mpl.rcParams['legend.handletextpad'] = 0.8    # space btwn leg lines/text
     mpl.rcParams['legend.borderaxespad'] = 0.5    # border btwn axes/leg edge
@@ -194,22 +200,24 @@ def customize_plots() -> None:
     mpl.rcParams['patch.force_edgecolor'] = 1
     mpl.rcParams['patch.linewidth'] = .4       # edgewidth (default: .5)
 
-    ## Object-specific properties
+
+    # --- Object-specific properties ---
+
     # Scatter properties
-    # mpl.rcParams['scatter.edgecolors'] = 'black'  # 'face' = match edges
+    # mpl.rcParams['scatter.edgecolors'] = 'black'  # alt: 'face' (match edges)
 
     # Line properties
     mpl.rcParams['lines.markersize'] = 6
     mpl.rcParams['lines.linewidth'] = 2
 
     # Bar properties
-    # NOTE No global styling parameter exists for the following
+    # NOTE No global styling parameter exists for the following:
     # mpl.rcParams['bar.width'] = 0.8
 
     # Error properties
     mpl.rcParams['errorbar.capsize'] = 3
 
-    # NOTE No global styling parameter exists for the following
+    # NOTE No global styling parameter exists for the following:
     # mpl.rcParams['errorbar.color'] = 'black'
     # mpl.rcParams['errorbar.linewidth'] = 1.5
 
@@ -223,43 +231,46 @@ def customize_plots() -> None:
     # Box properties
     # box
     mpl.rcParams['boxplot.boxprops.linewidth'] = 0      # box outline (0.5)
-    # mpl.rcParams['boxplot.boxprops.color'] = 'none'   # 'black' [?]
+    # mpl.rcParams['boxplot.boxprops.color'] = 'none'   # alt: 'black' (check)
 
     # box line to cap
     mpl.rcParams['boxplot.whiskerprops.linewidth'] = .65
     mpl.rcParams['boxplot.whiskerprops.linestyle'] = '--'
-    # mpl.rcParams['boxplot.whiskerprops.color'] = 'black'          # [?]
+    # mpl.rcParams['boxplot.whiskerprops.color'] = 'black'          # (check)
 
     # box cap line
     mpl.rcParams['boxplot.capprops.linewidth'] = .75
-    # mpl.rcParams['boxplot.capprops.color'] = 'black'              # [?]
+    # mpl.rcParams['boxplot.capprops.color'] = 'black'              # (check)
 
     # box median line
     mpl.rcParams['boxplot.medianprops.linewidth'] = 1
     mpl.rcParams['boxplot.medianprops.linestyle'] = '-'
-    # mpl.rcParams['boxplot.medianprops.color'] = 'black'           # [?]
+    # mpl.rcParams['boxplot.medianprops.color'] = 'black'           # (check)
 
     mpl.rcParams['boxplot.meanprops.linewidth'] = 1
     mpl.rcParams['boxplot.meanprops.linestyle'] = '-'
-    # mpl.rcParams['boxplot.meanprops.color'] = 'black'             # [?]
+    # mpl.rcParams['boxplot.meanprops.color'] = 'black'             # (check)
 
     # box scatter
     mpl.rcParams['boxplot.flierprops.markerfacecolor'] = 'none'
     mpl.rcParams['boxplot.flierprops.markeredgewidth'] = .65
     mpl.rcParams['boxplot.flierprops.marker'] = 'o'
-    # mpl.rcParams['boxplot.flierprops.markersize'] = 6             # [?]
-    # mpl.rcParams['boxplot.flierprops.linewidth'] = 0              # [?]
-    # mpl.rcParams['boxplot.flierprops.markeredgecolor'] = 'black'  # [?]
-    # mpl.rcParams['boxplot.flierprops.color'] = 'black'            # [?]
+    # mpl.rcParams['boxplot.flierprops.markersize'] = 6             # (check)
+    # mpl.rcParams['boxplot.flierprops.linewidth'] = 0              # (check)
+    # mpl.rcParams['boxplot.flierprops.markeredgecolor'] = 'black'  # (check)
+    # mpl.rcParams['boxplot.flierprops.color'] = 'black'            # (check)
 
-    ## Figure padding
+
+    # --- Figure padding ---
+
     # Figure layout
     # auto-make plot elements fit on figure
     mpl.rcParams['figure.autolayout'] = True
     mpl.rcParams['figure.constrained_layout.use'] = True  # apply tight layout
 
-    # Subplot padding (all dims are a fraction of the fig width and height)
-    #  (Not compatible with constrained_layout)
+    # Subplot padding (all dims are a fraction of the fig width and height)/
+    # NOTE not compatible with constrained_layout.
+    #
     # mpl.rcParams['figure.subplot.left'] = .125    # left side
     # mpl.rcParams['figure.subplot.right'] = 0.9    # right side of subplots
     # mpl.rcParams['figure.subplot.bottom'] = 0.11  # bottom of subplots
@@ -273,30 +284,33 @@ def customize_plots() -> None:
     # mpl.rcParams['figure.constrained_layout.h_pad'] = 0.04167
     # mpl.rcParams['figure.constrained_layout.w_pad'] = 0.04167
 
-    # Constrained layout spacing between subplots, relative to subplot sizes
-    #  Much smaller than for tight_layout (figure.subplot.{hspace, wspace)
-    #  as constrained_layout already takes surrounding text
-    #  (titles, labels, # ticklabels) into account.
-    #  (Not compatible with autolayout)
+    # Constrained layout spacing between subplots, relative to subplot sizes.
+    # Is much smaller than tight_layout (figure.subplot.{hspace, wspace)
+    # as constrained_layout already takes surrounding text
+    # (titles, labels, # ticklabels) into account.
+    # NOTE not compatible with autolayout.
+    #
     # mpl.rcParams['figure.constrained_layout.hspace'] = 0.02
     # mpl.rcParams['figure.constrained_layout.wspace'] = 0.02
 
-    ## Other
+
+    # --- Other ---
+
     # Figure size and quality
-    mpl.rcParams['figure.dpi'] = 100         # NOTE: Alters figure size
+    mpl.rcParams['figure.dpi'] = 100         # NOTE Alters figure size
     mpl.rcParams['figure.figsize'] = (5, 5)  # (6, 4), (6.4, 4.8)
 
     # Figure saving settings
     mpl.rcParams['savefig.transparent'] = False
-    mpl.rcParams['savefig.format'] = 'png'  # {png, ps, pdf, svg}
+    mpl.rcParams['savefig.format'] = 'svg'  # {png, ps, pdf, svg}
     mpl.rcParams['savefig.dpi'] = 330
 
-    # set inline figure format/quality
+    # Set format/quality of inline figures in Jupyter notebooks
     # %config InlineBackend.figure_format = 'svg'
 
 
 class customstyle:
-    """Wrapper for `customize_plots` that serves as a context manager.
+    """Wrapper and context manager for `customize_plots`.
 
     Examples
     --------
@@ -317,7 +331,7 @@ class customstyle:
     """
     def __enter__(self):
         # TODO ?package customize_plots with context manager
-        # to avoid circular dependency and double execution
+        # to avoid circular dependency and double execution.
         from datopy.stylesheet import customize_plots
         customize_plots()
         return self

@@ -57,7 +57,7 @@ Book = type('Book', (MediaQuery,), {})
 
 class IMDbFilm(BaseModel):
     r"""Data model for processed imdb metadata.
-    
+
 
     Example
     -------
