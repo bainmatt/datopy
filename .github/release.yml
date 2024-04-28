@@ -31,7 +31,7 @@ changelog:
 
   # PR labels to group in release notes under a given title
   categories:
-    - title: Breaking Changes ⚡️
+    - title: Breaking Changes 🛠
       labels:
         - breaking-change
         # - Semver-Major
@@ -63,7 +63,7 @@ changelog:
       #     labels:
       #       - models
 
-    - title: Stability and Performance Improvements 🐢
+    - title: Stability and Performance Improvements ⚡️
       labels:
         - TST
         - TYP
