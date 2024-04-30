@@ -351,7 +351,8 @@ html_theme_options = {
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html
     "switcher": {
         # "json_url": "https://bainmatt.github.io/datopy/versions.json",
-        "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",
+        # "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",
+        "json_url": "https://bainmatt.github.io/datopy/_static/switcher.json",
         "version_match": switcher_version,
     },
     # "switcher": True,
@@ -360,7 +361,9 @@ html_theme_options = {
     #     "v0.0.1": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
     # },
     "navbar_align": "left",
-    "navbar_end": ["version-switcher", "theme-switcher", "navbar-icon-links"],
+    "navbar_end": [
+        "version-switcher", "theme-switcher", "navbar-icon-links"
+    ],
 }
 
 # Source buttons

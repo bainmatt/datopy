@@ -2,17 +2,17 @@
     {
         "name": "dev",
         "version": "dev",
-        "url": "https://github.com/bainmatt/datopy/releases/latest"
+        "url": "https://bainmatt.github.io/datopy/en/dev/"
     },
     {
         "name": "0.0.2",
         "version": "0.0.2",
-        "url": "https://github.com/bainmatt/datopy/releases/tag/v0.0.2"
+        "url": "https://bainmatt.github.io/datopy/en/0.0.2/"
     },
     {
         "name": "0.0.1 (stable)",
         "version": "0.0.1",
-        "url": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
+        "url": "https://bainmatt.github.io/datopy/en/docs/",
         "preferred": true
     }
 ]
