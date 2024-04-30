@@ -40,9 +40,13 @@ build:
     # You can also specify other tool versions:
     # nodejs: "19"
   
+  # TODO check if this is necessary
+  # Build requirements and distribution
   jobs:
     post_install:
       - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
+      - pip install -r requirements.txt
+      - pip install --editable .
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
