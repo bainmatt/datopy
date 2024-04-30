@@ -16,7 +16,8 @@ jobs:
 
       - name: Determine version number
         id: version
-        run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+        # run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
@@ -33,5 +34,5 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/${{ steps.version.outputs.version }}
+          publish_dir: _build/${{ steps.version.outputs.RELEASE_VERSION }}
           force_orphan: true
