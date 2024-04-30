@@ -14,7 +14,6 @@ Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/tests.yml/badge.svg
    :alt: CI
-
 .. image:: https://readthedocs.org/projects/datopy/badge/?version=latest
    :target: https://datopy.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
