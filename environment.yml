@@ -20,8 +20,9 @@
 # This option is ommitted due to unfortunate conda discrepancies it causes
 # 
 # To ensure all Python dependencies are updated before distribution, run:
-# (0) $ python -m pip check                           # check for missing
-# (1) $ python -m pip list --outdated --not-required  # check for outdated
+# (0) $ python -m pip check                            # check for missing
+# (1a) $ python -m pip list --outdated --not-required  # check for outdated
+# (1b) $ conda search --outdated --use-local
 # 
 # To prep clean requirements.txt/requirements_dev.txt files for distribution:
 # Manually update by cross-referencing: 
