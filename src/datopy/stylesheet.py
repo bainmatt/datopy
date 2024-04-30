@@ -189,7 +189,7 @@ def customize_plots() -> None:
     # Legend padding
     # mpl.rcParams['legend.borderpad'] =  0.4     # border whitespace
     # mpl.rcParams['legend.labelspacing'] = 0.5   # vert space between entries
-    mpl.rcParams['legend.handlelength'] = 1.25    # length of the legend lines
+    mpl.rcParams['legend.handlelength'] = 1.35    # length of the legend lines
     # mpl.rcParams['legend.handleheight'] = 0.7   # height of the legend handle
     mpl.rcParams['legend.handletextpad'] = 0.8    # space btwn leg lines/text
     mpl.rcParams['legend.borderaxespad'] = 0.5    # border btwn axes/leg edge

@@ -72,10 +72,13 @@ skip_slow = False
 # --- Project information ---
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import pkg_resources
+version = pkg_resources.get_distribution('datopy').version
+
 project = 'datopy'
 copyright = '2024, Matthew Bain'
 author = 'Matthew Bain'
-release = '0.0.1'
+release = version
 
 
 # --- General configuration ---
@@ -245,28 +248,15 @@ html_theme_options = {
     "navigation_with_keys": True,
     # "light_logo": "logo-light-mode.png",
     # "dark_logo": "logo-dark-mode.png",
-    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/bainmatt/datopy",
-            "icon": "fa-brands fa-square-github",
-            "type": "fontawesome",
-        },
-    ],
-    # "analytics": {"google_analytics_id": "G-XX"},
-    "external_links": [
-        {"name": "Related projects", "url": "https://bainmatt.github.io/"},
-    ],
 }
-html_context = {
-    "github_url": "https://github.com", # or your GitHub Enterprise site
-    "github_user": "bainmatt",
-    "github_repo": "datopy",
-    "github_version": "main",
-    "doc_path": "docs/source/",
-    # "default_mode": "light",
-}
+# html_context = {
+#     "github_url": "https://github.com", # or your GitHub Enterprise site
+#     "github_user": "bainmatt",
+#     "github_repo": "datopy",
+#     "github_version": "main",
+#     "doc_path": "docs/source/",
+#     # "default_mode": "light",
+# }
 
 # html_sidebars = {
 #     "index": [],
@@ -311,13 +301,66 @@ html_show_sourcelink = True
 # --- Additional PyData HTML customizations ---
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#references
 
-# NOTE not compatible with Furo. Comment out unless using PyData.
+# Obtain version for version switcher
+# References:
+# https://github.com/pandas-dev/pandas/blob/main/doc/source/conf.py
+# https://github.com/pandas-dev/pandas/blob/main/web/pandas/versions.json
+# 
+# CAUTION:
+# "In theory the JSON could be saved in a folder that is listed under your 
+# site’s html_static_path configuration, but this is not recommended. If you 
+# want to do it this way, see the Sphinx static path documentation for more 
+# information but do so knowing that we do not support this use case."
+# 
+if ".dev" in version:
+    switcher_version = "dev"
+else:
+    # only keep major.minor version number to match versions.json
+    # switcher_version = ".".join(version.split(".")[:2])
+    switcher_version = version
+
 html_theme_options = {
+    # NOTE not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
     "show_prev_next": False,
     "show_nav_level": 1,
     # Don't show class methods in right-hand toc by default
     "show_toc_level": 1,
+    
+    # Header links
+    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
+    "github_url": "https://github.com/bainmatt/datopy",
+    "header_links_before_dropdown": 3,
+    "external_links": [
+        {
+            "name": "Other projects", 
+            "url": "https://bainmatt.github.io/",
+        },
+    ],
+    "icon_links": [
+        # {
+        #     "name": "Website",
+        #     "url": "https://bainmatt.github.io/",
+        #     "icon": "fa-brands fa-square-github",
+        #     "type": "fontawesome",
+        # },
+    ],
+    # "analytics": {"google_analytics_id": "G-XX"},
+    
+    # Version switcher dropdowns
+    # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html
+    "switcher": {
+        # "json_url": "https://bainmatt.github.io/datopy/versions.json",
+        "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",
+        "version_match": switcher_version,
+    },
+    # "switcher": True,
+    # "versions": {
+    #     "latest": "https://github.com/bainmatt/datopy/releases/latest",
+    #     "v0.0.1": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
+    # },
+    "navbar_align": "left",
+    "navbar_end": ["version-switcher", "theme-switcher", "navbar-icon-links"],
 }
 
 # Source buttons
