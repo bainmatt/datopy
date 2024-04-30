@@ -1,0 +1,48 @@
+name: documentation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Determine version number
+        id: version
+        if: github.event_name == 'release'
+        run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+
+      - name: Install dependencies
+        run: |
+          pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
+          pip install -r requirements.txt
+          pip install --editable .
+
+      - name: Sphinx build
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            sphinx-build -D version=${{ steps.version.outputs.version }} docs/source _build/${{ steps.version.outputs.version }}
+          else
+            sphinx-build docs/source dev
+          fi
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'release' || github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ if(github.event_name == 'release', '_build/${{ steps.version.outputs.version }}', 'dev') }}
+          force_orphan: true
