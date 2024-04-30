@@ -39,8 +39,10 @@ build:
     python: "3.10"
     # You can also specify other tool versions:
     # nodejs: "19"
-    # rust: "1.64"
-    # golang: "1.19"
+  
+  jobs:
+    post_install:
+      - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
@@ -51,10 +53,6 @@ formats:
   - htmlzip
   - pdf
   # - epub
-
-  jobs:
-    post_install:
-      - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
 
 # Optional but recommended, declare the Python requirements required
 # to build your documentation
