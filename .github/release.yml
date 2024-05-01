@@ -12,6 +12,9 @@
 # https://keepachangelog.com/en/1.1.0/
 # TL;DR: Changelogs are for humans, not machines.
 
+# TODO ?further customize (minors, no authors) template:
+# https://github.com/actions/deploy-pages/blob/main/.github/release-drafter.yml
+
 changelog:
 
   # PR labels to exclude from release notes 
