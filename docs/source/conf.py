@@ -258,11 +258,6 @@ html_theme_options = {
 #     # "default_mode": "light",
 # }
 
-# html_sidebars = {
-#     "index": [],
-#     "community": ["search-field.html", "sidebar-nav-bs.html", "twitter.html"],
-# }
-
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
@@ -287,6 +282,9 @@ html_use_index = False
 # NOTE excellent tool for debugging documentation
 html_show_sourcelink = True
 
+
+# --- Sidebar customizations ---
+
 # Exclude parent paths from appearing in TOC
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
 #
@@ -296,6 +294,17 @@ html_show_sourcelink = True
 # html_sidebars = {
 #    '**': ["globaltoc.html"],
 # }
+# html_sidebars = {
+#     "index": [],
+#     "community": ["search-field.html", "sidebar-nav-bs.html", "twitter.html"],
+# }
+
+# Hide sidebar on particular pages where section navigation is empty
+# https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#primary-sidebar-left
+html_sidebars = {
+    'Changelog': [],
+    'datopy: Python tools for data': []
+}
 
 
 # --- Additional PyData HTML customizations ---
@@ -305,13 +314,13 @@ html_show_sourcelink = True
 # References:
 # https://github.com/pandas-dev/pandas/blob/main/doc/source/conf.py
 # https://github.com/pandas-dev/pandas/blob/main/web/pandas/versions.json
-# 
+#
 # CAUTION:
-# "In theory the JSON could be saved in a folder that is listed under your 
-# site’s html_static_path configuration, but this is not recommended. If you 
-# want to do it this way, see the Sphinx static path documentation for more 
+# "In theory the JSON could be saved in a folder that is listed under your
+# site’s html_static_path configuration, but this is not recommended. If you
+# want to do it this way, see the Sphinx static path documentation for more
 # information but do so knowing that we do not support this use case."
-# 
+#
 if ".dev" in version:
     switcher_version = "dev"
 else:
@@ -323,17 +332,21 @@ html_theme_options = {
     # NOTE not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
     "show_prev_next": False,
+
     "show_nav_level": 1,
     # Don't show class methods in right-hand toc by default
     "show_toc_level": 1,
-    
+
+    # TODO make this work
+    "content_footer_items": ["last-updated"],
+
     # Header links
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
     "github_url": "https://github.com/bainmatt/datopy",
     "header_links_before_dropdown": 3,
     "external_links": [
         {
-            "name": "Other projects", 
+            "name": "Other projects",
             "url": "https://bainmatt.github.io/",
         },
     ],
@@ -346,9 +359,13 @@ html_theme_options = {
         # },
     ],
     # "analytics": {"google_analytics_id": "G-XX"},
-    
+
     # Version switcher dropdowns
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html
+    # 
+    # Example additional rtd configurations:
+    # https://github.com/pydata/pydata-sphinx-theme/blob/30be4d46fe4845503aacf886af4f5af8581057c2/docs/conf.py
+    # 
     "switcher": {
         # "json_url": "https://bainmatt.github.io/datopy/versions.json",
         # "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",
@@ -360,6 +377,7 @@ html_theme_options = {
     #     "latest": "https://github.com/bainmatt/datopy/releases/latest",
     #     "v0.0.1": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
     # },
+    "show_version_warning_banner": True,
     "navbar_align": "left",
     "navbar_end": [
         "version-switcher", "theme-switcher", "navbar-icon-links"
