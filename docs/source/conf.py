@@ -65,7 +65,7 @@ try:
 except ImportError:
     pd = None
 
-skip_slow = False
+skip_slow = True
 '''
 
 
@@ -141,15 +141,15 @@ autodoc_default_options = {
 intersphinx_mapping = {
     "python": ("https://docs.python.org/{.major}".format(sys.version_info), None),
     "numpy": ("https://numpy.org/doc/stable", None),
-    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
+    # "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "matplotlib": ("https://matplotlib.org/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
-    "seaborn": ("https://seaborn.pydata.org/", None),
-    "skops": ("https://skops.readthedocs.io/en/stable/", None),
-    "scikit-learn": ("https://scikit-learn.org/stable/", None),
+    # "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    # "seaborn": ("https://seaborn.pydata.org/", None),
+    # "skops": ("https://skops.readthedocs.io/en/stable/", None),
+    # "scikit-learn": ("https://scikit-learn.org/stable/", None),
     "pydantic": ("https://docs.pydantic.dev/latest/", None),
-    # "datopy": {"https://bainmatt.github.io/datopy/", None},
+    "datopy": ("https://datopy.readthedocs.io/stable/", None),
 }
 
 
@@ -218,7 +218,12 @@ numpydoc_class_members_toctree = False
 # https://numpydoc.readthedocs.io/en/latest/validation.html
 #
 # Report warnings for all validation checks except GL01, GL02, and GL05 (GL08)
-numpydoc_validation_checks = {"all", "GL01", "GL02", "GL05", "GL08"}
+numpydoc_validation_checks = {
+    "all",
+    "GL01", "GL02", "GL05", "GL08",
+    # missing sections
+    "ES01", "SA01", "EX01", "RT01",
+}
 
 # FIXME fix this to actually exclude the specified patterns
 templates_path = ['_templates']
@@ -328,6 +333,26 @@ else:
     # switcher_version = ".".join(version.split(".")[:2])
     switcher_version = version
 
+# TODO check this
+# For use with Read the Docs. Reference:
+# https://github.com/pydata/pydata-sphinx-theme/blob/main/docs/conf.py
+version_match = os.environ.get("READTHEDOCS_VERSION")
+# If READTHEDOCS_VERSION doesn't exist, we're not on RTD.
+# If it is an integer, we're in a PR build and the version isn't correct.
+# If it's "latest" → change to "dev" (what we want the switcher to call it).
+#
+if not version_match or version_match.isdigit() or version_match == "latest":
+    # For local development, infer the version to match from the package.
+    if "dev" in release or "rc" in release:
+        switcher_version = "dev"
+        # We want to keep the relative reference if we are in dev mode
+        # but we want the whole url if we are effectively in a released version
+        json_url = "_static/switcher.json"
+    else:
+        switcher_version = f"v{release}"
+elif version_match == "stable":
+    switcher_version = f"v{release}"
+
 html_theme_options = {
     # NOTE not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
@@ -346,7 +371,7 @@ html_theme_options = {
     "header_links_before_dropdown": 3,
     "external_links": [
         {
-            "name": "Other projects",
+            "name": "Creator website",
             "url": "https://bainmatt.github.io/",
         },
     ],
@@ -362,10 +387,10 @@ html_theme_options = {
 
     # Version switcher dropdowns
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html
-    # 
+    #
     # Example additional rtd configurations:
     # https://github.com/pydata/pydata-sphinx-theme/blob/30be4d46fe4845503aacf886af4f5af8581057c2/docs/conf.py
-    # 
+    #
     "switcher": {
         # "json_url": "https://bainmatt.github.io/datopy/versions.json",
         # "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",

@@ -1,5 +1,6 @@
 # Required
 requests==2.31.0
+numpy==1.26.4
 pandas==2.2.2
 pydantic==2.7.0
 bs4==0.0.2
@@ -24,7 +25,5 @@ jsonschema==4.21.1
 wptools==0.4.17
 cinemagoer==2023.5.1
 spotipy==2.23.0
-scipy==1.13.0
 matplotlib==3.8.3
-seaborn==0.13.2
 # Docs

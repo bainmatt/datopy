@@ -1,22 +1,29 @@
 """
-A helper function that updates the default matplotlib (and by
-extension, Seaborn) style parameters for a more uniform and readable
-look.
+Plotting utilities and matplotlib rcParams customization.
 """
 
+import numpy as np
 import matplotlib as mpl
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-import seaborn as sns
 from cycler import cycler
+import matplotlib.pyplot as plt
+# from matplotlib.colors import ListedColormap
 
 import os
 import sys
 
 
+# plt.close()
+# x = np.linspace(0, 1, 20)
+# cmap = mpl.colormaps.get_cmap("viridis").resampled(20)
+# plt.imshow(x[:, np.newaxis].T, cmap=cmap)
+# plt.axis('off')
+# plt.show()
+
+
 class outputoff:
     """
-    Context manager to suppress outputs.
+    Define context in which all outputs are suppressed.
+
     Intended for use with pyplot to suppress intermittent printouts.
     """
     def __enter__(self):
@@ -35,23 +42,21 @@ class outputoff:
         sys.stdout = self.stdout
 
 
-# TODO attempt to clean up plot examples using approach like this:
+# TODO clean up plot examples using approach like this:
 # https://github.com/arviz-devs/arviz/blob/main/arviz/plots/autocorrplot.py
 # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot
 
 def customize_plots() -> None:
     r"""
-    Sets custom matplotlib rcParams to handle default styling for
-    all matplotlib plotting functions and functions built upon matplotlib
-    (e.g., Seaborn).
+    Set custom matplotlib rcParams.
+
+    Handles default styling for all matplotlib plotting functions and
+    functions built upon matplotlib (e.g., Seaborn plotters).
 
     Notes
     -----
-    - When run in isolation, will apply the new style parameters globally.
-    - When provided as context to a plotting routine, styles only that plot.
-    - Contrast with the default matplotlib rc file:
-
-      https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
+    Contrast with the default matplotlib rc file:
+    https://matplotlib.org/stable/users/explain/customizing.html#the-matplotlibrc-file.
 
     Examples
     --------
@@ -72,43 +77,36 @@ def customize_plots() -> None:
 
         Define a couple plotting functions
 
-        >>> def single_panel_plot():
+        >>> def single_panel_plot(x):
         ...     ax = plt.subplot(111)
         ...     ax.plot(x, np.sin(x), label="$sin(x)$")
         ...     ax.plot(x, np.cos(x), label="$cos(x)$")
-        ...     ax.set_xlabel('$x$')
-        ...     ax.set_ylabel('$y$')
-        ...     # ax.set_title("A minimal plot")
+        ...     ax.set(xlabel="$x$", frame_on=False)
+        ...     ax.set_ylabel("$f(x)$", rotation=0)
         ...     ax.legend()
         ...     ax.grid()
-        ...     ax.set_frame_on(False)
-        ...     # ax.tick_params(bottom=False, left=False)
         ...     plt.show()
 
-        >>> def multi_panel_plot():
+        >>> def multi_panel_plot(x):
         ...     fig, axs = plt.subplots(2, 2, sharex=True, sharey=True)
         ...     axs = axs.flatten()
         ...     for i, ax in enumerate(axs, start=1):
         ...         ax.plot(x, np.sin(i/2 * x))
         ...         ax.plot(x, np.cos(i/2 * x))
-        ...         # ax.set_title(f"$a = {i}$")
-        ...         # if i > 2: ax.set_xlabel('$x$')
-        ...         # if i % 2 != 0: ax.set_ylabel('$y$')
-        ...         ax.grid()
         ...         ax.text(
-        ...             2 * np.pi - 0.1, -1 + 0.1,
-        ...             f"$a = {i}$",
+        ...             max(x) - 0.1, -1 + 0.1,
+        ...             f"$a = {i/2}$",
         ...             size=12,
-        ...             horizontalalignment="right",
+        ...             ha="right",
         ...             bbox={
         ...                 "boxstyle": "round",
         ...                 "alpha": 0.8,
         ...                 "facecolor": "white",
         ...             }
         ...         )
-        ...     fig.supylabel("$y$")
-        ...     fig.supxlabel("$x$", x=.57)
-        ...     # fig.suptitle("A multi-panel plot", x=.57)
+        ...         ax.grid()
+        ...     fig.supylabel("$f(x)$", rotation=0)
+        ...     fig.supxlabel("$x$", x=.5)
         ...     axs[0].legend(
         ...         labels=["$sin(ax)$", "$cos(ax)$"],
         ...         ncol=1,
@@ -125,8 +123,8 @@ def customize_plots() -> None:
             # >>> multi_panel_plot()  # /doctest: +SKIP
 
         >>> customize_plots()
-        >>> single_panel_plot()  # /doctest: +SKIP
-        >>> multi_panel_plot()  # /doctest: +SKIP
+        >>> single_panel_plot(x)  # /doctest: +SKIP
+        >>> multi_panel_plot(x)  # /doctest: +SKIP
 
     """
 
@@ -177,8 +175,11 @@ def customize_plots() -> None:
     # mpl.rcParams['axes.prop_cycle'] = cycler(
     #     color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
     # )
+    # mpl.rcParams['axes.prop_cycle'] = cycler(
+    #     color=sns.color_palette("PiYG", n_colors=6)
+    # )
     mpl.rcParams['axes.prop_cycle'] = cycler(
-        color=sns.color_palette("PiYG", n_colors=6)
+        color=mpl.cm.PiYG(np.linspace(0.15, .85, 6))  # type: ignore
     )
 
     # Legend properties
@@ -199,7 +200,6 @@ def customize_plots() -> None:
     mpl.rcParams['patch.edgecolor'] = 'black'  # if forced, else not filled
     mpl.rcParams['patch.force_edgecolor'] = 1
     mpl.rcParams['patch.linewidth'] = .4       # edgewidth (default: .5)
-
 
     # --- Object-specific properties ---
 
@@ -260,7 +260,6 @@ def customize_plots() -> None:
     # mpl.rcParams['boxplot.flierprops.markeredgecolor'] = 'black'  # (check)
     # mpl.rcParams['boxplot.flierprops.color'] = 'black'            # (check)
 
-
     # --- Figure padding ---
 
     # Figure layout
@@ -293,7 +292,6 @@ def customize_plots() -> None:
     # mpl.rcParams['figure.constrained_layout.hspace'] = 0.02
     # mpl.rcParams['figure.constrained_layout.wspace'] = 0.02
 
-
     # --- Other ---
 
     # Figure size and quality
@@ -310,7 +308,8 @@ def customize_plots() -> None:
 
 
 class customstyle:
-    """Wrapper and context manager for `customize_plots`.
+    """
+    Define plotting context given by :func:`datopy.stylesheet.customize_plots`.
 
     Examples
     --------
@@ -338,3 +337,16 @@ class customstyle:
 
     def __exit__(self, *exc):
         pass
+
+
+def main():
+    import doctest
+    from datopy.workflow import doctest_function
+
+    # Comment out (2) to run all tests in script; (1) to run specific tests
+    doctest.testmod(verbose=True)
+    # doctest_function(customize_plots, globs=globals())
+
+
+if __name__ == "__main__":
+    main()

@@ -1,13 +1,15 @@
 """
-Data models, validators, and ETL tools for scraped media data,
-including reviews (via IMDb), music albums (via Spotify), and related information (via Wikipedia).
+Data models, validators, and ETL tools for scraped media data.
+
+Includes support for reviews (via IMDb), music albums (via Spotify),
+and related information (via Wikipedia).
 """
 
 import re
 import doctest
 import pandas as pd
-from pydantic import BaseModel, Field, ValidationError
 from typing import Annotated, List, Literal, NamedTuple, Tuple
+from pydantic import BaseModel, Field, TypeAdapter, ValidationError
 
 import imdb
 import spotipy
@@ -38,7 +40,9 @@ from datopy.modeling import BaseProcessor, CustomTypes
 
 
 class MediaQuery(NamedTuple):
-    """Query object types for media metadata retrieval."""
+    """
+    Query object types for media metadata retrieval.
+    """
     title: str
     artist: str | None = None
 
@@ -55,9 +59,9 @@ Book = type('Book', (MediaQuery,), {})
 #     Book = Book
 
 
-class IMDbFilm(BaseModel):
-    r"""Data model for processed imdb metadata.
-
+class IMDbFilm(BaseModel):  # numpydoc ignore=all
+    r"""
+    Data model for processed imdb metadata.
 
     Example
     -------
@@ -65,12 +69,16 @@ class IMDbFilm(BaseModel):
     >>> from datopy.models.media import IMDbFilm
     >>> from datopy._examples import imdb_film_retrieve
 
+    Valid film
+
     >>> valid_film = IMDbFilm(
     ...     title='name 10!', imdb_id='tt1234567', kind='movie',
     ...     year=1990, rating=7.2, votes=122,
     ...     genres='romantic comedy, thriller', cast='mrs smith,mr smith',
     ...     plot='alas! once upon a time, ...',
     ...     budget_mil=1123929)
+
+    Invalid film
 
     >>> invalid_film = dict(
     ...     title='name', imdb_id='tt12', year=1975, votes=-2, rating=5.0)
@@ -144,7 +152,8 @@ class IMDbFilm(BaseModel):
 class SpotifyAlbum(BaseModel):
     """
     Data model for processed Spotify metadata.
-    Raw data schema reference: 'datopy/output/spotify_album_schema.json'
+
+    Raw data schema reference: 'datopy/output/spotify_album_schema.json'.
     """
     # fields of interest:
 
@@ -155,7 +164,8 @@ class SpotifyAlbum(BaseModel):
 class WikiBook(BaseModel):
     """
     Data model for processed Wikipedia novel metadata.
-    Raw data schema reference: 'datopy/output/wiki_book_schema.json'
+
+    Raw data schema reference: 'output/wiki_book_schema.json'.
     """
     # fields of interest:
 
@@ -165,7 +175,8 @@ class WikiBook(BaseModel):
 class WikiFilm(BaseModel):
     """
     Data model for processed Wikipedia film metadata.
-    Raw data schema reference: 'datopy/output/wiki_film_schema.json'
+
+    Raw data schema reference: 'datopy/output/wiki_film_schema.json'.
     """
     # fields of interest:
 
@@ -175,7 +186,8 @@ class WikiFilm(BaseModel):
 class WikiAlbum(BaseModel):
     """
     Data model for processed Wikipedia album metadata.
-    Raw data schema reference: 'datopy/output/wiki_album_schema.json'
+
+    Raw data schema reference: 'datopy/output/wiki_album_schema.json'.
     """
     # fields of interest:
 
@@ -204,6 +216,9 @@ class WikiAlbum(BaseModel):
 # TODO implement 5 subclasses
 
 class IMDbFilmProcessor(BaseProcessor):
+    """
+    _summary_.
+    """
     def retrieve(self):
         # title = self.query.title
 

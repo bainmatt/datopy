@@ -1,6 +1,10 @@
 """
-Tools for data I/O (saving figures and Jupyter runtime environment files,
-manually downloading modules) and other data workflows.
+Tools for data input/output.
+
+Included:
+
+- Saving figures and Jupyter runtime environment files
+- Manually downloading modules
 """
 
 import os
@@ -8,22 +12,23 @@ import doctest
 import requests
 import importlib
 import urllib.request
-# from collections.abc import Callable
 from typing import Dict, List, Any, Callable
 
+
+# TODO Save figs
 ### Save figs
 
+# TODO Save drive
 ### Save drive
 
-### Download Github modules
-
-
 def git_module_loader(modules: Dict[str, List[str]],
-                      save_dir: str = f"{os.path.dirname(os.path.abspath(__file__))}",
+                      save_dir: str | None = None,
                       run_tests: bool = False,
                       run_download: bool = False) -> None:
     """
-    Securely downloads collections of modules directly from their Git repo and stores in the current directory.
+    Securely downloads collections of modules directly from their Git repo.
+
+    Retrieved files are stored in the current directory.
 
     Parameters
     ----------
@@ -52,6 +57,11 @@ def git_module_loader(modules: Dict[str, List[str]],
     Skipping download.
     Skipping download.
     """
+
+    if not save_dir:
+        save_dir = f"{os.path.dirname(os.path.abspath(__file__))}"
+    else:
+        pass
 
     for repo in modules:
         for module in modules[repo]:
@@ -88,7 +98,7 @@ def git_module_loader(modules: Dict[str, List[str]],
 def doctest_function(object: Callable[..., Any], globs: dict[str, Any],
                      verbose=True) -> None:
     """
-    Convenience wrapper to run doctests for a specific function or class.
+    Run doctests for a specific function or class.
 
     Parameters
     ----------

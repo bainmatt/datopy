@@ -1,7 +1,12 @@
 """
-Data models and retrieval/processing tools for scraping metadata for movies
-and movie reviews (via IMDb), music albums (via Spotify), and related
-topics (via Wikipedia).
+Data models and retrieval/processing tools for scraping metadata.
+
+Included routines cover:
+
+- Movies and movie reviews (via IMDb)
+- Music albums (via Spotify)
+- Related topics (via Wikipedia)
+
 """
 
 import re
@@ -85,7 +90,11 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     base_url = "https://www.imdb.com"
     search_url = f"{base_url}/find?q={movie_title}"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+    headers = {
+        'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                       'AppleWebKit/537.36 (KHTML, like Gecko) '
+                       'Chrome/91.0.4472.124 Safari/537.36')
+    }
 
     try:
         search_response = requests.get(search_url, headers=headers)
@@ -109,7 +118,7 @@ def get_imdb_id(movie_title: str) -> str | None:
 
 def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     r"""
-    _summary_
+    _summary_.
 
     Parameters
     ----------
@@ -146,7 +155,11 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
     """
 
     base_url = f"https://www.imdb.com/title/{movie_id}/reviews"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+    headers = {
+        'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                       'AppleWebKit/537.36 (KHTML, like Gecko) '
+                       'Chrome/91.0.4472.124 Safari/537.36')
+    }
     response = requests.get(base_url, headers=headers)
 
     if response.status_code == 200:
@@ -167,7 +180,7 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
 
 def get_film_metadata(movie_title: str) -> pd.DataFrame:
     r"""
-    _summary_
+    _summary_.
 
     Parameters
     ----------
@@ -184,8 +197,6 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
     .. code-block:: python doctest
     .. doctest::
         :skipif: skip_slow
-
-        Setup
 
         >>> from datopy._media_scrape import get_film_metadata
         >>> title = 'donnie darko'
@@ -277,8 +288,8 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    # doctest.testmod(verbose=True)
-    doctest_function(get_imdb_id, globs=globals())
+    doctest.testmod(verbose=True)
+    # doctest_function(get_imdb_id, globs=globals())
 
     ## One-off tests
     pass

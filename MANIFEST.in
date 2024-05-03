@@ -3,7 +3,7 @@
 
 
 # Include select root files
-include README.md
+include README.rst
 include MANIFEST.in
 
 # Include all Python source files
