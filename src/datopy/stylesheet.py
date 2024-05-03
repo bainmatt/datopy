@@ -63,8 +63,6 @@ def customize_plots() -> None:
     .. code-block:: python plot
     .. plot::
         :context: close-figs
-        :width: 100%
-        :align: left
 
         >>> import matplotlib
         >>> import matplotlib.pyplot as plt
@@ -125,7 +123,6 @@ def customize_plots() -> None:
         >>> customize_plots()
         >>> single_panel_plot(x)  # /doctest: +SKIP
         >>> multi_panel_plot(x)  # /doctest: +SKIP
-
     """
 
     # --- General properties ---

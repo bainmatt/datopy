@@ -12,13 +12,25 @@ import pprint
 import doctest
 import pandas as pd
 from jsonschema import validate
-from pydantic import BaseModel, Field, PositiveInt, ValidationError
 import typing
-from typing import (
-    Any, Callable, Collection, Dict, Iterable, List,
-    NamedTuple, TypeVar,
+from pydantic import (
+    Field,
+    BaseModel,
+    PositiveInt,
+    ValidationError,
+    field_validator,
 )
-from typing import TYPE_CHECKING
+from typing import (
+    Any,
+    List,
+    Dict,
+    TypeVar,
+    Callable,
+    Iterable,
+    Collection,
+    NamedTuple,
+    TYPE_CHECKING
+)
 from typing_extensions import Annotated, TypeAliasType
 
 # import datopy._settings
@@ -347,6 +359,7 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 # --- Data processing base types and class ---
 # --------------------------------------------
 
+# TODO replace these with field validators -- either general or model-specific
 class CustomTypes:
     """
     Define reusable custom field types.
@@ -358,10 +371,10 @@ class CustomTypes:
     https://docs.pydantic.dev/latest/concepts/types/.
     """
 
-    CSVstr = TypeAliasType('CSVstr', Annotated[str, Field(
+    CSVstr = Annotated[str, Field(
         pattern=r'^[a-z, ]+$',
         description=":attr:`~datopy.modeling.CustomTypes` : ``CSVstr``")
-    ])
+    ]
     """Lowercase comma-separated string.
     Excludes numerics and special characters.
     """
@@ -379,10 +392,8 @@ class CustomTypes:
         description=":attr:`~datopy.modeling.CustomTypes` : ``CSVnumsent``"),
     ]
 
-# CustomTypes.model_fields
 
 # TODO implement BaseProcessor
-
 class BaseProcessor:
     """
     _summary_.

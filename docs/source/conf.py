@@ -9,6 +9,9 @@ https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
 Quickstart:
 https://www.sphinx-doc.org/en/master/tutorial/getting-started.html
 
+A nice succinct guide:
+https://hplgit.github.io/teamods/sphinx_api/html/sphinx_api.html
+
 Theming references:
 https://sphinx-themes.org/
 https://sphinx-themes.org/sample-sites/furo/
@@ -126,7 +129,7 @@ autodoc_default_options = {
     "private-members": False,
     "inherited-members": False,
     "special-members": False,
-    # Show name and source of object on which a subclass is based
+    # show name and source of object on which a subclass is based
     "show-inheritance": True,
     "undoc-members": False,
 }
@@ -170,14 +173,13 @@ plot_html_show_source_link = False
 
 autodoc_pydantic_model_show_json = True
 autodoc_pydantic_model_show_config_summary = True
-# Don't include individual pages for members (config summary is sufficient)
+# don't include summary table for fields (config summary is sufficient)
 autodoc_pydantic_model_show_field_summary = False
-autodoc_pydantic_model_show_members = False
+autodoc_pydantic_model_show_members = True
 autodoc_pydantic_field_show_required = True
 autodoc_pydantic_field_show_optional = True
 autodoc_pydantic_settings_hide_reused_validator = True
 autodoc_pydantic_settings_show_validator_members = False
-
 # autodoc_pydantic_model_signature_prefix = 'pydantic model'
 # autodoc_pydantic_model_show_erdantic_figure_collapsed = True
 # autodoc_pydantic_model_show_schema_json = True
@@ -191,27 +193,32 @@ napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_include_private_with_doc = False
 napoleon_include_special_with_doc = False
-napoleon_use_admonition_for_examples = True
+napoleon_use_admonition_for_examples = False
 napoleon_use_admonition_for_notes = True
-napoleon_use_admonition_for_references = True  # ?for footnote compatibility
+# ?for footnote compatibility
+napoleon_use_admonition_for_references = True
+# ?place parameter description below its definition
 napoleon_use_ivar = False
-napoleon_use_param = False
-# ensures section navigation bar remains present on autodoc-generated pages
+# napoleon_use_keyword = True
+# set to True for a separate ReturnType field
 napoleon_use_rtype = True
-# turn off styling of parameter types if signatures are configured as such
+# turn off parameter list hyperlinks since already available in docstring
+napoleon_use_param = False
+# turn off sloppy styling of parameter types
 napoleon_preprocess_types = False
 napoleon_type_aliases = None
-napoleon_attr_annotations = False
+# include attribute summary lists within classes where provided
+napoleon_attr_annotations = True
 
 
 # --- Customize numpydocs options ---
 # https://numpydoc.readthedocs.io/en/latest/install.html
 
 numpydoc_use_plots = True
-# Include class methods/attributes on autodoc page of class
+# include class methods/attributes summary table
 numpydoc_show_class_members = True
 numpydoc_show_inherited_class_members = False
-# Don't clutter section navigation
+# don't clutter left-hand section navigation bar
 numpydoc_class_members_toctree = False
 
 # Numpy docstring validation checks
@@ -270,8 +277,8 @@ html_theme_options = {
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
-# Don't clutter signatures with absolute paths to objects
-add_module_names = False
+# Show module paths in objects signatures for clarity
+add_module_names = True
 # Include module/class members in right-hand toc
 toc_object_entries = True
 # Don't clutter right-hand toc with absolute paths to objects
@@ -364,7 +371,7 @@ html_theme_options = {
 
     "show_nav_level": 1,
     # Don't show class methods in right-hand toc by default
-    "show_toc_level": 1,
+    "show_toc_level": 2,
 
     # TODO make this work
     "content_footer_items": ["last-updated"],
