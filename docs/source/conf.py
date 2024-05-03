@@ -217,12 +217,16 @@ numpydoc_class_members_toctree = False
 # Numpy docstring validation checks
 # https://numpydoc.readthedocs.io/en/latest/validation.html
 #
-# Report warnings for all validation checks except GL01, GL02, and GL05 (GL08)
+# Report warnings for all validation checks except GL01, GL02, etc.
 numpydoc_validation_checks = {
     "all",
+    # styling
     "GL01", "GL02", "GL05", "GL08",
     # missing sections
     "ES01", "SA01", "EX01", "RT01",
+    # missing elements (period in summary, parameters)
+    # NOTE this should not be used permanently
+    "PR01", "SS03",
 }
 
 # FIXME fix this to actually exclude the specified patterns
