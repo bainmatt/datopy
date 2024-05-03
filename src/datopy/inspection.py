@@ -22,7 +22,7 @@ from datopy.workflow import doctest_function
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
-    Quickly make a DataFrame.
+    Generate a DataFrame with a simple structure for tests.
 
     Parameters
     ----------
@@ -57,7 +57,11 @@ def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     return pd.DataFrame(data=data, index=pd.Index(ind))
 
 
-def display(*args, globs: dict[str, Any] | None = None, bold: bool = True):
+def display(
+    *args,
+    globs: dict[str, Any] | None = None,
+    bold: bool = True
+) -> None:
     """
     Display an informative representation of multiple objects side-by-side.
 

@@ -69,7 +69,9 @@ except NameError:
 # TODO refactor later into SubProcessor
 
 def spotify_album_retrieve(album: Album) -> dict:
-    """Spotify album metadata retrieval routine."""
+    """
+    Spotify album metadata retrieval routine.
+    """
     sp = spotipy.Spotify(
         client_credentials_manager=SpotifyClientCredentials()
     )
@@ -105,7 +107,9 @@ def spotify_album_retrieve(album: Album) -> dict:
 
 
 def imdb_film_retrieve(film: Film) -> dict:
-    """IMDb film metadata retrieval routine."""
+    """
+    IMDb film metadata retrieval routine.
+    """
     ia = Cinemagoer()
     movies = ia.search_movie(film.title)
     if not movies:
@@ -127,8 +131,11 @@ def wiki_metadata_retrieve(query: Film | Album | Book) -> dict:
 
 def extract_datamodel(obj, verbose: bool = False) -> DataModel:
     """
-    Extract data dictionary elements, a json-style schema of
-    (key, type)/(key, value) pairs, and a dataframe entry.
+    Construct a data model from a scraped data structure.
+
+    The constructed objects include dictionary elements,
+    a json-style schema of (key, type)/(key, value) pairs,
+    and a dataframe entry.
 
     Parameters
     ----------
@@ -201,10 +208,8 @@ def run_auto_datamodel_example(
     verbose: bool = False,
     do_save: bool = False
 ) -> DataModel:
-
     r"""
-    Auto-generate and save an exemplar data dictionary from the metadata of
-    an arbitrary API-extracted data structure.
+    Generate an exemplar data model from an API-extracted data structure.
 
     Parameters
     ----------
@@ -227,19 +232,20 @@ def run_auto_datamodel_example(
     Examples
     --------
     .. code-block:: python doctest
+
+    Setup
+
+    >>> import re
+    >>> from datopy._examples import run_auto_datamodel_example
+    >>> from datopy.etl import omit_string_patterns
+    >>> from datopy.models.media import Album, Book, Film
+
+    >>> do_save=False
+
+    IMDb film
+
     .. doctest::
         :skipif: skip_slow
-
-        Setup
-
-        >>> import re
-        >>> from datopy._examples import run_auto_datamodel_example
-        >>> from datopy.etl import omit_string_patterns
-        >>> from datopy.models.media import Album, Book, Film
-
-        >>> do_save=False
-
-        imdb: film
 
         >>> film = Film("eternal sunshine of the spotless mind")
         >>> datamodel = run_auto_datamodel_example(
@@ -252,7 +258,10 @@ def run_auto_datamodel_example(
         >>> datamodel.normalized['original air date'][0]
         '19 Mar 2004 (USA)'
 
-        spotify: album
+    Spotify album
+
+    .. doctest::
+        :skipif: skip_slow
 
         ..
             # >>> album = Album("kid A", "radiohead")
@@ -265,7 +274,10 @@ def run_auto_datamodel_example(
             # >>> datamodel.normalized['id'][0]
             # '6GjwtEZcfenmOf6l18N7T7'
 
-        wiki: novel
+    Wikipedia novel
+
+    .. doctest::
+        :skipif: skip_slow
 
         >>> book = Book("to kill a mockingbird")
         >>> outputs = run_auto_datamodel_example(
@@ -277,7 +289,10 @@ def run_auto_datamodel_example(
         >>> outputs.normalized['pages'][0]
         '281'
 
-        wiki: film
+    Wikipedia film
+
+    .. doctest::
+        :skipif: skip_slow
 
         >>> film = Film("eternal sunshine of the spotless mind")
         >>> outputs = run_auto_datamodel_example(
@@ -289,7 +304,10 @@ def run_auto_datamodel_example(
         >>> outputs.normalized['budget'][0]
         '$20 million'
 
-        wiki: album
+    Wikipedia album
+
+    .. doctest::
+        :skipif: skip_slow
 
         >>> album = Album("kid A", "radiohead")
         >>> outputs = run_auto_datamodel_example(
@@ -304,7 +322,6 @@ def run_auto_datamodel_example(
         'str'
         >>> outputs.normalized['type'][0]
         'studio'
-
     """
     # Check assumptions
     # TODO remove line below (redundant)
@@ -396,8 +413,10 @@ def run_auto_datamodel_example(
 # Instead use these tools to quickly grasp the structure of retrieved data and
 # build comprehensive Pydantic models that fully suit your downstream needs!
 
-# An example of messy, highly unnecessary testing of retrieved data
 def _run_messy_example():
+    """
+    An example of messy, highly unnecessary testing of retrieved data.
+    """
     # obj = spotify_album_retrieve(Album("kid a", "radiohead"))
     fname = 'output/spotify_album_json_schema.json'
     with open(os.path.join(file_dir, fname)) as file:
@@ -408,7 +427,9 @@ def _run_messy_example():
 
 
 def _run_idealized_example():
-    # An idealized example to demonstrate json validation in theory
+    """
+    An idealized example to demonstrate json validation in theory
+    """
     fname = 'models/output/imdb_model.json'
     with open(os.path.join(file_dir, fname)) as file:
         movie_schema = json.load(file)

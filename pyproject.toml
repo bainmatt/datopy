@@ -30,7 +30,7 @@ build-backend = "setuptools.build_meta"
 name = "datopy"
 version = "0.0.1"
 description = "Tools for data modeling, ETL, and web scraping"
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
 keywords = ["pydantic", "beautifulsoup", "modelling", "validation", "etl"]
@@ -69,6 +69,7 @@ classifiers = [
 # an exhaustive list of requirements is given in requirements{_dev}.txt.
 dependencies = [
     "requests>=2.31.0",
+    "numpy==1.26.4",
     "pandas>=2.2.2",
     "pydantic>=2.7.0",
     "bs4>=0.0.2",
@@ -91,7 +92,6 @@ examples = [
     "wptools>=0.4.17",
     "cinemagoer>=2023.5.1",
     "spotipy>=2.23.0",
-    "scipy>=1.13.0",
 ]
 
 
@@ -230,6 +230,22 @@ module = [
 ]
 ignore_errors = true
 
+# [tool.numpydoc_validation]
+# checks = [
+#     "all",   # report on all checks, except the below
+#     "EX01",
+#     "SA01",
+#     "ES01",
+# ]
+# exclude = [  # don't report on objects that match any of these regex
+#     '\.undocumented_method$',
+#     '\.__repr__$',
+# ]
+# override_SS05 = [  # override SS05 to allow docstrings starting with these words
+#     '^Process ',
+#     '^Assess ',
+#     '^Access ',
+# ]
 
 # --- Build and installation ---
 # Development mode (setuptools):

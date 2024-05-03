@@ -1,6 +1,10 @@
 """
-Tools for data modeling, validation, and raw data processing, including
-auto-generated data models and a flexible framework for ETL workflows.
+Tools for data modeling, validation, and raw data processing.
+
+Included:
+
+- Auto-generated data models
+- A flexible framework for ETL workflows
 """
 
 import json
@@ -10,10 +14,11 @@ import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
 from typing import (
-    Annotated, Any, Callable, Collection, Dict, Iterable, List,
+    Any, Callable, Collection, Dict, Iterable, List,
     NamedTuple, TypeVar,
 )
 from typing import TYPE_CHECKING
+from typing_extensions import Annotated, TypeAliasType
 
 # import datopy._settings
 from datopy.workflow import doctest_function
@@ -35,11 +40,14 @@ GenericNestedDict = dict[object, object]
 # --- Data dictionary generation utils ---
 # ----------------------------------------
 
-def list_to_dict(obj: list[object] | tuple[object] | set[object],
-                 max_items: int | None = None) -> dict[int, object]:
+def list_to_dict(
+    obj: list[object] | tuple[object] | set[object],
+    max_items: int | None = None
+) -> dict[int, object]:
     """
-    Provide a dictionary representation of a list or other non-dictionary
-    or string-like iterable, using indices as keys.
+    Provide a dictionary representation of a list, using indices as keys.
+
+    Also compatible with other non-dictionary or string-like iterables.
 
     Parameters
     ----------
@@ -86,19 +94,20 @@ def compare_dict_keys(
     dict2: GenericNestedDict | object
 ) -> GenericNestedDict | str | None:
     """
-    Recursively compare two dictionaries and identify missing keys.
+    Compare two dictionaries recursively and identify missing keys.
 
     Parameters
     ----------
     dict1 : dict
         The reference dictionary.
     dict2 : dict
-        The comparison dictionary to be checked against `dict1`.
+        The comparison dictionary to be checked against ``dict1``.
 
     Returns
     -------
     result : dict | List[str] | None
-        The nested dictionary of fields missing from `dict2` relative `dict1`.
+        The nested dictionary of fields missing from
+        ``dict2`` relative ``dict1``.
 
     Examples
     --------
@@ -170,12 +179,15 @@ def compare_dict_keys(
     return None
 
 
-def apply_recursive(func: Callable[..., Any],
-                    obj) -> dict[str | int, Any] | Any:
+def apply_recursive(
+    func: Callable[..., Any],
+    obj
+) -> dict[str | int, Any] | Any:
     """
-    Convert a nested data structure (with explicit or implied key/value
-    pairs) into a tree-like dictionary, applying a given function to
-    terminal values.
+    Apply ``func`` to each terminal value in a nested data structure.
+
+    Valid nested data structures include those with explicit or implied
+    key/value pairs.
 
     Parameters
     ----------
@@ -187,31 +199,44 @@ def apply_recursive(func: Callable[..., Any],
     Returns
     -------
     dict:
-        _description_
+        A tree-like dictionary representation of the transformed ``obj``.
 
     Examples
     --------
     >>> from datopy.modeling import apply_recursive
+    >>> import pprint
 
     Define the data
 
-    >>> nested_data =  {'type': 'album', 'url': 'link.com', 'audio_features': [
-    ...     {'loudness': -11.4, 'duration_ms': 251},
-    ...     {'loudness': -15.5, 'duration_ms': 284}]}
-    >>> print(nested_data)
-    {'type': 'album', 'url': 'link.com', 'audio_features': [{'loudness': -11.4, 'duration_ms': 251}, {'loudness': -15.5, 'duration_ms': 284}]}
+    >>> nested_data =  {
+    ...     'type': 'album', 'url': 'link.com', 'audio_features': [
+    ...         {'loudness': -11.4, 'duration_ms': 251},
+    ...         {'loudness': -15.5, 'duration_ms': 284}
+    ...     ]
+    ... }
+    >>> pprint.pp(nested_data)
+    {'type': 'album',
+     'url': 'link.com',
+     'audio_features': [{'loudness': -11.4, 'duration_ms': 251},
+                        {'loudness': -15.5, 'duration_ms': 284}]}
 
     Convert to json-friendly representation
 
     >>> serialized = apply_recursive(str, nested_data)
-    >>> print(serialized)
-    {'type': 'album', 'url': 'link.com', 'audio_features': {1: {'loudness': '-11.4', 'duration_ms': '251'}, 2: {'loudness': '-15.5', 'duration_ms': '284'}}}
+    >>> pprint.pp(serialized)
+    {'type': 'album',
+     'url': 'link.com',
+     'audio_features': {1: {'loudness': '-11.4', 'duration_ms': '251'},
+                        2: {'loudness': '-15.5', 'duration_ms': '284'}}}
 
     Convert to field/type pairs
 
     >>> schema = apply_recursive(lambda x: type(x).__name__, nested_data)
-    >>> print(schema)
-    {'type': 'str', 'url': 'str', 'audio_features': {1: {'loudness': 'float', 'duration_ms': 'int'}, 2: {'loudness': 'float', 'duration_ms': 'int'}}}
+    >>> pprint.pp(schema)
+    {'type': 'str',
+     'url': 'str',
+     'audio_features': {1: {'loudness': 'float', 'duration_ms': 'int'},
+                        2: {'loudness': 'float', 'duration_ms': 'int'}}}
     """
     # Handle dictionary-like objects
     if hasattr(obj, 'items'):
@@ -232,7 +257,7 @@ def apply_recursive(func: Callable[..., Any],
 
 def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
     r"""
-    _summary_
+    _summary_.
 
     Parameters
     ----------
@@ -248,7 +273,15 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
     >>> import pprint
     >>> from datopy.modeling import schema_jsonify
 
-    >>> original_schema = {'name': 'str', 'quantity': 'int', 'features': {1: {'volume': 'str', 'duration': 'float'}, 2: {'volume': 'str', 'duration': 'float'}}, 'creator': {'person': {'name': 'str'}, 'company': {'name': 'str', 'location': 'str'}}}
+    >>> original_schema = {
+    ...     'name': 'str', 'quantity': 'int',
+    ...     'features': {
+    ...         1: {'volume': 'str', 'duration': 'float'},
+    ...         2: {'volume': 'str', 'duration': 'float'}
+    ...     },
+    ...     'creator': {'person': {'name': 'str'},
+    ...     'company': {'name': 'str', 'location': 'str'}}
+    ... }
     >>> schema = schema_jsonify(original_schema)
     >>> schema = {**{"title": "title", "description": "description"}, **schema}
     >>> pprint.pp(schema, compact=True, depth=3)
@@ -280,7 +313,7 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
             "uniqueItems": True
         }
         # Recurse on first item, assuming homogeneity for simplicity
-        schema["items"] = schema_jsonify(obj[1])    # type: ignore [arg-type]
+        schema["items"] = schema_jsonify(obj[1])  # type: ignore [arg-type]
         return schema
 
     # Case 2 (dictionary)
@@ -292,17 +325,15 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 
         for key, val in obj.items():
             # Recurse on each value
-            schema["properties"][key] = schema_jsonify(val)    # type: ignore [index, arg-type]
+            schema["properties"][key] = schema_jsonify(val)  # type: ignore [index, arg-type]
         return schema
 
     # Base cases (non-container types)
-    # "str" -> "string"
-    elif obj == "str":    # type: ignore [comparison-overlap]
+    elif obj == "str":  # type: ignore [comparison-overlap]
         schema["type"] = "string"
         return schema
 
-    # "int"/"float" -> "number"
-    elif obj in ("int", "float"):    # type: ignore [comparison-overlap]
+    elif obj in ("int", "float"):  # type: ignore [comparison-overlap]
         schema["type"] = "number"
         return schema
 
@@ -317,20 +348,42 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 
 class CustomTypes:
     """
-    Reusable custom field types.
+    Define reusable custom field types.
+
+    :no-index:
+
+    Notes
+    -----
     Whitespace around commas should be stripped before analysis.
     """
-    CSVstr = Annotated[str, Field(pattern=r'^[a-z, ]+$',
-                                  description="Custom lowercase comma-separated string type. Excludes num and special chars")]
-    CSVnumstr = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$',
-                                     description="Allows numerics")]
-    CSVnumsent = Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+
+    CSVstr = TypeAliasType(
+        'CSVstr',
+        Annotated[str, Field(pattern=r'^[a-z, ]+$')]
+    )
+    """Lowercase comma-separated string.
+    Excludes numerics and special characters.
+    """
+
+    CSVnumstr = TypeAliasType(
+        'CSVnumstr',
+        Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+    )
+    """Lowercase comma-separated string.
+    Allows numerics; excludes special characters.
+    """
+
+    CSVnumsent = TypeAliasType(
+        'CSVnumsent',
+        Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
+    )
 
 
 # TODO implement BaseProcessor
 
 class BaseProcessor:
-    """_summary_
+    """
+    _summary_.
 
     Parameters
     ----------
@@ -361,7 +414,7 @@ class BaseProcessor:
 
     def process(self):
         """
-        Process (extract/clean) retrieved data.
+        Process (extract/clean) the retrieved data.
 
         Raises
         ------
@@ -402,13 +455,11 @@ class BaseProcessor:
 
 
 if __name__ == "__main__":
-    # Comment out (2) to run all tests in script; (1) to run specific tests
+    # Comment out line 2 to run all tests; line 1 to run specific tests.
     doctest.testmod(verbose=True)
-    # doctest_function(get_film_metadata, globs=globals())
+    # doctest_function(object=BaseProcessor, globs=globals())
 
-    ## One-off tests
-
-    # type checks that compiler does not see/understand (run mypy on module)
+    # Type checks that the compiler does not see or understand.
     if TYPE_CHECKING:
         # reveal_type((1, 'hello'))
         pass

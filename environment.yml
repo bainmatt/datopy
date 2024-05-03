@@ -54,11 +54,11 @@ dependencies:
   - pip>=19.0
   - requests
   # Data analysis
+  - numpy
   - pandas
-  - scipy
   # Plotting
   - matplotlib
-  - seaborn
+  # - seaborn
   # data validation
   - pydantic
 
@@ -98,7 +98,7 @@ dependencies:
     - flake8
 
     # [Docs]
-    - furo
+    # - furo
     - babel
     - pydata-sphinx-theme
     - numpydoc
