@@ -9,8 +9,21 @@ import re
 import typing
 import doctest
 import pandas as pd
-from typing import List, Literal, NamedTuple, Tuple
-from pydantic import BaseModel, Field, TypeAdapter, ValidationError
+from typing import (
+    List,
+    Tuple,
+    TypeVar,
+    Literal,
+    NamedTuple,
+)
+from pydantic import (
+    Field,
+    BaseModel,
+    TypeAdapter,
+    ValidationInfo,
+    ValidationError,
+    field_validator,
+)
 from typing_extensions import Annotated
 
 import imdb
@@ -65,8 +78,8 @@ class IMDbFilm(BaseModel):
     r"""
     Data model for processed imdb metadata.
 
-    Example
-    -------
+    Examples
+    --------
     >>> from pydantic import ValidationError
     >>> from datopy.models.media import IMDbFilm
     >>> from datopy._examples import imdb_film_retrieve
@@ -119,7 +132,7 @@ class IMDbFilm(BaseModel):
         pattern=r'^tt.*\d{7}$',
         description="Unique 7-digit IMDb tt identifier"
     )
-    kind: CustomTypes.CSVstr = Field(
+    kind: CustomTypes.CSVnumstr = Field(
         examples=['movie', 'tv series'],
         description="Retrieved from: `type`"
     )
@@ -151,6 +164,16 @@ class IMDbFilm(BaseModel):
     )
     opening_weekend_gross_mil: float | None = Field(ge=0, default=None)
     cumulative_worldwide_gross_mil: float | None = Field(ge=0, default=None)
+
+    @field_validator('imdb_id', 'kind')
+    @classmethod
+    def check_alphanumeric(cls, v: str, info: ValidationInfo) -> str:
+        if isinstance(v, str):
+            # info.field_name is the name of the field being validated
+            is_alphanumeric = v.replace(' ', '').isalnum()
+            assert is_alphanumeric, f'{info.field_name} must be alphanumeric'
+        # return v.title()
+        return v
 
 
 # TODO place media/animals/nations models/queries/processors in
