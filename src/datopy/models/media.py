@@ -6,6 +6,7 @@ and related information (via Wikipedia).
 """
 
 import re
+import typing
 import doctest
 import pandas as pd
 from typing import Annotated, List, Literal, NamedTuple, Tuple
@@ -59,7 +60,8 @@ Book = type('Book', (MediaQuery,), {})
 #     Book = Book
 
 
-class IMDbFilm(BaseModel):  # numpydoc ignore=all
+@typing.no_type_check
+class IMDbFilm(BaseModel):
     r"""
     Data model for processed imdb metadata.
 

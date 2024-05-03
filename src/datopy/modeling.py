@@ -13,6 +13,7 @@ import doctest
 import pandas as pd
 from jsonschema import validate
 from pydantic import BaseModel, Field, PositiveInt, ValidationError
+import typing
 from typing import (
     Any, Callable, Collection, Dict, Iterable, List,
     NamedTuple, TypeVar,
@@ -346,6 +347,7 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 # --- Data processing base types and class ---
 # --------------------------------------------
 
+@typing.no_type_check
 class CustomTypes:
     """
     Define reusable custom field types.
@@ -357,7 +359,7 @@ class CustomTypes:
     Whitespace around commas should be stripped before analysis.
     """
 
-    CSVstr = TypeAliasType(
+    CSVstr = TypeAliasType(  # type: ignore[valid-type]
         'CSVstr',
         Annotated[str, Field(pattern=r'^[a-z, ]+$')]
     )
@@ -365,7 +367,7 @@ class CustomTypes:
     Excludes numerics and special characters.
     """
 
-    CSVnumstr = TypeAliasType(
+    CSVnumstr = TypeAliasType(  # type: ignore[valid-type]
         'CSVnumstr',
         Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
     )
@@ -373,7 +375,7 @@ class CustomTypes:
     Allows numerics; excludes special characters.
     """
 
-    CSVnumsent = TypeAliasType(
+    CSVnumsent = TypeAliasType(  # type: ignore[valid-type]
         'CSVnumsent',
         Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
     )
