@@ -1,7 +1,7 @@
 """
 Data models, validators, and ETL tools for scraped media data.
 
-Includes support for reviews (via IMDb), music albums (via Spotify),
+Includes support for film reviews (via IMDb), music albums (via Spotify),
 and related information (via Wikipedia).
 """
 
@@ -9,8 +9,9 @@ import re
 import typing
 import doctest
 import pandas as pd
-from typing import Annotated, List, Literal, NamedTuple, Tuple
+from typing import List, Literal, NamedTuple, Tuple
 from pydantic import BaseModel, Field, TypeAdapter, ValidationError
+from typing_extensions import Annotated
 
 import imdb
 import spotipy
@@ -114,36 +115,42 @@ class IMDbFilm(BaseModel):
 
     # Identifiers
     title: CustomTypes.CSVnumstr
-    imdb_id: str = Field(pattern=r'^tt.*\d{7}$',
-                         description="Unique 7-digit IMDb tt identifier")
-    kind: CustomTypes.CSVstr = Field(examples=['movie', 'tv series'],
-                                     description="Retrieved from: `type`")
+    imdb_id: str = Field(
+        pattern=r'^tt.*\d{7}$',
+        description="Unique 7-digit IMDb tt identifier"
+    )
+    kind: CustomTypes.CSVstr = Field(
+        examples=['movie', 'tv series'],
+        description="Retrieved from: `type`"
+    )
 
     # Numeric
     year: int = Field(ge=1880, le=3000)
     rating: float = Field(ge=0, le=10)
     votes: int = Field(ge=0)
-    runtime_mins: float = Field(gt=0, default=None)
+    runtime_mins: float | None = Field(gt=0, default=None)
 
     # String lists
-    genres: CustomTypes.CSVstr = Field(default=None)
-    countries: CustomTypes.CSVstr = Field(default=None)
-    director: CustomTypes.CSVstr = Field(default=None)
-    writer: CustomTypes.CSVstr = Field(default=None)
-    composer: CustomTypes.CSVstr = Field(default=None)
-    cast: CustomTypes.CSVstr = Field(default=None)
-    # cast: CustomTypes.CSVnumsent = Field(default=None)
+    genres: CustomTypes.CSVstr | None = Field(default=None)
+    countries: CustomTypes.CSVstr | None = Field(default=None)
+    director: CustomTypes.CSVstr | None = Field(default=None)
+    writer: CustomTypes.CSVstr | None = Field(default=None)
+    composer: CustomTypes.CSVstr | None = Field(default=None)
+    cast: CustomTypes.CSVstr | None = Field(default=None)
 
     # Strings
-    plot: CustomTypes.CSVnumsent = Field(default=None)
-    synopsis: CustomTypes.CSVnumsent = Field(default=None)
-    plot_outline: CustomTypes.CSVnumsent = Field(default=None)
+    plot: CustomTypes.CSVnumsent | None = Field(default=None)
+    synopsis: CustomTypes.CSVnumsent | None = Field(default=None)
+    plot_outline: CustomTypes.CSVnumsent | None = Field(default=None)
 
     # Financial
-    budget_mil: float = Field(ge=0, default=None,
-                              description="Strip $/, & text after first space")
-    opening_weekend_gross_mil: float = Field(ge=0, default=None)
-    cumulative_worldwide_gross_mil: float = Field(ge=0, default=None)
+    budget_mil: float | None = Field(
+        ge=0,
+        default=None,
+        description="Strip $/, & text after first space"
+    )
+    opening_weekend_gross_mil: float | None = Field(ge=0, default=None)
+    cumulative_worldwide_gross_mil: float | None = Field(ge=0, default=None)
 
 
 # TODO place media/animals/nations models/queries/processors in

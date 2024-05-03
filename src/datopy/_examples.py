@@ -139,7 +139,7 @@ def extract_datamodel(obj, verbose: bool = False) -> DataModel:
 
     Parameters
     ----------
-    obj :
+    obj : __type__
         __description__
     verbose : bool, default=False
 

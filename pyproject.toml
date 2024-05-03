@@ -218,9 +218,9 @@ warn_unreachable = true         # strict
 warn_unused_configs = true
 # Pydantic integration
 # https://docs.pydantic.dev/latest/integrations/mypy/
-# plugins = [
-#   "pydantic.mypy"
-# ]
+plugins = [
+  "pydantic.mypy"
+]
 
 # Do not type-check the specified subpkgs/modules
 # Inline silencing of specific errors:

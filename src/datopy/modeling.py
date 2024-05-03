@@ -351,24 +351,24 @@ class CustomTypes:
     """
     Define reusable custom field types.
 
-    :no-index:
-
     Notes
     -----
     Whitespace around commas should be stripped before analysis.
+    For additional info on Pydantic custom types, see:
+    https://docs.pydantic.dev/latest/concepts/types/.
     """
 
-    CSVstr = Annotated[str, Field(
+    CSVstr = TypeAliasType('CSVstr', Annotated[str, Field(
         pattern=r'^[a-z, ]+$',
-        description=":class:`datopy.modeling.CustomTyped.CSVstr`")
-    ]
+        description=":attr:`~datopy.modeling.CustomTypes` : ``CSVstr``")
+    ])
     """Lowercase comma-separated string.
     Excludes numerics and special characters.
     """
 
     CSVnumstr = Annotated[str, Field(
         pattern=r'^[a-z0-9,.! ]+$',
-        description=":class:`datopy.modeling.CustomTyped.CSVnumstr`"),
+        description=":attr:`~datopy.modeling.CustomTypes` : ``CSVnumstr``"),
     ]
     """Lowercase comma-separated string.
     Allows numerics; excludes special characters.
@@ -376,9 +376,10 @@ class CustomTypes:
 
     CSVnumsent = Annotated[str, Field(
         pattern=r'^[a-z0-9,.! ]+$',
-        description=":class:`datopy.modeling.CustomTyped.CSVnumsent`"),
+        description=":attr:`~datopy.modeling.CustomTypes` : ``CSVnumsent``"),
     ]
 
+# CustomTypes.model_fields
 
 # TODO implement BaseProcessor
 
