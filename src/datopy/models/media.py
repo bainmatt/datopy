@@ -60,7 +60,6 @@ Book = type('Book', (MediaQuery,), {})
 #     Book = Book
 
 
-@typing.no_type_check
 class IMDbFilm(BaseModel):
     r"""
     Data model for processed imdb metadata.

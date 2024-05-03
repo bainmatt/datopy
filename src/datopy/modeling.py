@@ -347,7 +347,6 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 # --- Data processing base types and class ---
 # --------------------------------------------
 
-@typing.no_type_check
 class CustomTypes:
     """
     Define reusable custom field types.
@@ -359,26 +358,26 @@ class CustomTypes:
     Whitespace around commas should be stripped before analysis.
     """
 
-    CSVstr = TypeAliasType(  # type: ignore[valid-type]
-        'CSVstr',
-        Annotated[str, Field(pattern=r'^[a-z, ]+$')]
-    )
+    CSVstr = Annotated[str, Field(
+        pattern=r'^[a-z, ]+$',
+        description=":class:`datopy.modeling.CustomTyped.CSVstr`")
+    ]
     """Lowercase comma-separated string.
     Excludes numerics and special characters.
     """
 
-    CSVnumstr = TypeAliasType(  # type: ignore[valid-type]
-        'CSVnumstr',
-        Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-    )
+    CSVnumstr = Annotated[str, Field(
+        pattern=r'^[a-z0-9,.! ]+$',
+        description=":class:`datopy.modeling.CustomTyped.CSVnumstr`"),
+    ]
     """Lowercase comma-separated string.
     Allows numerics; excludes special characters.
     """
 
-    CSVnumsent = TypeAliasType(  # type: ignore[valid-type]
-        'CSVnumsent',
-        Annotated[str, Field(pattern=r'^[a-z0-9,.! ]+$')]
-    )
+    CSVnumsent = Annotated[str, Field(
+        pattern=r'^[a-z0-9,.! ]+$',
+        description=":class:`datopy.modeling.CustomTyped.CSVnumsent`"),
+    ]
 
 
 # TODO implement BaseProcessor
