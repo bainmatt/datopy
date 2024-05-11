@@ -17,6 +17,7 @@ ENV.yml
 ENV.txt
 requirements_conda.txt
 requirements_pip.txt
+requirements_pipdeptree.txt
 
 # --- Keys/Settings ---
 # dotenv

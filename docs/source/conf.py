@@ -171,18 +171,35 @@ plot_html_show_source_link = False
 # NOTE auto_pydantic does not play well with TOC or `make clean` after build!!
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
 
-autodoc_pydantic_model_show_json = True
 autodoc_pydantic_model_show_config_summary = True
 # don't include summary table for fields (config summary is sufficient)
-autodoc_pydantic_model_show_field_summary = False
+autodoc_pydantic_model_show_field_summary = True
+
+autodoc_pydantic_model_show_json = True
+# autodoc_pydantic_model_show_erdantic_figure_collapsed = True
+# autodoc_pydantic_model_show_schema_json = True
+
 autodoc_pydantic_model_show_members = True
 autodoc_pydantic_field_show_required = True
 autodoc_pydantic_field_show_optional = True
-autodoc_pydantic_settings_hide_reused_validator = True
-autodoc_pydantic_settings_show_validator_members = False
-# autodoc_pydantic_model_signature_prefix = 'pydantic model'
-# autodoc_pydantic_model_show_erdantic_figure_collapsed = True
-# autodoc_pydantic_model_show_schema_json = True
+autodoc_pydantic_field_show_default = True
+autodoc_pydantic_field_show_constraints = True
+autodoc_pydantic_field_show_alias = True
+
+# below a validator list the fields to which it is applied (redundant)
+autodoc_pydantic_validator_list_fields = False
+# below a field list the validator(s) applied to it
+autodoc_pydantic_field_list_validators = True
+# True overrides default object signature with a more informative version
+autodoc_pydantic_validator_replace_signature = True
+autodoc_pydantic_settings_show_validator_summary = True
+autodoc_pydantic_settings_show_validator_members = True
+autodoc_pydantic_settings_hide_reused_validator = False
+
+autodoc_pydantic_model_member_order = "bysource"
+autodoc_pydantic_model_summary_list_order = "bysource"
+autodoc_pydantic_settings_member_order = "bysource"
+autodoc_pydantic_settings_summary_list_order = "bysource"
 
 
 # --- Customize Napoleon options ---
@@ -255,6 +272,7 @@ exclude_patterns = ['_[!_]*.py', 'main']
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 # html_title = "datopy: Data tools for Python"
+html_title = "datopy documentation"
 html_short_title = "datopy"
 # html_logo = "_static/datopy-logo.png"
 # html_favicon = "_static/datopy-logo.png"
@@ -373,8 +391,8 @@ html_theme_options = {
     # Don't show class methods in right-hand toc by default
     "show_toc_level": 2,
 
-    # TODO make this work
-    "content_footer_items": ["last-updated"],
+    # TODO ?make this work
+    # "content_footer_items": ["last-updated"],
 
     # Header links
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
