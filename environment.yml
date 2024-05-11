@@ -1,49 +1,58 @@
 # --- Environment management guidelines ---
 # To create & activate environment {name} from this file, run:
-# (1) $ conda env create -f environment.yml
-# (2) $ conda activate {name}
+# [1] $ conda env create -f environment.yml
+# [2] $ conda activate {name}
 # To update (upgrade/install new/delete removed *conda*) deps from this file:
 # $ conda env update --file environment.yml --prune
-# 
+#
 # To create an environment file from your loaded dependencies, run:
 # $ conda env export --from-history > requirements_conda.yml
 # For the most comprehensive listing including version and build information:
-# $ conda list --export > requirements_conda.txt 
+# $ conda list --export > requirements_conda.txt
 # Then install by running:
 # $ conda create -n {env-name} --file requirements_conda.txt
-# 
+#
 # For a complete listing of *Python* dependencies for distribution, use pip:
 # $ pip list --format=freeze > requirements_pip.txt
-# This filters out packages that are not: 
-# (1) installed in the currently activated (conda or pip) environment;
-# (2) reqs of the installed packages (provided `--not-required` option given)
+# This filters out packages that are not:
+# [1] installed in the currently activated (conda or pip) environment;
+# [2] reqs of the installed packages (provided `--not-required` option given)
 # This option is ommitted due to unfortunate conda discrepancies it causes
-# 
+#
 # To ensure all Python dependencies are updated before distribution, run:
-# (0) $ python -m pip check                            # check for missing
-# (1a) $ python -m pip list --outdated --not-required  # check for outdated
-# (1b) $ conda search --outdated --use-local
-# 
+# [0.0] $ python -m pip check                            # check for missing
+# [1.0] $ python -m pip list --outdated --not-required   # check for outdated
+# [1.2] $ conda search --outdated --use-local
+#
 # To prep clean requirements.txt/requirements_dev.txt files for distribution:
-# Manually update by cross-referencing: 
-# (1) dependencies/order/category (required/dev/optional) in environment.yml 
-# (2) versions in requirements_pip.txt
+# Manually update by cross-referencing:
+# [1] dependencies/order/category (required/dev/optional) in environment.yml
+# [2] versions in requirements_pip.txt
+#
+# --- Dependency trees ---
+# To store a handy dependency tree for your environment:
+# $ pipdeptree -r | tee requirements_pipdeptree.txt
+# 
+# To investigate why a particular package is installed:
+# $ pipdeptree --reverse --packages {pkg-name}
+# 
+# --- Housekeeping ---
 # 
 # Remember to periodically update conda and brew:
 # $ conda update -n base -c conda-forge conda
 # $ brew update
-# 
+#
 # --- Overall environment management workflow ---
-# > update environment.yml 
+# > update environment.yml
 # > $ conda env update --file environment.yml --prune
 # To manually resolve any failed uninstallations/upgrades:
-# > $ conda uninstall <pkg-name> / $ conda update <pkg-name>
+# > $ conda uninstall {pkg-name} / $ conda update {pkg-name}
 # > $ pip list --format=freeze > requirements_pip.txt
-# 
+#
 # Following any new installations/uninstallations/upgrades:
-# manually update requirements.txt/requirements_dev.txt with
-# (1) dependency information in ‘environment.yml’
-# (2) corresponding version information in ‘requirements_pip.txt’
+# manually update requirements.txt/requirements_dev.txt with:
+# [1] dependency information in ‘environment.yml’
+# [2] corresponding version information in ‘requirements_pip.txt’
 
 name: dato-py
 channels:
@@ -73,6 +82,10 @@ dependencies:
   # [Docs]
   - sphinx
 
+  # [Dev]
+  # for inspecting the dependency tree
+  - pipdeptree
+
   - pip:
     # JSON data validation
     - jsonschema
@@ -90,8 +103,8 @@ dependencies:
     - mypy
     - pandas-stubs
     - pytest
-    - coverage
     - pytest-benchmark
+    - coverage
     - tox
     # - tox-conda
     # - pytest-doctestplus
@@ -103,3 +116,7 @@ dependencies:
     - pydata-sphinx-theme
     - numpydoc
     - autodoc_pydantic
+    # adds ER diagram support to autodoc_pydantic
+    # requires graphviz (also required for pipdeptree graphs)
+    # https://pygraphviz.github.io/documentation/stable/install.html#macos
+    # - erdantic
