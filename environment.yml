@@ -33,8 +33,9 @@
 # To store a handy dependency tree for your environment:
 # $ pipdeptree -r | tee requirements_pipdeptree.txt
 # 
-# To investigate why a particular package is installed:
-# $ pipdeptree --reverse --packages {pkg-name}
+# To investigate why a particular package is installed, run either:
+# [1] $ python -m pip show {pkg-name}
+# [2] $ pipdeptree --reverse --packages {pkg-name}
 # 
 # --- Housekeeping ---
 # 
