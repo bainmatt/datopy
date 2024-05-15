@@ -8,17 +8,17 @@ def sync_versions(
 ) -> None:
     """
     Synchronize versions in sub-requirements files with requirements.txt.
-    
+
     WIP.
-    
+
     Notes
     -----
     This function searches the supplied requirements file and cross-checks
     it against ...
-    
+
     To ensure up-to-date requirement listings it is recommended to run the
     following prior to running this function:
-    
+
     `$ pip list --format=freeze > requirements_pip.txt`
 
     Parameters
@@ -26,13 +26,13 @@ def sync_versions(
     requirements_file : str, default="requirements.txt"
         Path to the main requirements file built with pip.
     """
-    
+
     # TODO simplify this with simple CLI recipe and add to Makefile
     # TODO automatically run for dev/optional/docs from default or args
     # Read the contents of requirements.txt
     with open(requirements_file, 'r') as f:
         requirements = f.readlines()
-    
+
     # Extract package names from requirements.txt
     required_packages = {line.strip().split('=')[0] for line in requirements}
 
