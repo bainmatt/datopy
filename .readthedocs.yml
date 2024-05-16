@@ -44,8 +44,10 @@ build:
   # Build requirements and distribution
   jobs:
     post_install:
-      - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
+      # - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
+      - pip install -r requirements_docs.txt
       - pip install -r requirements.txt
+      - pip install -r requirements_optional.txt
       - pip install --editable .
 
 # Build documentation in the "docs/" directory with Sphinx
