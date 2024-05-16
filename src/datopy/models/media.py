@@ -17,8 +17,8 @@ Highlights
     IMDbFilm
     SpotifyAlbum
 
-Complete API
-------------
+API
+---
 """
 
 import re

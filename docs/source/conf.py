@@ -396,7 +396,7 @@ elif version_match == "stable":
 html_theme_options = {
     # NOTE not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
-    "show_prev_next": False,
+    "show_prev_next": True,
 
     "show_nav_level": 1,
     # Don't show class methods in right-hand toc by default
@@ -409,19 +409,19 @@ html_theme_options = {
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
     "github_url": "https://github.com/bainmatt/datopy",
     "header_links_before_dropdown": 4,
-    "external_links": [
-        {
-            "name": "Creator website",
-            "url": "https://bainmatt.github.io/",
-        },
-    ],
+    # "external_links": [
+    #     {
+    #         "name": "Website",
+    #         "url": "https://bainmatt.github.io/",
+    #     },
+    # ],
     "icon_links": [
-        # {
-        #     "name": "Website",
-        #     "url": "https://bainmatt.github.io/",
-        #     "icon": "fa-brands fa-square-github",
-        #     "type": "fontawesome",
-        # },
+        {
+            "name": "Personal website",
+            "url": "https://bainmatt.github.io/",
+            "icon": "fa fa-user-circle",
+            "type": "fontawesome",
+        },
     ],
     # "analytics": {"google_analytics_id": "G-XX"},
 
@@ -444,8 +444,12 @@ html_theme_options = {
     # },
     "show_version_warning_banner": True,
     "navbar_align": "content",
+    "navbar_start": [
+        "navbar-logo", "version-switcher",
+    ],
     "navbar_end": [
-        "version-switcher", "theme-switcher", "navbar-icon-links"
+        # "version-switcher", 
+        "theme-switcher", "navbar-icon-links"
     ],
 }
 
