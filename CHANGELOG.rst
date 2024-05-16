@@ -18,7 +18,7 @@ Datopy is a package for simplifying the early stages of the data analysis workfl
 
 While I make no guarantees in the way of performance or functionality, datopy is now in more-or-less working order (parts of it, at least). Feel free to explore, sample, and extend.
 
-This release includes some routines for data modeling (see `datopy.modeling`), ETL (Extract, Transform, Load; `datopy.etl`), and data inspection (`datopy.inspection`, `datopy.stylesheet`). Still to come: the `datopy.models` subpackage, which will include data models, validation, and processing routines for dealing with media metadata (`datopy.models.media`), animal data (`datopy.models.eco`), and global development indicators (`datopy.models.global`).
+This release includes some routines for data modeling (see :mod:`datopy.modeling`), ETL (Extract, Transform, Load; :mod:`datopy.etl`), and data inspection (:mod:`datopy.inspection`, :mod:`datopy.stylesheet`). Still to come: the :mod:`datopy.models` subpackage, which will include data models, validation, and processing routines for dealing with media metadata (:mod:`datopy.models.media`), animal data (:mod:`datopy.models.eco`), and global development indicators (:mod:`datopy.models.global`).
 
 Here's a snapshot of what this release includes:
 

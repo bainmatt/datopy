@@ -3,6 +3,13 @@
 datopy.run\_doctests
 ====================
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy.run_doctests
+
+    .. currentmodule:: datopy.run_doctests
+
 .. rubric:: Description
 
 .. automodule:: datopy.run_doctests

@@ -3,6 +3,13 @@
 datopy.\_examples
 =================
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy._examples
+
+    .. currentmodule:: datopy._examples
+
 .. rubric:: Description
 
 .. automodule:: datopy._examples

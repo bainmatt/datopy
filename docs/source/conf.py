@@ -37,6 +37,9 @@ https://pypi.org/project/pytest-doctestplus/
 Sphinx build configuration:
 https://sphinx-rtd-trial.readthedocs.io/en/1.1.3/invocation.html
 
+Sphinx directives:
+https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html
+
 PyData performance improvements:
 https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/performance.html
 
@@ -107,6 +110,7 @@ extensions = [
     "matplotlib.sphinxext.plot_directive",
     "matplotlib.sphinxext.mathmpl",
     "sphinxcontrib.autodoc_pydantic",
+    "sphinx.ext.todo",
 ]
 
 
@@ -134,8 +138,12 @@ autodoc_default_options = {
     "show-inheritance": True,
     "undoc-members": False,
     "member-order": "bysource",
-    # "exclude-members": "process",
+    "exclude-members": "main",
 }
+
+todo_include_todos = False
+todo_link_only = True
+
 
 
 # --- Cusomize intersphinx options ---
@@ -275,7 +283,7 @@ exclude_patterns = ['_[!_]*.py', 'main']
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 # html_title = "datopy: Data tools for Python"
-html_title = "datopy documentation"
+html_title = "datopy"
 html_short_title = "datopy"
 # html_logo = "_static/datopy-logo.png"
 # html_favicon = "_static/datopy-logo.png"
@@ -339,8 +347,8 @@ html_show_sourcelink = True
 # Hide sidebar on particular pages where section navigation is empty
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#primary-sidebar-left
 html_sidebars = {
-    'Changelog': [],
-    'datopy: Python tools for data': []
+    'changelog': [],
+    'readme': []
 }
 
 
@@ -400,7 +408,7 @@ html_theme_options = {
     # Header links
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
     "github_url": "https://github.com/bainmatt/datopy",
-    "header_links_before_dropdown": 3,
+    "header_links_before_dropdown": 4,
     "external_links": [
         {
             "name": "Creator website",
@@ -435,7 +443,7 @@ html_theme_options = {
     #     "v0.0.1": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
     # },
     "show_version_warning_banner": True,
-    "navbar_align": "left",
+    "navbar_align": "content",
     "navbar_end": [
         "version-switcher", "theme-switcher", "navbar-icon-links"
     ],

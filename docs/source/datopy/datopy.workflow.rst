@@ -3,6 +3,13 @@
 datopy.workflow
 ===============
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy.workflow
+
+    .. currentmodule:: datopy.workflow
+
 .. rubric:: Description
 
 .. automodule:: datopy.workflow
@@ -20,7 +27,5 @@ datopy.workflow
     doctest_function
     
     git_module_loader
-    
-    main
     
 

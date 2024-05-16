@@ -11,13 +11,15 @@ datopy
 
 .. Home page intro text
 
-**datopy** (day-toh-pie) is a Python library for people who 
-work with data that aims to simplify repetitive data modelling tasks and
-routine ETL workflows.
+**datopy** (da-toh-pie) is a Python library for people who
+work with unstructured data that offers a simple workflow for
+building data models and ETL pipelines.
 
 .. Use :doc: to reference a document rather than a section within it
 
-Check out the :ref:`Usage <usage>` section for further information, including how to :ref:`install <installation>` the project.
+Check out the :ref:`quickstart <quickstart>` guide for further information,
+including :ref:`usage <usage>` examples
+and how to :ref:`install <installation>` the project.
 
 .. note::
 
@@ -47,14 +49,14 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   readme
-   api
-   api_models
+   Quickstart <readme>
+   Core API <api>
+   Models API <api_models>
    changelog
 
    .. usage
 
-.. 
+..
    An additional hidden TOC tree containing all pages (below max depth)
    to supress the "WARNING: document isn't included in any toctree".
 
