@@ -35,6 +35,5 @@ Core API
     datopy.etl
     datopy.stylesheet
     datopy.run_doctests
-    datopy.update_reqs
     datopy._examples
     datopy._media_scrape

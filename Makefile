@@ -63,12 +63,13 @@ update-requirements:
 		fi; \
 		make update-requirements-file SUFF=$${suffix}; \
 	done
+	@echo "All requirements synchronized.\n"
 
 # Extract package names and versions from requirements.txt and then
 # search/replace outdated lines in sub-requirements file with matching
 # packages in requirements.txt.
 update-requirements-file:
-	@echo "Checking requirements$(SUFF).txt..."
+	@echo "> Checking requirements$(SUFF).txt..."
 	@echo "------------------------------------------------------------------"
 	@packages=$$(cat requirements_pip.txt); \
 	\
@@ -81,12 +82,13 @@ update-requirements-file:
 			matched_version=$$(echo $${matched_line} | cut -d '=' -f3); \
 			\
 			if [ "$${package_version}" != "$${matched_version}" ]; then \
-				echo "Warning: $${package_name} mismatch. Updating..."; \
-				echo "v$${matched_version} -> v$${package_version}\n"; \
+				echo "$${package_name} version mismatch. Updating:" \
+				"v$${matched_version} -> v$${package_version}"; \
 				sed -i '' "s|^$$package_name=.*|$${package_name}==$${package_version}|" requirements$(SUFF).txt; \
 			fi; \
 		fi; \
 	done
+	@echo "done."
 	@echo "------------------------------------------------------------------"
 
 # Default suffixes for updating sub-requirements files

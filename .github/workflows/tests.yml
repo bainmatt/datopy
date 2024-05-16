@@ -33,26 +33,28 @@ jobs:
     #     pip install tox tox-gh-actions
     # - name: Test with tox
     #   run: tox
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    
+        pip install -r requirements_dev.txt
+        pip install -r requirements_optional.txt
+    # python -m pip install flake8 pytest
+
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
+
     - name: Type-check with mypy
       # if: ${{ python-version != 3.9 }}
       # if: ${{ matrix.python-version == '3.10' || matrix.python-version == '3.11' }}
       run: |
         mypy src
-    
+
     # Running tests with coverage means coverage reports will be stored to .coverage
     - name: Test with pytest
       run: |
@@ -68,15 +70,15 @@ jobs:
     # not easily generalized.
     # Reference for future: https://docs.codecov.com/docs/quick-start
     # Model project: https://github.com/pandas-dev/pandas/blob/main/README.md
-  
 
 
-  
+
+
   # TODO discard failed attempts at uploading coverage
 
   #   # Publish coverage report
   #   # Upload the generated report above to "coverage-data"
-  #   # TODO verify that this action applies to the final round of testing run 
+  #   # TODO verify that this action applies to the final round of testing run
   #   # (i.e., --doctest-modules on py311)
   #   # https://python-basics-tutorial.readthedocs.io/en/latest/test/coverage.html#test-coverage-of-all-tests-with-github-actions
   #   - name: "Upload coverage data"
@@ -88,7 +90,7 @@ jobs:
 
   # # Summarize coverage results
   # # Requires that all tests under the job 'tests' are performed.
-  # # Once the workflow is complete, the HTML report can be found under: 
+  # # Once the workflow is complete, the HTML report can be found under:
   # # Actions ‣ tests ‣ Combine and check coverage.
   # coverage:
   #     name: "Combine and check coverage"
@@ -97,35 +99,35 @@ jobs:
   #     steps:
   #       - name: "Check out the repo"
   #         uses: "actions/checkout@v3"
-  
+
   #       - name: "Set up Python"
   #         uses: "actions/setup-python@v4"
   #         with:
   #           python-version: "3.11"
-  
+
   #       - name: "Install dependencies"
   #         run: |
   #           python -m pip install --upgrade coverage[toml]
 
-  #       # Downloads the coverage data uploaded above in 
+  #       # Downloads the coverage data uploaded above in
   #       # the step "Upload coverage data" to the location "coverage-data".
   #       - name: "Download coverage data"
   #         uses: actions/download-artifact@v3
   #         with:
   #           name: "coverage-data"
 
-  #       # Checks coverage and exits if it falls below a given threshold. 
+  #       # Checks coverage and exits if it falls below a given threshold.
   #       - name: "Combine coverage and fail it it’s under 50%"
   #         run: |
   #           python -m coverage combine
   #           python -m coverage html --skip-covered --skip-empty
-  
+
   #           # Report and write to summary
   #           python -m coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
-  
+
   #           # Report again and fail if under 100%
   #           python -Im coverage report --fail-under=50
-  
+
   #       - name: "Upload HTML report if check failed"
   #         uses: actions/upload-artifact@v3
   #         with:
