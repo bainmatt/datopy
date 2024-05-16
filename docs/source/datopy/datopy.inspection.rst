@@ -3,6 +3,13 @@
 datopy.inspection
 =================
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy.inspection
+
+    .. currentmodule:: datopy.inspection
+
 .. rubric:: Description
 
 .. automodule:: datopy.inspection
@@ -18,8 +25,6 @@ datopy.inspection
     :toctree: .
     
     display
-    
-    main
     
     make_df
     

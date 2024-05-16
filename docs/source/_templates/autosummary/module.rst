@@ -2,6 +2,13 @@
 
 {{ fullname | escape | underline }}
 
+..
+    .. rubric:: Description
+
+    .. automodule:: {{ fullname }}
+
+    .. currentmodule:: {{ fullname }}
+
 .. rubric:: Description
 
 .. automodule:: {{ fullname }}
@@ -24,7 +31,7 @@
 
 .. autosummary::
     :toctree: .
-    {% for function in functions %}
+    {% for function in functions if function != 'main' %}
     {{ function }}
     {% endfor %}
 

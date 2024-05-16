@@ -3,6 +3,22 @@ Data models, validators, and ETL tools for scraped media data.
 
 Includes support for film reviews (via IMDb), music albums (via Spotify),
 and related information (via Wikipedia).
+
+Highlights
+----------
+
+.. currentmodule:: datopy.models.media
+
+.. rubric:: Data models
+
+.. autosummary::
+    :nosignatures:
+
+    IMDbFilm
+    SpotifyAlbum
+
+Complete API
+------------
 """
 
 import re
@@ -57,6 +73,9 @@ from datopy.modeling import BaseProcessor, CustomTypes
 class MediaQuery(NamedTuple):
     """
     Query object types for media metadata retrieval.
+
+    .. todo:: test
+
     """
     title: str
     artist: str | None = None

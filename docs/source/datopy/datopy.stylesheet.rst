@@ -3,6 +3,13 @@
 datopy.stylesheet
 =================
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy.stylesheet
+
+    .. currentmodule:: datopy.stylesheet
+
 .. rubric:: Description
 
 .. automodule:: datopy.stylesheet
@@ -29,7 +36,5 @@ datopy.stylesheet
     :toctree: .
     
     customize_plots
-    
-    main
     
 

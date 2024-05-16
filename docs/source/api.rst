@@ -14,8 +14,12 @@
         (docs) $ make clean
 
 
-Core API
-========
+datopy
+======
+
+The ``datopy`` package includes utilities for managing data I/O,
+data modelling, ETL pipelines, and utilities for testing, inspecting data,
+and styling matplotlib plots.
 
 .. rubric:: Modules
 

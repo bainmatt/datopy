@@ -1,10 +1,41 @@
 """
 Tools for data modeling, validation, and raw data processing.
 
-Included:
+Highlights
+----------
 
-- Auto-generated data models
-- A flexible framework for ETL workflows
+.. currentmodule:: datopy.modeling
+
+.. rubric:: Auto-generated data models
+
+.. autosummary::
+    :nosignatures:
+
+    list_to_dict
+    compare_dict_keys
+    apply_recursive
+    schema_jsonify
+
+.. rubric:: A flexible framework for ETL workflows
+
+.. autosummary::
+    :nosignatures:
+
+    BaseProcessor
+
+API
+---
+
+..
+    # Section headers references:
+    # https://docs.scipy.org/doc/scipy/reference/fft.html
+    # https://github.com/scipy/scipy/blob/main/scipy/fft/__init__.py
+
+    # https://matplotlib.org/3.9.0/api/axes_api.html
+    # https://github.com/matplotlib/matplotlib/blob/main/doc/api/axes_api.rst
+
+    # https://matplotlib.org/3.9.0/api/dates_api.html#matplotlib.dates
+    # https://github.com/matplotlib/matplotlib/blob/v3.9.0/lib/matplotlib/dates.py
 """
 
 import json

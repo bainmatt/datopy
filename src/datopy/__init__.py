@@ -1,6 +1,6 @@
 """
 The :mod:`datopy` module includes utilities for managing data I/O,
-data modelling, ETL pipelines, and utilities for testing, inspectioning data,
+data modelling, ETL pipelines, and utilities for testing, inspecting data,
 and styling matplotlib plots.
 """
 
@@ -17,8 +17,7 @@ and styling matplotlib plots.
 # )
 # from datopy.inspection import display, make_df
 # from datopy.stylesheet import (
-#     customize_rcparams,
-#     suppress_output
+#     outputoff,
 # )
 # from datopy.run_doctests import run_doctest_suite
 # from datopy._examples import *

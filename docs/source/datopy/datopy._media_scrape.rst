@@ -3,6 +3,13 @@
 datopy.\_media\_scrape
 ======================
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy._media_scrape
+
+    .. currentmodule:: datopy._media_scrape
+
 .. rubric:: Description
 
 .. automodule:: datopy._media_scrape

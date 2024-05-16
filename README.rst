@@ -6,9 +6,10 @@
    Admonitions:
    https://documatt.com/restructuredtext-reference/admonitions.html
 
+.. _quickstart:
 
-datopy: Python tools for data
-=============================
+datopy
+======
 
 Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 

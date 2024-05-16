@@ -3,6 +3,13 @@
 datopy
 ======
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy
+
+    .. currentmodule:: datopy
+
 .. rubric:: Description
 
 .. automodule:: datopy

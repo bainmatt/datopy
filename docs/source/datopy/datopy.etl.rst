@@ -3,6 +3,13 @@
 datopy.etl
 ==========
 
+..
+    .. rubric:: Description
+
+    .. automodule:: datopy.etl
+
+    .. currentmodule:: datopy.etl
+
 .. rubric:: Description
 
 .. automodule:: datopy.etl
