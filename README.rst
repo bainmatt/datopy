@@ -8,10 +8,18 @@
 
 .. _quickstart:
 
-datopy
-======
+datopy: Python tools for managing data
+======================================
 
-Python tools for data retrieval, I/O, and Jupyter notebook workflows.
+**datopy** (da-toh-pie) is a Python library for people who
+work with unstructured data, providing a simple workflow for
+building data models and ETL pipelines. 
+
+Includes utilities for:
+
+- Data retrieval
+- Input/Output
+- Jupyter notebook workflows
 
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/tests.yml/badge.svg
    :alt: CI
@@ -22,7 +30,6 @@ Python tools for data retrieval, I/O, and Jupyter notebook workflows.
 .. note::
 
    This project is under active development.
-
 
 Getting Started
 ---------------
@@ -55,7 +62,7 @@ Cloning
 Development
 ~~~~~~~~~~~
 
-TODO add this section
+TODO
 
 .. 
    Downloading a particular module
@@ -93,8 +100,6 @@ Usage
 
 Dataset inspection (:mod:`datopy.inspection`)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-TODO finish this section
 
 Produce multiple parallel, informative displays of Pandas data frames and 
 NumPy arrays for data exploration and inspection.
@@ -139,17 +144,29 @@ NumPy arrays for data exploration and inspection.
       .. literalinclude:: datopy/datopy.inspection.display.rst
       .. include:: datopy/datopy.inspection.display.rst
 
+Metadata scraping (:mod:`datopy._media_scrape`)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**x**: Use `nb_utils.py` to save your Colab environment files to your mounted Google Drive from within a Colab notebook.
+TODO
+
+Retrieve media-related data from Spotify, IMDb, and Wikipedia.
 
 
-**Media scraping**: Use `media_scrape.py` to scrape media-related data from Spotify, IMDb, and Wikipedia.
+Thanks
+------
 
+datopy is powered by:
 
-Roadmap
--------
-
-- [ ] Roll out first stable release
+   - `mypy <https://mypy.readthedocs.io/en/stable/index.html>`_ type checking
+   - `pytest <https://docs.pytest.org/en/8.0.x/contents.html>`_ unit testing
+   - `Flake8 <https://flake8.pycqa.org/en/latest/index.html>`_ linting
+   - `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`_ documentation
+   - `numpydoc <https://numpydoc.readthedocs.io/en/latest/index.html>`_ docstrings
+   - `PyData <https://pydata-sphinx-theme.readthedocs.io/en/stable/>`_ theming
+   - `Read the Docs <https://readthedocs.org/>`_ hosting
+   - `GitHub Actions <https://docs.github.com/en/actions>`_ continuous integration
+   - `PyPI <https://pypi.org/>`_ packaging
+   - `Pydantic <https://docs.pydantic.dev/latest/>`_ data validation
 
 
 License

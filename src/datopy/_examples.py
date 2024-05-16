@@ -1,5 +1,7 @@
 """
 A home for one-off tests and data-generating routines.
+
+.. warning:: The contents of this module will be moved in a future release.
 """
 
 # --- My retrieve/process/load (ETL) & model/validation process for APIs ---
