@@ -4,6 +4,8 @@ Data models, validators, and ETL tools for scraped media data.
 Includes support for film reviews (via IMDb), music albums (via Spotify),
 and related information (via Wikipedia).
 
+.. note:: WIP.
+
 Highlights
 ----------
 

@@ -54,8 +54,6 @@ Contents
    Models API <api_models>
    changelog
 
-   .. usage
-
 ..
    An additional hidden TOC tree containing all pages (below max depth)
    to supress the "WARNING: document isn't included in any toctree".

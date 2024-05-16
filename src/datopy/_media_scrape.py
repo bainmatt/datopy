@@ -1,12 +1,13 @@
 """
 Data models and retrieval/processing tools for scraping metadata.
 
+.. warning:: The contents of this module will be moved in a future release.
+
 Included routines cover:
 
 - Movies and movie reviews (via IMDb)
 - Music albums (via Spotify)
 - Related topics (via Wikipedia)
-
 """
 
 import re

@@ -283,17 +283,17 @@ exclude_patterns = ['_[!_]*.py', 'main']
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 # html_title = "datopy: Data tools for Python"
-html_title = "datopy"
+html_title = "datopy manual"
 html_short_title = "datopy"
 # html_logo = "_static/datopy-logo.png"
 # html_favicon = "_static/datopy-logo.png"
 
 # Fine-tuning
-html_theme_options = {
-    "navigation_with_keys": True,
-    # "light_logo": "logo-light-mode.png",
-    # "dark_logo": "logo-dark-mode.png",
-}
+# html_theme_options = {
+#     "navigation_with_keys": True,
+#     "light_logo": "logo-light-mode.png",
+#     "dark_logo": "logo-dark-mode.png",
+# }
 # html_context = {
 #     "github_url": "https://github.com", # or your GitHub Enterprise site
 #     "github_user": "bainmatt",
@@ -396,11 +396,15 @@ elif version_match == "stable":
 html_theme_options = {
     # NOTE not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
-    "show_prev_next": True,
+    "show_prev_next": False,
+    "navigation_with_keys": True,
 
     "show_nav_level": 1,
     # Don't show class methods in right-hand toc by default
-    "show_toc_level": 2,
+    "show_toc_level": 1,
+
+    # "light_logo": "logo-light-mode.png",
+    # "dark_logo": "logo-dark-mode.png",
 
     # TODO ?make this work
     # "content_footer_items": ["last-updated"],
@@ -448,7 +452,7 @@ html_theme_options = {
         "navbar-logo", "version-switcher",
     ],
     "navbar_end": [
-        # "version-switcher", 
+        # "version-switcher",
         "theme-switcher", "navbar-icon-links"
     ],
 }
