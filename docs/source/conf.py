@@ -129,9 +129,12 @@ autodoc_default_options = {
     "private-members": False,
     "inherited-members": False,
     "special-members": False,
+    # "special-members": "__init__",
     # show name and source of object on which a subclass is based
     "show-inheritance": True,
     "undoc-members": False,
+    "member-order": "bysource",
+    # "exclude-members": "process",
 }
 
 

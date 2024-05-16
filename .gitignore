@@ -27,6 +27,7 @@ _settings.py
 # --- Ignorables ---
 # Archived files/folders (irrespective of subdirectory/basename)
 **/archive/
+archive/
 *_archive
 _setup.cfg
 _.vscode

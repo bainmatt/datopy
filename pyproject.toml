@@ -54,6 +54,10 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Operating System :: OS Independent",
 ]
+dynamic = ["dependencies", "optional-dependencies"]
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = { file = ["requirements_optional.txt"] }}
 
 
 # --- Dependencies ---
@@ -64,17 +68,19 @@ classifiers = [
 # For details on this vs 'requirements.txt':
 # https://packaging.python.org/en/latest/discussions/#install-requires-vs-requirements/
 #
-# Note: Best practice is to indicate any known lower/upper bounds on versions.
+# NOTE: Best practice is to indicate any known lower/upper bounds on versions.
 # For repeatable installation,
 # an exhaustive list of requirements is given in requirements{_dev}.txt.
-dependencies = [
-    "requests>=2.31.0",
-    "numpy==1.26.4",
-    "pandas>=2.2.2",
-    "pydantic>=2.7.0",
-    "bs4>=0.0.2",
-    "pycurl>=7.45.3",
-]
+# 
+# # NOTE: Replaced with dynamic specification above
+# dependencies = [
+#     "requests>=2.31.0",
+#     "numpy==1.26.4",
+#     "pandas>=2.2.2",
+#     "pydantic>=2.7.0",
+#     "bs4>=0.0.2",
+#     "pycurl>=7.45.3",
+# ]
 
 # Extra groups of dependencies
 # For details on dependency specifiers:
@@ -85,14 +91,15 @@ dependencies = [
 # These can be installed using the "extras" syntax, e.g.:
 #   $ pip install datopy[dev]
 #
-[project.optional-dependencies]
-dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
-examples = [
-    "jsonschema>=4.21.1",
-    "wptools>=0.4.17",
-    "cinemagoer>=2023.5.1",
-    "spotipy>=2.23.0",
-]
+# NOTE: Replaced with dynamic specification above
+# [project.optional-dependencies]
+# dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
+# examples = [
+#     "jsonschema>=4.21.1",
+#     "wptools>=0.4.17",
+#     "cinemagoer>=2023.5.1",
+#     "spotipy>=2.23.0",
+# ]
 
 
 # --- Additional info ---

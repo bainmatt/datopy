@@ -13,9 +13,12 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
-          pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
           pip install -r requirements.txt
+          pip install -r requirements_optional.txt
+          pip install -r requirements_docs.txt
           pip install --editable .
+      # pip install -r requirements_dev.txt
+      # pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
       #- name: Add src directory to PYTHONPATH
       #  run: echo "::add-path::src"
       - name: Sphinx build
