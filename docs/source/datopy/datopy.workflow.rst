@@ -3,13 +3,6 @@
 datopy.workflow
 ===============
 
-..
-    .. rubric:: Description
-
-    .. automodule:: datopy.workflow
-
-    .. currentmodule:: datopy.workflow
-
 .. rubric:: Description
 
 .. automodule:: datopy.workflow

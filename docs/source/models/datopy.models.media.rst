@@ -3,13 +3,6 @@
 datopy.models.media
 ===================
 
-..
-    .. rubric:: Description
-
-    .. automodule:: datopy.models.media
-
-    .. currentmodule:: datopy.models.media
-
 .. rubric:: Description
 
 .. automodule:: datopy.models.media

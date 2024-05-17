@@ -31,6 +31,7 @@ archive/
 *_archive
 _setup.cfg
 _.vscode
+_README.md
 
 # --- Dev artifacts ---
 # Byte-compiled / optimized / DLL files

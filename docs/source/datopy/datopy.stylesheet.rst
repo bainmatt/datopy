@@ -3,13 +3,6 @@
 datopy.stylesheet
 =================
 
-..
-    .. rubric:: Description
-
-    .. automodule:: datopy.stylesheet
-
-    .. currentmodule:: datopy.stylesheet
-
 .. rubric:: Description
 
 .. automodule:: datopy.stylesheet

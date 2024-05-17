@@ -9,8 +9,6 @@
 datopy
 ======
 
-.. Home page intro text
-
 **datopy** (da-toh-pie) is a Python library for people who
 work with unstructured data that offers a simple workflow for
 building data models and ETL pipelines.

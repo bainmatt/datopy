@@ -1,11 +1,12 @@
-# -----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Package / environment / development configuration
-# =============================================================================
+# ============================================================================
 #
-# Reference: https://github.com/pypa/sampleproject/blob/main/pyproject.toml
+# Reference:
+# https://github.com/pypa/sampleproject/blob/main/pyproject.toml
 #
 # Useful template repository:
-# https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject?#tab=readme-ov-file
+# https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject
 #
 # Python Packaging User Guide:
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
@@ -14,6 +15,8 @@
 #
 # Further configurations specific to our chosen build system (setuptools):
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+#
+# ----------------------------------------------------------------------------
 
 
 # --- Basics ---
@@ -64,15 +67,15 @@ optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = {
 # Installation dependencies
 # What a project needs minimally to be run correctly.
 # These will be installed by pip when the project is installed with pip.
-#
+
 # For details on this vs 'requirements.txt':
 # https://packaging.python.org/en/latest/discussions/#install-requires-vs-requirements/
-#
+
 # NOTE: Best practice is to indicate any known lower/upper bounds on versions.
 # For repeatable installation,
 # an exhaustive list of requirements is given in requirements{_dev}.txt.
-# 
-# # NOTE: Replaced with dynamic specification above
+
+# ARK: Replaced with dynamic specification above
 # dependencies = [
 #     "requests>=2.31.0",
 #     "numpy==1.26.4",
@@ -91,7 +94,7 @@ optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = {
 # These can be installed using the "extras" syntax, e.g.:
 #   $ pip install datopy[dev]
 #
-# NOTE: Replaced with dynamic specification above
+# ARK: Replaced with dynamic specification above
 # [project.optional-dependencies]
 # dev = ["mypy>=1.9.0", "pytest>=8.1.1", "flake8>=7.0.0"]
 # examples = [
@@ -113,14 +116,14 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 # These are installed with pip and execute the specified functions when invoked
 # Reference: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
 # e.g., `my-script` executes `function` from `my_package.module`:
-#
+
 [project.scripts]
 # my-script = "my_package.module:function"
 
 # Data files
 # List any data files included in your packages that need to be installed.
 # Reference: https://setuptools.pypa.io/en/latest/userguide/datafiles.html
-#
+
 [tool.setuptools.package-data]
 # package-data = ["*.txt", "*.rst", "*.dat"]
 
@@ -131,12 +134,12 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 
 # --- Package discovery (setuptools-specific) ---
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#
-#
+
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["datopy"]
 
-# XXX (needed?) Indicates that the package is type-hinted
+# XXX needed? Indicates that the package is type-hinted
 # [options.package_data]
 # datopy = "py.typed"
 
@@ -198,15 +201,15 @@ skip_empty = true
 # --- Typing configuration ---
 # mypy .toml docs: https://mypy.readthedocs.io/en/stable/config_file.html
 # mypy command line docs: https://mypy.readthedocs.io/en/stable/command_line.#html
-#
+
 # Also useful: https://justincaustin.com/blog/mypy-tips-and-tricks/
 # Dealing with generics: https://mypy.readthedocs.io/en/stable/generics.html
-#
+
 # To run mypy on pkg in src (while respecting every configuration here):
 #   (root_dir) $ mypy .
 # To run mypy on subpkg/module in src:
 #   (root_dir) $ mypy {relative_path}/{module}.py
-#
+
 [tool.mypy]
 mypy_path = "src"
 # check_untyped_defs = true
@@ -232,7 +235,7 @@ plugins = [
 # Do not type-check the specified subpkgs/modules
 # Inline silencing of specific errors:
 # https://mypy.readthedocs.io/en/stable/error_codes.html
-#
+
 [[tool.mypy.overrides]]
 module = [
     # "datopy.models.*",
@@ -262,7 +265,7 @@ ignore_errors = true
 # --- Build and installation ---
 # Development mode (setuptools):
 # https://setuptools.pypa.io/en/latest/userguide/development_mode.html
-#
+
 # Building and distributing packages with setuptools:
 # https://setuptools.pypa.io/en/latest/setuptools.html
 # Build system support (setuptools):
