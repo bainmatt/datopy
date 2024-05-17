@@ -1,31 +1,29 @@
+# ----------------------------------------------------------------------------
 # Read the Docs configuration file
+# ============================================================================
 # https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-# 
+#
 # Example projects:
 # https://docs.readthedocs.io/en/stable/examples.html
-# 
+#
 # Automated latest, stable, and previous versions:
 # https://docs.readthedocs.io/en/stable/versions.html
 # https://docs.readthedocs.io/en/stable/integrations.html
 # https://docs.readthedocs.io/en/stable/automation-rules.html
-# 
+#
 # Best practices:
 # https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 # https://docs.readthedocs.io/en/stable/guides/best-practice/links.html
-# 
+#
 # --- Connecting Read the Docs with Sphinx/PyData ---
-# 
+#
 # Reference for readthedocs-hosted PyData docs to allow auto-versioning:
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/index.html
-# 
+#
 # Corresponding config file 'pydata-sphinx-theme/readthedocs.yml':
 # https://github.com/pydata/pydata-sphinx-theme/blob/main/readthedocs.yml
-# 
-# Corresponding version switcher 'pydata-sphinx-theme/docs/_static/switcher.json':
-# https://github.com/pydata/pydata-sphinx-theme/blob/30be4d46fe4845503aacf886af4f5af8581057c2/docs/_static/switcher.json#L4
-# 
-# Corresponding switcher scss styling:
-# https://github.com/pydata/pydata-sphinx-theme/blob/main/src/pydata_sphinx_theme/assets/styles/components/_readthedocs-switcher.scss
+#
+# ----------------------------------------------------------------------------
 
 # Required
 version: 2
@@ -35,19 +33,11 @@ build:
   os: ubuntu-22.04
   # os: ubuntu-latest
   tools:
-    # python: "3.12"
     python: "3.10"
-    # You can also specify other tool versions:
-    # nodejs: "19"
-  
-  # TODO check if this is necessary
-  # Build requirements and distribution
   jobs:
     post_install:
-      # - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
-      - pip install -r requirements_docs.txt
+      - pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
       - pip install -r requirements.txt
-      - pip install -r requirements_optional.txt
       - pip install --editable .
 
 # Build documentation in the "docs/" directory with Sphinx

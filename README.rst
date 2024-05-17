@@ -1,4 +1,4 @@
-.. 
+..
    Sphinx reST guide:
    https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
    Directives:
@@ -8,24 +8,28 @@
 
 .. _quickstart:
 
-datopy: Python tools for managing data
-======================================
-
-**datopy** (da-toh-pie) is a Python library for people who
-work with unstructured data, providing a simple workflow for
-building data models and ETL pipelines. 
-
-Includes utilities for:
-
-- Data retrieval
-- Input/Output
-- Jupyter notebook workflows
+datopy: data management tools for Python
+========================================
 
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/tests.yml/badge.svg
    :alt: CI
 .. image:: https://readthedocs.org/projects/datopy/badge/?version=latest
    :target: https://datopy.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+
+----
+
+**datopy** (da-toh-pie) is a Python library for people who
+work with unstructured data, providing a simple workflow for
+building data models and ETL pipelines.
+
+----
+
+This package also includes utilities for:
+
+- Data retrieval
+- Input/Output
+- Jupyter notebook workflows
 
 .. note::
 
@@ -34,27 +38,30 @@ Includes utilities for:
 Getting Started
 ---------------
 
-.. Anchor for cross-referencing
 .. _installation:
 
 Installation
 ~~~~~~~~~~~~
 
-To use data-tools, first install it using pip:
+To use datopy, first install it using pip:
 
 .. code-block:: console
 
-   (.venv) $ pip install "git+https://github.com/bainmatt/data-tools.git#egg=datopy"
+   $ pip install "git+https://github.com/bainmatt/datopy.git#egg=datopy"
 
 Cloning
 ~~~~~~~
 
-1. Clone the repo::
+Step 1. Clone the repo:
+
+.. code-block:: console
 
    $ git clone https://github.com/bainmatt/datopy.git
    $ cd datopy
 
-2. Install dependencies::
+Step 2. Install dependencies:
+
+.. code-block:: console
 
    $ conda env create -f environment.yml
    $ conda activate dato-py
@@ -64,36 +71,13 @@ Development
 
 TODO
 
-.. 
-   Downloading a particular module
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-   Inside a notebook, run the following cell to import a module of interest.::
-
-      # 1. Import urllib
-      import urllib.request
-
-      # 2. Set URL of the module to import
-      module_url = "https://raw.githubusercontent.com/<user>/data-tools/main/module.py"
-
-      # 3. Download the module
-      urllib.request.urlretrieve(module_url, "module.py")
-
-      # 4. Import the module
-      import module
-
-   Now you can use functions from the module::
-
-      module.function(args)
-
-
 .. A representative use case for each module.
 .. _usage:
 
 Usage
 -----
 
-.. 
+..
    Cross reference auto-generated docs for a function
    Replace `func` with `mod` for a module and `meth` for a method
    https://www.sphinx-doc.org/en/master/usage/domains/python.html#cross-referencing-python-objects
@@ -101,48 +85,47 @@ Usage
 Dataset inspection (:mod:`datopy.inspection`)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Produce multiple parallel, informative displays of Pandas data frames and 
+Produce multiple parallel, informative displays of Pandas data frames and
 NumPy arrays for data exploration and inspection.
 
-.. Use a custom admonition
-.. admonition:: Example
-   :class: tip
 
-   .. code-block:: python
+..
+   .. Use a custom admonition
 
-      >>> import numpy as np
-      >>> import pandas as pd
-      >>> from datopy.inspection import display, make_df
+   .. admonition:: Example
+      :class: tip
 
-      >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
-      >>> display('df1', 'df2', 'pd.concat([df1, df2])', globs=globals(), bold=False)
+.. code-block:: python
 
-      df1
-      --- (2, 2) ---
-         A   B
-      1  A1  B1
-      2  A2  B2
+   >>> import numpy as np
+   >>> import pandas as pd
+   >>> from datopy.inspection import display, make_df
 
+   >>> df1 = make_df('AB', [1, 2]); df2 = make_df('AB', [3, 4])
+   >>> display('df1', 'df2', 'pd.concat([df1, df2])', globs=globals(), bold=False)
 
-      df2
-      --- (2, 2) ---
-         A   B
-      3  A3  B3
-      4  A4  B4
+   df1
+   --- (2, 2) ---
+      A   B
+   1  A1  B1
+   2  A2  B2
 
 
-      pd.concat([df1, df2])
-      --- (4, 2) ---
-         A   B
-      1  A1  B1
-      2  A2  B2
-      3  A3  B3
-      4  A4  B4
+   df2
+   --- (2, 2) ---
+      A   B
+   3  A3  B3
+   4  A4  B4
 
 
-   .. 
-      .. literalinclude:: datopy/datopy.inspection.display.rst
-      .. include:: datopy/datopy.inspection.display.rst
+   pd.concat([df1, df2])
+   --- (4, 2) ---
+      A   B
+   1  A1  B1
+   2  A2  B2
+   3  A3  B3
+   4  A4  B4
+
 
 Metadata scraping (:mod:`datopy._media_scrape`)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

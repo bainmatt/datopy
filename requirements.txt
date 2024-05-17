@@ -1,9 +1,9 @@
-requests==2.31.0
-numpy==1.26.4
-pandas==2.2.2
-pydantic==2.7.0
-bs4==0.0.2
-matplotlib==3.8.3
+requests>=2.31.0
+numpy>=1.26.4
+pandas>=2.2.2
+pydantic>=2.7.0
+bs4>=0.0.2
+matplotlib>=3.8.3
 # TEMP
 # pycurl==7.45.3 --global-option="--with-openssl==8.4.0"
 # pycurl==7.45.3

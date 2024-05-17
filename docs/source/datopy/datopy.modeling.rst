@@ -3,13 +3,6 @@
 datopy.modeling
 ===============
 
-..
-    .. rubric:: Description
-
-    .. automodule:: datopy.modeling
-
-    .. currentmodule:: datopy.modeling
-
 .. rubric:: Description
 
 .. automodule:: datopy.modeling

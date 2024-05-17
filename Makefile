@@ -50,9 +50,12 @@ qa-suite:
 cov-report:
 	coverage html && open htmlcov/index.html
 
-# Synchronize versions in sub-requirements files with requirements.txt.
+# Synchronize versions in sub-requirements files with latest installations.
 # Note: First run $ pip list --format=freeze > requirements_pip.txt
-update-requirements:
+update-pinned-requirements:
+	@echo "\n\n\nUpdating requirements_pip file..."
+
+	
 	@echo "\n\n\nUpdating requirements files..."
 	@echo "=================================================================="
 	@for suffix in $(suffixes); do \
@@ -93,3 +96,28 @@ update-requirements-file:
 
 # Default suffixes for updating sub-requirements files
 suffixes ?= "" _dev _docs _optional
+
+
+# SCRATCH
+# 
+# MAKE
+# ----
+# 
+# pre-commit hook: pip check outdated
+# make cicdocs (qa-suite > make -C docs build > make -C docs html)
+# make update-reqs (pip export > make update-pinned-requirements)
+# make upgrade-deps (conda update > make cicdocs > make update-reqs)
+# 
+# SCENARIOS
+# ---------
+# 
+# IF NEED TO ADD DEP:
+# add to conda env file
+# make upgrade-deps
+# 
+# IF PRE-COMMIT HOOK SHOWS OUTDATED (FOR NON-PINNED DEP; RUN MANUALLY):
+# make upgrade-deps (conda update > make cicdocs)
+# 
+# IF ERROR DURING UPGRADE-DEPS:
+# pin latest working v of deps causing conflict in env + relevant deps file
+# (until conflict resolved for forward compatibility)

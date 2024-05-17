@@ -1,4 +1,5 @@
-"""Configuration file for the Sphinx documentation builder.
+"""
+Configuration file for the Sphinx documentation builder.
 
 Full list of built-in configuration values:
 https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -36,15 +37,6 @@ https://pypi.org/project/pytest-doctestplus/
 
 Sphinx build configuration:
 https://sphinx-rtd-trial.readthedocs.io/en/1.1.3/invocation.html
-
-Sphinx directives:
-https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html
-
-PyData performance improvements:
-https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/performance.html
-
-PyData performance lag example:
-https://numpy.org/doc/stable/reference/generated/numpy.eye.html
 
 Handy recipes:
 $ make doctest -B  # overwrite previous build
@@ -89,10 +81,10 @@ release = version
 
 # --- General configuration ---
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-#
+
 # Doctest:
 # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html#confval-doctest_test_doctest_blocks
-#
+
 # Autodocs/autosummary:
 # https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
@@ -119,15 +111,12 @@ extensions = [
 
 autodoc_default_options = {
     # Show all objects within a module on one page via embedded TOC
-    # NOTE required for autodoc_pydantic so that models aren't orphaned
-    # NOTE turn off for a more manageable (albeit less comprehensive) toc tree
+    # NOTE: required for autodoc_pydantic so that models aren't orphaned
+    # NOTE: turn off for a more manageable (albeit less comprehensive) toc tree
     # ... but change `show_toc_level` from 1 to 2 so members are accessible
     # ... and turn off `autodoc_pydantic` so pydantic models aren't orphaned
     # ... and turn on `numpydoc_class_members_toctree` so members not orphaned
-    # TODO add rubric: module include pydantic models; class include members
-    # ... once this accomplished, can set members off and show_toc_level = 2
-    # https://github.com/pandas-dev/pandas/blob/main/doc/_templates/autosummary/#class.rst
-    #
+
     "members": True,
     # Don't document private, inherited, or special class members
     "private-members": False,
@@ -145,13 +134,11 @@ todo_include_todos = False
 todo_link_only = True
 
 
-
 # --- Cusomize intersphinx options ---
 # Links to documentation for any base types that Sphinx should source and
 # hyperlink within the rendered definitions.
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
 
-# intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 intersphinx_mapping = {
     "python": ("https://docs.python.org/{.major}".format(sys.version_info), None),
     "numpy": ("https://numpy.org/doc/stable", None),
@@ -179,7 +166,8 @@ plot_html_show_source_link = False
 
 # --- Customize autodoc_pydantic options ---
 # https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html
-# NOTE auto_pydantic does not play well with TOC or `make clean` after build!!
+
+# NOTE: auto_pydantic does not play well with TOC or `make clean` after build!!
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
 
 autodoc_pydantic_model_show_config_summary = True
@@ -251,7 +239,7 @@ numpydoc_class_members_toctree = False
 
 # Numpy docstring validation checks
 # https://numpydoc.readthedocs.io/en/latest/validation.html
-#
+
 # Report warnings for all validation checks except GL01, GL02, etc.
 numpydoc_validation_checks = {
     "all",
@@ -260,13 +248,12 @@ numpydoc_validation_checks = {
     # missing sections
     "ES01", "SA01", "EX01", "RT01",
     # missing elements (period in summary, parameters)
-    # NOTE this should not be used permanently
+    # NOTE: this should not be used permanently
     "PR01", "SS03",
 }
 
-# FIXME fix this to actually exclude the specified patterns
+# Objects to exclude from autosummary
 templates_path = ['_templates']
-# exclude_patterns = []
 exclude_patterns = ['_[!_]*.py', 'main']
 
 
@@ -282,26 +269,21 @@ exclude_patterns = ['_[!_]*.py', 'main']
 # html_theme = "furo"
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
-# html_title = "datopy: Data tools for Python"
 html_title = "datopy manual"
 html_short_title = "datopy"
 # html_logo = "_static/datopy-logo.png"
 # html_favicon = "_static/datopy-logo.png"
 
 # Fine-tuning
-# html_theme_options = {
-#     "navigation_with_keys": True,
-#     "light_logo": "logo-light-mode.png",
-#     "dark_logo": "logo-dark-mode.png",
-# }
-# html_context = {
-#     "github_url": "https://github.com", # or your GitHub Enterprise site
-#     "github_user": "bainmatt",
-#     "github_repo": "datopy",
-#     "github_version": "main",
-#     "doc_path": "docs/source/",
-#     # "default_mode": "light",
-# }
+html_context = {
+    # TODO check whether the following lines (except the last) are necessary
+    "github_url": "https://github.com",  # or your GitHub Enterprise site
+    "github_user": "bainmatt",
+    "github_repo": "datopy",
+    "github_version": "main",
+    "doc_path": "docs/source/",
+    "default_mode": "light",
+}
 
 python_maximum_signature_line_length = 20
 math_number_all = True
@@ -324,48 +306,31 @@ suppress_warnings = ["all"]
 html_use_index = False
 
 # Link to underlying rsts
-# NOTE excellent tool for debugging documentation
+# NOTE: excellent tool for debugging documentation
 html_show_sourcelink = True
 
 
 # --- Sidebar customizations ---
 
-# Exclude parent paths from appearing in TOC
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_sidebars
-#
-# NOTE sidebar customization in Furo is limited:
+# NOTE: sidebar customization in Furo is limited:
 # https://pradyunsg.me/furo/customisation/sidebar/
-#
-# html_sidebars = {
-#    '**': ["globaltoc.html"],
-# }
-# html_sidebars = {
-#     "index": [],
-#     "community": ["search-field.html", "sidebar-nav-bs.html", "twitter.html"],
-# }
 
 # Hide sidebar on particular pages where section navigation is empty
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#primary-sidebar-left
+
 html_sidebars = {
     'changelog': [],
     'readme': []
 }
 
 
-# --- Additional PyData HTML customizations ---
-# https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#references
+# --- Version switcher configuration ---
 
 # Obtain version for version switcher
 # References:
 # https://github.com/pandas-dev/pandas/blob/main/doc/source/conf.py
 # https://github.com/pandas-dev/pandas/blob/main/web/pandas/versions.json
-#
-# CAUTION:
-# "In theory the JSON could be saved in a folder that is listed under your
-# site’s html_static_path configuration, but this is not recommended. If you
-# want to do it this way, see the Sphinx static path documentation for more
-# information but do so knowing that we do not support this use case."
-#
+
 if ".dev" in version:
     switcher_version = "dev"
 else:
@@ -377,14 +342,16 @@ else:
 # For use with Read the Docs. Reference:
 # https://github.com/pydata/pydata-sphinx-theme/blob/main/docs/conf.py
 version_match = os.environ.get("READTHEDOCS_VERSION")
+
 # If READTHEDOCS_VERSION doesn't exist, we're not on RTD.
 # If it is an integer, we're in a PR build and the version isn't correct.
 # If it's "latest" → change to "dev" (what we want the switcher to call it).
-#
+
 if not version_match or version_match.isdigit() or version_match == "latest":
     # For local development, infer the version to match from the package.
     if "dev" in release or "rc" in release:
         switcher_version = "dev"
+
         # We want to keep the relative reference if we are in dev mode
         # but we want the whole url if we are effectively in a released version
         json_url = "_static/switcher.json"
@@ -393,8 +360,12 @@ if not version_match or version_match.isdigit() or version_match == "latest":
 elif version_match == "stable":
     switcher_version = f"v{release}"
 
+
+# --- Additional PyData HTML customizations ---
+# https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#references
+
 html_theme_options = {
-    # NOTE not compatible with Furo. Comment out unless using PyData.
+    # NOTE: not compatible with Furo. Comment out unless using PyData.
     # Previous/next buttons are unstable in PyData (poor overflow handling)
     "show_prev_next": False,
     "navigation_with_keys": True,
@@ -411,6 +382,7 @@ html_theme_options = {
 
     # Header links
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html
+
     "github_url": "https://github.com/bainmatt/datopy",
     "header_links_before_dropdown": 4,
     # "external_links": [
@@ -431,32 +403,26 @@ html_theme_options = {
 
     # Version switcher dropdowns
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html
-    #
+
     # Example additional rtd configurations:
     # https://github.com/pydata/pydata-sphinx-theme/blob/30be4d46fe4845503aacf886af4f5af8581057c2/docs/conf.py
-    #
+
     "switcher": {
-        # "json_url": "https://bainmatt.github.io/datopy/versions.json",
-        # "json_url": "https://bainmatt.github.io/latest/_static/switcher.json",
         "json_url": "https://bainmatt.github.io/datopy/_static/switcher.json",
         "version_match": switcher_version,
     },
-    # "switcher": True,
-    # "versions": {
-    #     "latest": "https://github.com/bainmatt/datopy/releases/latest",
-    #     "v0.0.1": "https://github.com/bainmatt/datopy/releases/tag/v0.0.1",
-    # },
     "show_version_warning_banner": True,
     "navbar_align": "content",
-    "navbar_start": [
-        "navbar-logo", "version-switcher",
-    ],
+    # "navbar_start": [
+    #     "navbar-logo", "version-switcher",
+    # ],
     "navbar_end": [
-        # "version-switcher",
+        "version-switcher",
         "theme-switcher", "navbar-icon-links"
     ],
 }
 
 # Source buttons
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/source-buttons.html
+
 use_edit_page_button = False

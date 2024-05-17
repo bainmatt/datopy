@@ -1,4 +1,25 @@
+# This file specifies the tools and scripts to run as pre-commit checks,
+# as well as their configurations.
+# https://github.com/pre-commit/pre-commit
+#
+# Required:
+#
+#   $ pip install pre-commit
+#
+# To run:
+#
+#   $ pre-commit run
+#
+
+# Run numpydoc-style docstring validation
 # - repo: https://github.com/numpy/numpydoc
 #   rev: <version>
 #   hooks:
 #     - id: numpydoc-validation
+
+
+python -m pip list --outdated
+exit 1
+
+# Another useful hook:
+# https://stackoverflow.com/questions/65695906/#how-to-update-a-requirements-file-automatically-when-new-packages-are-installed
