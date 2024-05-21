@@ -135,8 +135,8 @@ TODO
 Retrieve media-related data from Spotify, IMDb, and Wikipedia.
 
 
-Thanks
-------
+Acknowledgements
+----------------
 
 datopy is powered by:
 

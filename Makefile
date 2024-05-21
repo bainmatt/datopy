@@ -50,13 +50,15 @@ qa-suite:
 cov-report:
 	coverage html && open htmlcov/index.html
 
-# Synchronize versions in sub-requirements files with latest installations.
-# Note: First run $ pip list --format=freeze > requirements_pip.txt
-update-pinned-requirements:
-	@echo "\n\n\nUpdating requirements_pip file..."
+# TODO
+# make cicdocs (qa-suite > make -C docs {dtest -B > html} > make -C docs html)
 
+# Synchronize versions in sub-requirements files with latest installations.
+update-pinned-requirements:
+	@echo "\n\n\ni / ii  Updating requirements lock file..."
+	pip list --format=freeze > requirements_pip.txt
 	
-	@echo "\n\n\nUpdating requirements files..."
+	@echo "\n\n\nii / ii  Updating requirements files..."
 	@echo "=================================================================="
 	@for suffix in $(suffixes); do \
 		current_file=$$(echo requirements$${suffix}.txt); \
@@ -97,16 +99,19 @@ update-requirements-file:
 # Default suffixes for updating sub-requirements files
 suffixes ?= "" _dev _docs _optional
 
+# TODO
+# make upgrade-deps (conda update > make cicdocs > make update-reqs)
+
 
 # SCRATCH
 # 
 # MAKE
 # ----
 # 
-# pre-commit hook: pip check outdated
-# make cicdocs (qa-suite > make -C docs build > make -C docs html)
-# make update-reqs (pip export > make update-pinned-requirements)
-# make upgrade-deps (conda update > make cicdocs > make update-reqs)
+# √ pre-commit hook: pip check outdated
+# √ make update-reqs (pip export > make update-pinned-requirements)
+# ~make cicdocs (qa-suite > make -C docs {dtest -B > html} > make -C docs html)
+# ~make upgrade-deps (conda update > make cicdocs > make update-reqs)
 # 
 # SCENARIOS
 # ---------
