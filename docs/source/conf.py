@@ -395,7 +395,7 @@ html_theme_options = {
         {
             "name": "Personal website",
             "url": "https://bainmatt.github.io/",
-            "icon": "fa fa-user-circle",
+            "icon": "fas fa-link",
             "type": "fontawesome",
         },
     ],
