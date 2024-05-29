@@ -123,6 +123,6 @@ suffixes ?= "" _dev _docs _optional
 # IF PRE-COMMIT HOOK SHOWS OUTDATED (FOR NON-PINNED DEP; RUN MANUALLY):
 # make upgrade-deps (conda update > make cicdocs)
 # 
-# IF ERROR DURING UPGRADE-DEPS:
+# IF ERROR DURING UPGRADE-DEPS or CI WORKFLOW:
 # pin latest working v of deps causing conflict in env + relevant deps file
 # (until conflict resolved for forward compatibility)
