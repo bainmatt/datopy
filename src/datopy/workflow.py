@@ -8,25 +8,30 @@ Included:
 """
 
 import os
+import sys
 import doctest
 import requests
 import importlib
 import urllib.request
 from typing import Dict, List, Any, Callable
 
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
-# TODO Save figs
-### Save figs
+# TODO: rename this io.py?
 
-# TODO Save drive
-### Save drive
+# TODO: save_figs
 
-def git_module_loader(modules: Dict[str, List[str]],
-                      save_dir: str | None = None,
-                      run_tests: bool = False,
-                      run_download: bool = False) -> None:
+# TODO: save_drive
+
+
+def git_module_loader(
+    modules: Dict[str, List[str]],
+    save_dir: str | None = None,
+    run_tests: bool = False,
+    run_download: bool = False
+) -> None:
     """
-    Securely downloads collections of modules directly from their Git repo.
+    Download collections of modules directly from their Git repo.
 
     Retrieved files are stored in the current directory.
 
@@ -93,7 +98,8 @@ def git_module_loader(modules: Dict[str, List[str]],
                 doctest.testmod(mod, verbose=True)
 
 
-### Efficient testing
+# -- Efficient testing -------------------------------------------------------
+
 
 def doctest_function(object: Callable[..., Any], globs: dict[str, Any],
                      verbose=True) -> None:
@@ -125,8 +131,10 @@ def main():
     import doctest
 
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=True)
+    # doctest.testmod(verbose=True)
     # doctest_function(git_module_loader, globs=globals())
+
+    numpydoc_validate_module(sys.modules['__main__'])
 
 
 if __name__ == "__main__":

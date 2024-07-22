@@ -18,10 +18,6 @@ jobs:
           pip install -r requirements_dev.txt
           pip install -r requirements_docs.txt
           pip install --editable .
-      # pip install -r requirements_dev.txt
-      # pip install sphinx furo pydata-sphinx-theme numpydoc autodoc_pydantic
-      #- name: Add src directory to PYTHONPATH
-      #  run: echo "::add-path::src"
       - name: Sphinx build
         run: |
           sphinx-build docs/source _build

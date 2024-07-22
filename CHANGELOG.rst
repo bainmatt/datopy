@@ -5,7 +5,7 @@
     2. Copy/paste (until automated) each section from release notes to rst file
     3. Correct hyperlink syntax
 
-datopy 0.0.1 (April 28, 2024)
+datopy 001 (April 28, 2024)
 =============================
 
 ..
@@ -22,13 +22,13 @@ This release includes some routines for data modeling (see :mod:`datopy.modeling
 
 Here's a snapshot of what this release includes:
 
-Exciting Features 🙌
---------------------
+Features
+--------
 
 - Core data modeling/validation functionality and various workflow-related utilities
 
-Stability and Performance ⚡️
----------------------------
+Stability and Performance
+-------------------------
 
 - Extensive type checking and doctesting
 - Continual performance and coverage testing via tox and Github actions

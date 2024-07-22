@@ -1,6 +1,10 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-# Excellent reference: https://github.com/hynek/structlog/blob/main/.github/workflows/ci.yml
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions.
+#
+# For more information see:
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+#
+# Another excellent reference:
+# https://github.com/hynek/structlog/blob/main/.github/workflows/ci.yml
 
 name: CI
 
@@ -40,7 +44,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install -r requirements_dev.txt
         pip install -r requirements_optional.txt
-    # python -m pip install flake8 pytest
 
     - name: Lint with flake8
       run: |

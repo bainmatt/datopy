@@ -6,6 +6,8 @@
 
 .. automodule:: {{ fullname }}
 
+----
+
 .. currentmodule:: {{ fullname }}
 
 {% if classes %}

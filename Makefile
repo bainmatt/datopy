@@ -1,20 +1,39 @@
-# ==============================================================================
-# Command line routines for development. To run a recipe run:
+# This script contains command line routines to streamline development.
+#
+# To run a recipe:
 #
 # 	$ make {recipe-name}
 #
-# Reference: https://makefiletutorial.com/#makefile-cookbook
-# ==============================================================================
+#
+# To run all quality assurance steps during the development process:
+#
+# 	$ make qa-suite
+#
+# To upgrade the current environment and ensure forward compatibility, run:
+#
+# 	$ make upgrade-deps
+#
+#
+# Makefile reference:
+# https://makefiletutorial.com/#makefile-cookbook
 
+
+# -- Variables ---------------------------------------------------------------
 
 # Variables
 PKG ?= datopy
 
+# Default suffixes for updating sub-requirements files
+suffixes ?= "" _dev _docs _optional
+
+
+# -- QA building blocks ------------------------------------------------------
 
 doctests:
 	python src/datopy/run_doctests.py
 
-# Argument `mod` can be a path to a python module (relative PKG dir) or a dir
+
+# Arg `mod` can be a path to a py module (relative to src/<PKG> dir) or a dir
 py-doctests:
 ifeq ($(mod),)
 	@echo "\n\nNo subpackage or module specified. Running all doctests."
@@ -24,10 +43,19 @@ else
 endif
 	coverage report
 
+
 pytests:
 	coverage run -m pytest
 	coverage report
 
+
+cov-report:
+	coverage html && open htmlcov/index.html
+
+
+# -- QA suites ---------------------------------------------------------------
+
+# Run in sequence: doctests with coverage via pytest, pytests, typing, linting
 qa-suite:
 	@echo "\n\n\n1 / 4  Running doctests..."
 	@echo "=========================="
@@ -47,17 +75,36 @@ qa-suite:
 	@echo "========================="
 	flake8 src
 
-cov-report:
-	coverage html && open htmlcov/index.html
 
-# TODO
-# make cicdocs (qa-suite > make -C docs {dtest -B > html} > make -C docs html)
+# First run `make qa-suite`, then build docs and optionally run numpydoctests.
+# Arg `rb` takes an arbitrary value, indicating that doctests should be re-run.
+cicdocs:
+	@echo "\n\n\ni / ii  Running qa-suite..."
+	@echo "------------------------------------------------------------------"
+	make qa-suite
 
-# Synchronize versions in sub-requirements files with latest installations.
+ifeq ($(rb),)
+	@echo "\n\n\nii / ii  Building documentation..."
+	@echo "=================================================================="
+	make -C docs html
+else
+	@echo "\n\n\nii / ii  Building documentation and re-building doctests..."
+	@echo "=================================================================="
+	make -C docs doctest -B
+	make -C docs html
+endif
+
+
+# -- Environment management building blocks ----------------------------------
+
+# Synchronize versions in sub-requirements files with the latest installations
+# by exporting an up-to-date 'requirements.txt' lock file via pip and running
+# `make update-requirements-file` on each specified sub-requirements file.
 update-pinned-requirements:
 	@echo "\n\n\ni / ii  Updating requirements lock file..."
+	@echo "=================================================================="
 	pip list --format=freeze > requirements_pip.txt
-	
+
 	@echo "\n\n\nii / ii  Updating requirements files..."
 	@echo "=================================================================="
 	@for suffix in $(suffixes); do \
@@ -70,9 +117,10 @@ update-pinned-requirements:
 	done
 	@echo "All requirements synchronized.\n"
 
-# Extract package names and versions from requirements.txt and then
-# search/replace outdated lines in sub-requirements file with matching
-# packages in requirements.txt.
+
+# Extract package names and versions from 'requirements.txt', then
+# find lines with matching packages in a sub-requirements file and replace the
+# version with that in 'requirements.txt' if it is outdated.
 update-requirements-file:
 	@echo "> Checking requirements$(SUFF).txt..."
 	@echo "------------------------------------------------------------------"
@@ -96,33 +144,38 @@ update-requirements-file:
 	@echo "done."
 	@echo "------------------------------------------------------------------"
 
-# Default suffixes for updating sub-requirements files
-suffixes ?= "" _dev _docs _optional
 
-# TODO
-# make upgrade-deps (conda update > make cicdocs > make update-reqs)
+# -- Environment management suite --------------------------------------------
 
+# Run this step to ensure forward compatibility.
+# First update all dependencies in the current environment, then run CI suite:
+# doctests, typing, linting, and build the documentation. If step 1 runs:
+#
+# (1) without error, make a lockfile and update any pinned requirements;
+# (2) with error, print instructions to reverse the latest upgrades.
+#
+upgrade-deps:
+	@echo "\n\n\nStep 1 / 3 : Upgrading dependencies..."
+	@echo "------------------------------------------------------------------"
+	conda env update --file environment.yml --prune
 
-# SCRATCH
-# 
-# MAKE
-# ----
-# 
-# √ pre-commit hook: pip check outdated
-# √ make update-reqs (pip export > make update-pinned-requirements)
-# ~make cicdocs (qa-suite > make -C docs {dtest -B > html} > make -C docs html)
-# ~make upgrade-deps (conda update > make cicdocs > make update-reqs)
-# 
-# SCENARIOS
-# ---------
-# 
-# IF NEED TO ADD DEP:
-# add to conda env file
-# make upgrade-deps
-# 
-# IF PRE-COMMIT HOOK SHOWS OUTDATED (FOR NON-PINNED DEP; RUN MANUALLY):
-# make upgrade-deps (conda update > make cicdocs)
-# 
-# IF ERROR DURING UPGRADE-DEPS or CI WORKFLOW:
-# pin latest working v of deps causing conflict in env + relevant deps file
-# (until conflict resolved for forward compatibility)
+	@echo "\n\n\nStep 2 / 3 : Running continuous integration..."
+	@echo "------------------------------------------------------------------"
+	@if ! make cicdocs; then \
+		conda list --revisions; \
+		echo "\nWarning! Continuous integration failed."; \
+		echo "Your package is currently not forward compatible."; \
+		echo "Here's what to do until you make the necessary revisions:\n"; \
+		echo "(1) Review the latest revision above (rev N)"; \
+		echo "(2) Revert to the previous revision (rev n = N - 1):\n"; \
+		echo "    conda install --revision n\n"; \
+		echo "(3) Pin packages causing the error at their nth rev in:\n"; \
+		echo "    (a) environment.yml"; \
+		echo "    (b) the appropriate requirements_* file\n"; \
+		exit 1; \
+	fi
+
+	@echo "\n\n\nStep 3 / 3 : Upgrading requirements lock files..."
+	@echo "------------------------------------------------------------------"
+	make update-pinned-requirements
+	conda list --revisions

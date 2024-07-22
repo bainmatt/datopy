@@ -6,8 +6,8 @@ and related information (via Wikipedia).
 
 .. note:: WIP.
 
-Highlights
-----------
+Overview
+~~~~~~~~
 
 .. currentmodule:: datopy.models.media
 
@@ -20,10 +20,11 @@ Highlights
     SpotifyAlbum
 
 API
----
+~~~
 """
 
 import re
+import sys
 import typing
 import doctest
 import pandas as pd
@@ -54,15 +55,16 @@ from spotipy.oauth2 import SpotifyClientCredentials
 # import datopy._settings
 from datopy.etl import omit_string_patterns
 from datopy.workflow import doctest_function
+from datopy._examples import find_project_root
 from datopy.modeling import BaseProcessor, CustomTypes
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 
-# --------------------------
-# --- Metadata retrieval ---
-# --------------------------
+# -- Metadata retrieval ------------------------------------------------------
+
 
 # Custom type containing search terms with required 'title' attribute
-# TODO archive this: does not generalize well
+# TODO: archive this: does not generalize well
 # class MediaSearchTerms(NamedTuple):
 #     title: str
 #     creator: str | None = None
@@ -197,9 +199,10 @@ class IMDbFilm(BaseModel):
         return v
 
 
-# TODO place media/animals/nations models/queries/processors in
+# TODO: place media/animals/nations models/queries/processors in
 # {media/eco/global}_pulse.py
-# TODO implement 4 pydantic processed data models + 1 valid/invalid demo
+# TODO: implement 4 pydantic processed data models + 1 valid/invalid demo
+
 
 class SpotifyAlbum(BaseModel):
     """
@@ -258,14 +261,13 @@ class WikiAlbum(BaseModel):
 # except ValidationError as e: pprint.pp(e.errors())
 
 
-# --------------------------
-# --- Metadata retrieval ---
-# --------------------------
+# -- Metadata retrieval ------------------------------------------------------
 
 # Subclass Processor
 
-# TODO move these to media
-# TODO implement 5 subclasses
+# TODO: move these to media
+# TODO: implement 5 subclasses
+
 
 class IMDbFilmProcessor(BaseProcessor):
     """
@@ -296,8 +298,11 @@ class IMDbFilmProcessor(BaseProcessor):
 
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=True)
+    # doctest.testmod(verbose=True)
     # doctest_function(IMDbFilm, globs=globals(), verbose=False)
 
-    ## One-off tests
+    skip = ["Album", "Film", "Book", "MediaQuery"]
+    numpydoc_validate_module(sys.modules['__main__'], excluded_objects=skip)
+
+    # One-off tests
     pass

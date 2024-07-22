@@ -7,6 +7,8 @@ datopy.stylesheet
 
 .. automodule:: datopy.stylesheet
 
+----
+
 .. currentmodule:: datopy.stylesheet
 
 

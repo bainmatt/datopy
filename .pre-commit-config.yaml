@@ -12,7 +12,7 @@
 #
 
 # Run numpydoc-style docstring validation
-# - repo: https://github.com/numpy/numpydoc
-#   rev: <version>
-#   hooks:
-#     - id: numpydoc-validation
+- repo: https://github.com/numpy/numpydoc
+  rev: <version>
+  hooks:
+    - id: numpydoc-validation

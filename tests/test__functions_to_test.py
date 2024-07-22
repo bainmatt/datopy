@@ -205,5 +205,5 @@ def test_omit_benchmark(benchmark):
 # Configure IDE workspace and launch protocols accordingly. See, e.g.:
 # ‘(root).vscode/{data-tools.code-workspace, launch.json}’
 # ‘(pkg).vscode/{pkg}.launch.json}’
-# 
+#
 # TODO /note: selection must be executed in dato-py term with python activated

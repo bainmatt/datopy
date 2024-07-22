@@ -7,6 +7,8 @@ datopy.inspection
 
 .. automodule:: datopy.inspection
 
+----
+
 .. currentmodule:: datopy.inspection
 
 

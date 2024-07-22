@@ -2,14 +2,16 @@
 Plotting utilities and matplotlib rcParams customization.
 """
 
+import os
+import sys
+
 import numpy as np
 import matplotlib as mpl
 from cycler import cycler
 import matplotlib.pyplot as plt
 # from matplotlib.colors import ListedColormap
 
-import os
-import sys
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 
 # plt.close()
@@ -22,29 +24,36 @@ import sys
 
 class outputoff:
     """
-    Define context in which all outputs are suppressed.
+    Define a context in which all outputs are suppressed.
 
     Intended for use with pyplot to suppress intermittent printouts.
     """
     def __enter__(self):
+        """
+        Setup.
+        """
         self.stdout = sys.stdout
         # Redirect stdout to null device
         sys.stdout = open(os.devnull, 'w')
 
     def __exit__(self, exc_type, exc_value, traceback):
         """
-        Args:
-            exc_type  : Exception type
-            exc_value : Exception value
-            traceback : Traceback
+        Teardown.
+
+        Parameters
+        ----------
+        exc_type : Exception type
+        exc_value : Exception value
+        traceback : Traceback
         """
         sys.stdout.close()
         sys.stdout = self.stdout
 
 
-# TODO clean up plot examples using approach like this:
+# TODO: clean up plot examples using approach like this:
 # https://github.com/arviz-devs/arviz/blob/main/arviz/plots/autocorrplot.py
 # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot
+
 
 def customize_plots() -> None:
     r"""
@@ -125,11 +134,11 @@ def customize_plots() -> None:
         >>> multi_panel_plot(x)  # /doctest: +SKIP
     """
 
-    # --- General properties ---
+    # -- General properties --------------------------------------------------
 
     # Font face and sizes
     mpl.rcParams['font.family'] = 'sans-serif'
-    # NOTE will need to be reverted to the default for use in a notebook.
+    # NOTE: will need to be reverted to the default for use in a notebook.
     # mpl.rcParams['font.sans-serif'] = "Verdana"
     mpl.rcParams['font.size'] = 9               # default font sizes
     mpl.rcParams['axes.titlesize'] = 14         # large
@@ -198,7 +207,7 @@ def customize_plots() -> None:
     mpl.rcParams['patch.force_edgecolor'] = 1
     mpl.rcParams['patch.linewidth'] = .4       # edgewidth (default: .5)
 
-    # --- Object-specific properties ---
+    # -- Object-specific properties ------------------------------------------
 
     # Scatter properties
     # mpl.rcParams['scatter.edgecolors'] = 'black'  # alt: 'face' (match edges)
@@ -208,13 +217,13 @@ def customize_plots() -> None:
     mpl.rcParams['lines.linewidth'] = 2
 
     # Bar properties
-    # NOTE No global styling parameter exists for the following:
+    # NOTE: No global styling parameter exists for the following:
     # mpl.rcParams['bar.width'] = 0.8
 
     # Error properties
     mpl.rcParams['errorbar.capsize'] = 3
 
-    # NOTE No global styling parameter exists for the following:
+    # NOTE: No global styling parameter exists for the following:
     # mpl.rcParams['errorbar.color'] = 'black'
     # mpl.rcParams['errorbar.linewidth'] = 1.5
 
@@ -257,7 +266,7 @@ def customize_plots() -> None:
     # mpl.rcParams['boxplot.flierprops.markeredgecolor'] = 'black'  # (check)
     # mpl.rcParams['boxplot.flierprops.color'] = 'black'            # (check)
 
-    # --- Figure padding ---
+    # -- Figure padding ------------------------------------------------------
 
     # Figure layout
     # auto-make plot elements fit on figure
@@ -265,7 +274,7 @@ def customize_plots() -> None:
     mpl.rcParams['figure.constrained_layout.use'] = True  # apply tight layout
 
     # Subplot padding (all dims are a fraction of the fig width and height)/
-    # NOTE not compatible with constrained_layout.
+    # NOTE: not compatible with constrained_layout.
     #
     # mpl.rcParams['figure.subplot.left'] = .125    # left side
     # mpl.rcParams['figure.subplot.right'] = 0.9    # right side of subplots
@@ -284,15 +293,15 @@ def customize_plots() -> None:
     # Is much smaller than tight_layout (figure.subplot.{hspace, wspace)
     # as constrained_layout already takes surrounding text
     # (titles, labels, # ticklabels) into account.
-    # NOTE not compatible with autolayout.
+    # NOTE: not compatible with autolayout.
     #
     # mpl.rcParams['figure.constrained_layout.hspace'] = 0.02
     # mpl.rcParams['figure.constrained_layout.wspace'] = 0.02
 
-    # --- Other ---
+    # -- Other ---------------------------------------------------------------
 
     # Figure size and quality
-    mpl.rcParams['figure.dpi'] = 100         # NOTE Alters figure size
+    mpl.rcParams['figure.dpi'] = 100         # NOTE: Alters figure size
     mpl.rcParams['figure.figsize'] = (5, 5)  # (6, 4), (6.4, 4.8)
 
     # Figure saving settings
@@ -323,16 +332,21 @@ class customstyle:
 
         # >>> plt.plot([1,2,3], [4,5,6]) # doctest: +SKIP
         # >>> plt.show()  # /doctest: +SKIP
-
     """
     def __enter__(self):
-        # TODO ?package customize_plots with context manager
+        """
+        Setup.
+        """
+        # TODO: ?package customize_plots with context manager
         # to avoid circular dependency and double execution.
         from datopy.stylesheet import customize_plots
         customize_plots()
         return self
 
     def __exit__(self, *exc):
+        """
+        Teardown.
+        """
         pass
 
 
@@ -343,6 +357,8 @@ def main():
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
     # doctest_function(customize_plots, globs=globals())
+
+    numpydoc_validate_module(sys.modules['__main__'])
 
 
 if __name__ == "__main__":

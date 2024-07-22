@@ -9,31 +9,35 @@ data frames.
 References
 ----------
 .. [1] VanderPlas, J. (2016). Python data science handbook: Essential tools
-       for working with data. "O'Reilly Media, Inc.".
+       for working with data. O'Reilly Media, Inc.
+----
 """
 
+import sys
 import doctest
 import numpy as np
 import pandas as pd
 from typing import Any, Iterable
 
 from datopy.workflow import doctest_function
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 
 def make_df(cols: Iterable[Any], ind: Iterable[Any]) -> pd.DataFrame:
     """
-    Generate a DataFrame with a simple structure for tests.
+    Generate a data frame with a simple structure for conducting tests.
 
     Parameters
     ----------
     cols : Iterable[Any]
-        Iterable with items representing column names.
+        An iterable with items representing column names.
     ind : Iterable[Any]
-        Iterable with items representing row names.
+        An iterable with items representing row names.
 
     Returns
     -------
-    result : DataFrame of shape (len(ind), len(cols))
+    pd.DataFrame
+        A pandas data frame of shape (len(ind), len(cols)).
 
     Examples
     --------
@@ -65,20 +69,20 @@ def display(
     """
     Display an informative representation of multiple objects side-by-side.
 
-    Warning
-    -------
-    This function uses `eval()` to render expressions it receives
-    as strings. Access to variables in the global namespace is controlled
-    by `globs`. Take care to only pass trusted expressions to the function.
-
     Parameters
     ----------
-    args : tuple
+    *args : tuple
         Tuple of expressions to evaluate and display.
     globs : dict[str, Any], default=None
         Global namespace, to give eval() access to nonlocals passed by name.
     bold : bool, default=True
         Option to enable/disable string styling.
+
+    Warnings
+    --------
+    This function uses `eval()` to render expressions it receives
+    as strings. Access to variables in the global namespace is controlled
+    by `globs`. Take care to only pass trusted expressions to the function.
 
     Examples
     --------
@@ -158,6 +162,9 @@ def main():
     # Comment out (2) to run all tests in script; (1) to run specific tests
     doctest.testmod(verbose=True)
     # doctest_function(display, globs=globals())
+
+    numpydoc_validate_module(sys.modules['__main__'])
+
     return None
 
 

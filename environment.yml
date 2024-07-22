@@ -1,59 +1,112 @@
-# --- Environment management guidelines ---
+# -- Building, updating, and exporting an environment ------------------------
+#
 # To create & activate environment {name} from this file, run:
-# [1] $ conda env create -f environment.yml
-# [2] $ conda activate {name}
+#
+#   (1) $ conda env create -f environment.yml
+#   (2) $ conda activate {name}
+#
 # To update (upgrade/install new/delete removed *conda*) deps from this file:
-# $ conda env update --file environment.yml --prune
+#
+#   $ conda env update --file environment.yml --prune
 #
 # To create an environment file from your loaded dependencies, run:
-# $ conda env export --from-history > requirements_conda.yml
+#
+#   $ conda env export --from-history > requirements_conda.yml
+#
+#
+# -- Generating lock files ---------------------------------------------------
+#
 # For the most comprehensive listing including version and build information:
-# $ conda list --export > requirements_conda.txt
+#
+#   $ conda list --export > requirements_conda.txt
+#
 # Then install by running:
-# $ conda create -n {env-name} --file requirements_conda.txt
+#
+#   $ conda create -n {env-name} --file requirements_conda.txt
+#
 #
 # For a complete listing of *Python* dependencies for distribution, use pip:
-# $ pip list --format=freeze > requirements_pip.txt
+#
+#   $ pip list --format=freeze > requirements_pip.txt
+#
 # This filters out packages that are not:
-# [1] installed in the currently activated (conda or pip) environment;
-# [2] reqs of the installed packages (provided `--not-required` option given)
-# This option is ommitted due to unfortunate conda discrepancies it causes
+#
+# (1) installed in the currently activated (conda or pip) environment;
+# (2) reqs of the installed packages (provided `--not-required` option given).
+#
+# Option (2) is ommitted due to potential pip vs conda discrepancies.
+#
+#
+# -- Checking for outdated dependencies --------------------------------------
 #
 # To ensure all Python dependencies are updated before distribution, run:
-# [0.0] $ python -m pip check                            # check for missing
-# [1.0] $ python -m pip list --outdated --not-required   # check for outdated
-# [1.2] $ conda search --outdated --use-local
 #
-# To prep clean requirements.txt/requirements_dev.txt files for distribution:
-# Manually update by cross-referencing:
-# [1] dependencies/order/category (required/dev/optional) in environment.yml
-# [2] versions in requirements_pip.txt
+#   (0.0) $ python -m pip check                            # check for missing
+#   (1.0) $ python -m pip list --outdated --not-required   # check for outdated
+#   (1.2) $ conda search --outdated --use-local
 #
-# --- Dependency trees ---
+#
+# -- Building dependency trees -----------------------------------------------
+#
 # To store a handy dependency tree for your environment:
-# $ pipdeptree -r | tee requirements_pipdeptree.txt
+#
+#   $ pipdeptree -r | tee requirements_pipdeptree.txt
+#
 #
 # To investigate why a particular package is installed, run either:
-# [1] $ python -m pip show {pkg-name}
-# [2] $ pipdeptree --reverse --packages {pkg-name}
 #
-# --- Housekeeping ---
+#   (1) $ python -m pip show {pkg-name}
+#   (2) $ pipdeptree --reverse --packages {pkg-name}
+#
+#
+# -- Housekeeping ------------------------------------------------------------
 #
 # Remember to periodically update conda and brew:
-# $ conda update -n base -c conda-forge conda
-# $ brew update
 #
-# --- Overall environment management workflow ---
-# > update environment.yml
-# > $ conda env update --file environment.yml --prune
+#   $ conda update -n base -c conda-forge conda
+#   $ brew update
+#
+#
+# -- Basic environment management workflow -----------------------------------
+#
+#   (1) manually update environment.yml
+#   (2) $ conda env update --file environment.yml --prune
+#
 # To manually resolve any failed uninstallations/upgrades:
-# > $ conda uninstall {pkg-name} / $ conda update {pkg-name}
-# > $ pip list --format=freeze > requirements_pip.txt
 #
-# Following any new installations/uninstallations/upgrades:
-# manually update requirements.txt/requirements_dev.txt with:
-# [1] dependency information in ‘environment.yml’
-# [2] corresponding version information in ‘requirements_pip.txt’
+#   (1) $ conda uninstall {pkg-name} / $ conda update {pkg-name}
+#   (2) $ pip list --format=freeze > requirements_pip.txt
+#
+#
+# -- Unified, automated environment management workflow ----------------------
+#
+# If you add or remove any dependencies from this file, also add or remove
+# them to/from the appropriate requirements_*.txt file.
+#
+# Following any such changes or to upgrade your existing environment, run the
+# (un)installation/upgrade(s) followed by CI to check forward compatibility
+# and subsequently synchronize requirements_*.txt files by running:
+#
+#   $ make upgrade-deps
+#
+#
+# -- Scenarios ---------------------------------------------------------------
+#
+# I. You need to add or remove a dependency:
+#
+#   (1) change this file and the appropriate requirements_*.txt file
+#   (2) $ make upgrade-deps
+#
+# II. A pre-commit hook reveals outdated packages (ignoring pinned versions):
+#   $ make upgrade-deps
+#
+# III. Either the `upgrade-deps` routine or a CI workflow returns an error:
+#
+#   Pin the latest working version of the dependencies causing the
+#   conflict in both this file and the appropriate requirements_*.txt file
+#   (until the conflict is resolved for forward compatibility).
+#
+
 
 name: dato-py
 channels:

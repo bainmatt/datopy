@@ -1,5 +1,5 @@
 """
-The :mod:`datopy` module includes utilities for managing data I/O,
+The :mod:`datopy` package includes utilities for managing data I/O,
 data modelling, ETL pipelines, and utilities for testing, inspecting data,
 and styling matplotlib plots.
 """
