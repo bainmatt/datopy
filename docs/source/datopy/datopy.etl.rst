@@ -7,6 +7,8 @@ datopy.etl
 
 .. automodule:: datopy.etl
 
+----
+
 .. currentmodule:: datopy.etl
 
 

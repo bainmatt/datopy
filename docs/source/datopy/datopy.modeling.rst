@@ -7,6 +7,8 @@ datopy.modeling
 
 .. automodule:: datopy.modeling
 
+----
+
 .. currentmodule:: datopy.modeling
 
 

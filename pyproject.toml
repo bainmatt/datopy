@@ -1,6 +1,4 @@
-# ----------------------------------------------------------------------------
-# Package / environment / development configuration
-# ============================================================================
+# This script declares the package/environment/development tool configuration.
 #
 # Reference:
 # https://github.com/pypa/sampleproject/blob/main/pyproject.toml
@@ -15,11 +13,10 @@
 #
 # Further configurations specific to our chosen build system (setuptools):
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
-#
-# ----------------------------------------------------------------------------
 
 
-# --- Basics ---
+# -- Basics ------------------------------------------------------------------
+
 # Build backend
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -63,17 +60,17 @@ dependencies = {file = ["requirements.txt"]}
 optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = { file = ["requirements_optional.txt"] }}
 
 
-# --- Dependencies ---
-# Installation dependencies
-# What a project needs minimally to be run correctly.
+# -- Dependencies ------------------------------------------------------------
+
+# Build dependencies: What a project needs minimally to be run correctly.
 # These will be installed by pip when the project is installed with pip.
-
+#
 # For details on this vs 'requirements.txt':
-# https://packaging.python.org/en/latest/discussions/#install-requires-vs-requirements/
-
+# https://packaging.python.org/en/latest/discussions/install-requires-vs-requirements/
+#
 # NOTE: Best practice is to indicate any known lower/upper bounds on versions.
-# For repeatable installation,
-# an exhaustive list of requirements is given in requirements{_dev}.txt.
+# For repeatable installations, an exhaustive list of requirements is given
+# in requirements{_dev}.txt.
 
 # ARK: Replaced with dynamic specification above
 # dependencies = [
@@ -84,8 +81,9 @@ optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = {
 #     "bs4>=0.0.2",
 #     "pycurl>=7.45.3",
 # ]
-
-# Extra groups of dependencies
+#
+#
+# Extra groups of dependencies:
 # For details on dependency specifiers:
 # https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras
 # Setuptools details:
@@ -105,7 +103,8 @@ optional-dependencies = {dev = { file = ["requirements_dev.txt"] }, optional = {
 # ]
 
 
-# --- Additional info ---
+# -- Additional info ---------------------------------------------------------
+
 # Links
 [project.urls]
 Homepage = "https://github.com/bainmatt/data-tools"
@@ -114,7 +113,10 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 
 # Executable scripts
 # These are installed with pip and execute the specified functions when invoked
-# Reference: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
+#
+# Reference:
+# https://setuptools.pypa.io/en/latest/userguide/entry_point.html
+#
 # e.g., `my-script` executes `function` from `my_package.module`:
 
 [project.scripts]
@@ -122,32 +124,40 @@ Issues = "https://github.com/bainmatt/data-tools/issues"
 
 # Data files
 # List any data files included in your packages that need to be installed.
-# Reference: https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+# Reference:
+# https://setuptools.pypa.io/en/latest/userguide/datafiles.html
 
 [tool.setuptools.package-data]
 # package-data = ["*.txt", "*.rst", "*.dat"]
 
 
-# =============================================================================
-# Additional configurations
-# =============================================================================
+# -- Additional configurations -----------------------------------------------
 
 # --- Package discovery (setuptools-specific) ---
+
+# Reference:
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#
 
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["datopy"]
 
-# XXX needed? Indicates that the package is type-hinted
+
+# XXX needed?
+
+# --- Whether or not the package is type-hinted ---
 # [options.package_data]
 # datopy = "py.typed"
 
+
 # --- Testing configuration ---
-# Reference: https://docs.pytest.org/en/7.1.x/reference/customize.html
-# Complete reference:
-# https://docs.pytest.org/en/7.1.x/reference/reference.#html#configuration-options
+
+# Reference:
+# https://docs.pytest.org/en/7.1.x/reference/customize.html
 #
+# Complete reference:
+# https://docs.pytest.org/en/7.1.x/reference/reference.html#configuration-options
+
 [tool.pytest.ini_options]
 pythonpath = "src"
 # minversion = "6.0"
@@ -164,7 +174,10 @@ markers = [
 
 
 # --- Coverage reports ---
-# Reference: https://coverage.readthedocs.io/en/latest/config.html
+
+# Reference:
+# https://coverage.readthedocs.io/en/latest/config.html
+
 # [tool.coverage.paths]
 # source = [
 #     "src/datopy/",
@@ -190,7 +203,7 @@ exclude_also = [
 
     # Don't complain about abstract methods, they aren't run
     "@(abc\\.)?abstractmethod",
-    ]
+]
 
 ignore_errors = true
 show_missing = true
@@ -199,16 +212,24 @@ skip_empty = true
 
 
 # --- Typing configuration ---
-# mypy .toml docs: https://mypy.readthedocs.io/en/stable/config_file.html
-# mypy command line docs: https://mypy.readthedocs.io/en/stable/command_line.#html
 
-# Also useful: https://justincaustin.com/blog/mypy-tips-and-tricks/
-# Dealing with generics: https://mypy.readthedocs.io/en/stable/generics.html
-
+# mypy .toml docs:
+# https://mypy.readthedocs.io/en/stable/config_file.html
+#
+# mypy command line docs:
+# https://mypy.readthedocs.io/en/stable/command_line.#html
+#
+# Also useful:
+# https://justincaustin.com/blog/mypy-tips-and-tricks/
+#
+# Dealing with generics:
+# https://mypy.readthedocs.io/en/stable/generics.html
+#
 # To run mypy on pkg in src (while respecting every configuration here):
 #   (root_dir) $ mypy .
 # To run mypy on subpkg/module in src:
 #   (root_dir) $ mypy {relative_path}/{module}.py
+#
 
 [tool.mypy]
 mypy_path = "src"
@@ -239,6 +260,7 @@ plugins = [
 [[tool.mypy.overrides]]
 module = [
     # "datopy.models.*",
+    "datopy.archive.*",
     "datopy._examples",
     "datopy._functions_to_test",
     "datopy._media_scrape",
@@ -262,21 +284,27 @@ ignore_errors = true
 #     '^Access ',
 # ]
 
-# --- Build and installation ---
+# -- Build and installation --------------------------------------------------
+#
 # Development mode (setuptools):
 # https://setuptools.pypa.io/en/latest/userguide/development_mode.html
-
+#
 # Building and distributing packages with setuptools:
 # https://setuptools.pypa.io/en/latest/setuptools.html
+#
 # Build system support (setuptools):
 # https://setuptools.pypa.io/en/latest/build_meta.html
+#
 # The packaging flow (Python Packaging User Guide):
 # https://packaging.python.org/en/latest/flow/
 
-# To perform editable installation (with environment activated):
+# To perform editable installation (with environment activated)
 # (such that changes in the Python source code can immediately take place
-# without requiring a new installation)
+# without requiring a new installation):
+#
 #   $ pip install --editable .
+#
 # To uninstall:
+#
 #   $ pip uninstall datopy
 #

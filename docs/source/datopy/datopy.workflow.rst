@@ -7,6 +7,8 @@ datopy.workflow
 
 .. automodule:: datopy.workflow
 
+----
+
 .. currentmodule:: datopy.workflow
 
 

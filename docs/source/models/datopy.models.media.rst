@@ -7,6 +7,8 @@ datopy.models.media
 
 .. automodule:: datopy.models.media
 
+----
+
 .. currentmodule:: datopy.models.media
 
 

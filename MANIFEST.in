@@ -1,4 +1,6 @@
-# Controlling files in the distribution. Reference:
+# This script contains directives for controlling files in the distribution.
+#
+# Reference:
 # https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html
 
 
@@ -14,5 +16,5 @@ recursive-exclude . tests
 recursive-exclude . data
 
 # Exclude specific files and directories
-exclude _examples.py
-exclude _media_scrape.py
+exclude src/datopy/_example.py
+exclude src/datopy/_media_scrape.py

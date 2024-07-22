@@ -8,8 +8,8 @@
 
 .. _quickstart:
 
-datopy: data management tools for Python
-========================================
+datopy
+======
 
 .. image:: https://github.com/bainmatt/datopy/actions/workflows/tests.yml/badge.svg
    :alt: CI

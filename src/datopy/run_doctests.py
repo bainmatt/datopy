@@ -2,21 +2,22 @@
 Runs doctests for all specified modules as a unittest suite.
 """
 
-from typing import Tuple
 import doctest
 import unittest
 import pandas as pd
 
 
-# TODO default to all modules and submodules
+# TODO: default to all modules and submodules
 
-def run_doctest_suite(modules_to_test: Tuple[str, ...]):
-    """_sumary_
+
+def run_doctest_suite(modules_to_test: tuple[str, ...]):
+    """
+    Run doctests for all specified modules as a unittest suite.
 
     Parameters
     ----------
-    modules_to_test : Tuple[str, ...]
-        _description_
+    modules_to_test : tuple[str, ...]
+        The filenames of the python modules containing doctests to be run.
     """
 
     total_failures = 0

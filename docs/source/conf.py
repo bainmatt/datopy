@@ -39,22 +39,30 @@ Sphinx build configuration:
 https://sphinx-rtd-trial.readthedocs.io/en/1.1.3/invocation.html
 
 Handy recipes:
-$ make doctest -B  # overwrite previous build
+
+    # overwrite previous build
+    $ make doctest -B
+
+    # run numpydoc validation on specific objects
+    $ python -m numpydoc --validate path.from.src
 
 """
 
-# --- Variables and paths ---
+
+# -- Variables and paths -----------------------------------------------------
 
 # For auto-generating documentation from docstrings
 import os
 import sys
 import pathlib
+import pkg_resources
 
 sys.path.insert(0, os.path.abspath('../src'))
 
 
-# --- Doctest conditional skipping option ---
-# Conditionally skip computationally intensive examples
+# -- Conditional skipping of doctests ----------------------------------------
+
+# Conditionally skip computationally intensive examples:
 # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
 
 doctest_global_setup = '''
@@ -67,10 +75,11 @@ skip_slow = True
 '''
 
 
-# --- Project information ---
+# -- Project information -----------------------------------------------------
+
+# Reference:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import pkg_resources
 version = pkg_resources.get_distribution('datopy').version
 
 project = 'datopy'
@@ -79,13 +88,15 @@ author = 'Matthew Bain'
 release = version
 
 
-# --- General configuration ---
+# -- General configuration ---------------------------------------------------
+
+# Reference:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-# Doctest:
+# Doctest reference:
 # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html#confval-doctest_test_doctest_blocks
 
-# Autodocs/autosummary:
+# Autodocs/autosummary reference:
 # https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html
 # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html#directive-autosummary
 
@@ -106,7 +117,9 @@ extensions = [
 ]
 
 
-# --- Customize autosummary options ---
+# -- Customize autosummary options -------------------------------------------
+
+# Reference:
 # https://autodocsumm.readthedocs.io/en/latest/conf_settings.html
 
 autodoc_default_options = {
@@ -134,7 +147,8 @@ todo_include_todos = False
 todo_link_only = True
 
 
-# --- Cusomize intersphinx options ---
+# -- Cusomize intersphinx options --------------------------------------------
+
 # Links to documentation for any base types that Sphinx should source and
 # hyperlink within the rendered definitions.
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
@@ -154,7 +168,9 @@ intersphinx_mapping = {
 }
 
 
-# --- Customize matplotlib.sphinxext.plot_directive options ---
+# -- Customize matplotlib.sphinxext.plot_directive options -------------------
+
+# Reference:
 # https://matplotlib.org/stable/api/sphinxext_plot_directive_api.html
 
 # This extension is used for doctest plots and output rendered inline
@@ -164,9 +180,11 @@ plot_html_show_formats = False
 plot_html_show_source_link = False
 
 
-# --- Customize autodoc_pydantic options ---
-# https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html
+# -- Customize autodoc_pydantic options --------------------------------------
 
+# Reference:
+# https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html
+#
 # NOTE: auto_pydantic does not play well with TOC or `make clean` after build!!
 # https://github.com/mansenfranzen/autodoc_pydantic/issues/33
 
@@ -201,7 +219,9 @@ autodoc_pydantic_settings_member_order = "bysource"
 autodoc_pydantic_settings_summary_list_order = "bysource"
 
 
-# --- Customize Napoleon options ---
+# -- Customize Napoleon options ----------------------------------------------
+
+# Reference:
 # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
 
 # napoleon_google_docstring = True
@@ -212,7 +232,7 @@ napoleon_include_special_with_doc = False
 napoleon_use_admonition_for_examples = False
 napoleon_use_admonition_for_notes = True
 # ?for footnote compatibility
-napoleon_use_admonition_for_references = True
+napoleon_use_admonition_for_references = False
 # ?place parameter description below its definition
 napoleon_use_ivar = False
 # napoleon_use_keyword = True
@@ -227,7 +247,9 @@ napoleon_type_aliases = None
 napoleon_attr_annotations = True
 
 
-# --- Customize numpydocs options ---
+# -- Customize numpydocs options ---------------------------------------------
+
+# Reference:
 # https://numpydoc.readthedocs.io/en/latest/install.html
 
 numpydoc_use_plots = True
@@ -254,14 +276,22 @@ numpydoc_validation_checks = {
 
 # Objects to exclude from autosummary
 templates_path = ['_templates']
-exclude_patterns = ['_[!_]*.py', 'main']
+exclude_patterns = [
+    '_[!_]*.py',
+    'main',
+    # 'outputoff',
+    # 'customstyle',
+    # 'DataModel',
+    # 'CustomTypes'
+]
 
 
-# ============================================================================
-# Style fine-tuning
-# ============================================================================
+# ------------------------------------------------------------------------------
 
-# --- Options for HTML output ---
+
+# -- Options for HTML output -------------------------------------------------
+
+# Reference:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 # Fundamentals
@@ -269,10 +299,30 @@ exclude_patterns = ['_[!_]*.py', 'main']
 # html_theme = "furo"
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
-html_title = "datopy manual"
+# html_title = "datopy manual"
+html_title = f"datopy {version}"
 html_short_title = "datopy"
 # html_logo = "_static/datopy-logo.png"
 # html_favicon = "_static/datopy-logo.png"
+html_css_files = [
+    "custom.css",
+]
+html_js_files = [
+    'custom.js',
+]
+
+# This adds the js file directly to the app.
+# Note that since the custom js is also specified above, the event
+# listener runs twice, first removing the package names and second removing
+# top-level module names from the navbar and index TOC, which is,
+# incidentally, what we want, since this is how users will interact with the
+# package contents.
+
+
+def setup(app):
+    app.add_js_file('custom.js')
+    app.add_css_file('custom.css')
+
 
 # Fine-tuning
 html_context = {
@@ -288,8 +338,8 @@ html_context = {
 python_maximum_signature_line_length = 20
 math_number_all = True
 add_function_parentheses = True
-# Show module paths in objects signatures for clarity
-add_module_names = True
+# Hide module paths in object signatures for simplicity
+add_module_names = False
 # Include module/class members in right-hand toc
 toc_object_entries = True
 # Don't clutter right-hand toc with absolute paths to objects
@@ -310,12 +360,12 @@ html_use_index = False
 html_show_sourcelink = True
 
 
-# --- Sidebar customizations ---
+# -- Sidebar customizations --------------------------------------------------
 
 # NOTE: sidebar customization in Furo is limited:
 # https://pradyunsg.me/furo/customisation/sidebar/
 
-# Hide sidebar on particular pages where section navigation is empty
+# Hide sidebar on particular pages where section navigation is empty:
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#primary-sidebar-left
 
 html_sidebars = {
@@ -324,7 +374,7 @@ html_sidebars = {
 }
 
 
-# --- Version switcher configuration ---
+# -- Version switcher configuration ------------------------------------------
 
 # Obtain version for version switcher
 # References:
@@ -339,8 +389,10 @@ else:
     switcher_version = version
 
 # TODO check this
+
 # For use with Read the Docs. Reference:
 # https://github.com/pydata/pydata-sphinx-theme/blob/main/docs/conf.py
+#
 version_match = os.environ.get("READTHEDOCS_VERSION")
 
 # If READTHEDOCS_VERSION doesn't exist, we're not on RTD.
@@ -361,7 +413,9 @@ elif version_match == "stable":
     switcher_version = f"v{release}"
 
 
-# --- Additional PyData HTML customizations ---
+# -- Additional PyData HTML customizations -----------------------------------
+
+# Reference:
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html#references
 
 html_theme_options = {
@@ -370,15 +424,16 @@ html_theme_options = {
     "show_prev_next": False,
     "navigation_with_keys": True,
 
-    "show_nav_level": 1,
-    # Don't show class methods in right-hand toc by default
-    "show_toc_level": 1,
+    # Set to 2 to show module-level objects in left-hand toc by default
+    "show_nav_level": 2,
+    # Set to 2 to show class methods in right-hand toc by default
+    "show_toc_level": 2,
 
     # "light_logo": "logo-light-mode.png",
     # "dark_logo": "logo-dark-mode.png",
 
     # TODO ?make this work
-    # "content_footer_items": ["last-updated"],
+    "content_footer_items": ["last-updated"],
 
     # Header links
     # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/header-links.html

@@ -1,0 +1,13 @@
+/* Hide the package names in the ToC links */
+
+/* 
+.toctree-l1 > a:before {
+    content: attr(href);
+    display: inline;
+    color: inherit;
+}
+
+.toctree-l1 > a {
+    content: attr(href);
+    display: inline;
+}  */

@@ -7,6 +7,8 @@ datopy
 
 .. automodule:: datopy
 
+----
+
 .. currentmodule:: datopy
 
 

@@ -7,6 +7,8 @@ datopy.\_media\_scrape
 
 .. automodule:: datopy._media_scrape
 
+----
+
 .. currentmodule:: datopy._media_scrape
 
 

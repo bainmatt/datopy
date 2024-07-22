@@ -11,6 +11,7 @@ Included routines cover:
 """
 
 import re
+import sys
 import json
 import pprint
 import doctest
@@ -30,35 +31,35 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 from datopy.inspection import display
 from datopy.workflow import doctest_function
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 
-# -----------------
-# --- Wikipedia ---
-# -----------------
-### Get Wiki
+# -- Wikipedia ---------------------------------------------------------------
+
+# TODO: get_wiki
 # (wiki_extract_film_metadata, wiki_extract_novel_metadata, wiki_extract_album_metadata)
 
 # XXX wiki scratch
+
 # page = "Canada"
 # wiki_info = wptools.page(page).get_parse().data['infobox']
 # pprint.pp(wiki_info)
 # wiki_info['currency']
 
 
-# ---------------
-# --- Spotify ---
-# ---------------
-### Get Spotify
+# -- Spotify -----------------------------------------------------------------
 
-# ------------
-# --- IMdB ---
-# ------------
+# TODO: get_spotify
 
-### Get IMdB
+
+# -- IMDb --------------------------------------------------------------------
+
+# TODO: get_imdb
+
 
 def get_imdb_id(movie_title: str) -> str | None:
     """
-    Retrieves the unique IMDb identifier associated with a film or tv show.
+    Retrieve the unique IMDb identifier associated with a film or tv show.
 
     Parameters
     ----------
@@ -67,7 +68,7 @@ def get_imdb_id(movie_title: str) -> str | None:
 
     Returns
     -------
-    imdb_id : str
+    str
         The unique IMDb tt identifier associated with the show.
 
     Examples
@@ -130,8 +131,8 @@ def get_imdb_reviews(movie_id: str, num_reviews: int = 5) -> List[str] | None:
 
     Returns
     -------
-    reviews : List[str]
-        _description_
+    List[str]
+        The retrieved reviews.
 
     Examples
     --------
@@ -190,8 +191,8 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
     Returns
     -------
-    film_df : pd.DataFrame
-        _description_
+    pd.DataFrame
+        _description_.
 
     Examples
     --------
@@ -289,8 +290,10 @@ def get_film_metadata(movie_title: str) -> pd.DataFrame:
 
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=True)
+    # doctest.testmod(verbose=True)
     # doctest_function(get_imdb_id, globs=globals())
 
-    ## One-off tests
+    numpydoc_validate_module(sys.modules['__main__'])
+
+    # One-off tests
     pass

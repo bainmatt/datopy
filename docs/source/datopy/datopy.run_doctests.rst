@@ -7,6 +7,8 @@ datopy.run\_doctests
 
 .. automodule:: datopy.run_doctests
 
+----
+
 .. currentmodule:: datopy.run_doctests
 
 

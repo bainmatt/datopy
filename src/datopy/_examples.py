@@ -4,23 +4,28 @@ A home for one-off tests and data-generating routines.
 .. warning:: The contents of this module will be moved in a future release.
 """
 
-# --- My retrieve/process/load (ETL) & model/validation process for APIs ---
-# 1a) Identify your topic, fields of interest, source, and tools
-# 1b) Access the relevant API and familiarize
-# 2a) Implement a quick-and-dirty Processor subclass for retrieved objects
-# 2b) Construct 1-2 representative examples for testing and documentation
-# 3a) Implement a Pydantic data model that is robust and reflects your needs
-# 3b) Refine your quick-and-dirty Processor and incorporate data validation
-# Play around with the data before moving on to more sophisticated analysis
+# -- My retrieve/process/load (ETL) & model/validation process for APIs ------
+#
+#   1a) Identify your topic, fields of interest, source, and tools
+#   1b) Access the relevant API and familiarize
+#   2a) Implement a quick-and-dirty Processor subclass for retrieved objects
+#   2b) Construct 1-2 representative examples for testing and documentation
+#   3a) Implement a Pydantic data model that is robust and reflects your needs
+#   3b) Refine your quick-and-dirty Processor and incorporate data validation
+#   Play around with the data before moving on to more sophisticated analysis.
+#
+# -- Data model considerations -----------------------------------------------
+#
+#   * Fields: descriptions, required entries
+#   * Type-specific: num (range), str (regex), cat (options)
+#   * List-like container types: uniformity of elements, length, options, order
 
-# --- Data model considerations ---
-# - Fields: descriptions, required entries
-# - Type-specific: num (range), str (regex), cat (options)
-# - List-like container types: uniformity of elements, length, options, order
 
+# -- Custom types ------------------------------------------------------------
 
 import os
 import re
+import sys
 import copy
 import json
 import pprint
@@ -36,43 +41,150 @@ import spotipy
 import wptools
 from imdb import Cinemagoer
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials
 
 # import datopy._settings
-from datopy.models.media import Film, Album, Book
 from datopy.etl import omit_string_patterns
 from datopy.workflow import doctest_function
 from datopy.modeling import (
     apply_recursive, list_to_dict, schema_jsonify
 )
-
-# Define custom types
-DataModel = namedtuple('DataModel', ['obj', 'schema', 'json_schema',
-                                     'serialized', 'normalized'])
-
-# Define paths
-try:
-    # The __file__ variable is only accessible at runtime
-    file_dir = pathlib.Path(__file__).parent.resolve()
-except NameError:
-    # If __file__ is not defined, use a fallback directory
-    # cwd = pathlib.Path().resolve()
-    file_dir = 'src/datopy/'
+from datopy.util._decorators import add_wip, doc
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 
-# TODO add 'see also' sections for required imports from other modules in proj
-# TODO rename this to _example_auto_datamodels ?
+# TODO: rename this to _example_auto_datamodels ?
 
 
-# ---------------
-# --- Helpers ---
-# ---------------
+# -- Custom types ------------------------------------------------------------
 
-# TODO refactor later into SubProcessor
+
+class MediaQuery(NamedTuple):
+    """
+    Query object types for media metadata retrieval.
+    """
+    title: str
+    artist: str | None = None
+
+
+DataModel = namedtuple(
+    'DataModel', ['obj', 'schema', 'json_schema', 'serialized', 'normalized']
+)
+"""
+Custom data model return type.
+"""
+
+
+Film = type('Film', (MediaQuery,), {})
+Album = type('Album', (MediaQuery,), {})
+Book = type('Book', (MediaQuery,), {})
+
+
+# ----------------------------------------------------------------------------
+
+
+# TODO: put these into paths.py and adjust according to notes
+
+
+def find_project_root():
+    """
+    Obtain an absolute path to the project root for saving and loading.
+
+    Notes
+    -----
+    To set your project root explicitly as an environment variable, run::
+
+        os.environ["PROJECT_ROOT"] = "/path/to/src/pkg"
+
+    Examples
+    --------
+    >>> from datopy._examples import find_project_root
+    >>> import pathlib
+
+    >>> project_root = find_project_root()
+    >>> input_dir = pathlib.Path(project_root, "input")
+    >>> output_dir = pathlib.Path(project_root, "output")
+    >>> pathlib.Path(*input_dir.parts[-3:])
+    PosixPath('src/datopy/input')
+    >>> pathlib.Path(*output_dir.parts[-3:])
+    PosixPath('src/datopy/output')
+    """
+    load_dotenv()
+
+    # Obtain an absolute path to the project root (typically src/<pkgname>)
+    try:
+        # The __file__ variable is only accessible at runtime
+        project_root = pathlib.Path(__file__).parent.resolve()
+    except NameError:
+        # If __file__ is not defined (running in console), use a fallback
+        print("Using fallback project directory\n")
+        project_root = pathlib.Path('datopy').resolve()
+
+    # Override with an environment variable if defined
+    project_root = os.getenv("PROJECT_ROOT", default=project_root)
+    return pathlib.Path(project_root).resolve()
+
+
+# ----------------------------------------------------------------------------
+
+
+# TODO: place these demos in a new module to illustrate docstring decorators
+
+
+# @add_wip
+@doc(kw1="root")
+def _root_function(x: int, y: int):
+    """
+    Apply my function to {kw1}.
+
+    .. note:: WIP.
+
+    Parameters
+    ----------
+    x : int
+        Argument x of {kw1}.
+    y : int
+        Argument y of {kw1}.
+    """
+    pass
+
+
+@doc(_root_function, kw1="leaf 1")
+def _leaf_1(x: int, y: int, z: int):
+    """
+    z : int
+        Argument z of {kw1}.
+
+    Notes
+    -----
+    This is an extension of :func:`root_function`'s documentation.
+    """
+    pass
+
+
+@doc(_root_function, kw1="leaf 2")
+def _leaf_2(x: int, y: int):
+    """
+    Examples
+    --------
+    >>> x = 4
+    >>> y = 5
+    >>> x + y
+    9
+    """
+    pass
+
+
+# -- Helpers -----------------------------------------------------------------
+
+
+# TODO: refactor later into SubProcessor
+
 
 def spotify_album_retrieve(album: Album) -> dict:
     """
-    Spotify album metadata retrieval routine.
+    Retrieve metadata for a given musical album via Spotify.
     """
     sp = spotipy.Spotify(
         client_credentials_manager=SpotifyClientCredentials()
@@ -123,6 +235,19 @@ def imdb_film_retrieve(film: Film) -> dict:
 
 
 def wiki_metadata_retrieve(query: Film | Album | Book) -> dict:
+    """
+    Extract metadata for the supplied work.
+
+    Parameters
+    ----------
+    query : Film | Album | Book
+        The work to be inexed.
+
+    Returns
+    -------
+    dict
+        A dictionary containing metadata retrieved from the Wikipedia infobox.
+    """
     try:
         obj = wptools.page(query.title).get_parse().data['infobox']
     except Exception:
@@ -142,19 +267,15 @@ def extract_datamodel(obj, verbose: bool = False) -> DataModel:
     Parameters
     ----------
     obj : __type__
-        __description__
+        __description__.
+
     verbose : bool, default=False
+        An option to enable/disable printing of outputs.
 
     Returns
     -------
-    schema :
-        __description__
-    json_schema :
-        __description__
-    obj_serialized :
-        __description__
-    obj_normalized :
-        __description__
+    DataModel
+        A dictionary containing the fields: ``schema``, ``json_schema``, ``obj_serialized``, and ``obj_normalized``.
     """
 
     schema = apply_recursive(lambda x: type(x).__name__, obj)
@@ -182,7 +303,7 @@ def save_datamodel(
     title = str(search_terms.title).lower().replace(' ', '_')
     medium = type(search_terms).__name__.lower().replace(' ', '_')
 
-    schema_path = f"{file_dir}/output/{source}_{medium}_schema.json"
+    schema_path = f"{find_project_root()}/output/{source}_{medium}_schema.json"
     with open(schema_path, "w") as json_file:
         json.dump(schema, json_file, indent=4)
 
@@ -200,9 +321,8 @@ def save_datamodel(
     return None
 
 
-# --------------------------------------------
-# --- Data dictionary retrieval/extraction ---
-# --------------------------------------------
+# -- Data dictionary retrieval/extraction ------------------------------------
+
 
 def run_auto_datamodel_example(
     source: Literal['imdb', 'spotify', 'wiki'],
@@ -226,10 +346,8 @@ def run_auto_datamodel_example(
 
     Returns
     -------
-    obj :
-        __description__
-    (__tuple__) :
-        Output of extract_datamodel.
+    DataModel
+        The output of ``extract_datamodel``.
 
     Examples
     --------
@@ -240,7 +358,7 @@ def run_auto_datamodel_example(
     >>> import re
     >>> from datopy._examples import run_auto_datamodel_example
     >>> from datopy.etl import omit_string_patterns
-    >>> from datopy.models.media import Album, Book, Film
+    >>> from datopy._examples import Album, Book, Film
 
     >>> do_save=False
 
@@ -326,12 +444,12 @@ def run_auto_datamodel_example(
         'studio'
     """
     # Check assumptions
-    # TODO remove line below (redundant)
+    # TODO: remove line below (redundant)
     # source = str(source).lower()
     message = "Source must be either 'imdb', 'spotify', or 'wiki'."
     assert source in ['imdb', 'spotify', 'wiki'], message
 
-    # TODO refactor retrieval w/ retrieve method of resp Processor subclasses
+    # TODO: refactor retrieval w/ retrieve method of resp Processor subclasses
     # Movie
     if source == 'imdb':
         ia = Cinemagoer()
@@ -398,10 +516,8 @@ def run_auto_datamodel_example(
     return datamodel
 
 
-# ---------------------------------------
-# --- Pitfalls of raw data validation ---
-# ---------------------------------------
-
+# -- Pitfalls of raw data validation -----------------------------------------
+#
 # Generally opt for manually defined schemas for retrieved data. Data
 # is messy and unpredictable and every automated attempt will either screw up
 # edge cases or overlook nuances/quirks (Ex: an integer dressed up as a string,
@@ -414,6 +530,9 @@ def run_auto_datamodel_example(
 #
 # Instead use these tools to quickly grasp the structure of retrieved data and
 # build comprehensive Pydantic models that fully suit your downstream needs!
+#
+# ----------------------------------------------------------------------------
+
 
 def _run_messy_example():
     """
@@ -421,7 +540,7 @@ def _run_messy_example():
     """
     # obj = spotify_album_retrieve(Album("kid a", "radiohead"))
     fname = 'output/spotify_album_json_schema.json'
-    with open(os.path.join(file_dir, fname)) as file:
+    with open(os.path.join(find_project_root(), fname)) as file:
         album_schema = json.load(file)
     return album_schema
     # This line raises an error
@@ -430,10 +549,10 @@ def _run_messy_example():
 
 def _run_idealized_example():
     """
-    An idealized example to demonstrate json validation in theory
+    An idealized example to demonstrate json validation in theory.
     """
     fname = 'models/output/imdb_model.json'
-    with open(os.path.join(file_dir, fname)) as file:
+    with open(os.path.join(find_project_root(), fname)) as file:
         movie_schema = json.load(file)
 
     valid_raw_movie = {
@@ -448,11 +567,11 @@ def _run_idealized_example():
 
     return movie_schema, valid_raw_movie
 
-# ---------------------------------
-# --- Processed data validation ---
-# ---------------------------------
 
-# TODO consider adding later: IUCNSpecies metadata, WBankNation metadata
+# -- Processed data validation -----------------------------------------------
+
+
+# TODO: consider adding later: IUCNSpecies metadata, WBankNation metadata
 # IUCN: https://pypi.org/project/IUCN-API/
 # Consult: https://www.kaggle.com/code/saiulluri/creating-a-wildlife-database
 # WBank: https://pypi.org/project/wbgapi/#description
@@ -460,8 +579,10 @@ def _run_idealized_example():
 
 if __name__ == "__main__":
     # Comment out (2) to run all tests in script; (1) to run specific tests
-    doctest.testmod(verbose=True)
-    # doctest_function(run_auto_datamodel_example, globs=globals(),verbose=False)
+    # doctest.testmod(verbose=True)
+    # doctest_function(find_project_root, globs=globals(),verbose=False)
 
-    # One-off tests
+    skip = ["Album", "Book", "Film", "DataModel", "MediaQuery"]
+    numpydoc_validate_module(sys.modules['__main__'], excluded_objects=skip)
+
     pass

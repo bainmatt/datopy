@@ -7,6 +7,8 @@ datopy.\_examples
 
 .. automodule:: datopy._examples
 
+----
+
 .. currentmodule:: datopy._examples
 
 
@@ -15,7 +17,15 @@ datopy.\_examples
 .. autosummary::
     :toctree: .
     
+    Album
+    
+    Book
+    
     DataModel
+    
+    Film
+    
+    MediaQuery
     
 
 
@@ -27,6 +37,8 @@ datopy.\_examples
     :toctree: .
     
     extract_datamodel
+    
+    find_project_root
     
     imdb_film_retrieve
     

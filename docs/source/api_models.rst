@@ -13,5 +13,15 @@ and global datasets.
     
     datopy.models.media
 
+..
+    .. autosummary::
+        :toctree: pydantic models
+        :recursive:
+            
+        datopy.models.media.IMDbFilm
+        datopy._examples.DataModel
+        datopy._examples.Film
+        datopy.models.media.IMDbFilmProcessor
+
 .. todolist::
     

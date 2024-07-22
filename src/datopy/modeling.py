@@ -3,12 +3,14 @@ Tools for data modeling, validation, and raw data processing.
 
 .. note:: WIP.
 
-Highlights
-----------
+Overview
+~~~~~~~~
 
 .. currentmodule:: datopy.modeling
 
 .. rubric:: Auto-generated data models
+
+Tools for automated generation of data models from data.
 
 .. autosummary::
     :nosignatures:
@@ -26,20 +28,22 @@ Highlights
     BaseProcessor
 
 API
----
-
-..
-    # Section headers references:
-    # https://docs.scipy.org/doc/scipy/reference/fft.html
-    # https://github.com/scipy/scipy/blob/main/scipy/fft/__init__.py
-
-    # https://matplotlib.org/3.9.0/api/axes_api.html
-    # https://github.com/matplotlib/matplotlib/blob/main/doc/api/axes_api.rst
-
-    # https://matplotlib.org/3.9.0/api/dates_api.html#matplotlib.dates
-    # https://github.com/matplotlib/matplotlib/blob/v3.9.0/lib/matplotlib/dates.py
+~~~
 """
 
+
+# Section headers references:
+# https://docs.scipy.org/doc/scipy/reference/fft.html
+# https://github.com/scipy/scipy/blob/main/scipy/fft/__init__.py
+#
+# https://matplotlib.org/3.9.0/api/axes_api.html
+# https://github.com/matplotlib/matplotlib/blob/main/doc/api/axes_api.rst
+#
+# https://matplotlib.org/3.9.0/api/dates_api.html#matplotlib.dates
+# https://github.com/matplotlib/matplotlib/blob/v3.9.0/lib/matplotlib/dates.py
+
+
+import sys
 import json
 import pprint
 import doctest
@@ -56,8 +60,6 @@ from pydantic import (
 from typing import (
     Any,
     List,
-    Dict,
-    TypeVar,
     Callable,
     Iterable,
     Collection,
@@ -68,23 +70,17 @@ from typing_extensions import Annotated, TypeAliasType
 
 # import datopy._settings
 from datopy.workflow import doctest_function
+from datopy.util._numpydoc_validate import numpydoc_validate_module
 
 # Custom types
 # (recursively) nested dict with arbitrary depth and pre-defined node type
-# TODO check this!
+# TODO: check this!
 NestedDict = dict[str, "NestedDict" | List[str] | None]
 GenericNestedDict = dict[object, object]
 
-# Define TypeVars
-# XXX remove unused
-# for dictionary (key/value type)
-# _KT = TypeVar('_KT')
-# _VT = TypeVar('_VT')
 
+# -- Data dictionary generation utils ----------------------------------------
 
-# ----------------------------------------
-# --- Data dictionary generation utils ---
-# ----------------------------------------
 
 def list_to_dict(
     obj: list[object] | tuple[object] | set[object],
@@ -105,7 +101,7 @@ def list_to_dict(
 
     Returns
     -------
-    res : dict
+    dict
         The supplied list's dictionary representation.
 
     Examples
@@ -151,9 +147,8 @@ def compare_dict_keys(
 
     Returns
     -------
-    result : dict | List[str] | None
-        The nested dictionary of fields missing from
-        ``dict2`` relative ``dict1``.
+    dict | list[str] | None
+        The nested dictionary of fields missing from ``dict2`` relative to ``dict1``.
 
     Examples
     --------
@@ -238,9 +233,9 @@ def apply_recursive(
     Parameters
     ----------
     func : Callable[..., Any]
-        _description_
+        _description_.
     obj :
-        _description_
+        _description_.
 
     Returns
     -------
@@ -307,12 +302,13 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
 
     Parameters
     ----------
-    schema : dict
-        _description_
+    obj : dict
+        _description_.
 
     Returns
     -------
-    dict : _description_
+    dict
+        _description_.
 
     Examples
     --------
@@ -388,11 +384,12 @@ def schema_jsonify(obj: GenericNestedDict) -> GenericNestedDict:
         return schema
 
 
-# --------------------------------------------
-# --- Data processing base types and class ---
-# --------------------------------------------
+# -- Data processing base types and class ------------------------------------
 
-# TODO replace these with field validators -- either general or model-specific
+
+# TODO: replace these with field validators -- either general or model-specific
+
+
 class CustomTypes:
     """
     Define reusable custom field types.
@@ -426,18 +423,19 @@ class CustomTypes:
     ]
 
 
-# TODO implement BaseProcessor
+# TODO: implement BaseProcessor
+
+
 class BaseProcessor:
     """
-    _summary_.
+    The fundamental data processing structure.
 
     Parameters
     ----------
     model : BaseModel
-        _description_
+        _description_.
     query : NamedTuple
-        _description_
-
+        _description_.
     """
 
     def __init__(self, model: BaseModel, query: NamedTuple):
@@ -446,11 +444,12 @@ class BaseProcessor:
 
     def retrieve(self):
         """
-        Retrieve data for the query from the API of the supplied model.
+        Extract data for the query from the API of the supplied model.
 
         Raises
         ------
-            NotImplementedError: _description_
+        NotImplementedError
+            _description_.
         """
         ### Retrieval routine goes here
 
@@ -460,16 +459,17 @@ class BaseProcessor:
 
     def process(self):
         """
-        Process (extract/clean) the retrieved data.
+        Prepare (extract/clean) the retrieved data.
 
         Raises
         ------
-            NotImplementedError: _description_
+        NotImplementedError
+            _description_.
         """
         ### Processing routine goes here
 
         ###
-        # TODO raise NotRetrieved error (try model.obj)
+        # TODO: raise NotRetrieved error (try model.obj)
         raise NotImplementedError
 
     def _validate(self):
@@ -489,23 +489,32 @@ class BaseProcessor:
         print("Validated")
         return None
 
-    def to_df(self):
+    def to_df(self) -> pd.DataFrame:
         """
         Load the data into a dataframe for further processing or analysis.
+
+        Returns
+        -------
+        pd.DataFrame
+            The processed entry as a data frame.
         """
         # Validate before loading
         self._validate()
 
-        df = pd.DataFrame([self.data])
+        df = pd.DataFrame([self.data])  # type: ignore [attr-defined]
         return df
 
 
 if __name__ == "__main__":
     # Comment out line 2 to run all tests; line 1 to run specific tests.
-    doctest.testmod(verbose=True)
+    # doctest.testmod(verbose=True)
     # doctest_function(object=BaseProcessor, globs=globals())
 
-    # Type checks that the compiler does not see or understand.
+    # Docstring validation
+    numpydoc_validate_module(sys.modules['__main__'])
+
+    # Type checks that the compiler does not see or understand
+    obj_to_check = {1: "one", 2: "two"}
     if TYPE_CHECKING:
-        # reveal_type((1, 'hello'))
+        # reveal_type(obj_to_check)
         pass
