@@ -21,15 +21,15 @@ datopy
 
 **datopy** (da-toh-pie) is a Python library for people who
 work with unstructured data, providing a simple workflow for
-building data models and ETL pipelines.
+building data models and ETL (extract, transform, load) pipelines.
 
 ----
 
 This package also includes utilities for:
 
-- Data retrieval
-- Input/Output
-- Jupyter notebook workflows
+- Data retrieval (web scraping and API-based data retrieval)
+- Input/output processes (loading and inspecting data)
+- Jupyter Notebook workflows
 
 .. note::
 
@@ -64,12 +64,16 @@ Step 2. Install dependencies:
 .. code-block:: console
 
    $ conda env create -f environment.yml
-   $ conda activate dato-py
+   $ conda activate datopy
 
 Development
 ~~~~~~~~~~~
 
-TODO
+.. admonition:: WIP.
+   :class: note
+
+   Instructions on typing/testing/documentation, CI/CD, and
+   conventions for developers.
 
 .. A representative use case for each module.
 .. _usage:
@@ -82,8 +86,10 @@ Usage
    Replace `func` with `mod` for a module and `meth` for a method
    https://www.sphinx-doc.org/en/master/usage/domains/python.html#cross-referencing-python-objects
 
-Dataset inspection (:mod:`datopy.inspection`)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Dataset inspection
+~~~~~~~~~~~~~~~~~~
+
+*API reference*: :mod:`datopy.inspection`
 
 Produce multiple parallel, informative displays of Pandas data frames and
 NumPy arrays for data exploration and inspection.
@@ -127,10 +133,15 @@ NumPy arrays for data exploration and inspection.
    4  A4  B4
 
 
-Metadata scraping (:mod:`datopy._media_scrape`)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Metadata scraping
+~~~~~~~~~~~~~~~~~
 
-TODO
+*API reference*: :mod:`datopy._media_scrape`
+
+.. admonition:: WIP.
+   :class: note
+   
+   More usage examples to come.
 
 Retrieve media-related data from Spotify, IMDb, and Wikipedia.
 
@@ -138,7 +149,7 @@ Retrieve media-related data from Spotify, IMDb, and Wikipedia.
 Acknowledgements
 ----------------
 
-datopy is powered by:
+This package is powered by:
 
    - `mypy <https://mypy.readthedocs.io/en/stable/index.html>`_ type checking
    - `pytest <https://docs.pytest.org/en/8.0.x/contents.html>`_ unit testing

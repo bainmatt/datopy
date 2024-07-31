@@ -108,7 +108,7 @@
 #
 
 
-name: dato-py
+name: datopy
 channels:
   - apple
   - conda-forge

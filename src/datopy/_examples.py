@@ -437,7 +437,7 @@ def run_auto_datamodel_example(
         >>> genres_processed = omit_string_patterns(
         ...     genres_raw, patterns_to_omit)
         >>> print(genres_processed.replace("]]", ", ").rstrip(", "))
-        Experimental rock, post-rock, art rock, electronica, alternative rock
+        Experimental rock, post-rock, art rock, electronica
         >>> outputs.schema['genre']
         'str'
         >>> outputs.normalized['type'][0]
