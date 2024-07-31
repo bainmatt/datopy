@@ -127,13 +127,13 @@ class IMDbFilm(BaseModel):
     3 validation errors for IMDbFilm
     imdb_id
       String should match pattern '^tt.*\d{7}$' [type=string_pattern_mismatch, input_value='tt12', input_type=str]
-        For further information visit https://errors.pydantic.dev/2.7/v/string_pattern_mismatch
+        For further information visit https://errors.pydantic.dev/2.8/v/string_pattern_mismatch
     kind
       Field required [type=missing, input_value={'title': 'name', 'imdb_i...tes': -2, 'rating': 5.0}, input_type=dict]
-        For further information visit https://errors.pydantic.dev/2.7/v/missing
+        For further information visit https://errors.pydantic.dev/2.8/v/missing
     votes
       Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]
-        For further information visit https://errors.pydantic.dev/2.7/v/greater_than_equal
+        For further information visit https://errors.pydantic.dev/2.8/v/greater_than_equal
 
     Survey available fields and types
 

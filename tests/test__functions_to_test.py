@@ -206,4 +206,4 @@ def test_omit_benchmark(benchmark):
 # ‘(root).vscode/{data-tools.code-workspace, launch.json}’
 # ‘(pkg).vscode/{pkg}.launch.json}’
 #
-# TODO /note: selection must be executed in dato-py term with python activated
+# TODO /note: selection must be executed in datopy term with python activated
