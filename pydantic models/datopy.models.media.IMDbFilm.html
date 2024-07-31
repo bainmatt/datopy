@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>datopy.models.media.IMDbFilm &#8212; datopy 0.0.1</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=adaadaf2" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=adaadaf2" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=f539c95a"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/custom.js?v=b0a1483f"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pydantic models/datopy.models.media.IMDbFilm';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://bainmatt.github.io/datopy/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.0.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/custom.js?v=b0a1483f"></script>
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">datopy 0.0.1</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../readme.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    Core API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_models.html">
+    Models API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/bainmatt/datopy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://bainmatt.github.io/" title="Personal website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-link fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Personal website</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../readme.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    Core API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_models.html">
+    Models API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/bainmatt/datopy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://bainmatt.github.io/" title="Personal website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-link fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Personal website</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">datopy.model...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="datopy-models-media-imdbfilm">
+<h1>datopy.models.media.IMDbFilm<a class="headerlink" href="#datopy-models-media-imdbfilm" title="Link to this heading">#</a></h1>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="datopy.models.media.IMDbFilm">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IMDbFilm</span></span><a class="reference internal" href="../_modules/datopy/models/media.html#IMDbFilm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#datopy.models.media.IMDbFilm" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel" title="(in Pydantic v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Data model for processed imdb metadata.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datopy.models.media</span> <span class="kn">import</span> <span class="n">IMDbFilm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datopy._examples</span> <span class="kn">import</span> <span class="n">imdb_film_retrieve</span>
+</pre></div>
+</div>
+<p>Valid film</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">valid_film</span> <span class="o">=</span> <span class="n">IMDbFilm</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;name 10!&#39;</span><span class="p">,</span> <span class="n">imdb_id</span><span class="o">=</span><span class="s1">&#39;tt1234567&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">year</span><span class="o">=</span><span class="mi">1990</span><span class="p">,</span> <span class="n">rating</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span> <span class="n">votes</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">genres</span><span class="o">=</span><span class="s1">&#39;romantic comedy, thriller&#39;</span><span class="p">,</span> <span class="n">cast</span><span class="o">=</span><span class="s1">&#39;mrs smith,mr smith&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;alas! once upon a time, ...&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">budget_mil</span><span class="o">=</span><span class="mi">1123929</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Invalid film</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">invalid_film</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">imdb_id</span><span class="o">=</span><span class="s1">&#39;tt12&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">1975</span><span class="p">,</span> <span class="n">votes</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">rating</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">IMDbFilm</span><span class="p">(</span><span class="o">**</span><span class="n">invalid_film</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>          <span class="c1"># use pprint.pp(e.errors()) for easy-to-read list</span>
+<span class="go">3 validation errors for IMDbFilm</span>
+<span class="go">imdb_id</span>
+<span class="go">  String should match pattern &#39;^tt.*\d{7}$&#39; [type=string_pattern_mismatch, input_value=&#39;tt12&#39;, input_type=str]</span>
+<span class="go">    For further information visit https://errors.pydantic.dev/2.8/v/string_pattern_mismatch</span>
+<span class="go">kind</span>
+<span class="go">  Field required [type=missing, input_value={&#39;title&#39;: &#39;name&#39;, &#39;imdb_i...tes&#39;: -2, &#39;rating&#39;: 5.0}, input_type=dict]</span>
+<span class="go">    For further information visit https://errors.pydantic.dev/2.8/v/missing</span>
+<span class="go">votes</span>
+<span class="go">  Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]</span>
+<span class="go">    For further information visit https://errors.pydantic.dev/2.8/v/greater_than_equal</span>
+</pre></div>
+</div>
+<p>Survey available fields and types</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datopy.models.media</span> <span class="kn">import</span> <span class="n">Film</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datopy._examples</span> <span class="kn">import</span> <span class="n">imdb_film_retrieve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datopy.modeling</span> <span class="kn">import</span> <span class="n">apply_recursive</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">film</span> <span class="o">=</span> <span class="n">imdb_film_retrieve</span><span class="p">(</span><span class="n">Film</span><span class="p">(</span><span class="s1">&#39;spirited away&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IMDbFilm&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data model for processed imdb metadata.\n\nExamples\n--------\n&gt;&gt;&gt; from pydantic import ValidationError\n&gt;&gt;&gt; from datopy.models.media import IMDbFilm\n&gt;&gt;&gt; from datopy._examples import imdb_film_retrieve\n\nValid film\n\n&gt;&gt;&gt; valid_film = IMDbFilm(\n...     title=&#39;name 10!&#39;, imdb_id=&#39;tt1234567&#39;, kind=&#39;movie&#39;,\n...     year=1990, rating=7.2, votes=122,\n...     genres=&#39;romantic comedy, thriller&#39;, cast=&#39;mrs smith,mr smith&#39;,\n...     plot=&#39;alas! once upon a time, ...&#39;,\n...     budget_mil=1123929)\n\nInvalid film\n\n&gt;&gt;&gt; invalid_film = dict(\n...     title=&#39;name&#39;, imdb_id=&#39;tt12&#39;, year=1975, votes=-2, rating=5.0)\n&gt;&gt;&gt; try:\n...     IMDbFilm(**invalid_film)\n... except ValidationError as e:\n...     print(e)          # use pprint.pp(e.errors()) for easy-to-read list\n3 validation errors for IMDbFilm\nimdb_id\n  String should match pattern &#39;^tt.*\\d{7}$&#39; [type=string_pattern_mismatch, input_value=&#39;tt12&#39;, input_type=str]\n    For further information visit https://errors.pydantic.dev/2.8/v/string_pattern_mismatch\nkind\n  Field required [type=missing, input_value={&#39;title&#39;: &#39;name&#39;, &#39;imdb_i...tes&#39;: -2, &#39;rating&#39;: 5.0}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.8/v/missing\nvotes\n  Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-2, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.8/v/greater_than_equal\n\nSurvey available fields and types\n\n&gt;&gt;&gt; import pprint\n&gt;&gt;&gt; from datopy.models.media import Film\n&gt;&gt;&gt; from datopy._examples import imdb_film_retrieve\n&gt;&gt;&gt; from datopy.modeling import apply_recursive\n&gt;&gt;&gt; film = imdb_film_retrieve(Film(&#39;spirited away&#39;))\n\n..\n    # &gt;&gt;&gt; film.keys()\n    # &gt;&gt;&gt; pprint.pp(apply_recursive(lambda x: type(x).__name__, film), depth=3)&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVnumstr``&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z0-9,.! ]+$&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Title&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;imdb_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unique 7-digit IMDb tt identifier&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^tt.*\\d{7}$&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Imdb Id&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Retrieved from: `type`&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;examples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;movie&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;tv series&quot;</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z0-9,.! ]+$&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Kind&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;year&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3000</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1880</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Year&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;rating&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rating&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;votes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Votes&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;runtime_mins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;exclusiveMinimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Runtime Mins&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;genres&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Genres&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Countries&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;director&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Director&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;writer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Writer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;composer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Composer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;cast&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVstr``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z, ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cast&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;plot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVnumsent``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z0-9,.! ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plot&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;synopsis&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVnumsent``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z0-9,.! ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Synopsis&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;plot_outline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:attr:`~datopy.modeling.CustomTypes` : ``CSVnumsent``&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^[a-z0-9,.! ]+$&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plot Outline&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;budget_mil&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Strip $/, &amp; text after first space&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Budget Mil&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;opening_weekend_gross_mil&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Opening Weekend Gross Mil&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;cumulative_worldwide_gross_mil&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cumulative Worldwide Gross Mil&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;title&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;imdb_id&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;kind&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;year&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;rating&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;votes&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVnumstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z0-9,.! ]+$’)])]) &lt;datopy.models.media.IMDbFilm.title&gt;`</p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.imdb_id" title="datopy.models.media.IMDbFilm.imdb_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imdb_id</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">kind</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVnumstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z0-9,.! ]+$’)])]) &lt;datopy.models.media.IMDbFilm.kind&gt;`</p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.year" title="datopy.models.media.IMDbFilm.year"><code class="xref py py-obj docutils literal notranslate"><span class="pre">year</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.rating" title="datopy.models.media.IMDbFilm.rating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rating</span> <span class="pre">(float)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.votes" title="datopy.models.media.IMDbFilm.votes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">votes</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.runtime_mins" title="datopy.models.media.IMDbFilm.runtime_mins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runtime_mins</span> <span class="pre">(float</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">genres</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.genres&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">countries</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.countries&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">director</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.director&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">writer</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.writer&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">composer</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.composer&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVstr</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z, ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.cast&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVnumsent</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z0-9,.! ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.plot&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">synopsis</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVnumsent</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z0-9,.! ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.synopsis&gt;`</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_outline</span> <span class="pre">(Annotated[str,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=True,</span> <span class="pre">description=':attr:`~datopy.modeling.CustomTypes</span></code> : <code class="docutils literal notranslate"><span class="pre">CSVnumsent</span></code>’, metadata=[_PydanticGeneralMetadata(pattern=’^[a-z0-9,.! ]+$’)])] | None) &lt;datopy.models.media.IMDbFilm.plot_outline&gt;`</p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.budget_mil" title="datopy.models.media.IMDbFilm.budget_mil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">budget_mil</span> <span class="pre">(float</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.opening_weekend_gross_mil" title="datopy.models.media.IMDbFilm.opening_weekend_gross_mil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opening_weekend_gross_mil</span> <span class="pre">(float</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.cumulative_worldwide_gross_mil" title="datopy.models.media.IMDbFilm.cumulative_worldwide_gross_mil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cumulative_worldwide_gross_mil</span> <span class="pre">(float</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Validators<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.check_alphanumeric" title="datopy.models.media.IMDbFilm.check_alphanumeric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_alphanumeric</span></code></a> » <a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.imdb_id" title="datopy.models.media.IMDbFilm.imdb_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imdb_id</span></code></a></p></li>
+<li><p><a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.check_alphanumeric" title="datopy.models.media.IMDbFilm.check_alphanumeric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_alphanumeric</span></code></a> » <a class="reference internal" href="../models/datopy.models.media.html#datopy.models.media.IMDbFilm.kind" title="datopy.models.media.IMDbFilm.kind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kind</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datopy.models.media.IMDbFilm"><code class="docutils literal notranslate"><span class="pre">IMDbFilm</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/pydantic models/datopy.models.media.IMDbFilm.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Matthew Bain.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
